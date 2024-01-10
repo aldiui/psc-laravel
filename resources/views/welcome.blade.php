@@ -26,7 +26,7 @@
                         <h1
                             class="block text-2xl font-bold text-gray-800 dark:text-white"
                         >
-                            Sign in
+                            Sign in With GUA
                         </h1>
                     </div>
 
