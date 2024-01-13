@@ -12,13 +12,13 @@
                 href="{{ url('blank-page') }}"><i class="material-icons">&#xe871;</i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Manajemen Stok</li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/unit') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-balance-scale"></i> <span>Unit</span></a>
+                    href="{{ url('admin/unit') }}"><i class="fas fa-balance-scale"></i> <span>Unit</span></a>
             </li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/kategori') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-boxes"></i> <span>Kategori</span></a>
+                    href="{{ url('admin/kategori') }}"><i class="fas fa-boxes"></i> <span>Kategori</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
@@ -35,24 +35,8 @@
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-users"></i> <span>Kelompok/Tim</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
             </li>
-            {{-- <li class="{{ Request::is('admin') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Jadwal</span></a>
-            </li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Presensi</span></a>
-            </li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Izin</span></a>
-            </li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Cuti</span></a>
-            </li> --}}
             <li class="menu-header">Manajemen Pengaturan</li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
@@ -65,7 +49,7 @@
         </ul>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="https://getstisla.com/docs"
-                class="btn btn-primary btn-lg btn-block btn-icon-split">
+                class="btn btn-danger  btn-block btn-icon-split">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>

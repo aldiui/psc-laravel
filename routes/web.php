@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard-general-dashboard');
 
+Route::get('/admin/kategori', App\Livewire\Admin\Kategori::class)->name('admin.kategori');
+Route::get('/admin/unit', App\Livewire\Admin\Unit::class)->name('admin.unit');
+
+
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
     return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);
