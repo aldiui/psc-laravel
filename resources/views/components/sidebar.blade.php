@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">PSC 19</a>
+            <a href="index.html">PSC 119</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">PSC</a>
@@ -9,24 +9,24 @@
         <ul class="sidebar-menu">
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+                href="{{ url('blank-page') }}"><i class="material-icons">&#xe871;</i> <span>Dashboard</span></a>
             </li>
             <li class="menu-header">Manajemen Stok</li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-unit"></i> <span>Unit</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-balance-scale"></i> <span>Unit</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Kategori</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-boxes"></i> <span>Kategori</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Barang</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-fire"></i> <span>Stok</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>
             <li class="menu-header">Manajemen Karyawan</li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
@@ -35,7 +35,7 @@
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-users"></i> <span>Kelompok</span></a>
+                    href="{{ url('blank-page') }}"><i class="fas fa-users"></i> <span>Kelompok/Tim</span></a>
             </li>
             {{-- <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"

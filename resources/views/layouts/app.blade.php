@@ -24,6 +24,9 @@
     <link rel="stylesheet"
         href="{{ asset('css/components.css') }}">
 
+    <!-- FONTS GOOGGLE -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Start GA -->
     <script async
         src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
