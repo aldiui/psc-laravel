@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('image')->default('default.jpg');
             $table->string('role');
             $table->timestamps();
-        });
+        });//
     }
 
     /**
