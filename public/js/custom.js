@@ -109,3 +109,10 @@ const confirmDelete = (url, tableId) => {
         }
     });
 };
+
+const setButtonLoadingState = (buttonSelector, isLoading) => {
+    const buttonText = isLoading
+        ? '<i class="fas fa-spinner fa-spin mr-1"></i> Simpan'
+        : "Simpan";
+    $(buttonSelector).prop("disabled", isLoading).html(buttonText);
+};

@@ -73,32 +73,39 @@
             ]);
 
             $("#saveData").submit(function (e) {
+                setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.kategori.store') }}";
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
+                    setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "kategoriTable", "createModal");
                 };
 
                 const errorCallback = function (error) {
+                    setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama", "deskripsi"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
+
             $("#updateData").submit(function (e) {
+                setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/kategori/${kode}`;
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
+                    setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "kategoriTable", "editModal");
                 };
 
                 const errorCallback = function (error) {
+                    setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["nama", "deskripsi"]);
                 };
 
