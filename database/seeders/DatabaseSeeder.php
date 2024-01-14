@@ -2,21 +2,28 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
+     *
+     * @return void
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // Seed Kategori data
+        $kategoriData = [
+            ['id' => 1, 'nama' => 'Rak 1', 'deskripsi' => 'Deskripsi untuk Rak 1'],
+            ['id' => 2, 'nama' => 'Rak 2', 'deskripsi' => 'Deskripsi untuk Rak 2'],
+            ['id' => 3, 'nama' => 'Rak 3', 'deskripsi' => 'Deskripsi untuk Rak 3'],
+            ['id' => 4, 'nama' => 'Rak 4', 'deskripsi' => 'Deskripsi untuk Rak 4'],
+            ['id' => 5, 'nama' => 'Rak 5', 'deskripsi' => 'Deskripsi untuk Rak 5'],
+            ['id' => 6, 'nama' => 'Rak 6', 'deskripsi' => 'Deskripsi untuk Rak 6'],
+        ];
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::table('kategoris')->insert($kategoriData);
     }
 }
