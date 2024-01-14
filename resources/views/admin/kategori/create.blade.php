@@ -10,12 +10,12 @@
             <form id="saveData" autocomplete="off">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="nama" class="form-label">Nama</label>
+                        <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nama" name="nama">
                         <small class="invalid-feedback" id="errornama"></small>
                     </div>
                     <div class="form-group">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <label for="deskripsi" class="form-label">Deskripsi <span class="text-danger">*</span></label>
                         <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
                         <small class="invalid-feedback" id="errordeskripsi"></small>
                     </div>
