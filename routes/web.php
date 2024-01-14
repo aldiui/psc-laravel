@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard-general-dashboard');
 
-Route::get('/admin/kategori', App\Livewire\Admin\Kategori::class)->name('admin.kategori');
-Route::get('/admin/unit', App\Livewire\Admin\Unit::class)->name('admin.unit');
-
+Route::prefix('admin')->group(function () {
+    Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
+});
 
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
