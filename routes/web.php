@@ -17,6 +17,7 @@ Route::redirect('/', '/dashboard-general-dashboard');
 
 Route::prefix('admin')->group(function () {
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
+    Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
 });
 
 // Dashboard
