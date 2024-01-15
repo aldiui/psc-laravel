@@ -41,7 +41,7 @@
                                             <th scope="col" width="10%">Foto</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Qty</th>
-                                            <th scope="col">Deskripsi</th>
+                                            <th scope="col">Kategori</th>
                                             <th scope="col" width="20%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -72,16 +72,21 @@
     <script>
         $(document).ready(function() {
             $('.dropify').dropify();
-            $(".select2").select2();
 
             datatableCall('barangTable', '{{ route('admin.barang.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'img', name: 'img' },
                 { data: 'nama', name: 'nama' },
-                { data: 'qty', name: 'qty' },
-                { data: 'deskripsi', name: 'deskripsi' },
+                { data: 'qty_unit', name: 'qty_unit' },
+                { data: 'kategori', name: 'kategori' },
                 { data: 'aksi', name: 'aksi' },
             ]);
+
+            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "Pilih Unit");
+            select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "Pilih Kategori");
+
+            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "Pilih Unit");
+            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "Pilih Kategori");
 
             $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);

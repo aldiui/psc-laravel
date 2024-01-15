@@ -17,7 +17,7 @@ class BarangController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $barangs = Barang::all();
+            $barangs = Barang::with('unit', 'kategori')->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($barangs)
                     ->addColumn('aksi', function ($barang) {
@@ -29,8 +29,14 @@ class BarangController extends Controller
                     ->addColumn('img', function ($barang) {
                         return '<img src="/storage/img/barang/' . $barang->image . '" width="150px" alt="">';
                     })
+                    ->addColumn('qty_unit', function ($barang) {
+                        return $barang->qty . ' ' . $barang->unit->nama;
+                    })
+                    ->addColumn('kategori', function ($barang) {
+                        return $barang->kategori->nama;
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'img'])
+                    ->rawColumns(['aksi', 'img', 'kategori'])
                     ->make(true);
             }
 

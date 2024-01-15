@@ -152,3 +152,28 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
         : title;
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
+
+const select2ToJson = (selector, url, title) => {
+    $(`${selector}`).empty();
+    const successCallback = function (response) {
+        selectElem = $(selector).empty();
+
+        const defaultOption = $("<option></option>");
+        defaultOption.attr("value", "");
+        defaultOption.text(`-- ${title} --`);
+        selectElem.append(defaultOption);
+
+        const responseList = response.data;
+        responseList.forEach(function (row) {
+            const option = $("<option></option>");
+            option.attr("value", row.id);
+            option.text(row.nama);
+            selectElem.append(option);
+        });
+    };
+
+    const errorCallback = function (error) {
+        console.log(error);
+    };
+    ajaxCall(url, "GET", null, successCallback, errorCallback);
+};

@@ -24,19 +24,13 @@
                     </div>
                     <div class="form-group">
                         <label for="kategori_id" class="form-label">Kategori <span class="text-danger">*</span></label>
-                        <select name="kategori_id" id="kategori_id" class="form-control select2">
-                            <option value=""> -- Pilih Kategori --</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                        <select name="kategori_id" id="kategori_id" class="form-control editKategori">
                         </select>
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group">
                         <label for="unit_id" class="form-label">Unit <span class="text-danger">*</span></label>
-                        <select name="unit_id" id="unit_id" class="form-control select2">
-                            <option value=""> -- Pilih Unit --</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                        <select name="unit_id" id="unit_id" class="form-control editUnit">
                         </select>
                         <small class="invalid-feedback" id="errorunit_id"></small>
                     </div>
