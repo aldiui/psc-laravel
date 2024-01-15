@@ -20,7 +20,7 @@ class KaryawanController extends Controller
             if($request->input("mode") == "datatable"){
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {
-                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/karyawan/' . $karyawan->id . '`, `karyawanTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                     
                         return $editButton . $deleteButton;
@@ -77,15 +77,19 @@ class KaryawanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $dataValidator = [
             'nama' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
-        ]);
+        ];
 
+        if($request->input('password') != null){
+            $dataValidator['password'] = 'required|min:8|confirmed';
+        }
         
+        $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
@@ -97,13 +101,20 @@ class KaryawanController extends Controller
             return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
         }
 
-        $karyawan->update([
+        $updateKaryawan = [
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
             'jabatan' => $request->input('jabatan'),
             'no_hp' => $request->input('no_hp'),
             'role' => $request->input('role'),
-        ]);
+        ];
+
+
+        if($request->input('password') != null){
+            $updateKaryawan['password'] = bcrypt($request->input('password'));
+        }
+        
+        $karyawan->update($updateKaryawan);
 
         return $this->successResponse($karyawan, 'Data karyawan diupdate.');
     }

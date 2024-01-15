@@ -102,6 +102,9 @@ const handleValidationErrors = (error, formId, fields) => {
                 $(`#${formId} #error${field}`).html(
                     error.responseJSON.data[field][0]
                 );
+            } else {
+                $(`#${formId} #${field}`).removeClass("is-invalid");
+                $(`#${formId} #error${field}`).html("");
             }
         });
     } else {

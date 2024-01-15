@@ -37,6 +37,8 @@
                                         <tr>
                                             <th scope="col" width="5%">#</th>
                                             <th scope="col">Nama</th>
+                                            <th scope="col">Jabatan</th>
+                                            <th scope="col">Role</th>
                                             <th scope="col" width="20%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -67,6 +69,8 @@
             datatableCall('karyawanTable', '{{ route('admin.karyawan.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'nama', name: 'nama' },
+                { data: 'jabatan', name: 'jabatan' },
+                { data: 'role', name: 'role' },
                 { data: 'aksi', name: 'aksi' },
             ]);
 
@@ -83,7 +87,7 @@
 
                 const errorCallback = function (error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleValidationErrors(error, "saveData", ["nama"]);
+                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -103,7 +107,7 @@
 
                 const errorCallback = function (error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama"]);
+                    handleValidationErrors(error, "updateData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
