@@ -18,6 +18,8 @@ Route::redirect('/', '/dashboard-general-dashboard');
 Route::prefix('admin')->group(function () {
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
+    Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
+    Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
 });
 
 // Dashboard

@@ -36,8 +36,6 @@ class KategoriController extends Controller
         return view('admin.kategori.index');
     }
     
-    
-    
 
     public function store(Request $request)
     {

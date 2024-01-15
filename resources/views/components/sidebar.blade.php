@@ -29,9 +29,9 @@
                     href="{{ url('blank-page') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>
             <li class="menu-header">Manajemen Karyawan</li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-user-tie"></i> <span>Karyawan</span></a>
+                    href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i> <span>Karyawan</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
