@@ -3650,3 +3650,11 @@ body.layout-3 .main-wrapper {
     opacity: 0;
   }
 }
+
+.img-navbar {
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
