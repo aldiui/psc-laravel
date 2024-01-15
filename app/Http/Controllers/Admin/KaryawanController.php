@@ -41,6 +41,7 @@ class KaryawanController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
             'jabatan' => 'required',
@@ -52,6 +53,11 @@ class KaryawanController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->hashName();
+            $request->file('image')->storeAs('public/img/karyawan', $image);
+        }
+
         $karyawan = User::create([
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
@@ -59,6 +65,7 @@ class KaryawanController extends Controller
             'jabatan' => $request->input('jabatan'),
             'no_hp' => $request->input('no_hp'),
             'role' => $request->input('role'),
+            'image' => $image ?? "default.jpg",
         ]);
 
         return $this->successResponse($karyawan, 'Data karyawan ditambahkan.', 201);
@@ -79,6 +86,7 @@ class KaryawanController extends Controller
     {
         $dataValidator = [
             'nama' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg',
             'email' => 'required|email|unique:users,email,'.$id,
             'jabatan' => 'required',
             'no_hp' => 'required',
@@ -109,6 +117,15 @@ class KaryawanController extends Controller
             'role' => $request->input('role'),
         ];
 
+        if ($request->hasFile('image')) {
+            if ($karyawan->image != 'default.jpg' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
+                Storage::delete('public/img/karyawan/' . $karyawan->image);
+            }
+            $image = $request->file('image')->hashName();
+            $request->file('image')->storeAs('public/img/karyawan', $image);
+            $updateKaryawan['image'] = $image;
+        }
+
 
         if($request->input('password') != null){
             $updateKaryawan['password'] = bcrypt($request->input('password'));
@@ -125,6 +142,12 @@ class KaryawanController extends Controller
 
         if(!$karyawan){
             return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
+        }
+
+        $image = $karyawan->image;
+
+        if ($image != 'default.jpg' && Storage::exists('public/img/karyawan/' . $image)) {
+            Storage::delete('public/img/karyawan/' . $foto);
         }
 
         $karyawan->delete();
