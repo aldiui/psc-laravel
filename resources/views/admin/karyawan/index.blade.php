@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/dropify/css/dropify.css') }}">
 @endpush
 
 @section('main')
@@ -36,6 +37,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" width="5%">#</th>
+                                            <th scope="col" width="10%">Foto</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Jabatan</th>
                                             <th scope="col">Role</th>
@@ -63,11 +65,15 @@
     <script src="{{ asset('library/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('library/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('library/dropify/js/dropify.js') }}"></script>
 
     <script>
         $(document).ready(function() {
+            $('.dropify').dropify();
+
             datatableCall('karyawanTable', '{{ route('admin.karyawan.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'img', name: 'img' },
                 { data: 'nama', name: 'nama' },
                 { data: 'jabatan', name: 'jabatan' },
                 { data: 'role', name: 'role' },
@@ -87,7 +93,7 @@
 
                 const errorCallback = function (error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role"]);
+                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role", "image"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -107,7 +113,7 @@
 
                 const errorCallback = function (error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role"]);
+                    handleValidationErrors(error, "updateData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role", "image"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

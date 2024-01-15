@@ -24,6 +24,10 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
 });
 
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+});
+
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
     return view('pages.dashboard-general-dashboard', ['type_menu' => 'dashboard']);

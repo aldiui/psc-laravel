@@ -19,6 +19,7 @@ const datatableCall = (targetId, url, columns) => {
 const ajaxCall = (url, method, data, successCallback, errorCallback) => {
     $.ajax({
         type: method,
+        enctype: "multipart/form-data",
         url,
         cache: false,
         data,

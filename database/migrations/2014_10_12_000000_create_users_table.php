@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('jabatan');
             $table->string('no_hp');
-            $table->string('image')->default('default.jpg');
+            $table->string('image')->default('default.png');
             $table->string('role');
             $table->rememberToken();
             $table->timestamps();

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class KaryawanController extends Controller
@@ -25,8 +26,11 @@ class KaryawanController extends Controller
                     
                         return $editButton . $deleteButton;
                     })
+                    ->addColumn('img', function ($karyawan) {
+                        return '<img src="/storage/img/karyawan/' . $karyawan->image . '" width="150px" alt="">';
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi'])
+                    ->rawColumns(['aksi', 'img'])
                     ->make(true);
             }
 
@@ -65,7 +69,7 @@ class KaryawanController extends Controller
             'jabatan' => $request->input('jabatan'),
             'no_hp' => $request->input('no_hp'),
             'role' => $request->input('role'),
-            'image' => $image ?? "default.jpg",
+            'image' => $image ?? "default.png",
         ]);
 
         return $this->successResponse($karyawan, 'Data karyawan ditambahkan.', 201);
@@ -118,7 +122,7 @@ class KaryawanController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            if ($karyawan->image != 'default.jpg' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
+            if ($karyawan->image != 'default.png' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
                 Storage::delete('public/img/karyawan/' . $karyawan->image);
             }
             $image = $request->file('image')->hashName();
@@ -144,10 +148,8 @@ class KaryawanController extends Controller
             return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
         }
 
-        $image = $karyawan->image;
-
-        if ($image != 'default.jpg' && Storage::exists('public/img/karyawan/' . $image)) {
-            Storage::delete('public/img/karyawan/' . $foto);
+        if ($karyawan->image != 'default.png' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
+            Storage::delete('public/img/karyawan/' . $karyawan->image);
         }
 
         $karyawan->delete();

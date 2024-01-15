@@ -12,6 +12,12 @@
                     <input type="hidden" id="id">
                     @method('PUT')
                     <div class="form-group">
+                        <label for="image" class="form-label">Gambar <span class="text-danger">*</span></label>
+                        <input type="file" name="image" id="image"
+                        class="dropify" data-height="200">
+                        <small class="invalid-feedback" id="errorimage"></small>
+                    </div>
+                    <div class="form-group">
                         <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="nama" name="nama">
                         <small class="invalid-feedback" id="errornama"></small>
