@@ -42,7 +42,7 @@ class KaryawanController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required|min:8|confirmed',
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',

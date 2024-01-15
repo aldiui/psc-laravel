@@ -25,5 +25,18 @@ class DatabaseSeeder extends Seeder
         ];
 
         DB::table('kategoris')->insert($kategoriData);
+
+        $userData = [
+            [
+                'nama' => 'Aldi Jaya Mulyana',
+                'email' => 'admin@gmail.com',
+                'password' => bcrypt('11221122'),
+                'role' => 'admin',
+                'jabatan' => 'admin',
+                "no_hp" => '08123456789'
+            ],
+        ];
+
+        DB::table('users')->insert($userData);
     }
 }

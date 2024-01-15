@@ -60,30 +60,59 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId} .form-control`).val("");
 };
 
-const handleSuccess = (response, dataTableId, modalId = null) => {
-    swal({
-        title: "Berhasil",
-        icon: "success",
-        text: response.message,
-        timer: 1500,
-        buttons: false,
-    });
+const handleSuccess = (
+    response,
+    dataTableId = null,
+    modalId = null,
+    redirect = null
+) => {
+    if (dataTableId !== null) {
+        swal({
+            title: "Berhasil",
+            icon: "success",
+            text: response.message,
+            timer: 2000,
+            buttons: false,
+        });
+        $(`#${dataTableId}`).DataTable().ajax.reload();
+    }
 
-    $(`#${dataTableId}`).DataTable().ajax.reload();
     if (modalId !== null) {
         $(`#${modalId}`).modal("hide");
+    }
+
+    if (redirect) {
+        swal({
+            title: "Berhasil",
+            icon: "success",
+            text: response.message,
+            timer: 2000,
+            buttons: false,
+        }).then(function () {
+            window.location.href = redirect;
+        });
     }
 };
 
 const handleValidationErrors = (error, formId, fields) => {
-    fields.forEach((field) => {
-        if (error.responseJSON.data[field]) {
-            $(`#${formId} #${field}`).addClass("is-invalid");
-            $(`#${formId} #error${field}`).html(
-                error.responseJSON.data[field][0]
-            );
-        }
-    });
+    if (error.responseJSON.data) {
+        fields.forEach((field) => {
+            if (error.responseJSON.data[field]) {
+                $(`#${formId} #${field}`).addClass("is-invalid");
+                $(`#${formId} #error${field}`).html(
+                    error.responseJSON.data[field][0]
+                );
+            }
+        });
+    } else {
+        swal({
+            title: "Gagal",
+            icon: "error",
+            text: error.responseJSON.message,
+            timer: 2000,
+            buttons: false,
+        });
+    }
 };
 
 const confirmDelete = (url, tableId) => {
