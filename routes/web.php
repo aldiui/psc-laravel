@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard-general-dashboard');
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
