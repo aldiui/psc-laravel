@@ -17,16 +17,20 @@ class UnitController extends Controller
     {
         if ($request->ajax()) {
             $units = Unit::all();
-            return DataTables::of($units)
-                ->addColumn('aksi', function ($unit) {
-                    $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/unit/' . $unit->id . '`, [`id`, `nama`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
-                    $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/unit/' . $unit->id . '`, `unitTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                
-                    return $editButton . $deleteButton;
-                })
-                ->addIndexColumn()
-                ->rawColumns(['aksi'])
-                ->make(true);
+            if($request->input("mode") == "datatable"){
+                return DataTables::of($units)
+                    ->addColumn('aksi', function ($unit) {
+                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/unit/' . $unit->id . '`, [`id`, `nama`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/unit/' . $unit->id . '`, `unitTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
+                    
+                        return $editButton . $deleteButton;
+                    })
+                    ->addIndexColumn()
+                    ->rawColumns(['aksi'])
+                    ->make(true);
+            }
+
+            return $this->successResponse($units, 'Data unit ditemukan.');
         }
     
         return view('admin.unit.index');

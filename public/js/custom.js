@@ -4,6 +4,9 @@ const datatableCall = (targetId, url, columns) => {
         ajax: {
             url: url,
             type: "GET",
+            data: {
+                mode: "datatable",
+            },
         },
         columns: columns,
         lengthMenu: [
