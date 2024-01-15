@@ -36,8 +36,6 @@ class UnitController extends Controller
         return view('admin.unit.index');
     }
 
-    
-    // validasi
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
