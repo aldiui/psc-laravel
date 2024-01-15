@@ -30,7 +30,7 @@ class KategoriController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($kategoris, 'Data kategori ditemukan.');
+            return $this->successResponse($kategoris, 'Data kategori ditemukan.'); 
         }
     
         return view('admin.kategori.index');
