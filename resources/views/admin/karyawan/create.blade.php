@@ -43,8 +43,8 @@
                         <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
                         <select name="role" id="role" class="form-control">
                             <option value=""> -- Pilih Role --</option>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
+                            <option value="user">user</option>
+                            <option value="admin">admin</option>
                         </select>
                         <small class="invalid-feedback" id="errorrole"></small>
                     </div>
