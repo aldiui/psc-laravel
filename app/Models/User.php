@@ -6,7 +6,6 @@ use App\Models\Stok;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -42,15 +41,6 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 
     public function stoks()
     {
