@@ -35,6 +35,14 @@ class DatabaseSeeder extends Seeder
                 'jabatan' => 'admin',
                 "no_hp" => '08123456789'
             ],
+            [
+                'nama' => 'Dimas Taqbir Ramdani',
+                'email' => 'adminkeren@gmail.com',
+                'password' => bcrypt('adminkeren'),
+                'role' => 'admin',
+                'jabatan' => 'admin',
+                "no_hp" => '08123456789'
+            ],
         ];
 
         DB::table('users')->insert($userData);

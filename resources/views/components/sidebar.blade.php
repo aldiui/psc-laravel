@@ -20,9 +20,9 @@
                 <a class="nav-link"
                     href="{{ url('admin/kategori') }}"><i class="fas fa-boxes"></i> <span>Kategori</span></a>
             </li>
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/barang') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('blank-page') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
+                    href="{{ url('admin/barang') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
             </li>
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
