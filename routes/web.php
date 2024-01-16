@@ -27,6 +27,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
     Route::match(['get', 'put'], 'user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.user');
+    Route::put('user/password', [App\Http\Controllers\Admin\UserController::class, 'updatePassword'])->name('admin.user.password');
+
 });
 
 Route::get('/storage-link', function () {

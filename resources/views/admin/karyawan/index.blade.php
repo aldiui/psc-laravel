@@ -87,6 +87,7 @@
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
+                    $('#saveData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "karyawanTable", "createModal");
                 };
@@ -107,6 +108,7 @@
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
+                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "karyawanTable", "editModal");
                 };

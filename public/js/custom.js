@@ -93,6 +93,16 @@ const handleSuccess = (
             window.location.href = redirect;
         });
     }
+
+    if (redirect == "no") {
+        swal({
+            title: "Berhasil",
+            icon: "success",
+            text: response.message,
+            timer: 2000,
+            buttons: false,
+        });
+    }
 };
 
 const handleValidationErrors = (error, formId, fields) => {

@@ -18,7 +18,7 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $karyawans = User::where('id', 'NOT IN', Auth::id())->get();
+            $karyawans = User::all();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {

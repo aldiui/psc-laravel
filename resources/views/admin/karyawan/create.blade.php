@@ -27,7 +27,7 @@
                         <small class="invalid-feedback" id="erroremail"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password" name="password">
                         <small class="invalid-feedback" id="errorpassword"></small>
                     </div>
