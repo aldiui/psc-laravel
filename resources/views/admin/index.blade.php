@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'General Dashboard')
+@section('title', 'Dashboard')
 
 @push('style')
     <!-- CSS Libraries -->

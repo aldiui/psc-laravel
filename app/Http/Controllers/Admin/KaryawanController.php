@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +18,7 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $karyawans = User::all();
+            $karyawans = User::where('id', 'NOT IN', Auth::id())->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {
