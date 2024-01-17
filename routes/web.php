@@ -18,9 +18,7 @@ Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::cl
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('', function () {
-        return view('admin.index');
-    });
+    Route::get('' , [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.index');
     Route::redirect('coba', '/admin');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
