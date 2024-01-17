@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unit_id');
             $table->string('nama');
             $table->text('deskripsi')->nullable();
-            $table->unsignedInteger('qty')->default(0);
+            $table->unsignedInteger('qty')->default("0");
             $table->string('image')->nullable();
             $table->timestamps();
 

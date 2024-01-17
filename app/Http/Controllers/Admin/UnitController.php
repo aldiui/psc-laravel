@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\Unit;
+use App\Exports\UnitExport;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class UnitController extends Controller
@@ -55,6 +57,10 @@ class UnitController extends Controller
 
     public function show($id)
     {
+        if($id == 'excel'){
+            return Excel::download(new UnitExport(), 'unit.xlsx');    
+        }
+        
         $unit = Unit::find($id);
 
         if(!$unit){

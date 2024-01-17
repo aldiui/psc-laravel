@@ -30,7 +30,7 @@ class BarangController extends Controller
                         return '<img src="/storage/img/barang/' . $barang->image . '" width="150px" alt="">';
                     })
                     ->addColumn('qty_unit', function ($barang) {
-                        return $barang->qty . ' ' . $barang->unit->nama;
+                        return $barang->qty . ($barang->unit->nama !== 'Kosong' ?  ' ' .  $barang->unit->nama : '');
                     })
                     ->addColumn('kategori', function ($barang) {
                         return $barang->kategori->nama;
