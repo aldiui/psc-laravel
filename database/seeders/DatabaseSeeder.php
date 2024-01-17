@@ -16,15 +16,33 @@ class DatabaseSeeder extends Seeder
     {
         // Seed Kategori data
         $kategoriData = [
-            ['nama' => 'Rak 1', 'deskripsi' => 'Deskripsi untuk Rak 1'],
-            ['nama' => 'Rak 2', 'deskripsi' => 'Deskripsi untuk Rak 2'],
-            ['nama' => 'Rak 3', 'deskripsi' => 'Deskripsi untuk Rak 3'],
-            ['nama' => 'Rak 4', 'deskripsi' => 'Deskripsi untuk Rak 4'],
-            ['nama' => 'Rak 5', 'deskripsi' => 'Deskripsi untuk Rak 5'],
-            ['nama' => 'Rak 6', 'deskripsi' => 'Deskripsi untuk Rak 6'],
+            ['nama' => 'Airway', 'deskripsi' => '-'],
+            ['nama' => 'Breathing', 'deskripsi' => '-'],
+            ['nama' => 'Cirkulasi', 'deskripsi' => '-'],
+            ['nama' => 'Obat - Obatan', 'deskripsi' => '-'],
+            ['nama' => 'Minor Set', 'deskripsi' => '-'],
+            ['nama' => 'Lain - lain', 'deskripsi' => '-'],
+            ['nama' => 'Alkes Elektronik', 'deskripsi' => '-'],
         ];
 
         DB::table('kategoris')->insert($kategoriData);
+
+        $unitData = [
+            ['nama' => 'Buah'],
+            ['nama' => 'Set'],
+            ['nama' => 'Kolf'],
+            ['nama' => 'Bh'],
+            ['nama' => 'Box'],
+            ['nama' => 'Pcs'],
+            ['nama' => 'Roll'],
+            ['nama' => 'Amp'],
+            ['nama' => 'Tab'],
+            ['nama' => 'Flk'],
+            ['nama' => 'Botol'],
+            ['nama' => 'Unit'],
+        ];
+
+        DB::table('units')->insert($unitData);
 
         $userData = [
             [
