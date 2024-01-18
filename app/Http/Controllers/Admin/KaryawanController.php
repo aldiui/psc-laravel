@@ -6,8 +6,10 @@ use DataTables;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use App\Exports\KaryawanExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,6 +80,10 @@ class KaryawanController extends Controller
 
     public function show($id)
     {
+
+        if($id =='excel'){
+            return Excel::download( new KaryawanExport(), 'karyawan.xlsx');
+        }
         $karyawan = User::find($id);
 
         if(!$karyawan){

@@ -33,6 +33,10 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="mb-3">
+                                <button class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</button>
+                                <a href="{{ route('admin.barang.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table" id="barangTable">
                                     <thead>
@@ -59,7 +63,7 @@
 @include('admin.barang.create')
 @include('admin.barang.edit')
 @endsection
-
+ 
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>

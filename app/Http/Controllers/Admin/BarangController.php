@@ -6,7 +6,9 @@ use DataTables;
 use App\Models\Barang;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use App\Exports\BarangExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -81,6 +83,9 @@ class BarangController extends Controller
 
     public function show($id)
     {
+        if($id == "excel"){
+            return Excel::download( new BarangExport(), 'Barang.xlsx');
+        }
         $barang = Barang::find($id);
 
         if(!$barang){
