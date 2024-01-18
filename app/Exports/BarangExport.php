@@ -15,3 +15,4 @@ class BarangExport implements FromView
         return view('admin.barang.excel', compact('barangs'));
     }
 }
+// tes remote branch

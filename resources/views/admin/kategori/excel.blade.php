@@ -18,5 +18,4 @@
         </tr>
         @endforeach
     </tbody>
-</table>
-<!-- aldi -->
+</table
