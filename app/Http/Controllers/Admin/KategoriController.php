@@ -6,7 +6,9 @@ use DataTables;
 use App\Models\Kategori;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use App\Exports\KategoriExport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class KategoriController extends Controller
@@ -58,6 +60,10 @@ class KategoriController extends Controller
 
     public function show($id)
     {
+        if($id == 'excel'){
+            return Excel::download(new KategoriExport(), 'kategori.xlsx');    
+        }
+        
         $kategori = Kategori::find($id);
 
         if(!$kategori){
