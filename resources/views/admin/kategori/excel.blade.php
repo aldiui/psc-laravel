@@ -14,8 +14,9 @@
         <tr>
             <td style="border: 1px solid black; text-align: center;">{{ $loop->iteration }}</td>
             <td style="border: 1px solid black;">{{ $kategori->nama }}</td>
-            <td style="border: 1px solid black;">{{ $kategori->deskripsi }}</td>
+            <td style="border: 1px solid black;">{{ $kategori->deskripsi}}</td>
         </tr>
         @endforeach
     </tbody>
 </table>
+<!-- tes -->
