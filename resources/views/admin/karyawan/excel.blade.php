@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th height="20" colspan="5" style="border: 1px solid black; text-align: center; font-weight: bold;">LAPORAN DATA KARYAWAN PSC KOTA TASIKMALAYA</th>
+            <th height="20" colspan="5" style="border: 1px solid black; text-align: center; font-weight: bold;">LAPORAN DATA KARYAWAN</th>
         </tr>
         <tr>
             <th width="5" style="border: 1px solid black; text-align: center; font-weight: bold;">No</th>
@@ -20,7 +20,6 @@
             <td style="border: 1px solid black;">{{ $karyawan->email }}</td>
             <td style="border: 1px solid black;">{{ $karyawan->jabatan }}</td>
             <td style="border: 1px solid black;">{{ $karyawan->no_hp }}</td>
-            <!-- <td style="border: 1px solid black;">{{ $karyawan->deskripsi }}</td> -->
         </tr>
         @endforeach
     </tbody>

@@ -61,7 +61,7 @@ class KategoriController extends Controller
     public function show($id)
     {
         if($id == 'excel'){
-            return Excel::download(new KategoriExport(), 'kategori.xlsx');    
+            return Excel::download(new KategoriExport(), 'Kategori.xlsx');    
         }
         
         $kategori = Kategori::find($id);

@@ -86,6 +86,7 @@ class BarangController extends Controller
         if($id == "excel"){
             return Excel::download( new BarangExport(), 'Barang.xlsx');
         }
+        
         $barang = Barang::find($id);
 
         if(!$barang){

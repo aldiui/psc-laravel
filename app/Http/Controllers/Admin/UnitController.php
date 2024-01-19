@@ -58,7 +58,7 @@ class UnitController extends Controller
     public function show($id)
     {
         if($id == 'excel'){
-            return Excel::download(new UnitExport(), 'unit.xlsx');    
+            return Excel::download(new UnitExport(), 'Unit.xlsx');    
         }
         
         $unit = Unit::find($id);

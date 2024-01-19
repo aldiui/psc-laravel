@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th height="20" colspan="6" style="border: 1px solid black; text-align: center; font-weight: bold;">LAPORAN DATA BARANG PSC KOTA TASIKMALAYA</th>
+            <th height="20" colspan="6" style="border: 1px solid black; text-align: center; font-weight: bold;">LAPORAN DATA BARANG</th>
         </tr>
         <tr>
             <th width="5" style="border: 1px solid black; text-align: center; font-weight: bold;">No</th>
@@ -19,7 +19,7 @@
             <td style="border: 1px solid black; text-align: center;">{{ $loop->iteration }}</td>
             <td style="border: 1px solid black;">{{ $barang->nama }}</td>
             <td style="border: 1px solid black; text-align: center;">{{ $barang->qty }}</td>
-            <td style="border: 1px solid black;">{{ $barang->unit->nama }}</td>
+            <td style="border: 1px solid black;">{{ ($barang->unit->nama == "Kosong") ? "" : $barang->unit->nama }}</td>
             <td style="border: 1px solid black;">{{ $barang->kategori->nama }}</td>
             <td style="border: 1px solid black;">{{ $barang->deskripsi?null : "-" }}</td>
         </tr>

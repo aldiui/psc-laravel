@@ -82,8 +82,9 @@ class KaryawanController extends Controller
     {
 
         if($id =='excel'){
-            return Excel::download( new KaryawanExport(), 'karyawan.xlsx');
+            return Excel::download( new KaryawanExport(), 'Karyawan.xlsx');
         }
+        
         $karyawan = User::find($id);
 
         if(!$karyawan){
