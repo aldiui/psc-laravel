@@ -3,10 +3,10 @@
 return [
     'name' => 'LaravelPWA',
     'manifest' => [
-        'name' => env('APP_NAME', 'My PWA App'),
-        'short_name' => 'PWA',
+        'name' => env('APP_NAME', 'PSC 119'),
+        'short_name' => 'PSC 119',
         'start_url' => '/',
-        'background_color' => '#ffffff',
+        'background_color' => '#fc544b',
         'theme_color' => '#000000',
         'display' => 'standalone',
         'orientation'=> 'any',
