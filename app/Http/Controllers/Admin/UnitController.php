@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\Unit;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\UnitExport;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
@@ -59,6 +60,25 @@ class UnitController extends Controller
     {
         if($id == 'excel'){
             return Excel::download(new UnitExport(), 'Unit.xlsx');    
+        }
+
+        if($id == 'pdf'){
+            $units = Unit::all();
+            $pdf = PDF::loadView('admin.unit.pdf', compact('units'));
+    
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+    
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+    
+            $namaFile = 'Unit.pdf';
+    
+            return $pdf->stream($namaFile);
         }
         
         $unit = Unit::find($id);

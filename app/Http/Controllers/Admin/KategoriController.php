@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\Kategori;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Exports\KategoriExport;
@@ -62,6 +63,25 @@ class KategoriController extends Controller
     {
         if($id == 'excel'){
             return Excel::download(new KategoriExport(), 'Kategori.xlsx');    
+        }
+
+        if($id == 'pdf'){
+            $kategoris = Kategori::all();
+            $pdf = PDF::loadView('admin.kategori.pdf', compact('kategoris'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+    
+            $namaFile = 'Kategori.pdf';
+    
+            return $pdf->stream($namaFile);
         }
         
         $kategori = Kategori::find($id);
