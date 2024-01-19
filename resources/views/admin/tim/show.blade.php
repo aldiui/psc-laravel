@@ -18,8 +18,8 @@
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}">Tim</a></div>
-                <div class="breadcrumb-item">@yield('title')</div>
+            <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
+                <div class="breadcrumb-item">Detail @yield('title')</div>
             </div>
         </div>
 

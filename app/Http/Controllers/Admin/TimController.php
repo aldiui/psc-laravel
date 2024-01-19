@@ -20,7 +20,7 @@ class TimController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $tims = Tim::all();
+            $tims = Tim::withCount('detailTims')->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($tims)
                     ->addColumn('aksi', function ($tim) {
@@ -64,11 +64,13 @@ class TimController extends Controller
     public function show(Request $request, $id)
     {
         if($id == 'excel'){
+            ob_end_clean();
+            ob_start();
             return Excel::download(new TimExport(), 'Tim.xlsx');    
         }
 
         if($id == 'pdf'){
-            $tims = Tim::all();
+            $tims = Tim::withCount('detailTims')->get();
             $pdf = PDF::loadView('admin.tim.pdf', compact('tims'));
 
             $options = [
@@ -83,6 +85,8 @@ class TimController extends Controller
     
             $namaFile = 'Tim.pdf';
     
+            ob_end_clean();
+            ob_start();
             return $pdf->stream($namaFile);
         }
         

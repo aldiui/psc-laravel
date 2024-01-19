@@ -19,7 +19,7 @@
                     <td style="text-align: center;">{{ $loop->iteration }}</td>
                     <td>{{ $tim->nama }}</td>
                     <td>{{ $tim->deskripsi }}</td>
-                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">{{ $tim->detail_tims_count}}</td>
                 </tr>
                 @endforeach
             </tbody>

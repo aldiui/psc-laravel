@@ -62,6 +62,8 @@ class KategoriController extends Controller
     public function show($id)
     {
         if($id == 'excel'){
+            ob_end_clean();
+            ob_start();
             return Excel::download(new KategoriExport(), 'Kategori.xlsx');    
         }
 
@@ -81,6 +83,8 @@ class KategoriController extends Controller
     
             $namaFile = 'Kategori.pdf';
     
+            ob_end_clean();
+            ob_start();
             return $pdf->stream($namaFile);
         }
         

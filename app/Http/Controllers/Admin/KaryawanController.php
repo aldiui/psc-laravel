@@ -83,6 +83,8 @@ class KaryawanController extends Controller
     {
 
         if($id =='excel'){
+            ob_end_clean();
+            ob_start();
             return Excel::download( new KaryawanExport(), 'Karyawan.xlsx');
         }
 
@@ -102,6 +104,8 @@ class KaryawanController extends Controller
     
             $namaFile = 'Karyawan.pdf';
     
+            ob_end_clean();
+            ob_start();
             return $pdf->stream($namaFile);
         }
         

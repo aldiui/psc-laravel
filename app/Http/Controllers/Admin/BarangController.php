@@ -85,6 +85,8 @@ class BarangController extends Controller
     public function show($id)
     {
         if($id == "excel"){
+            ob_end_clean();
+            ob_start();
             return Excel::download( new BarangExport(), 'Barang.xlsx');
         }
 
@@ -113,6 +115,8 @@ class BarangController extends Controller
             return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);    
         }
         
+        ob_end_clean();
+        ob_start();
         return $this->successResponse($barang, 'Data barang ditemukan.');
     }
 

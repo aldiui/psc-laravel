@@ -11,7 +11,7 @@ class TimExport implements FromView
 {
     public function view(): View
     {
-        $tims = Tim::all();
+        $tims = Tim::withCount('detailTims')->get();
         return view('admin.tim.excel', compact('tims'));
     }
 }

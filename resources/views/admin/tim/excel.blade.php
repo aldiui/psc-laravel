@@ -16,7 +16,7 @@
             <td style="border: 1px solid black; text-align: center;">{{ $loop->iteration }}</td>
             <td style="border: 1px solid black;">{{ $tim->nama }}</td>
             <td style="border: 1px solid black;">{{ $tim->deskripsi}}</td>
-            <td style="border: 1px solid black;">0</td>
+            <td style="border: 1px solid black; text-align: center;">{{ $tim->detail_tims_count}}</td>
         </tr>
         @endforeach
     </tbody>

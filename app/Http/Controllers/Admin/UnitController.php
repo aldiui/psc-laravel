@@ -59,6 +59,8 @@ class UnitController extends Controller
     public function show($id)
     {
         if($id == 'excel'){
+            ob_end_clean();
+            ob_start();
             return Excel::download(new UnitExport(), 'Unit.xlsx');    
         }
 
@@ -77,7 +79,9 @@ class UnitController extends Controller
             $pdf->setPaper('a4', 'landscape');
     
             $namaFile = 'Unit.pdf';
-    
+
+            ob_end_clean();
+            ob_start();
             return $pdf->stream($namaFile);
         }
         

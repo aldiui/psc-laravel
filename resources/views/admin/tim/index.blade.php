@@ -42,6 +42,7 @@
                                             <th scope="col" width="5%">#</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Deskripsi</th>
+                                            <th scope="col">Anggota</th>                                            
                                             <th scope="col" width="20%">Aksi</th>
                                         </tr>
                                     </thead>
@@ -73,6 +74,7 @@
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'nama', name: 'nama' },
                 { data: 'deskripsi', name: 'deskripsi' },
+                { data: 'detail_tims_count', name: 'detail_tims_count' },
                 { data: 'aksi', name: 'aksi' },
             ]);
 
