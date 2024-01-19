@@ -28,12 +28,12 @@
                         <small class="invalid-feedback" id="erroremail"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <label for="password" class="form-label">Password </label>
                         <input type="password" class="form-control" id="password" name="password">
                         <small class="invalid-feedback" id="errorpassword"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password_confirmation" class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
+                        <label for="password_confirmation" class="form-label">Konfirmasi Password </label>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                     </div>
