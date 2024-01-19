@@ -10,7 +10,7 @@ class KategoriExport implements FromView
 {
     public function view(): View
     {
-        $kategoris = Kategori::all() ;
+        $kategoris = Kategori::all();
         return view('admin.kategori.excel', compact('kategoris'));
     }
 }

@@ -10,6 +10,7 @@
                     <th width="5%">No</th>
                     <th width="35%">Nama</th>
                     <th style="">Deskripsi</th>
+                    <th width="20%">Anggota</th>
                 </tr>
             </thead>    
             <tbody valign="top">
@@ -18,6 +19,7 @@
                     <td style="text-align: center;">{{ $loop->iteration }}</td>
                     <td>{{ $tim->nama }}</td>
                     <td>{{ $tim->deskripsi }}</td>
+                    <td style="text-align: center;">0</td>
                 </tr>
                 @endforeach
             </tbody>

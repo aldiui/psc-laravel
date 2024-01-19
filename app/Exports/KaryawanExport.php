@@ -10,7 +10,7 @@ class KaryawanExport implements FromView
 {
     public function view(): View
     {
-        $karyawans = User::all() ;
+        $karyawans = User::all();
         return view('admin.karyawan.excel', compact('karyawans'));
     }
 }

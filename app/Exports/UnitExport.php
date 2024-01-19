@@ -10,7 +10,7 @@ class UnitExport implements FromView
 {
     public function view(): View
     {
-        $units = Unit::all() ;
+        $units = Unit::all();
         return view('admin.unit.excel', compact('units'));
     }
 }

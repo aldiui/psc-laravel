@@ -100,7 +100,7 @@
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
-                const url = `/admin/tim/${kode}`;
+                const url = `/admin/kategori/${kode}`;
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
