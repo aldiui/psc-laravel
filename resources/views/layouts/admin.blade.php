@@ -18,6 +18,7 @@
         referrerpolicy="no-referrer" />
 
     @stack('style')
+    @laravelPWA
 
     <!-- Template CSS -->
     <link rel="stylesheet"
