@@ -36,10 +36,10 @@
                         <div class="card-body">
                             <div class="mb-4">
                                 <div class="row">
-                                    <div class="col-2 mb-2">Nama Tim</div>
-                                    <div class="col-9 mb-2">: {{ $tim->nama }}</div>
-                                    <div class="col-2 mb-2">Deskripsi</div>
-                                    <div class="col-9 mb-2">: {{ $tim->deskripsi }}</div>
+                                    <div class="col-12 col-lg-2 mb-2">Nama Tim</div>
+                                    <div class="col-12 col-lg-10 mb-2">: {{ $tim->nama }}</div>
+                                    <div class="col-12 col-lg-2 mb-2">Deskripsi</div>
+                                    <div class="col-12 col-lg-10 mb-2">: {{ $tim->deskripsi }}</div>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -67,7 +67,7 @@
 @include('admin.detail-tim.create')
 @include('admin.detail-tim.edit')
 @endsection
- 
+
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
