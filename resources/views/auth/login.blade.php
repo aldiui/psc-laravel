@@ -10,6 +10,9 @@
     <div class="d-flex align-items-stretch flex-wrap">
         <div class="col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white d-flex justify-content-center align-items-center">
             <div class="py-2">
+                <div class="text-center mb-4">
+                    <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
+                </div>
                 <h4 class="text-dark text-center mb-3 font-weight-normal">Selamat Datang di <br> <span class="font-weight-bold">PSC 119</span>
                 </h4>
                 <form id="login" autocomplete="off">
