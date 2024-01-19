@@ -59,7 +59,7 @@ class TimController extends Controller
         return $this->successResponse($tim, 'Data tim ditambahkan.', 201);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         if($id == 'excel'){
             return Excel::download(new TimExport(), 'Tim.xlsx');    
@@ -86,11 +86,15 @@ class TimController extends Controller
         
         $tim = Tim::find($id);
 
-        if(!$tim){
-            return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);    
+        if ($request->ajax()) {
+            if(!$tim){
+                return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);    
+            }
+            
+            return $this->successResponse($tim, 'Data tim ditemukan.');
         }
-        
-        return $this->successResponse($tim, 'Data tim ditemukan.');
+
+        return view('admin.tim.show', compact('tim'));
     }
 
     public function update(Request $request, $id)
