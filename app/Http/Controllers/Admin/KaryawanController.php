@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Exports\KaryawanExport;
@@ -83,6 +84,25 @@ class KaryawanController extends Controller
 
         if($id =='excel'){
             return Excel::download( new KaryawanExport(), 'Karyawan.xlsx');
+        }
+
+        if ($id == "pdf") {
+            $karyawans = User::all();
+            $pdf = PDF::loadView('admin.karyawan.pdf', compact('karyawans'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+    
+            $namaFile = 'Karyawan.pdf';
+    
+            return $pdf->stream($namaFile);
         }
         
         $karyawan = User::find($id);

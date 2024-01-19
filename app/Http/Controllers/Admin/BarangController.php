@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use App\Models\Barang;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use App\Exports\BarangExport;
@@ -85,6 +86,25 @@ class BarangController extends Controller
     {
         if($id == "excel"){
             return Excel::download( new BarangExport(), 'Barang.xlsx');
+        }
+
+        if($id == 'pdf'){
+            $barangs = Barang::with('unit', 'kategori')->get();
+            $pdf = PDF::loadView('admin.barang.pdf', compact('barangs'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+    
+            $namaFile = 'Barang.pdf';
+    
+            return $pdf->stream($namaFile);
         }
         
         $barang = Barang::find($id);
