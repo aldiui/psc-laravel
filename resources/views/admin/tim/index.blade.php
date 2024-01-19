@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Kategori')
+@section('title', 'Tim')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -100,7 +100,7 @@
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
-                const url = `/admin/kategori/${kode}`;
+                const url = `/admin/tim/${kode}`;
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
