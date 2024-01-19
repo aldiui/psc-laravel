@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Stok;
+use App\Models\DetailTim;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function stoks()
     {
         return $this->hasMany(Stok::class);
+    }
+
+    public function detailTims()
+    {
+        return $this->hasMany(DetailTim::class);
     }
 
     
