@@ -33,9 +33,9 @@
                 <a class="nav-link"
                     href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i> <span>Karyawan</span></a>
             </li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/tim') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
+                    href="{{ url('admin/tim') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
             </li>
             <li class="menu-header">Manajemen Pengaturan</li>
             <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">

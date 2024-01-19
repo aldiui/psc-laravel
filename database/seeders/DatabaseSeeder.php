@@ -765,5 +765,14 @@ class DatabaseSeeder extends Seeder
         
         DB::table('barangs')->insert($barangData);
 
+        $timData = [
+            ['nama' => 'Unit 1', 'deskripsi' => '-'],
+            ['nama' => 'Unit 2', 'deskripsi' => '-'],
+            ['nama' => 'Unit 3', 'deskripsi' => '-'],
+            ['nama' => 'Unit 4', 'deskripsi' => '-'],
+        ];
+
+        DB::table('tims')->insert($timData);
+
     }
 }
