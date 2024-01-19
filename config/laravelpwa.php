@@ -6,7 +6,7 @@ return [
         'name' => env('APP_NAME', 'PSC 119'),
         'short_name' => 'PSC 119',
         'start_url' => '/',
-        'background_color' => '#fc544b',
+        'background_color' => '#ffffff',
         'theme_color' => '#000000',
         'display' => 'standalone',
         'orientation'=> 'any',
