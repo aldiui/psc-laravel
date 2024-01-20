@@ -2,13 +2,42 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Pengaturan;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PengaturanController extends Controller
 {
-    public function index()
+    use ApiResponder;
+
+    public function index(Request $request)
     {
-        return view('admin.pengaturan.index');
+        $pengaturan = Pengaturan::find(1);
+        
+        if ($request->isMethod('put')) {
+            $validator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'longitude' => 'required',
+                'latitude' => 'required',
+                'radius' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+            }
+
+            $pengaturan->update([
+                'nama' => $request->input('nama'),
+                'longitude' => $request->input('longitude'),
+                'latitude' => $request->input('latitude'),
+                'radius' => $request->input('radius'),
+            ]);
+            
+            return $this->successResponse($pengaturan, 'Data pengaturan diupdate.');
+        }
+        
+        return view('admin.pengaturan.index', compact('pengaturan'));
     }
 }
