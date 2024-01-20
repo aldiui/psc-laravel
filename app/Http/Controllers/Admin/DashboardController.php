@@ -20,7 +20,7 @@ class DashboardController extends Controller
             'totalKaryawan' => User::count()
         ];
 
-        return view('admin.index', $data);
+        return view('admin.dashboard.index', $data);
         
     }
 }
