@@ -19,7 +19,7 @@
                     </div>
                     <input type="hidden" name="location" id="location">
                     <div id="map" class="mb-3 rounded-lg" style="height: 420px; width: 100%;"></div>
-                    <button type="submit" id="presensiButton" class="btn btn-success btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
+                    <button type="submit" id="presensiButton" class="btn {{ $presensi ? ($presensi->clock_out == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
                         {{ $presensi ? ($presensi->clock_out == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
                     </button>                    
                 </div>
