@@ -784,7 +784,7 @@ class DatabaseSeeder extends Seeder
 
         $pengaturanData = [
             'nama' => 'PSC 119',
-            'longitude' => '7.3072588',
+            'longitude' => '-7.3072588',
             'latitude' => '108.2004862',
             'radius' => '100',
         ];

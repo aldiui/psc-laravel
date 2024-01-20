@@ -4,7 +4,7 @@
 
 @push('style')
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('library/dropify/css/dropify.css') }}">    
+    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' /> 
 @endpush
 
 @section('main')
@@ -25,8 +25,8 @@
                             <h4 class="text-dark">Data @yield('title')</h4>
                         </div>
                         <div class="card-body">
-                            <!-- Display location information here -->
-                            <div id="location-info"></div>
+                            <div id="location"></div>
+                            <div id="map" style="height: 500px; width: 100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -39,20 +39,36 @@
 @push('scripts')
     <!-- JS Libraries -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
 
     <script>
         $(document).ready(function() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    const locationInfo = "Latitude: " + latitude + "<br>Longitude: " + longitude;
-                    $('#location-info').html(locationInfo);
-                });
+                navigator.geolocation.watchPosition(showPosition);
             } else {
                 swal("Geolocation is not supported by this browser.");
             }
         });
+
+        const showPosition = (position) => {
+            const location = $("#location");
+            location.html(position.coords.latitude + ", " + position.coords.longitude);
+
+            const map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+
+            L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini').openPopup();
+
+            const pengaturan = "{{ $pengaturan->nama }}";
+            L.marker([{{ $pengaturan->longitude }}, {{ $pengaturan->latitude }}]).addTo(map).bindPopup(pengaturan).openPopup(); 
+
+            const circle = L.circle([{{ $pengaturan->longitude }}, {{ $pengaturan->latitude }}], {
+                color: 'green',
+                fillColor: 'green',
+                fillOpacity: 0.5,
+                radius: {{ $pengaturan->radius }}
+            }).addTo(map);
+        }
     </script>
 @endpush
