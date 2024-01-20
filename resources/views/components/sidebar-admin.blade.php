@@ -37,6 +37,14 @@
                 <a class="nav-link"
                     href="{{ url('admin/tim') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
             </li>
+            <li class="{{ Request::is('admin/presensi') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ url('admin/presensi') }}"><i class="fas fa-camera"></i> <span>Presensi</span></a>
+            </li>
+            <li class="{{ Request::is('admin/izin') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ url('admin/izin') }}"><i class="fas fa-calendar"></i> <span>Izin</span></a>
+            </li>
             <li class="menu-header">Manajemen Pengaturan</li>
             <li class="{{ Request::is('admin/pengaturan') ? 'active' : '' }}">
                 <a class="nav-link"
