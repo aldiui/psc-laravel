@@ -13,11 +13,11 @@
             </li>
             <li class="{{ Request::is('izin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('izin') }}"><i class="fas fa-boxes"></i> <span>Izin</span></a>
+                    href="{{ url('izin') }}"><i class="fas fa-calendar"></i> <span>Izin</span></a>
             </li>
             <li class="{{ Request::is('presensi') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('presensi') }}"><i class="fas fa-box"></i> <span>Presensi</span></a>
+                    href="{{ url('presensi') }}"><i class="fas fa-camera"></i> <span>Presensi</span></a>
             </li>
             <li class="{{ Request::is('stok') ? 'active' : '' }}">
                 <a class="nav-link"
