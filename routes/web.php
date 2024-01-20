@@ -13,11 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('' , [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.index');
     Route::redirect('coba', '/admin');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
@@ -29,6 +28,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('tim', App\Http\Controllers\Admin\TimController::class)->names('admin.tim');
     Route::resource('detail-tim', App\Http\Controllers\Admin\DetailTimController::class)->names('admin.detail-tim');
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
+});
+
+Route::middleware(['auth', 'checkRole:user'])->group(function () {
+    Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
+    Route::match(['get', 'put'], 'user', [App\Http\Controllers\User\UserController::class, 'index'])->name('user');
+    Route::put('user/password', [App\Http\Controllers\User\UserController::class, 'updatePassword'])->name('user.password');
 });
 
 Route::get('/storage-link', function () {

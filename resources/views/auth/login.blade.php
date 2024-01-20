@@ -65,7 +65,8 @@
 
                 const successCallback = function (response) {
                     setButtonLoadingState("#login .btn.btn-danger", false, "Login");
-                    handleSuccess(response, null, null, "admin");
+                    const redirect = response.data.role == 'admin' ? '/admin' : '/';
+                    handleSuccess(response, null, null, redirect);
                 };
 
                 const errorCallback = function (error) {

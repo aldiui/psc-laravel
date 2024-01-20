@@ -30,6 +30,7 @@ class AuthController extends Controller
             }
 
             $user = Auth::user();
+            
             return $this->successResponse($user, 'Login berhasil.');
         }
 
