@@ -28,12 +28,23 @@ class PresensiController extends Controller
                 return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
             }
             
+            $getLocation = explode(",", $request->location);
+            $calculateDistance = calculateDistance($getLocation[0], $getLocation[1], $pengaturan->longitude, $pengaturan->latitude);
+            
+            if($calculateDistance >= $pengaturan->radius){
+                if($request->alasan == null){
+                    $selisihJarak = calculateSelisihJarak($calculateDistance - $pengaturan->radius);
+                    return $this->errorResponse(null, 'Jarak lebih dari ' . $selisihJarak . ' dari radius lokasi. Mohon isi alasan untuk melanjukan presensi', 422);
+                }
+            }
+            
             if(!$presensi){
                 $presensi = Presensi::create([
                     'user_id' => Auth::user()->id,
                     'tanggal' => date('Y-m-d'),
                     'lokasi_in' => $request->location,
                     'clock_in' => date('H:i:s'),
+                    'alasan_in' => $request->alasan ?? null,
                 ]);
 
                 return $this->successResponse($presensi, 'Presensi Masuk berhasil.');
@@ -42,6 +53,8 @@ class PresensiController extends Controller
             $presensi->update([
                 'lokasi_out' => $request->location,
                 'clock_out' => date('H:i:s'),
+                'alasan_out' => $request->alasan ?? null,
+                'catatan' => $request->catatan,
             ]);
 
             return $this->successResponse($presensi, 'Presensi Keluar berhasil.');

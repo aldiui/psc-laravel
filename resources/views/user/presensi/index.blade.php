@@ -27,6 +27,8 @@
         </div>
     </section>
 </div>
+@include('user.presensi.alasan')
+@include('user.presensi.catatan')
 @endsection
 
 @push('scripts')
@@ -51,7 +53,16 @@
 
                 const url = "{{ route('presensi') }}";
                 const data = new FormData();
-                data.append('location', $("#location").val());
+                const locationValue = $("#location").val();
+                const catatanValue = $("#catatan").val();
+                data.append('location', locationValue);
+                data.append('alasan', $("#alasan").val());
+                data.append('catatan', catatanValue);
+
+                if(textButton == "Presensi Keluar" && catatanValue.trim() === "") {
+                    setButtonLoadingState("#presensiButton", false, textButton);
+                    getModal('catatanModal');
+                }
 
                 const successCallback = function (response) {
                     setButtonLoadingState("#presensiButton", false, textButton);
@@ -61,9 +72,40 @@
                 const errorCallback = function (error) {
                     setButtonLoadingState("#presensiButton", false, textButton);
                     handleValidationErrors(error);
+                    if(locationValue) {
+                        setTimeout(function() { getModal('alasanModal'); }, 2000);
+                    }
                 };
 
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
+                if (textButton === "Presensi Keluar" && catatanValue.trim() !== "") {
+                    ajaxCall(url, "POST", data, successCallback, errorCallback);
+                } else if (textButton === "Presensi Masuk") {
+                    ajaxCall(url, "POST", data, successCallback, errorCallback);
+                }
+            });
+
+            $("#saveAlasan").click(function() {
+                const alasanValue = $("#alasan").val(); 
+                setButtonLoadingState("#saveAlasan", false);
+                if (alasanValue.trim() === "") {
+                    $("#alasan").addClass("is-invalid");
+                    $("#erroralasan").text("Alasan harus diisi");
+                } else {
+                    $("#presensiButton").click();
+                    $("#alasanModal").modal("hide");
+                }
+            });
+
+            $("#saveCatatan").click(function() {
+                const catatanValue = $("#catatan").val(); 
+                setButtonLoadingState("#saveCatatan", false);
+                if (catatanValue.trim() === "") {
+                    $("#catatan").addClass("is-invalid");
+                    $("#errorcatatan").text("Catatan harus diisi");
+                } else {
+                    $("#presensiButton").click();
+                    $("#catatanModal").modal("hide");
+                }
             });
         });
 
