@@ -10,16 +10,9 @@
 @section('main')
 <div class="main-content mb-5 pb-5">
     <section class="section">
-        <div class="section-header">
-            <h1>@yield('title')</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-                <div class="breadcrumb-item">@yield('title')</div>
-            </div>
-        </div>
         <div class="section-body">
             <input type="hidden" name="location" id="location">
-            <div id="map" class="mb-2" style="height: 380px; width: 100%;"></div>
+            <div id="map" class="mb-3 shadow rounded-lg" style="height: 380px; width: 100%;"></div>
             <button id="presensiButton" class="btn btn-success btn-block">{{  $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}</button>
         </div>
     </section>
