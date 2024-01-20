@@ -54,6 +54,14 @@ class DatabaseSeeder extends Seeder
                 "no_hp" => '08123456789'
             ],
             [
+                'nama' => 'Aldi Jaya Mulyana',
+                'email' => 'user@gmail.com',
+                'password' => bcrypt('11221122'),
+                'role' => 'user',
+                'jabatan' => 'user',
+                "no_hp" => '08123456789'
+            ],
+            [
                 'nama' => 'Dimas Taqbir Ramdani',
                 'email' => 'adminkeren@gmail.com',
                 'password' => bcrypt('adminkeren'),
