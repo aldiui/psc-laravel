@@ -8,7 +8,7 @@
 @endpush
 
 @section('main')
-<div class="main-content">
+<div class="main-content mb-5 pb-5">
     <section class="section">
         <div class="section-header">
             <h1>@yield('title')</h1>
@@ -18,19 +18,9 @@
             </div>
         </div>
         <div class="section-body">
-            <div class="row">
-                <div class="col-12 ">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-dark">Data @yield('title')</h4>
-                        </div>
-                        <div class="card-body">
-                            <input type="hidden" name="location" id="location">
-                            <div id="map" style="height: 500px; width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <input type="hidden" name="location" id="location">
+            <div id="map" class="mb-2" style="height: 380px; width: 100%;"></div>
+            <button id="presensiButton" class="btn btn-success btn-block">{{  $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}</button>
         </div>
     </section>
 </div>
@@ -48,6 +38,11 @@
             } else {
                 swal("Geolocation is not supported by this browser.");
             }
+
+            $("#presensiButton").click(function() {
+                const location = $("#location").val();
+                swal("Presensi Berhasil", `Anda sedang melakukan presensi. Lokasi: ${location}`, "success");
+            });
         });
 
         const showPosition = (position) => {
