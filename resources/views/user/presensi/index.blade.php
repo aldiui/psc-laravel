@@ -25,7 +25,7 @@
                             <h4 class="text-dark">Data @yield('title')</h4>
                         </div>
                         <div class="card-body">
-                            <div id="location"></div>
+                            <input type="hidden" name="location" id="location">
                             <div id="map" style="height: 500px; width: 100%;"></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
 
         const showPosition = (position) => {
             const location = $("#location");
-            location.html(position.coords.latitude + ", " + position.coords.longitude);
+            location.val(position.coords.latitude + ", " + position.coords.longitude);
 
             const map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
 
