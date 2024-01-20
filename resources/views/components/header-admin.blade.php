@@ -252,7 +252,7 @@
                     class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profil
                 </a>
-                <a href="features-settings.html"
+                <a href="{{ route('admin.pengaturan') }}"
                     class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Pengaturan
                 </a>
