@@ -19,7 +19,9 @@
                     </div>
                     <input type="hidden" name="location" id="location">
                     <div id="map" class="mb-3 rounded-lg" style="height: 420px; width: 100%;"></div>
-                    <button id="presensiButton" class="btn btn-success btn-block">{{  $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}</button>
+                    <button type="submit" id="presensiButton" class="btn btn-success btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
+                        {{ $presensi ? ($presensi->clock_out == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
+                    </button>                    
                 </div>
             </div>
         </div>
@@ -41,6 +43,28 @@
             }
 
             setInterval(updateJam, 1000);
+
+            $("#presensiButton").click(function(e) {
+                const textButton = "{{ $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}";
+                setButtonLoadingState("#presensiButton", true, textButton);
+                e.preventDefault();
+
+                const url = "{{ route('presensi') }}";
+                const data = new FormData();
+                data.append('location', $("#location").val());
+
+                const successCallback = function (response) {
+                    setButtonLoadingState("#presensiButton", false, textButton);
+                    handleSuccess(response, null, null, "/presensi");
+                };
+
+                const errorCallback = function (error) {
+                    setButtonLoadingState("#presensiButton", false, textButton);
+                    handleValidationErrors(error);
+                };
+
+                ajaxCall(url, "POST", data, successCallback, errorCallback);
+            });
         });
 
         const showPosition = (position) => {

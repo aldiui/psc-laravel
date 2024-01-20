@@ -104,8 +104,8 @@ const handleSuccess = (
     }
 };
 
-const handleValidationErrors = (error, formId, fields) => {
-    if (error.responseJSON.data) {
+const handleValidationErrors = (error, formId = null, fields = null) => {
+    if (error.responseJSON.data && fields) {
         fields.forEach((field) => {
             if (error.responseJSON.data[field]) {
                 $(`#${formId} #${field}`).addClass("is-invalid");

@@ -25,12 +25,26 @@ class PresensiController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return $this->respondValidationError($validator->errors()->first());
+                return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
             }
             
             if(!$presensi){
-                
+                $presensi = Presensi::create([
+                    'user_id' => Auth::user()->id,
+                    'tanggal' => date('Y-m-d'),
+                    'lokasi_in' => $request->location,
+                    'clock_in' => date('H:i:s'),
+                ]);
+
+                return $this->successResponse($presensi, 'Presensi Masuk berhasil.');
             }
+
+            $presensi->update([
+                'lokasi_out' => $request->location,
+                'clock_out' => date('H:i:s'),
+            ]);
+
+            return $this->successResponse($presensi, 'Presensi Keluar berhasil.');
         }
         
         return view('user.presensi.index', compact('presensi', 'pengaturan'));
