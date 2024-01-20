@@ -11,9 +11,17 @@
 <div class="main-content mb-5 pb-5">
     <section class="section">
         <div class="section-body">
-            <input type="hidden" name="location" id="location">
-            <div id="map" class="mb-3 shadow rounded-lg" style="height: 380px; width: 100%;"></div>
-            <button id="presensiButton" class="btn btn-success btn-block">{{  $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}</button>
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="mb-2">{{ date('d F Y') }}</div>
+                        <div class="mb-2" id="jam"></div>
+                    </div>
+                    <input type="hidden" name="location" id="location">
+                    <div id="map" class="mb-3 rounded-lg" style="height: 420px; width: 100%;"></div>
+                    <button id="presensiButton" class="btn btn-success btn-block">{{  $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}</button>
+                </div>
+            </div>
         </div>
     </section>
 </div>
@@ -32,10 +40,7 @@
                 swal("Geolocation is not supported by this browser.");
             }
 
-            $("#presensiButton").click(function() {
-                const location = $("#location").val();
-                swal("Presensi Berhasil", `Anda sedang melakukan presensi. Lokasi: ${location}`, "success");
-            });
+            setInterval(updateJam, 1000);
         });
 
         const showPosition = (position) => {

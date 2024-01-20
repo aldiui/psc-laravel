@@ -186,3 +186,19 @@ const select2ToJson = (selector, url, title) => {
     };
     ajaxCall(url, "GET", null, successCallback, errorCallback);
 };
+
+const updateJam = () => {
+    let jam = new Date();
+    $("#jam").html(
+        "Jam " +
+            setUpJam(jam.getHours()) +
+            ":" +
+            setUpJam(jam.getMinutes()) +
+            ":" +
+            setUpJam(jam.getSeconds())
+    );
+};
+
+const setUpJam = (jam) => {
+    return jam < 10 ? "0" + jam : jam;
+};
