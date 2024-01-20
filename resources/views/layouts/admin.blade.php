@@ -45,7 +45,7 @@
             @yield('main')
 
             <!-- Footer -->
-            @include('components.footer')
+            @include('components.footer-admin')
         </div>
     </div>
 
