@@ -15,6 +15,10 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {    
+        if (Auth::check()) {
+            return Auth::user()->role == 'admin' ? redirect('/admin') : redirect('/');
+        }
+        
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -30,7 +34,6 @@ class AuthController extends Controller
             }
 
             $user = Auth::user();
-            
             return $this->successResponse($user, 'Login berhasil.');
         }
 
