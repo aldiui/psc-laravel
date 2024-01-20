@@ -1,4 +1,4 @@
-<div class="main-sidebar sidebar-style-2">
+<div class="main-sidebar sidebar-style-2 d-none d-lg-block">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
             <a href="admin">PSC 119</a>
@@ -7,44 +7,25 @@
             <a href="admin">PSC</a>
         </div>
         <ul class="sidebar-menu">
-            <li class="{{ Request::is('admin') ? 'active' : '' }}">
+            <li class="{{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link"
-                href="{{ url('admin') }}"><i class="material-icons">&#xe871;</i> <span>Dashboard</span></a>
+                    href="{{ url('/') }}"><i class="fas fa-home"></i> <span>Home</span></a>
             </li>
-            <li class="menu-header">Manajemen Stok</li>
-            <li class="{{ Request::is('admin/unit') ? 'active' : '' }}">
+            <li class="{{ Request::is('izin') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/unit') }}"><i class="fas fa-balance-scale"></i> <span>Unit</span></a>
+                    href="{{ url('izin') }}"><i class="fas fa-boxes"></i> <span>Izin</span></a>
             </li>
-            <li class="{{ Request::is('admin/kategori') ? 'active' : '' }}">
+            <li class="{{ Request::is('presensi') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/kategori') }}"><i class="fas fa-boxes"></i> <span>Kategori</span></a>
+                    href="{{ url('presensi') }}"><i class="fas fa-box"></i> <span>Presensi</span></a>
             </li>
-            <li class="{{ Request::is('admin/barang') ? 'active' : '' }}">
+            <li class="{{ Request::is('stok') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/barang') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
+                    href="{{ url('stok') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
+            <li class="{{ Request::is('profil') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
-            </li>
-            <li class="menu-header">Manajemen Karyawan</li>
-            <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i> <span>Karyawan</span></a>
-            </li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
-            </li>
-            <li class="menu-header">Manajemen Pengaturan</li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-gear"></i> <span>Pengaturan</span></a>
-            </li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
-                <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
+                    href="{{ url('profil') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
             </li>
         </ul>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">

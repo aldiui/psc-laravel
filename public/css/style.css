@@ -116,7 +116,7 @@ a:not(.btn-social-icon):not(.btn-social):not(.page-link) .fab {
 }
 
 .text-secondary, .text-secondary-all *, .text-secondary-all *:before, .text-secondary-all *:after {
-  color: #cdd3d8 !important;
+  color: #6c757d !important;
 }
 
 .text-success, .text-success-all *, .text-success-all *:before, .text-success-all *:after {
@@ -3657,4 +3657,8 @@ body.layout-3 .main-wrapper {
   background-size: cover;
   background-position: center;
   border-radius: 50%;
+}
+
+.text-mini {
+  font-size: 10px;
 }

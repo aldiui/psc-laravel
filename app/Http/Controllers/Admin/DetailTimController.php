@@ -24,6 +24,11 @@ class DetailTimController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
+        $tim = DetailTim::where('tim_id', $request->input('tim_id'))->where('user_id', $request->input('user_id'))->first();
+        if ($tim) {
+            return $this->errorResponse(null, 'Data Detail Tim sudah ada.', 409);
+        }
+
         $detailTim = DetailTim::create([
             'tim_id' => $request->input('tim_id'),
             'user_id' => $request->input('user_id'),
@@ -53,7 +58,7 @@ class DetailTimController extends Controller
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
-        }
+        }        
 
         $detailTim = DetailTim::find($id);
         
