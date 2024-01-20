@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stoks', function (Blueprint $table) {
+        Schema::create('izins', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->date('tanggal');
-            $table->enum('jenis', ['Masuk','Keluar']);
-            $table->string('status')->default(0);  
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->text('alasan');
+            $table->string('file')->nullable();
+            $table->enum('tipe', ['Izin','Sakit','Cuti']);
+            $table->boolean('status')->default(0);  
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stoks');
+        Schema::dropIfExists('izins');
     }
 };
