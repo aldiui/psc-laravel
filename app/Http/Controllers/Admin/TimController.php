@@ -87,7 +87,7 @@ class TimController extends Controller
     
             ob_end_clean();
             ob_start();
-            return $pdf->stream($namaFile);
+            return $pdf->download($namaFile);
         }
         
         $tim = Tim::find($id);

@@ -10,11 +10,11 @@
         </div>
         <div>
             <a class="text-decoration-none {{ Request::is('izin') ? 'text-danger' : 'text-secondary' }} text-center"
-                href="{{ url('izin') }}"><i class="d-block mb-2 fas fa-boxes"></i> <div class="text-mini text-center">Izin</div></a>
+                href="{{ url('izin') }}"><i class="d-block mb-2 fas fa-calendar"></i> <div class="text-mini text-center">Izin</div></a>
         </div>
         <div>
             <a class="text-decoration-none {{ Request::is('presensi') ? 'text-danger' : 'text-secondary' }} text-center"
-                href="{{ url('presensi') }}"><i class="d-block mb-2 fas fa-box"></i> <div class="text-mini text-center">Presensi</div></a>
+                href="{{ url('presensi') }}"><i class="d-block mb-2 fas fa-camera"></i> <div class="text-mini text-center">Presensi</div></a>
         </div>
         <div>
             <a class="text-decoration-none {{ Request::is('stok') ? 'text-danger' : 'text-secondary' }} text-center"

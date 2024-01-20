@@ -82,7 +82,7 @@ class UnitController extends Controller
 
             ob_end_clean();
             ob_start();
-            return $pdf->stream($namaFile);
+            return $pdf->download($namaFile);
         }
         
         $unit = Unit::find($id);

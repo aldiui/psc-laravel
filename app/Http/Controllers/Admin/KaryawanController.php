@@ -106,7 +106,7 @@ class KaryawanController extends Controller
     
             ob_end_clean();
             ob_start();
-            return $pdf->stream($namaFile);
+            return $pdf->download($namaFile);
         }
         
         $karyawan = User::find($id);

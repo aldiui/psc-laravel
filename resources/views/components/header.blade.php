@@ -2,12 +2,13 @@
 <nav class="navbar navbar-expand-lg main-navbar">
     <form class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
+            <li><a class="nav-link font-weight-bold" href="/">PSC 119</a></li>
             <li><a href="#"
                     data-toggle="sidebar"
-                    class="d-none d-lg-block nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+                    class=" nav-link nav-link-lg d-none d-lg-block"><i class="fas fa-bars"></i></a></li>
             <li><a href="#"
                     data-toggle="search"
-                    class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+                    class="nav-link nav-link-lg d-sm-none d-none d-lg-block"><i class="fas fa-search"></i></a></li>
         </ul>
         <div class="search-element">
             <input class="form-control"

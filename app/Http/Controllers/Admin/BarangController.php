@@ -106,7 +106,7 @@ class BarangController extends Controller
     
             $namaFile = 'Barang.pdf';
     
-            return $pdf->stream($namaFile);
+            return $pdf->download($namaFile);
         }
         
         $barang = Barang::find($id);
