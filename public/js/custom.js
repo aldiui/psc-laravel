@@ -1,12 +1,18 @@
-const datatableCall = (targetId, url, columns) => {
+const datatableCall = (targetId, url, columns, addData = null) => {
+    data = {
+        mode: "datatable",
+    };
+
+    if (addData) {
+        data = Object.assign(data, addData);
+    }
+
     $(`#${targetId}`).DataTable({
         serverSide: true,
         ajax: {
             url: url,
             type: "GET",
-            data: {
-                mode: "datatable",
-            },
+            data: data,
         },
         columns: columns,
         lengthMenu: [
