@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_selesai')->nullable();
             $table->text('alasan');
             $table->string('file')->nullable();
             $table->enum('tipe', ['Izin','Sakit','Cuti']);
