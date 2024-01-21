@@ -1,15 +1,4 @@
-const datatableCall = (targetId, url, columns, addData = null) => {
-    let data = {
-        mode: "datatable",
-    };
-
-    if (addData) {
-        data = {
-            ...data,
-            ...addData,
-        };
-    }
-
+const datatableCall = (targetId, url, columns) => {
     $(`#${targetId}`).DataTable({
         processing: true,
         serverSide: true,
@@ -17,9 +6,9 @@ const datatableCall = (targetId, url, columns, addData = null) => {
             url: url,
             type: "GET",
             data: function (d) {
-                d.mode = data.mode;
-                d.bulan = data.bulan ?? null;
-                d.tahun = data.tahun ?? null;
+                d.mode = "datatable";
+                d.bulan = $("#bulan").val() ?? null;
+                d.tahun = $("#tahun").val() ?? null;
             },
         },
         columns: columns,

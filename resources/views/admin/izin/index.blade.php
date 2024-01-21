@@ -100,7 +100,7 @@
                 { data: 'tipe', name: 'tipe' },
                 { data: 'status_badge', name: 'status_badge' },
                 { data: 'aksi', name: 'aksi' },  
-            ],  { bulan: $('#bulan').val(), tahun: $('#tahun').val()});
+            ]);
 
             $("#bulan, #tahun").on("change", function () {
                 $("#izinTable").DataTable().ajax.reload();
