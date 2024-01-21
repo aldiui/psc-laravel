@@ -19,7 +19,6 @@
                 <div class="breadcrumb-item">@yield('title')</div>
             </div>
         </div>
-
         <div class="section-body">
             <div class="row">
                 <div class="col-12">

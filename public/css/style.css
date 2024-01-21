@@ -3662,3 +3662,7 @@ body.layout-3 .main-wrapper {
 .text-mini {
   font-size: 10px;
 }
+
+.dropify-message p {
+  font-size: 14px; /* Adjust the desired font size */
+}

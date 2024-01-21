@@ -19,7 +19,6 @@
                 <div class="breadcrumb-item">@yield('title')</div>
             </div>
         </div>
-
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -36,7 +35,7 @@
                                 <a href="{{ route('admin.tim.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
                             </div>
                             <div class="table-responsive">
-                            <table class="table" id="timTable" width="100%">
+                                <table class="table" id="timTable" width="100%">
                                     <thead>
                                         <tr>
                                             <th scope="col" width="5%">#</th>
