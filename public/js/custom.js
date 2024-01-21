@@ -45,7 +45,7 @@ const ajaxCall = (url, method, data, successCallback, errorCallback) => {
     });
 };
 
-const getModal = (targetId, url = null, fields = null) => {
+const getModal = (targetId, url = null, fields = nulll) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");

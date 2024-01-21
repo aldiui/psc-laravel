@@ -32,6 +32,10 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="bulan" class="form-label">Bulanr</label>
+                                <input type="month" class="form-control" id="bulan" name="bulan" value="{{ date('Y-m') }}">
+                            </div>
                             <div class="table-responsive">
                                 <table class="table" id="izinTable">
                                     <thead>
@@ -78,7 +82,10 @@
                 { data: 'alasan', name: 'alasan' },
                 { data: 'status_badge', name: 'status_badge' },
                 { data: 'aksi', name: 'aksi' },
-            ]);
+            ],
+            {bulan    : $('#bulan').val()},
+            );
+            $("#bulan").on("change", function () {         $("#izinTable").DataTable().ajax.reload();     });
 
             $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);

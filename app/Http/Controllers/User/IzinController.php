@@ -20,15 +20,16 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
+            $bulan = explode('-',$request->input("bulan"));
             
-            $izins = Izin::with('user')->where('user_id', Auth::user()->id)->latest()->get();
+            $izins = Izin::where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan[1])->whereYear('tanggal_mulai', $bulan[0])->latest()->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                     
-                        return $editButton . $deleteButton;
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success px-2 py-1'><i class='far fa-check-circle mr-1'></i> Disetujui</span>" ;
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null ) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;

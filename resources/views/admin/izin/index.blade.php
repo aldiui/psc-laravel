@@ -1,0 +1,110 @@
+@extends('layouts.admin')
+
+@section('title', 'Izin')
+
+@push('style')
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/dropify/css/dropify.css') }}">
+@endpush
+
+@section('main')
+<div class="main-content">
+    <section class="section">
+    <div class="section-header">
+            <h1>@yield('title')</h1>
+            <div class="section-header-breadcrumb">
+                <div class="breadcrumb-item active"><a href="/">Home</a></div>
+                <div class="breadcrumb-item">@yield('title')</div>
+            </div>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="text-dark">Data @yield('title')</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="bulan" class="form-label">Bulanr</label>
+                            <input type="month" class="form-control" id="bulan" name="bulan" value="{{ date('Y-m') }}">
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table" id="izinTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="5%">#</th>
+                                            <th scope="col">Foto</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Tanggal</th>
+                                            <th scope="col">Tipe</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col" width="20%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@include('admin.izin.confirm')
+@endsection
+
+@push('scripts')
+    <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('library/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('library/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('library/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('library/dropify/js/dropify.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.dropify').dropify();
+
+            datatableCall('izinTable', '{{ route('admin.izin.index') }}', [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'img', name: 'img' },
+                { data: 'nama', name: 'nama' },
+                { data: 'tanggal', name: 'tanggal' },
+                { data: 'tipe', name: 'tipe' },
+                { data: 'status_badge', name: 'status_badge' },
+                { data: 'aksi', name: 'aksi' },
+                
+            ],  
+            {bulan    : $('#bulan').val()},
+            );
+            $("#bulan").on("change", function () {         $("#izinTable").DataTable().ajax.reload();     });
+
+            $("#confirmData").submit(function (e) {
+                setButtonLoadingState("#confirmData .btn.btn-success", true);
+                e.preventDefault();
+                const kode = $("#confirmData #id").val();
+                const url = `/admin/izin/${kode}`;
+                const data = new FormData(this);
+
+                const successCallback = function (response) {
+                    setButtonLoadingState("#confirmData .btn.btn-success", false);
+                    handleSuccess(response, "izinTable", "confirmModal");
+                };
+
+                const errorCallback = function (error) {
+                    setButtonLoadingState("#confirmData .btn.btn-success", false);
+                    handleValidationErrors(error, "confirmData", ["tanggal_mulai", "tanggal_selesai", "tipe", "alasan", "file"]);
+                };
+
+                ajaxCall(url, "POST", data, successCallback, errorCallback);
+            });
+        });
+    </script>
+@endpush
