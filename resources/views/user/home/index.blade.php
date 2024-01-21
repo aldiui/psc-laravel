@@ -24,8 +24,8 @@
                     <div class="card bg-success mr-1">
                         <div class="card-body text-center">
                             <div class="mb-2">Presensi Masuk</div>
-                            <div class="mb-2">{{ $presensi ? $presensi->clock_in : "Belum Ada" }}</div>
-                            <div class="">{{ $presensi ? ($presensi->alasan_in ? "Diluar Radius" : "Dalam Radius") : "Dalam Radius" }}</div>
+                            <div class="mb-2">{{ $presensi ? $presensi->clock_in : "00:00:00" }}</div>
+                            <div class="">{{ $presensi ? ($presensi->alasan_in ? "Diluar Radius" : "Dalam Radius") : "Belum Ada" }}</div>
                         </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                     <div class="card bg-danger ml-1">
                         <div class="card-body text-center">
                             <div class="mb-2">Presensi Keluar</div>
-                            <div class="mb-2">{{ $presensi ? ($presensi->clock_out ?? "Belum Ada"): "Belum Ada" }}</div>
-                            <div class="">{{ $presensi ? ($presensi->alasan_out ? "Diluar Radius" : "Dalam Radius") : "Dalam Radius" }}</div>
+                            <div class="mb-2">{{ $presensi ? ($presensi->clock_out ?? "00:00:00"): "00:00:00" }}</div>
+                            <div class="">{{ $presensi ? ($presensi->alasan_out ? "Diluar Radius" : "Dalam Radius") : "Belum Ada" }}</div>
                         </div>
                     </div>
                 </div>
