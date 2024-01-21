@@ -8,7 +8,7 @@
 @endpush
 
 @section('main')
-<div class="main-content">
+<div class="main-content mb-5 pb-5">
     <section class="section">
         <div class="section-header">
             <h1>@yield('title')</h1>
