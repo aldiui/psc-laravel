@@ -17,7 +17,7 @@
                 <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->nama ?? "NULL" }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="{{ route("admin.user")}}"
+                <a href="{{ route("admin.profil")}}"
                     class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profil
                 </a>

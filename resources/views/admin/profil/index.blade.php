@@ -106,7 +106,7 @@
             $("#updateData").submit(function (e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
-                const url = `{{ route('admin.user')}}`;
+                const url = `{{ route('admin.profil')}}`;
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
@@ -127,7 +127,7 @@
             $("#updatePassword").submit(function (e) {
                 setButtonLoadingState("#updatePassword .btn.btn-success", true);
                 e.preventDefault();
-                const url = `{{ route('admin.user.password')}}`;
+                const url = `{{ route('admin.profil.password')}}`;
                 const data = new FormData(this);
 
                 const successCallback = function (response) {

@@ -23,9 +23,9 @@
                 <a class="nav-link"
                     href="{{ url('stok') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>
-            <li class="{{ Request::is('user') ? 'active' : '' }}">
+            <li class="{{ Request::is('profil') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('user') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
+                    href="{{ url('profil') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
             </li>
         </ul>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">

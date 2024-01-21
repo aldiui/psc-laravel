@@ -50,9 +50,9 @@
                 <a class="nav-link"
                     href="{{ url('admin/pengaturan') }}"><i class="fas fa-gear"></i> <span>Pengaturan</span></a>
             </li>
-            <li class="{{ Request::is('admin/user') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/profil') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/user') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
+                    href="{{ url('admin/profil') }}"><i class="fas fa-user"></i> <span>Profil</span></a>
             </li>
         </ul>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
