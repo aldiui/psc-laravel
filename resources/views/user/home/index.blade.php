@@ -34,7 +34,7 @@
                         <div class="card-body text-center">
                             <div class="mb-2">Presensi Keluar</div>
                             <div class="mb-2">{{ $presensi ? ($presensi->clock_out ?? "00:00:00"): "00:00:00" }}</div>
-                            <div class="">{{ $presensi ? ($presensi->alasan_out ? "Diluar Radius" : "Dalam Radius") : "Belum Ada" }}</div>
+                            <div class="">{{ $presensi ? ($presensi->alasan_out ? "Diluar Radius" : "Belum Ada") : "Belum Ada" }}</div>
                         </div>
                     </div>
                 </div>
