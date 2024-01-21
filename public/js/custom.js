@@ -1,14 +1,26 @@
-const datatableCall = (targetId, url, columns) => {
-    data = {
+const datatableCall = (targetId, url, columns, addData = null) => {
+    let data = {
         mode: "datatable",
     };
 
+    if (addData) {
+        data = {
+            ...data,
+            ...addData,
+        };
+    }
+
     $(`#${targetId}`).DataTable({
+        processing: true,
         serverSide: true,
         ajax: {
             url: url,
             type: "GET",
-            data: data,
+            data: function (d) {
+                d.mode = data.mode;
+                d.bulan = data.bulan ?? null;
+                d.tahun = data.tahun ?? null;
+            },
         },
         columns: columns,
         lengthMenu: [

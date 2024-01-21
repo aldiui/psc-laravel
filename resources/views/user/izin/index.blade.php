@@ -11,16 +11,18 @@
 @endpush
 
 @section('main')
+@php
+    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+@endphp
 <div class="main-content">
     <section class="section">
-    <div class="section-header">
+        <div class="section-header">
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/">Home</a></div>
                 <div class="breadcrumb-item">@yield('title')</div>
             </div>
         </div>
-
         <div class="section-body">
             <div class="row">
                 <div class="col-12">
@@ -32,9 +34,27 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="bulan" class="form-label">Bulan</label>
-                                <input type="month" class="form-control" id="bulan" name="bulan" value="{{ date('Y-m') }}">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="bulan" class="form-label">Bulan</label>
+                                        <select name="bulan" id="bulan" class="form-control">
+                                            @foreach ($bulans as $key => $value)
+                                                <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tahun" class="form-label">Tahun</label>
+                                        <select name="tahun" id="tahun" class="form-control">
+                                            @for ($i = now()->year; $i >= now()->year - 4; $i--)
+                                                <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table" id="izinTable">
@@ -81,11 +101,12 @@
                 { data: 'tipe', name: 'tipe' },
                 { data: 'alasan', name: 'alasan' },
                 { data: 'status_badge', name: 'status_badge' },
-                { data: 'aksi', name: 'aksi' },
-            ],
-            {bulan    : $('#bulan').val()},
-            );
-            $("#bulan").on("change", function () {         $("#izinTable").DataTable().ajax.reload();     });
+                { data: 'aksi', name: 'aksi' },  
+            ],  { bulan: $('#bulan').val(), tahun: $('#tahun').val()});
+
+            $("#bulan, #tahun").on("change", function () {
+                $("#izinTable").DataTable().ajax.reload();
+            });
 
             $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);

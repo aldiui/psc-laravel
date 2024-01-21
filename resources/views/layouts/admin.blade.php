@@ -18,18 +18,17 @@
         referrerpolicy="no-referrer" />
 
     @stack('style')
-    @laravelPWA
-
+    
     <!-- Template CSS -->
     <link rel="stylesheet"
-        href="{{ asset('css/style.css') }}">
+    href="{{ asset('css/style.css') }}">
     <link rel="stylesheet"
-        href="{{ asset('css/components.css') }}">
-
+    href="{{ asset('css/components.css') }}">
+    
     <!-- FONTS GOOGGLE -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-</head>
+    
+    @laravelPWA
 </head>
 
 <body>

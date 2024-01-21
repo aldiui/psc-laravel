@@ -21,9 +21,10 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bulan = explode('-',$request->input("bulan"));
+            $bulan = $request->input("bulan");
+            $tahun = $request->input("tahun");
             
-            $izins = Izin::with('user')->whereMonth('tanggal_mulai', $bulan[1])->whereYear('tanggal_mulai', $bulan[0])->latest()->get();
+            $izins = Izin::with('user')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
