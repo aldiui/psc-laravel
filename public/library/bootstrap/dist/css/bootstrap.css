@@ -10312,4 +10312,8 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+.dropify-message p {
+  font-size: 14px; 
+}
 /*# sourceMappingURL=bootstrap.css.map */
