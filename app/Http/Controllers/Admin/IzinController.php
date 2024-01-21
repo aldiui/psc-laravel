@@ -60,7 +60,6 @@ class IzinController extends Controller
 
     public function show($id)
     {
-        
         $izin = Izin::find($id);
 
         if(!$izin){
@@ -72,7 +71,6 @@ class IzinController extends Controller
 
     public function update(Request $request, $id)
     {
-        
         $validator = Validator::make($request->all(), ['status' => 'required|in:1,2']);
 
         if ($validator->fails()) {

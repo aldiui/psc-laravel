@@ -1,11 +1,7 @@
-const datatableCall = (targetId, url, columns, addData = null) => {
+const datatableCall = (targetId, url, columns) => {
     data = {
         mode: "datatable",
     };
-
-    if (addData) {
-        data = Object.assign(data, addData);
-    }
 
     $(`#${targetId}`).DataTable({
         serverSide: true,
@@ -45,7 +41,7 @@ const ajaxCall = (url, method, data, successCallback, errorCallback) => {
     });
 };
 
-const getModal = (targetId, url = null, fields = nulll) => {
+const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");

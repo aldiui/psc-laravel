@@ -30,7 +30,7 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="bulan" class="form-label">Bulanr</label>
+                                <label for="bulan" class="form-label">Bulan</label>
                             <input type="month" class="form-control" id="bulan" name="bulan" value="{{ date('Y-m') }}">
                             </div>
                             <div class="table-responsive">

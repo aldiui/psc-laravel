@@ -84,7 +84,6 @@ class IzinController extends Controller
 
     public function show($id)
     {
-        
         $izin = Izin::find($id);
 
         if(!$izin){
