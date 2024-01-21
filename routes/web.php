@@ -35,6 +35,7 @@ Route::middleware(['auth', 'checkRole:user'])->group(function () {
     Route::match(['get', 'put'], 'user', [App\Http\Controllers\User\UserController::class, 'index'])->name('user');
     Route::put('user/password', [App\Http\Controllers\User\UserController::class, 'updatePassword'])->name('user.password');
     Route::match(['get', 'post'], 'presensi', [App\Http\Controllers\User\PresensiController::class, 'index'])->name('presensi');
+    Route::resource('izin', App\Http\Controllers\User\IzinController::class)->names('izin');
 });
 
 Route::get('/storage-link', function () {

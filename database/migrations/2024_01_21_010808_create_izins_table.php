@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('alasan');
             $table->string('file')->nullable();
             $table->enum('tipe', ['Izin','Sakit','Cuti']);
-            $table->boolean('status')->default(0);  
+            $table->string('status')->default('0');  
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
