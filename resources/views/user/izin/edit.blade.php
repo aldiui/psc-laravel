@@ -23,7 +23,7 @@
                         <small class="invalid-feedback" id="errortanggal_malai"></small>
                     </div>
                     <div class="form-group">
-                        <label for="tanggal_selesai" class="form-label">Tanggal Selesai <span class="text-danger">*</span></label>
+                        <label for="tanggal_selesai" class="form-label">Tanggal Selesai </label>
                         <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
                         <small class="invalid-feedback" id="errortanggal_selesai"></small>
                     </div>

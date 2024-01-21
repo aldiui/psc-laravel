@@ -20,7 +20,8 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $izins = Izin::with('user')->where('user_id', Auth::user()->id)->get();
+            
+            $izins = Izin::with('user')->where('user_id', Auth::user()->id)->latest()->get();
             if($request->input("mode") == "datatable"){
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
