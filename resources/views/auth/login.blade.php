@@ -54,7 +54,8 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $("#login").submit(function (e) {

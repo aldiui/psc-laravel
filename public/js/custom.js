@@ -242,7 +242,3 @@ const updateJam = () => {
 const setUpJam = (jam) => {
     return jam < 10 ? "0" + jam : jam;
 };
-
-const cleanInput = (selector) => {
-    $(selector).val("");
-};
