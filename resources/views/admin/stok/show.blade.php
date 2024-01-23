@@ -16,65 +16,65 @@
     $statusClass = ($stok->status == '0') ? 'badge-warning' : (($stok->status == '1') ? 'badge-success' : 'badge-danger');
     $statusText = ($stok->status == '0') ? 'Menunggu' : (($stok->status == '1') ? 'Disetujui' : 'Ditolak');
 @endphp
-<div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>@yield('title')</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
-                <div class="breadcrumb-item">Detail @yield('title')</div>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>@yield('title')</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
+                    <div class="breadcrumb-item">Detail @yield('title')</div>
+                </div>
             </div>
-        </div>
 
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-dark">Data Detail  @yield('title')</h4>
-                            <div class="ml-auto">
-                                <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
-                                <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-4">
-                                <div class="row">
-                                    <div class="col-5 col-lg-2 mb-2">Tanggal</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ $stok->tanggal }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Nama</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Jenis</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Status</div>
-                                    <div class="col-5 col-lg-10 mb-2">
-                                        : <span class='badge {{$statusClass}}'>{!! $statusIcon . $statusText !!}</span>
-                                    </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-dark">Data Detail  @yield('title')</h4>
+                                <div class="ml-auto">
+                                    <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
+                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table" id="detailStokTable" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="5%">#</th>
-                                            <th scope="col">Nama Barang</th>
-                                            <th scope="col">Qty</th>
-                                            <th scope="col">Deskripsi</th>
-                                            <th scope="col" width="20%">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>                                
+                            <div class="card-body">
+                                <div class="mb-4">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-2 mb-2">Tanggal</div>
+                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->tanggal }}</div>
+                                        <div class="col-5 col-lg-2 mb-2">Nama</div>
+                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
+                                        <div class="col-5 col-lg-2 mb-2">Jenis</div>
+                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
+                                        <div class="col-5 col-lg-2 mb-2">Status</div>
+                                        <div class="col-5 col-lg-10 mb-2">
+                                            : <span class='badge {{$statusClass}}'>{!! $statusIcon . $statusText !!}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="detailStokTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="5%">#</th>
+                                                <th scope="col">Nama Barang</th>
+                                                <th scope="col">Qty</th>
+                                                <th scope="col">Deskripsi</th>
+                                                <th scope="col" width="20%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>                                
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
 @include('admin.detail-stok.create')
 @include('admin.detail-stok.edit')

@@ -11,7 +11,6 @@ class BarangExport implements FromView
     public function view(): View
     {
         $barangs = Barang::with('unit', 'kategori')->get();
-
         return view('admin.barang.excel', compact('barangs'));
     }
 }

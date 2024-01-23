@@ -21,6 +21,5 @@ class DashboardController extends Controller
         ];
 
         return view('admin.dashboard.index', $data);
-        
     }
 }

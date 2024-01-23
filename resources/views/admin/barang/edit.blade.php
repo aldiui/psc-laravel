@@ -13,8 +13,7 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="image" class="form-label">Foto </label>
-                        <input type="file" name="image" id="image"
-                        class="dropify" data-height="200">
+                        <input type="file" name="image" id="image" class="dropify" data-height="200">
                         <small class="invalid-feedback" id="errorimage"></small>
                     </div>
                     <div class="form-group">

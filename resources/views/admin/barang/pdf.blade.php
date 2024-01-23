@@ -3,6 +3,9 @@
 @section('title', 'Barang')
 
 @push('style')
+@endpush
+
+@section('main')
     <div>
         <table width="100%" border="1" cellpadding="2.5" cellspacing="0">
             <thead>
@@ -29,9 +32,6 @@
             </tbody>
         </table>
     </div>
-@endpush
-
-@section('main')
 @endsection
 
 @push('scripts')

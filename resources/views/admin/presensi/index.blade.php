@@ -10,54 +10,54 @@
 @endpush
 
 @section('main')
-<div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>@yield('title')</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/">Home</a></div>
-                <div class="breadcrumb-item">@yield('title')</div>
+    <div class="main-content">
+        <section class="section">
+            <div class="section-header">
+                <h1>@yield('title')</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="/">Home</a></div>
+                    <div class="breadcrumb-item">@yield('title')</div>
+                </div>
             </div>
-        </div>
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-dark">Data @yield('title')</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="tanggal_filter" class="form-label">Tanggal</label>
-                                        <input type="date" name="tanggal_filter" id="tanggal_filter" value="{{ date('Y-m-d') }}" class="form-control">
-                                    </div>    
-                                </div>
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="text-dark">Data @yield('title')</h4>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table" id="presensiTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="5%">#</th>
-                                            <th scope="col" width="10%">Foto</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Presensi Masuk</th>
-                                            <th scope="col">Presensi Keluar</th>
-                                            <th scope="col">Catatan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>                                
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="tanggal_filter" class="form-label">Tanggal</label>
+                                            <input type="date" name="tanggal_filter" id="tanggal_filter" value="{{ date('Y-m-d') }}" class="form-control">
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table" id="presensiTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="5%">#</th>
+                                                <th scope="col" width="10%">Foto</th>
+                                                <th scope="col">Nama</th>
+                                                <th scope="col">Presensi Masuk</th>
+                                                <th scope="col">Presensi Keluar</th>
+                                                <th scope="col">Catatan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>                                
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection
 
 @push('scripts')
