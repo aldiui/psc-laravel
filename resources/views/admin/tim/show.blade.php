@@ -127,7 +127,7 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-        });
+        }); 
 
         function getSelectEdit(){
             select2ToJson(".editUser", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan", "#editModal");
