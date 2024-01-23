@@ -46,6 +46,7 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
+
     if (url) {
         const successCallback = function (response) {
             fields.forEach((field) => {

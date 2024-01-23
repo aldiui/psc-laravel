@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
 
         $userData = [
             [
-                'nama' => 'Aldi Jaya Mulyana',
+                'nama' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('11221122'),
                 'role' => 'admin',
@@ -54,30 +54,149 @@ class DatabaseSeeder extends Seeder
                 "no_hp" => '08123456789'
             ],
             [
-                'nama' => 'Aldi Jaya Mulyana',
-                'email' => 'user@gmail.com',
-                'password' => bcrypt('11221122'),
+                'nama' => 'Revi Rosidah A.Md. Kom',
+                'email' => 'revi@gmail.com',
+                'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'user',
+                'jabatan' => 'karyawan',
                 "no_hp" => '08123456789'
             ],
             [
-                'nama' => 'Dimas Taqbir Ramdani',
-                'email' => 'adminkeren@gmail.com',
-                'password' => bcrypt('adminkeren'),
-                'role' => 'admin',
-                'jabatan' => 'admin',
+                'nama' => 'Endah Sulistiawati, A.Md. Keb',
+                'email' => 'endah@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
                 "no_hp" => '08123456789'
             ],
             [
-                'nama' => 'Dimas Taqbir Ramdani',
-                'email' => 'userkeren@gmail.com',
-                'password' => bcrypt('userkeren'),
+                'nama' => 'Reni Nurhayati, A.Md. Keb',
+                'email' => 'reni@gmail.com',
+                'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'user',
+                'jabatan' => 'karyawan',
                 "no_hp" => '08123456789'
             ],
-            
+            [
+                'nama' => 'Rizka Sri Wahyu U, A.Md. Keb',
+                'email' => 'rizka@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Derry',
+                'email' => 'derry@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Gian',
+                'email' => 'gian@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Rudi',
+                'email' => 'rudi@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Piping',
+                'email' => 'piping@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Wandi',
+                'email' => 'wandi@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Mega',
+                'email' => 'mega@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Anggi',
+                'email' => 'anggi@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Veta',
+                'email' => 'veta@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Putri',
+                'email' => 'Putri@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Rivai',
+                'email' => 'rivai@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Asep',
+                'email' => 'asep@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Sepi',
+                'email' => 'sepi@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Ricki',
+                'email' => 'ricki@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
+            [
+                'nama' => 'Ujang',
+                'email' => 'ujang@gmail.com',
+                'password' => bcrypt('user1234'),
+                'role' => 'user',
+                'jabatan' => 'karyawan',
+                "no_hp" => '08123456789'
+            ],
         ];
 
         DB::table('users')->insert($userData);
@@ -783,10 +902,10 @@ class DatabaseSeeder extends Seeder
         DB::table('barangs')->insert($barangData);
 
         $timData = [
-            ['nama' => 'Unit 1', 'deskripsi' => '-'],
-            ['nama' => 'Unit 2', 'deskripsi' => '-'],
-            ['nama' => 'Unit 3', 'deskripsi' => '-'],
-            ['nama' => 'Unit 4', 'deskripsi' => '-'],
+            ['nama' => 'Tim A', 'deskripsi' => '-'],
+            ['nama' => 'Tim B', 'deskripsi' => '-'],
+            ['nama' => 'Tim C', 'deskripsi' => '-'],
+            ['nama' => 'Tim D', 'deskripsi' => '-'],
         ];
 
         DB::table('tims')->insert($timData);
@@ -799,5 +918,24 @@ class DatabaseSeeder extends Seeder
         ];
 
         DB::table('pengaturans')->insert($pengaturanData);
+
+        $detailTimData =[
+            ['tim_id' => '1','user_id' => '6','posisi' => 'Ketua'],
+            ['tim_id' => '1','user_id' => '10','posisi' => 'Anggota'],
+            ['tim_id' => '1','user_id' => '14','posisi' => 'Anggota'],
+            ['tim_id' => '1','user_id' => '16','posisi' => 'Anggota'],
+            ['tim_id' => '2','user_id' => '7','posisi' => 'Ketua'],
+            ['tim_id' => '2','user_id' => '11','posisi' => 'Anggota'],
+            ['tim_id' => '2','user_id' => '17','posisi' => 'Anggota'],
+            ['tim_id' => '3','user_id' => '8','posisi' => 'Ketua'],
+            ['tim_id' => '3','user_id' => '12','posisi' => 'Anggota'],
+            ['tim_id' => '3','user_id' => '18','posisi' => 'Anggota'],
+            ['tim_id' => '4','user_id' => '9','posisi' => 'Ketua'],
+            ['tim_id' => '4','user_id' => '13','posisi' => 'Anggota'],
+            ['tim_id' => '4','user_id' => '15','posisi' => 'Anggota'],
+            ['tim_id' => '4','user_id' => '19','posisi' => 'Anggota']
+        ];
+
+        DB::table('detail_tims')->insert($detailTimData);
     }
 }
