@@ -56,7 +56,7 @@ class ProfilController extends Controller
             return $this->successResponse($user, 'Data profil diupdate.');
         }
 
-        return view('user.user.index');
+        return view('user.profil.index');
     }
 
     public function updatePassword(Request $request)

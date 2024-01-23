@@ -37,8 +37,8 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="bulan" class="form-label">Bulan</label>
-                                        <select name="bulan" id="bulan" class="form-control">
+                                        <label for="bulan_filter" class="form-label">Bulan</label>
+                                        <select name="bulan_filter" id="bulan_filter" class="form-control">
                                             @foreach ($bulans as $key => $value)
                                                 <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
                                             @endforeach
@@ -47,8 +47,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="tahun" class="form-label">Tahun</label>
-                                        <select name="tahun" id="tahun" class="form-control">
+                                        <label for="tahun_filter" class="form-label">Tahun</label>
+                                        <select name="tahun_filter" id="tahun_filter" class="form-control">
                                             @for ($i = now()->year; $i >= now()->year - 4; $i--)
                                                 <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
                                             @endfor
@@ -104,7 +104,7 @@
                 { data: 'aksi', name: 'aksi' },  
             ]);
 
-            $("#bulan, #tahun").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function () {
                 $("#izinTable").DataTable().ajax.reload();
             });
 

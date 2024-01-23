@@ -11,31 +11,19 @@
                 <div class="modal-body">
                     <input type="hidden" id="id">
                     @method('PUT')
-                    <div class="form-group">
-                        <label for="file" class="form-label">File </label>
-                        <input type="file" name="file" id="file"
-                        class="dropify" data-height="200">
-                        <small class="invalid-feedback" id="errorfile"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggal_mulai" class="form-label">Tanggal Mulai </label>
-                        <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" readonly>
-                        <small class="invalid-feedback" id="errortanggal_malai"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="tanggal_selesai" class="form-label">Tanggal Selesai </label>
-                        <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" readonly>
-                        <small class="invalid-feedback" id="errortanggal_selesai"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="tipe" class="form-label">Tipe </label>
-                        <input type="text" class="form-control" id="tipe" name="tipe" readonly>
-                        <small class="invalid-feedback" id="errortipe"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="alasan" class="form-label">Alasan </label>
-                        <textarea class="form-control" id="alasan" name="alasan" readonly></textarea>
-                        <small class="invalid-feedback" id="erroralasan"></small>
+                    <div class="row">
+                        <div class="col-5 mb-2">Tanggal Mulai</div>
+                        <div class="col-7 mb-2">: <span id="tanggal_mulai"></span></div>
+                        <div class="col-5 mb-2">Tanggal Selesai</div>
+                        <div class="col-7 mb-2">: <span id="tanggal_selesai"></span></div>
+                        <div class="col-5 mb-2">Tipe</div>
+                        <div class="col-7 mb-2">: <span id="tipe"></span></div>
+                        <div class="col-5 mb-2">Alasan</div>
+                        <div class="col-7 mb-2">: <span id="alasan"></span></div>
+                        <div class="col-12 mb-2">File</div>
+                        <div class="col-12 mb-2">
+                            <img id="file"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="status" class="form-label">Status  <span class="text-danger">*</span></label>

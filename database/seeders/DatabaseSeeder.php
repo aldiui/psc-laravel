@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'revi@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Administrasi',
                 "no_hp" => '08123456789'
             ],
             [
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'endah@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789'
             ],
             [
@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'reni@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789'
             ],
             [
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'rizka@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789'
             ],
             [
@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'derry@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'gian@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'rudi@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'piping@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -122,7 +122,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'wandi@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'mega@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -138,7 +138,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'anggi@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -146,7 +146,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'veta@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -154,7 +154,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'Putri@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -162,7 +162,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'rivai@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'asep@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -178,7 +178,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'sepi@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ricki@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
             [
@@ -194,7 +194,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ujang@gmail.com',
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
-                'jabatan' => 'karyawan',
+                'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789'
             ],
         ];

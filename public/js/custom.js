@@ -7,8 +7,9 @@ const datatableCall = (targetId, url, columns) => {
             type: "GET",
             data: function (d) {
                 d.mode = "datatable";
-                d.bulan = $("#bulan").val() ?? null;
-                d.tahun = $("#tahun").val() ?? null;
+                d.bulan = $("#bulan_filter").val() ?? null;
+                d.tahun = $("#tahun_filter").val() ?? null;
+                d.tanggal = $("#tanggal_filter").val() ?? null;
             },
         },
         columns: columns,
@@ -52,6 +53,38 @@ const getModal = (targetId, url = null, fields = null) => {
             fields.forEach((field) => {
                 if (response.data[field]) {
                     $(`#${targetId} #${field}`).val(response.data[field]);
+                }
+            });
+        };
+
+        const errorCallback = function (error) {
+            console.log(error);
+        };
+        ajaxCall(url, "GET", null, successCallback, errorCallback);
+    }
+    $(`#${targetId} .form-control`).val("");
+};
+
+const getDetailIzin = (targetId, url = null, fields = null) => {
+    $(`#${targetId}`).modal("show");
+    $(`#${targetId} .form-control`).removeClass("is-invalid");
+    $(`#${targetId} .invalid-feedback`).html("");
+
+    if (url) {
+        const successCallback = function (response) {
+            fields.forEach((field) => {
+                if (response.data[field]) {
+                    if (field == "file") {
+                        $(`#${field}`).attr(
+                            "src",
+                            "/storage/img/izin" + response.data[field]
+                        );
+                    }
+
+                    if (field == "id") {
+                        $(`#${targetId} #${field}`).val(response.data[field]);
+                    }
+                    $(`#${field}`).html(response.data[field]);
                 }
             });
         };
