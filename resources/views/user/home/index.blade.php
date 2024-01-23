@@ -100,7 +100,7 @@
                 { data: 'catatan', name: 'catatan' },  
             ]);
 
-            $("#tanggal_filter").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function () {
                 $("#presensiTable").DataTable().ajax.reload();
             });
         });
