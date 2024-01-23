@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <h4 class="text-dark">Data Detail  @yield('title')</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -87,8 +87,9 @@
                 { data: 'aksi', name: 'aksi' },
             ]);
 
-            select2ToJson("#user_id", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan");
-            select2ToJson(".editUser", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan");
+            $("#createBtn").click(function () {
+                select2ToJson("#user_id", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan", "#createModal");
+            });
 
             $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
@@ -129,5 +130,9 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        function getSelectEdit(){
+            select2ToJson(".editUser", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan", "#editModal");
+        }
     </script>
 @endpush

@@ -28,7 +28,7 @@
                         <div class="card-header">
                             <h4 class="text-dark">Data @yield('title')</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -62,7 +62,7 @@
 @include('admin.barang.create')
 @include('admin.barang.edit')
 @endsection
- 
+
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
@@ -84,12 +84,12 @@
                 { data: 'kategori', name: 'kategori' },
                 { data: 'aksi', name: 'aksi' },
             ]);
-
-            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "Pilih Unit");
-            select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "Pilih Kategori");
-
-            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "Pilih Unit");
-            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "Pilih Kategori");
+            
+            
+            $("#createBtn").click(function () {
+                select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "Pilih Unit", "#createModal");
+                select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "Pilih Kategori", "#createModal");
+            });
 
             $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
@@ -132,5 +132,10 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        function getSelectEdit(){
+            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "Pilih Unit", "#editModal");
+            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "Pilih Kategori", "#editModal");
+        }
     </script>
 @endpush

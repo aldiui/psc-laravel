@@ -52,7 +52,9 @@ const getModal = (targetId, url = null, fields = null) => {
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {
-                    $(`#${targetId} #${field}`).val(response.data[field]);
+                    $(`#${targetId} #${field}`)
+                        .val(response.data[field])
+                        .trigger("change");
                 }
             });
         };
@@ -199,15 +201,11 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
 
-const select2ToJson = (selector, url, title) => {
-    $(`${selector}`).empty();
-    const successCallback = function (response) {
-        selectElem = $(selector).empty();
+const select2ToJson = (selector, url, title, modal = null) => {
+    const selectElem = $(selector).empty();
 
-        const defaultOption = $("<option></option>");
-        defaultOption.attr("value", "");
-        defaultOption.text(`-- ${title} --`);
-        selectElem.append(defaultOption);
+    const successCallback = function (response) {
+        selectElem.empty();
 
         const responseList = response.data;
         responseList.forEach(function (row) {
@@ -216,11 +214,16 @@ const select2ToJson = (selector, url, title) => {
             option.text(row.nama);
             selectElem.append(option);
         });
+
+        selectElem.select2({
+            dropdownParent: $(modal),
+        });
     };
 
     const errorCallback = function (error) {
         console.log(error);
     };
+
     ajaxCall(url, "GET", null, successCallback, errorCallback);
 };
 

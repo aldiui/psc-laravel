@@ -97,7 +97,7 @@ class TimController extends Controller
                 $detailTims= DetailTim::with('user')->where('tim_id', $id)->get();
                 return DataTables::of($detailTims)
                     ->addColumn('aksi', function ($detailTim) {
-                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/detail-tim/' . $detailTim->id . '`, [`id`, `user_id`, `posisi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-tim/' . $detailTim->id . '`, [`id`, `user_id`, `posisi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/detail-tim/' . $detailTim->id . '`, `detailTimTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                     
                         return $editButton . $deleteButton;
