@@ -22,7 +22,7 @@
                         <div class="col-7 mb-2">: <span id="alasan"></span></div>
                         <div class="col-12 mb-2">File</div>
                         <div class="col-12 mb-2">
-                            <img id="file"/>
+                            <img id="file" class="img-fluid"/>
                         </div>
                     </div>
                     <div class="form-group">

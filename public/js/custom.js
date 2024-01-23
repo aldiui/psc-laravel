@@ -79,7 +79,7 @@ const getDetailIzin = (targetId, url = null, fields = null) => {
                     if (field == "file") {
                         $(`#${field}`).attr(
                             "src",
-                            "/storage/img/izin" + response.data[field]
+                            "/storage/img/izin/" + response.data[field]
                         );
                     }
 
