@@ -30,7 +30,7 @@ class IzinController extends Controller
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                     
-                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success px-2 py-1'><i class='far fa-check-circle mr-1'></i> Disetujui</span>" ;
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>" ;
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null ) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;
@@ -39,7 +39,7 @@ class IzinController extends Controller
                         $statusIcon = ($izin->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($izin->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
                         $statusClass = ($izin->status == '0') ? 'badge-warning' : (($izin->status == '1') ? 'badge-success' : 'badge-danger');
                         $statusText = ($izin->status == '0') ? 'Menunggu' : (($izin->status == '1') ? 'Disetujui' : 'Ditolak');
-                    return "<span class='badge $statusClass px-2 py-1'>$statusIcon $statusText</span>";
+                    return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
                     })
                     ->addIndexColumn()
                     ->rawColumns(['aksi','status_badge', 'tanggal'])

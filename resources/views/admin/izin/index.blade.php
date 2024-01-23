@@ -58,7 +58,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" width="5%">#</th>
-                                            <th scope="col">Foto</th>
+                                            <th scope="col" width="10%">Foto</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Tanggal</th>
                                             <th scope="col">Tipe</th>

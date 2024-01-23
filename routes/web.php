@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
     Route::resource('tim', App\Http\Controllers\Admin\TimController::class)->names('admin.tim');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
+    Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
     Route::resource('detail-tim', App\Http\Controllers\Admin\DetailTimController::class)->names('admin.detail-tim');
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
 });
