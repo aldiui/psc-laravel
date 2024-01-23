@@ -28,7 +28,9 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('tim', App\Http\Controllers\Admin\TimController::class)->names('admin.tim');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
     Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
+    Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
     Route::resource('detail-tim', App\Http\Controllers\Admin\DetailTimController::class)->names('admin.detail-tim');
+    Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
 });
 

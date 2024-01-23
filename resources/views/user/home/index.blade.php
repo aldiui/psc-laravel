@@ -70,6 +70,7 @@
                         <table class="table" id="presensiTable">
                             <thead>
                                 <tr>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Presensi Masuk</th>
                                     <th scope="col">Presensi Keluar</th>
                                     <th scope="col">Catatan</th>
@@ -95,6 +96,7 @@
     <script>
         $(document).ready(function() {
             datatableCall('presensiTable', '{{ route('presensi') }}', [
+                { data: 'tanggal', name: 'tanggal' },
                 { data: 'presensi_masuk', name: 'presensi_masuk' },
                 { data: 'presensi_keluar', name: 'presensi_keluar' },
                 { data: 'catatan', name: 'catatan' },  

@@ -17,7 +17,7 @@
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
                 <div class="breadcrumb-item">Detail @yield('title')</div>
             </div>
         </div>
@@ -29,6 +29,7 @@
                         <div class="card-header">
                             <h4 class="text-dark">Data Detail  @yield('title')</h4>
                             <div class="ml-auto">
+                                <a href="{{ route('admin.tim.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>
                                 <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
                             </div>
                         </div>

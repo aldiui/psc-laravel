@@ -24,9 +24,9 @@
                 <a class="nav-link"
                     href="{{ url('admin/barang') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
             </li>
-            <li class="{{ Request::is('admin/coba') ? 'active' : '' }}">
+            <li class="{{ Request::is('admin/stok/*') || Request::is('admin/stok') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('admin/coba') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
+                    href="{{ url('admin/stok') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>
             <li class="menu-header">Manajemen Karyawan</li>
             <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">

@@ -134,4 +134,5 @@ class KategoriController extends Controller
         
         return $this->successResponse(null, 'Data kategori dihapus.');
     }
+
 }
