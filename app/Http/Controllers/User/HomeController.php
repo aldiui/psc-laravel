@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Presensi;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Presensi;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller

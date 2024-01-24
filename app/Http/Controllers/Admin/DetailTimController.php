@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\DetailTim;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class DetailTimController extends Controller
@@ -42,10 +42,10 @@ class DetailTimController extends Controller
     {
         $detailTim = DetailTim::find($id);
 
-        if(!$detailTim){
-            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);    
+        if (!$detailTim) {
+            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);
         }
-        
+
         return $this->successResponse($detailTim, 'Data Detail Tim ditemukan.');
     }
 
@@ -58,17 +58,17 @@ class DetailTimController extends Controller
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
-        }        
+        }
 
         $detailTim = DetailTim::find($id);
-        
-        if(!$detailTim){
-            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);    
+
+        if (!$detailTim) {
+            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);
         }
 
         $detailTim->update([
             'user_id' => $request->input('user_id'),
-            'posisi' => $request->input('posisi')
+            'posisi' => $request->input('posisi'),
         ]);
 
         return $this->successResponse($detailTim, 'Data Detail Tim diupdate.');
@@ -78,12 +78,12 @@ class DetailTimController extends Controller
     {
         $detailTim = DetailTim::find($id);
 
-        if(!$detailTim){
-            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);    
+        if (!$detailTim) {
+            return $this->errorResponse(null, 'Data Detail Tim tidak ditemukan.', 404);
         }
 
         $detailTim->delete();
-        
+
         return $this->successResponse(null, 'Data Detail Tim dihapus.');
     }
 }

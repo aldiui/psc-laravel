@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Unit;
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Models\Kategori;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Unit;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -17,7 +16,7 @@ class DashboardController extends Controller
             'totalUnit' => Unit::count(),
             'totalKategori' => Kategori::count(),
             'totalBarang' => Barang::count(),
-            'totalKaryawan' => User::count()
+            'totalKaryawan' => User::count(),
         ];
 
         return view('admin.dashboard.index', $data);

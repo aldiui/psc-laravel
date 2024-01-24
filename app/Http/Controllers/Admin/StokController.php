@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use App\Models\Stok;
-use App\Models\Kategori;
-use App\Models\DetailStok;
-use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DetailStok;
+use App\Models\Stok;
+use App\Traits\ApiResponder;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,9 +20,9 @@ class StokController extends Controller
         if ($request->ajax()) {
             $bulan = $request->input("bulan");
             $tahun = $request->input("tahun");
-            
+
             $stoks = Stok::with('user')->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($stoks)
                     ->addColumn('nama', function ($presensi) {
                         return $presensi->user->nama;
@@ -36,17 +35,14 @@ class StokController extends Controller
                         return $detailButton . $editButton . $deleteButton;
                     })
                     ->addColumn('status_badge', function ($stok) {
-                        $statusIcon = ($stok->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($stok->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
-                        $statusClass = ($stok->status == '0') ? 'badge-warning' : (($stok->status == '1') ? 'badge-success' : 'badge-danger');
-                        $statusText = ($stok->status == '0') ? 'Menunggu' : (($stok->status == '1') ? 'Disetujui' : 'Ditolak');
-                        return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
+                        return statusBadge($stok->status);
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi','status_badge', 'nama'])
+                    ->rawColumns(['aksi', 'status_badge', 'nama'])
                     ->make(true);
             }
 
-            return $this->successResponse($stoks, 'Data stok ditemukan.'); 
+            return $this->successResponse($stoks, 'Data stok ditemukan.');
         }
         return view('admin.stok.index');
     }
@@ -76,13 +72,13 @@ class StokController extends Controller
         $stok = Stok::with('user')->find($id);
 
         if ($request->ajax()) {
-            if($request->input("mode") == "datatable"){
-                $detailStoks= DetailStok::with('barang')->where('stok_id', $id)->get();
+            if ($request->input("mode") == "datatable") {
+                $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('nama', function ($detailStok) {
@@ -93,8 +89,8 @@ class StokController extends Controller
                     ->make(true);
             }
 
-            if(!$stok){
-                return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);    
+            if (!$stok) {
+                return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
             }
 
             return $this->successResponse($stok, 'Data stok ditemukan.');
@@ -115,7 +111,7 @@ class StokController extends Controller
         }
 
         $stok = Stok::find($id);
-        
+
         if (!$stok) {
             return redirect(route('admin.stok.index'));
         }
@@ -132,12 +128,12 @@ class StokController extends Controller
     {
         $stok = Stok::find($id);
 
-        if(!$stok){
-            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);    
+        if (!$stok) {
+            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
         }
 
         $stok->delete();
-        
+
         return $this->successResponse(null, 'Data stok dihapus.');
     }
 

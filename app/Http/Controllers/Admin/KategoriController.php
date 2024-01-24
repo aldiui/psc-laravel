@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use App\Models\Kategori;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
 use App\Exports\KategoriExport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Kategori;
+use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KategoriController extends Controller
 {
     use ApiResponder;
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $kategoris = Kategori::all();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($kategoris)
                     ->addColumn('aksi', function ($kategori) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/kategori/' . $kategori->id . '`, `kategoriTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $editButton . $deleteButton;
                     })
                     ->addIndexColumn()
@@ -33,12 +33,11 @@ class KategoriController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($kategoris, 'Data kategori ditemukan.'); 
+            return $this->successResponse($kategoris, 'Data kategori ditemukan.');
         }
-    
+
         return view('admin.kategori.index');
     }
-    
 
     public function store(Request $request)
     {
@@ -61,13 +60,13 @@ class KategoriController extends Controller
 
     public function show($id)
     {
-        if($id == 'excel'){
+        if ($id == 'excel') {
             ob_end_clean();
             ob_start();
-            return Excel::download(new KategoriExport(), 'Kategori.xlsx');    
+            return Excel::download(new KategoriExport(), 'Kategori.xlsx');
         }
 
-        if($id == 'pdf'){
+        if ($id == 'pdf') {
             $kategoris = Kategori::all();
             $pdf = PDF::loadView('admin.kategori.pdf', compact('kategoris'));
 
@@ -80,20 +79,20 @@ class KategoriController extends Controller
 
             $pdf->setOptions($options);
             $pdf->setPaper('a4', 'landscape');
-    
+
             $namaFile = 'Kategori.pdf';
-    
+
             ob_end_clean();
             ob_start();
             return $pdf->download($namaFile);
         }
-        
+
         $kategori = Kategori::find($id);
 
-        if(!$kategori){
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);    
+        if (!$kategori) {
+            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
         }
-        
+
         return $this->successResponse($kategori, 'Data kategori ditemukan.');
     }
 
@@ -109,9 +108,9 @@ class KategoriController extends Controller
         }
 
         $kategori = Kategori::find($id);
-        
-        if(!$kategori){
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);    
+
+        if (!$kategori) {
+            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
         }
 
         $kategori->update([
@@ -126,12 +125,12 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
 
-        if(!$kategori){
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);    
+        if (!$kategori) {
+            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
         }
 
         $kategori->delete();
-        
+
         return $this->successResponse(null, 'Data kategori dihapus.');
     }
 

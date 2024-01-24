@@ -11,11 +11,6 @@
 @endpush
 
 @section('main')
-@php
-    $statusIcon = ($stok->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($stok->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
-    $statusClass = ($stok->status == '0') ? 'badge-warning' : (($stok->status == '1') ? 'badge-success' : 'badge-danger');
-    $statusText = ($stok->status == '0') ? 'Menunggu' : (($stok->status == '1') ? 'Disetujui' : 'Ditolak');
-@endphp
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -49,7 +44,7 @@
                                         <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
                                         <div class="col-5 col-lg-2 mb-2">Status</div>
                                         <div class="col-5 col-lg-10 mb-2">
-                                            : <span class='badge {{$statusClass}}'>{!! $statusIcon . $statusText !!}</span>
+                                            : {!! statusBadge($stok->status) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +70,6 @@
             </div>
         </section>
     </div>
-
 @include('admin.detail-stok.create')
 @include('admin.detail-stok.edit')
 @endsection

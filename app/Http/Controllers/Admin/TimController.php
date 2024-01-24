@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use App\Models\Tim;
-use App\Models\DetailTim;
 use App\Exports\TimExport;
-use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\DetailTim;
+use App\Models\Tim;
+use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TimController extends Controller
 {
     use ApiResponder;
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $tims = Tim::withCount('detailTims')->get();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($tims)
                     ->addColumn('aksi', function ($tim) {
                         $detailButton = '<a class="btn btn-sm btn-info mr-1" href="/admin/tim/' . $tim->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/tim/' . $tim->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/tim/' . $tim->id . '`, `timTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $detailButton . $editButton . $deleteButton;
                     })
                     ->addIndexColumn()
@@ -35,12 +35,11 @@ class TimController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($tims, 'Data tim ditemukan.'); 
+            return $this->successResponse($tims, 'Data tim ditemukan.');
         }
-    
+
         return view('admin.tim.index');
     }
-    
 
     public function store(Request $request)
     {
@@ -63,13 +62,13 @@ class TimController extends Controller
 
     public function show(Request $request, $id)
     {
-        if($id == 'excel'){
+        if ($id == 'excel') {
             ob_end_clean();
             ob_start();
-            return Excel::download(new TimExport(), 'Tim.xlsx');    
+            return Excel::download(new TimExport(), 'Tim.xlsx');
         }
 
-        if($id == 'pdf'){
+        if ($id == 'pdf') {
             $tims = Tim::withCount('detailTims')->get();
             $pdf = PDF::loadView('admin.tim.pdf', compact('tims'));
 
@@ -82,24 +81,24 @@ class TimController extends Controller
 
             $pdf->setOptions($options);
             $pdf->setPaper('a4', 'landscape');
-    
+
             $namaFile = 'Tim.pdf';
-    
+
             ob_end_clean();
             ob_start();
             return $pdf->download($namaFile);
         }
-        
+
         $tim = Tim::find($id);
 
         if ($request->ajax()) {
-            if($request->input("mode") == "datatable"){
-                $detailTims= DetailTim::with('user')->where('tim_id', $id)->get();
+            if ($request->input("mode") == "datatable") {
+                $detailTims = DetailTim::with('user')->where('tim_id', $id)->get();
                 return DataTables::of($detailTims)
                     ->addColumn('aksi', function ($detailTim) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-tim/' . $detailTim->id . '`, [`id`, `user_id`, `posisi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/detail-tim/' . $detailTim->id . '`, `detailTimTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('nama', function ($detailTim) {
@@ -113,9 +112,8 @@ class TimController extends Controller
                     ->make(true);
             }
 
-
-            if(!$tim){
-                return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);    
+            if (!$tim) {
+                return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);
             }
 
             return $this->successResponse($tim, 'Data tim ditemukan.');
@@ -136,9 +134,9 @@ class TimController extends Controller
         }
 
         $tim = Tim::find($id);
-        
-        if(!$tim){
-            return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);    
+
+        if (!$tim) {
+            return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);
         }
 
         $tim->update([
@@ -153,12 +151,12 @@ class TimController extends Controller
     {
         $tim = Tim::find($id);
 
-        if(!$tim){
-            return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);    
+        if (!$tim) {
+            return $this->errorResponse(null, 'Data tim tidak ditemukan.', 404);
         }
 
         $tim->delete();
-        
+
         return $this->successResponse(null, 'Data tim dihapus.');
     }
 }

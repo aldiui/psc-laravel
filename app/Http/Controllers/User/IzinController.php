@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
-use DataTables;
+use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\User;
 use App\Traits\ApiResponder;
+use DataTables;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -16,42 +15,38 @@ use Illuminate\Support\Facades\Validator;
 class IzinController extends Controller
 {
     use ApiResponder;
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $bulan = $request->input("bulan");
             $tahun = $request->input("tahun");
-            
+
             $izins = Izin::where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
-                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>" ;
+
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
                     })
                     ->addColumn('tanggal', function ($izin) {
-                        return ($izin->tanggal_selesai == null ) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;
+                        return ($izin->tanggal_selesai == null) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;
                     })
                     ->addColumn('status_badge', function ($izin) {
-                        $statusIcon = ($izin->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($izin->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
-                        $statusClass = ($izin->status == '0') ? 'badge-warning' : (($izin->status == '1') ? 'badge-success' : 'badge-danger');
-                        $statusText = ($izin->status == '0') ? 'Menunggu' : (($izin->status == '1') ? 'Disetujui' : 'Ditolak');
-                    return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
+                        return statusBadge($izin->status);
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi','status_badge', 'tanggal'])
+                    ->rawColumns(['aksi', 'status_badge', 'tanggal'])
                     ->make(true);
             }
 
-            return $this->successResponse($izins, 'Data izin ditemukan.'); 
+            return $this->successResponse($izins, 'Data izin ditemukan.');
         }
-    
+
         return view('user.izin.index');
     }
-    
 
     public function store(Request $request)
     {
@@ -59,7 +54,7 @@ class IzinController extends Controller
             'tanggal_mulai' => 'required',
             'alasan' => 'required',
             'file' => 'image|mimes:png,jpg,jpeg',
-            'tipe' => 'required'
+            'tipe' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -77,7 +72,7 @@ class IzinController extends Controller
             'alasan' => $request->input('alasan'),
             'file' => $file ?? null,
             'tipe' => $request->input('tipe'),
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ]);
 
         return $this->successResponse($izin, 'Data Izin ditambahkan.', 201);
@@ -87,10 +82,10 @@ class IzinController extends Controller
     {
         $izin = Izin::find($id);
 
-        if(!$izin){
-            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);    
+        if (!$izin) {
+            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
         }
-        
+
         return $this->successResponse($izin, 'Data Izin ditemukan.');
     }
 
@@ -100,9 +95,9 @@ class IzinController extends Controller
             'tanggal_mulai' => 'required',
             'alasan' => 'required',
             'file' => 'image|mimes:png,jpg,jpeg',
-            'tipe' => 'required'
+            'tipe' => 'required',
         ];
-        
+
         $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
@@ -110,9 +105,9 @@ class IzinController extends Controller
         }
 
         $izin = Izin::find($id);
-        
-        if(!$izin){
-            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);    
+
+        if (!$izin) {
+            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);
         }
 
         $updateIzin = [
@@ -130,7 +125,7 @@ class IzinController extends Controller
             $request->file('file')->storeAs('public/img/izin', $file);
             $updateIzin['file'] = $file;
         }
-        
+
         $izin->update($updateIzin);
 
         return $this->successResponse($izin, 'Data izin diupdate.');
@@ -140,8 +135,8 @@ class IzinController extends Controller
     {
         $izin = Izin::find($id);
 
-        if(!$izin){
-            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);    
+        if (!$izin) {
+            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/img/izin/' . $izin->file)) {
@@ -149,7 +144,7 @@ class IzinController extends Controller
         }
 
         $izin->delete();
-        
+
         return $this->successResponse(null, 'Data izin dihapus.');
     }
 }

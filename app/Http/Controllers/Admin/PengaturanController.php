@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Pengaturan;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class PengaturanController extends Controller
@@ -15,7 +15,7 @@ class PengaturanController extends Controller
     public function index(Request $request)
     {
         $pengaturan = Pengaturan::find(1);
-        
+
         if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
                 'nama' => 'required',
@@ -34,10 +34,10 @@ class PengaturanController extends Controller
                 'latitude' => $request->input('latitude'),
                 'radius' => $request->input('radius'),
             ]);
-            
+
             return $this->successResponse($pengaturan, 'Data pengaturan diupdate.');
         }
-        
+
         return view('admin.pengaturan.index', compact('pengaturan'));
     }
 }

@@ -2,38 +2,38 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use App\Models\Barang;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
 use App\Exports\BarangExport;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Barang;
+use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangController extends Controller
 {
     use ApiResponder;
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $barangs = Barang::with('unit', 'kategori')->get();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($barangs)
                     ->addColumn('aksi', function ($barang) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/barang/' . $barang->id . '`, [`id`,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/barang/' . $barang->id . '`, `barangTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($barang) {
                         return '<img src="/storage/img/barang/' . $barang->image . '" width="150px" alt="">';
                     })
                     ->addColumn('qty_unit', function ($barang) {
-                        return $barang->qty . ($barang->unit->nama !== 'Kosong' ?  ' ' .  $barang->unit->nama : '');
+                        return $barang->qty . ($barang->unit->nama !== 'Kosong' ? ' ' . $barang->unit->nama : '');
                     })
                     ->addColumn('kategori', function ($barang) {
                         return $barang->kategori->nama;
@@ -43,12 +43,11 @@ class BarangController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($barangs, 'Data barang ditemukan.'); 
+            return $this->successResponse($barangs, 'Data barang ditemukan.');
         }
-    
+
         return view('admin.barang.index');
     }
-    
 
     public function store(Request $request)
     {
@@ -76,7 +75,7 @@ class BarangController extends Controller
             'unit_id' => $request->input('unit_id'),
             'deskripsi' => $request->input('deskripsi'),
             'qty' => $request->input('qty'),
-            'image' => $image ?? NULL,
+            'image' => $image ?? null,
         ]);
 
         return $this->successResponse($barang, 'Data barang ditambahkan.', 201);
@@ -84,13 +83,13 @@ class BarangController extends Controller
 
     public function show($id)
     {
-        if($id == "excel"){
+        if ($id == "excel") {
             ob_end_clean();
             ob_start();
-            return Excel::download( new BarangExport(), 'Barang.xlsx');
+            return Excel::download(new BarangExport(), 'Barang.xlsx');
         }
 
-        if($id == 'pdf'){
+        if ($id == 'pdf') {
             $barangs = Barang::with('unit', 'kategori')->get();
             $pdf = PDF::loadView('admin.barang.pdf', compact('barangs'));
 
@@ -103,18 +102,18 @@ class BarangController extends Controller
 
             $pdf->setOptions($options);
             $pdf->setPaper('a4', 'landscape');
-    
+
             $namaFile = 'Barang.pdf';
-    
+
             return $pdf->download($namaFile);
         }
-        
+
         $barang = Barang::find($id);
 
-        if(!$barang){
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);    
+        if (!$barang) {
+            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
         }
-        
+
         ob_end_clean();
         ob_start();
         return $this->successResponse($barang, 'Data barang ditemukan.');
@@ -136,9 +135,9 @@ class BarangController extends Controller
         }
 
         $barang = Barang::find($id);
-        
-        if(!$barang){
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);    
+
+        if (!$barang) {
+            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
         }
 
         $updateBarang = [
@@ -158,7 +157,6 @@ class BarangController extends Controller
             $updateBarang['image'] = $image;
         }
 
-        
         $barang->update($updateBarang);
 
         return $this->successResponse($barang, 'Data barang diupdate.');
@@ -168,8 +166,8 @@ class BarangController extends Controller
     {
         $barang = Barang::find($id);
 
-        if(!$barang){
-            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);    
+        if (!$barang) {
+            return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
         }
 
         if ($barang->image != 'default.png' && Storage::exists('public/img/barang/' . $barang->image)) {
@@ -177,7 +175,7 @@ class BarangController extends Controller
         }
 
         $barang->delete();
-        
+
         return $this->successResponse(null, 'Data barang dihapus.');
     }
 }

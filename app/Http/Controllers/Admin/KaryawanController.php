@@ -2,32 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
 use App\Exports\KaryawanExport;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
     use ApiResponder;
-    
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $karyawans = User::whereNot("id", Auth::user()->id)->get();
-            if($request->input("mode") == "datatable"){
+            if ($request->input("mode") == "datatable") {
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/karyawan/' . $karyawan->id . '`, `karyawanTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                    
+
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($karyawan) {
@@ -38,12 +38,11 @@ class KaryawanController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($karyawans, 'Data karyawan ditemukan.'); 
+            return $this->successResponse($karyawans, 'Data karyawan ditemukan.');
         }
-    
+
         return view('admin.karyawan.index');
     }
-    
 
     public function store(Request $request)
     {
@@ -82,10 +81,10 @@ class KaryawanController extends Controller
     public function show($id)
     {
 
-        if($id =='excel'){
+        if ($id == 'excel') {
             ob_end_clean();
             ob_start();
-            return Excel::download( new KaryawanExport(), 'Karyawan.xlsx');
+            return Excel::download(new KaryawanExport(), 'Karyawan.xlsx');
         }
 
         if ($id == "pdf") {
@@ -101,20 +100,20 @@ class KaryawanController extends Controller
 
             $pdf->setOptions($options);
             $pdf->setPaper('a4', 'landscape');
-    
+
             $namaFile = 'Karyawan.pdf';
-    
+
             ob_end_clean();
             ob_start();
             return $pdf->download($namaFile);
         }
-        
+
         $karyawan = User::find($id);
 
-        if(!$karyawan){
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
+        if (!$karyawan) {
+            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
         }
-        
+
         return $this->successResponse($karyawan, 'Data karyawan ditemukan.');
     }
 
@@ -123,16 +122,16 @@ class KaryawanController extends Controller
         $dataValidator = [
             'nama' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
         ];
 
-        if($request->input('password') != null){
+        if ($request->input('password') != null) {
             $dataValidator['password'] = 'required|min:8|confirmed';
         }
-        
+
         $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
@@ -140,9 +139,9 @@ class KaryawanController extends Controller
         }
 
         $karyawan = User::find($id);
-        
-        if(!$karyawan){
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
+
+        if (!$karyawan) {
+            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
         }
 
         $updateKaryawan = [
@@ -162,11 +161,10 @@ class KaryawanController extends Controller
             $updateKaryawan['image'] = $image;
         }
 
-
-        if($request->input('password') != null){
+        if ($request->input('password') != null) {
             $updateKaryawan['password'] = bcrypt($request->input('password'));
         }
-        
+
         $karyawan->update($updateKaryawan);
 
         return $this->successResponse($karyawan, 'Data karyawan diupdate.');
@@ -176,8 +174,8 @@ class KaryawanController extends Controller
     {
         $karyawan = User::find($id);
 
-        if(!$karyawan){
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);    
+        if (!$karyawan) {
+            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
         }
 
         if ($karyawan->image != 'default.png' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
@@ -185,7 +183,7 @@ class KaryawanController extends Controller
         }
 
         $karyawan->delete();
-        
+
         return $this->successResponse(null, 'Data karyawan dihapus.');
     }
 }
