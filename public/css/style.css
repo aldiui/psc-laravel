@@ -53,7 +53,7 @@
 /* 2. Mixin */
 /* 3. Bootstrap Override */
 /* 3.1 Misc */
-@import url("//fonts.googleapis.com/css?family=Nunito:400,600,700,800");
+@import url("//fonts.googleapis.com/css?family=Poppins:400,600,700");
 .btn:focus,
 .btn:active,
 .btn:active:focus,
@@ -2411,7 +2411,7 @@ body {
   background-color: #f4f6f9;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Nunito", "Segoe UI", arial;
+  font-family: 'Poppins', sans-serif;
   color: #6c757d;
 }
 

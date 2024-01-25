@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'Flk'],
             ['nama' => 'Botol'],
             ['nama' => 'Unit'],
-            ['nama' => 'Kosong']
+            ['nama' => 'Kosong'],
         ];
 
         DB::table('units')->insert($unitData);
@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('11221122'),
                 'role' => 'admin',
                 'jabatan' => 'admin',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Revi Rosidah A.Md. Kom',
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Administrasi',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Endah Sulistiawati, A.Md. Keb',
@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Operator',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Reni Nurhayati, A.Md. Keb',
@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Operator',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Rizka Sri Wahyu U, A.Md. Keb',
@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Operator',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Derry',
@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Gian',
@@ -99,7 +99,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Rudi',
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Piping',
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Wandi',
@@ -123,7 +123,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Mega',
@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Anggi',
@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Veta',
@@ -147,7 +147,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Putri',
@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Rivai',
@@ -163,7 +163,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Asep',
@@ -171,7 +171,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Sepi',
@@ -179,7 +179,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Ricki',
@@ -187,7 +187,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
             [
                 'nama' => 'Ujang',
@@ -195,7 +195,7 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('user1234'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
-                "no_hp" => '08123456789'
+                "no_hp" => '08123456789',
             ],
         ];
 
@@ -896,9 +896,9 @@ class DatabaseSeeder extends Seeder
                 'nama' => 'Glukometer',
                 'unit_id' => '2',
                 'kategori_id' => '7',
-            ]
+            ],
         ];
-        
+
         DB::table('barangs')->insert($barangData);
 
         $timData = [
@@ -919,21 +919,21 @@ class DatabaseSeeder extends Seeder
 
         DB::table('pengaturans')->insert($pengaturanData);
 
-        $detailTimData =[
-            ['tim_id' => '1','user_id' => '6','posisi' => 'Ketua'],
-            ['tim_id' => '1','user_id' => '10','posisi' => 'Anggota'],
-            ['tim_id' => '1','user_id' => '14','posisi' => 'Anggota'],
-            ['tim_id' => '1','user_id' => '16','posisi' => 'Anggota'],
-            ['tim_id' => '2','user_id' => '7','posisi' => 'Ketua'],
-            ['tim_id' => '2','user_id' => '11','posisi' => 'Anggota'],
-            ['tim_id' => '2','user_id' => '17','posisi' => 'Anggota'],
-            ['tim_id' => '3','user_id' => '8','posisi' => 'Ketua'],
-            ['tim_id' => '3','user_id' => '12','posisi' => 'Anggota'],
-            ['tim_id' => '3','user_id' => '18','posisi' => 'Anggota'],
-            ['tim_id' => '4','user_id' => '9','posisi' => 'Ketua'],
-            ['tim_id' => '4','user_id' => '13','posisi' => 'Anggota'],
-            ['tim_id' => '4','user_id' => '15','posisi' => 'Anggota'],
-            ['tim_id' => '4','user_id' => '19','posisi' => 'Anggota']
+        $detailTimData = [
+            ['tim_id' => '1', 'user_id' => '6', 'posisi' => 'Ketua'],
+            ['tim_id' => '1', 'user_id' => '10', 'posisi' => 'Anggota'],
+            ['tim_id' => '1', 'user_id' => '14', 'posisi' => 'Anggota'],
+            ['tim_id' => '1', 'user_id' => '16', 'posisi' => 'Anggota'],
+            ['tim_id' => '2', 'user_id' => '7', 'posisi' => 'Ketua'],
+            ['tim_id' => '2', 'user_id' => '11', 'posisi' => 'Anggota'],
+            ['tim_id' => '2', 'user_id' => '17', 'posisi' => 'Anggota'],
+            ['tim_id' => '3', 'user_id' => '8', 'posisi' => 'Ketua'],
+            ['tim_id' => '3', 'user_id' => '12', 'posisi' => 'Anggota'],
+            ['tim_id' => '3', 'user_id' => '18', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '9', 'posisi' => 'Ketua'],
+            ['tim_id' => '4', 'user_id' => '13', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '15', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '19', 'posisi' => 'Anggota'],
         ];
 
         DB::table('detail_tims')->insert($detailTimData);
