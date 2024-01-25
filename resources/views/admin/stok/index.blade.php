@@ -80,10 +80,9 @@
             </div>
         </section>
     </div>
-@endsection
-
 @include('admin.stok.create')
 @include('admin.stok.edit')
+@endsection
 
 
 @push('scripts')
