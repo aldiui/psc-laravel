@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <div class="d-flex justify-content-between mb-2">
-                            <div class="mb-2">{{ date('d F Y') }}</div>
+                            <div class="mb-2">{{ formatTanggal() }}</div>
                             <div class="mb-2" id="jam"></div>
                         </div>
                         <input type="hidden" name="location" id="location">

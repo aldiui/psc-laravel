@@ -13,9 +13,9 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col-5 mb-2">Tanggal Mulai</div>
-                        <div class="col-7 mb-2">: <span id="tanggal_mulai"></span></div>
+                        <div class="col-7 mb-2">: <span id="tgl_mulai"></span></div>
                         <div class="col-5 mb-2">Tanggal Selesai</div>
-                        <div class="col-7 mb-2">: <span id="tanggal_selesai"></span></div>
+                        <div class="col-7 mb-2">: <span id="tgl_selesai"></span></div>
                         <div class="col-5 mb-2">Tipe</div>
                         <div class="col-7 mb-2">: <span id="tipe"></span></div>
                         <div class="col-5 mb-2">Alasan</div>

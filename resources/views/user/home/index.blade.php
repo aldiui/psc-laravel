@@ -96,7 +96,7 @@
     <script>
         $(document).ready(function() {
             datatableCall('presensiTable', '{{ route('presensi') }}', [
-                { data: 'tanggal', name: 'tanggal' },
+                { data: 'tgl', name: 'tgl' },
                 { data: 'presensi_masuk', name: 'presensi_masuk' },
                 { data: 'presensi_keluar', name: 'presensi_keluar' },
                 { data: 'catatan', name: 'catatan' },  

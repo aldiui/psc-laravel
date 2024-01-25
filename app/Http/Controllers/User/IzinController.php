@@ -32,7 +32,7 @@ class IzinController extends Controller
                         return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
                     })
                     ->addColumn('tanggal', function ($izin) {
-                        return ($izin->tanggal_selesai == null) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;
+                        return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
                     })
                     ->addColumn('status_badge', function ($izin) {
                         return statusBadge($izin->status);

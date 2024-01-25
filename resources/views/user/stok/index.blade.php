@@ -65,7 +65,7 @@
                                             <th scope="col">Total Barang</th>
                                             <th scope="col">Tipe</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col" width="30%">Aksi</th>
+                                            <th scope="col" width="20%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,7 +96,7 @@
         $(document).ready(function() {
             datatableCall('stokTable', '{{ route('stok.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'tanggal', name: 'tanggal' },
+                { data: 'tgl', name: 'tgl' },
                 { data: 'detail_stoks_count', name: 'detail_stoks_count' },
                 { data: 'jenis', name: 'jenis' },
                 { data: 'status_badge', name: 'status_badge' },

@@ -17,11 +17,10 @@
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.stok.index') }}"> @yield('title')</a></div>
                     <div class="breadcrumb-item">Detail @yield('title')</div>
                 </div>
             </div>
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
@@ -37,7 +36,7 @@
                                 <div class="mb-4">
                                     <div class="row">
                                         <div class="col-5 col-lg-2 mb-2">Tanggal</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->tanggal }}</div>
+                                        <div class="col-5 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
                                         <div class="col-5 col-lg-2 mb-2">Nama</div>
                                         <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
                                         <div class="col-5 col-lg-2 mb-2">Jenis</div>

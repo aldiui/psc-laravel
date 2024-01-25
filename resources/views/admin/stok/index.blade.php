@@ -19,7 +19,7 @@
             <div class="section-header">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/">Home</a></div>
+                    <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
                     <div class="breadcrumb-item">@yield('title')</div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
         $(document).ready(function() {
             datatableCall('stokTable', '{{ route('admin.stok.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'tanggal', name: 'tanggal' },
+                { data: 'tgl', name: 'tgl' },
                 { data: 'nama', name: 'nama' },
                 { data: 'detail_stoks_count', name: 'detail_stoks_count' },
                 { data: 'jenis', name: 'jenis' },

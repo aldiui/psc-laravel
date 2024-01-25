@@ -37,8 +37,11 @@ class StokController extends Controller
                     ->addColumn('status_badge', function ($stok) {
                         return statusBadge($stok->status);
                     })
+                    ->addColumn('tgl', function ($stok) {
+                        return formatTanggal($stok->tanggal);
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'status_badge', 'nama'])
+                    ->rawColumns(['aksi', 'status_badge', 'nama', 'tgl'])
                     ->make(true);
             }
 
