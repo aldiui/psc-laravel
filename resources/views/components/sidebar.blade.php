@@ -19,7 +19,7 @@
                 <a class="nav-link"
                     href="{{ url('presensi') }}"><i class="fas fa-camera"></i> <span>Presensi</span></a>
             </li>
-            <li class="{{ Request::is('stok') ? 'active' : '' }}">
+            <li class="{{ Request::is('stok/*') ? 'active' : '' }}{{ Request::is('stok') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('stok') }}"><i class="fas fa-clipboard-list"></i> <span>Stok</span></a>
             </li>

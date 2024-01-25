@@ -62,7 +62,6 @@
                                         <tr>
                                             <th scope="col" width="5%">#</th>
                                             <th scope="col">Tanggal</th>
-                                            <th scope="col">Nama </th>
                                             <th scope="col">Total Barang</th>
                                             <th scope="col">Tipe</th>
                                             <th scope="col">Status</th>
@@ -98,7 +97,6 @@
             datatableCall('stokTable', '{{ route('stok.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'tanggal', name: 'tanggal' },
-                { data: 'nama', name: 'nama' },
                 { data: 'detail_stoks_count', name: 'detail_stoks_count' },
                 { data: 'jenis', name: 'jenis' },
                 { data: 'status_badge', name: 'status_badge' },

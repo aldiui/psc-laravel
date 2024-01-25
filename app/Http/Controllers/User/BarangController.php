@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Exports\BarangExport;
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
 use App\Traits\ApiResponder;
-use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Facades\Excel;
 
 class BarangController extends Controller
 {
@@ -48,6 +43,5 @@ class BarangController extends Controller
 
         return view('barang.index');
     }
-
 
 }
