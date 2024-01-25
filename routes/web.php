@@ -40,6 +40,9 @@ Route::middleware(['auth', 'checkRole:user'])->group(function () {
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');
     Route::match(['get', 'post'], 'presensi', [App\Http\Controllers\User\PresensiController::class, 'index'])->name('presensi');
     Route::resource('izin', App\Http\Controllers\User\IzinController::class)->names('izin');
+    Route::resource('stok', App\Http\Controllers\User\StokController::class)->names('stok');
+    Route::resource('barang', App\Http\Controllers\User\BarangController::class)->names('barang');
+    Route::resource('detail-stok', App\Http\Controllers\User\DetailStokController::class)->names('detail-stok');
 });
 
 Route::get('/storage-link', function () {

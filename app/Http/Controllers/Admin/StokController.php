@@ -34,8 +34,14 @@ class StokController extends Controller
 
                         return $detailButton . $editButton . $deleteButton;
                     })
+                    // ->addColumn('status_badge', function ($stok) {
+                    //     return statusBadge($stok->status);
+                    // })
                     ->addColumn('status_badge', function ($stok) {
-                        return statusBadge($stok->status);
+                        $statusIcon = ($stok->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($stok->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
+                        $statusClass = ($stok->status == '0') ? 'badge-warning' : (($stok->status == '1') ? 'badge-success' : 'badge-danger');
+                        $statusText = ($stok->status == '0') ? 'Menunggu' : (($stok->status == '1') ? 'Disetujui' : 'Ditolak');
+                        return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
                     })
                     ->addIndexColumn()
                     ->rawColumns(['aksi', 'status_badge', 'nama'])
