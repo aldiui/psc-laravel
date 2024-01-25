@@ -38,13 +38,14 @@
 
     <script>
         $(document).ready(function() {
+            setInterval(updateJam, 1000);
+            
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
             } else {
                 swal("Geolocation is not supported by this browser.");
             }
 
-            setInterval(updateJam, 1000);
 
             $("#presensiButton").click(function(e) {
                 const textButton = "{{ $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}";
