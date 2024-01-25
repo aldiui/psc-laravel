@@ -8,7 +8,7 @@
                     class=" nav-link nav-link-lg d-none d-lg-block"><i class="fas fa-bars"></i></a></li>
         </ul>
     </form>
-    <ul class="navbar-nav navbar-right">
+    <ul class="navbar-nav navbar-right d-none d-lg-block">
         <li class="dropdown">
             <a href="#"
                 data-toggle="dropdown"

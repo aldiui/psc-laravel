@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2 d-none d-lg-block">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="admin">PSC 119</a>
+            <a href="/">PSC 119</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="admin">PSC</a>
+            <a href="/">PSC</a>
         </div>
         <ul class="sidebar-menu">
             <li class="{{ Request::is('/') ? 'active' : '' }}">

@@ -55,7 +55,8 @@
                                         <small class="invalid-feedback" id="errorno_hp"></small>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-none d-lg-block">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-block w-100 d-lg-none">Simpan</button>
                                     </div>
                                 </form>
                             </div>
@@ -83,9 +84,17 @@
                                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-none d-lg-block">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-block w-100 d-lg-none">Simpan</button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="card d-lg-none">
+                            <div class="card-body">
+                                <a href="{{ route('logout') }}" class="btn btn-block btn-danger">
+                                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                                </a>
                             </div>
                         </div>
                     </div>
