@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\DetailStok;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class DetailStokController extends Controller
 {
     use ApiResponder;
-    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -44,10 +44,10 @@ class DetailStokController extends Controller
     {
         $detailStok = DetailStok::find($id);
 
-        if(!$detailStok){
-            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);    
+        if (!$detailStok) {
+            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
         }
-        
+
         return $this->successResponse($detailStok, 'Data Detail Stok ditemukan.');
     }
 
@@ -61,18 +61,18 @@ class DetailStokController extends Controller
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
-        }        
+        }
 
         $detailStok = DetailStok::find($id);
-        
-        if(!$detailStok){
-            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);    
+
+        if (!$detailStok) {
+            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
         }
 
         $detailStok->update([
             'barang_id' => $request->input('barang_id'),
             'qty' => $request->input('qty'),
-            'deskripsi' => $request->input('deskripsi')
+            'deskripsi' => $request->input('deskripsi'),
         ]);
 
         return $this->successResponse($detailStok, 'Data Detail Stok diupdate.');
@@ -82,12 +82,12 @@ class DetailStokController extends Controller
     {
         $detailStok = DetailStok::find($id);
 
-        if(!$detailStok){
-            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);    
+        if (!$detailStok) {
+            return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
         }
 
         $detailStok->delete();
-        
+
         return $this->successResponse(null, 'Data Detail Stok dihapus.');
     }
 }

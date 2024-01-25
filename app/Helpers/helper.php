@@ -34,11 +34,11 @@ if (!function_exists('calculateSelisihJarak')) {
 }
 
 if (!function_exists('statusBadge')) {
-    function statusBadge($stok)
+    function statusBadge($status)
     {
-        $statusIcon = ($stok->status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($stok->status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
-        $statusClass = ($stok->status == '0') ? 'badge-warning' : (($stok->status == '1') ? 'badge-success' : 'badge-danger');
-        $statusText = ($stok->status == '0') ? 'Menunggu' : (($stok->status == '1') ? 'Disetujui' : 'Ditolak');
+        $statusIcon = ($status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
+        $statusClass = ($status == '0') ? 'badge-warning' : (($status == '1') ? 'badge-success' : 'badge-danger');
+        $statusText = ($status == '0') ? 'Menunggu' : (($status == '1') ? 'Disetujui' : 'Ditolak');
 
         return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
     }
