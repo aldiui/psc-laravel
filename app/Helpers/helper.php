@@ -53,3 +53,20 @@ if (!function_exists('formatTanggal')) {
         return $parsedDate->format($format);
     }
 }
+
+if (!function_exists('getGreeting')) {
+    function getGreeting()
+    {
+        $hour = now()->hour;
+
+        if ($hour >= 5 && $hour < 12) {
+            return 'Selamat Pagi';
+        } elseif ($hour >= 12 && $hour < 17) {
+            return 'Selamat Siang';
+        } elseif ($hour >= 17 && $hour < 20) {
+            return 'Selamat Sore';
+        } else {
+            return 'Selamat Malam';
+        }
+    }
+}

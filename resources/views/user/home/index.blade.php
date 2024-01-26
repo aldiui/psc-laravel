@@ -16,7 +16,7 @@
             <div class="card mb-3 mb-lg-4 p-1 rounded-pill">
                 <div class="card-body d-flex justify-content-between align-content-center py-2">
                     <div>
-                        <div class="small mb-1">Selamat Datang, </div>
+                        <div class="small">{{ getGreeting() }}, </div>
                         <div class="mb-1 font-weight-bold">{{ Auth::user()->nama }}</div>
                         <div class="small">{{ Auth::user()->jabatan }}</div>
                     </div>
@@ -118,7 +118,7 @@
                 @else
                     <div class="text-center">
                         <div class="row justify-content-center">
-                            <div class="col-7">
+                            <div class="col-9">
                                 <img src="{{ asset('img/null.png') }}" class="img-fluid mb-2" alt="">
                             </div>
                         </div>
@@ -126,41 +126,45 @@
                     </div>
                 @endif
             </div>
-            <div class="row d-none d-lg-flex">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="bulan_filter" class="form-label">Bulan</label>
-                        <select name="bulan_filter" id="bulan_filter" class="form-control">
-                            @foreach ($bulans as $key => $value)
-                                <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
-                            @endforeach
-                        </select>
+            <div class="card d-none d-lg-block">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="bulan_filter" class="form-label">Bulan</label>
+                                <select name="bulan_filter" id="bulan_filter" class="form-control">
+                                    @foreach ($bulans as $key => $value)
+                                        <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="tahun_filter" class="form-label">Tahun</label>
+                                <select name="tahun_filter" id="tahun_filter" class="form-control">
+                                    @for ($i = now()->year; $i >= now()->year - 4; $i--)
+                                        <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table" id="presensiTable" width="100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Presensi Masuk</th>
+                                    <th scope="col">Presensi Keluar</th>
+                                    <th scope="col">Catatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>                                
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="tahun_filter" class="form-label">Tahun</label>
-                        <select name="tahun_filter" id="tahun_filter" class="form-control">
-                            @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive d-none d-lg-block">
-                <table class="table" id="presensiTable" width="100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Presensi Masuk</th>
-                            <th scope="col">Presensi Keluar</th>
-                            <th scope="col">Catatan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>                                
             </div>
         </section>
     </div>
