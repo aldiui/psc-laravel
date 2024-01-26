@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Barang;
 use App\Models\DetailStok;
+use App\Models\Stok;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +30,19 @@ class DetailStokController extends Controller
         $cekDetailStok = DetailStok::where('stok_id', $request->input('stok_id'))->where('barang_id', $request->input('barang_id'))->first();
         if ($cekDetailStok) {
             return $this->errorResponse(null, 'Data Detail Stok sudah ada.', 409);
+        }
+
+        $stok = Stok::find($request->input('stok_id'));
+
+        if (!$stok) {
+            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+        }
+
+        if ($stok->jenis == 'Keluar') {
+            $cekStokBarang = Barang::find($request->input('barang_id'));
+            if ($cekStokBarang->qty < $request->input('qty')) {
+                return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
+            }
         }
 
         $detailStok = DetailStok::create([
@@ -67,6 +82,19 @@ class DetailStokController extends Controller
 
         if (!$detailStok) {
             return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
+        }
+
+        $stok = Stok::find($detailStok->stok_id);
+
+        if (!$stok) {
+            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+        }
+
+        if ($stok->jenis == 'Keluar') {
+            $cekStokBarang = Barang::find($request->input('barang_id'));
+            if ($cekStokBarang->qty < $request->input('qty')) {
+                return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
+            }
         }
 
         $detailStok->update([

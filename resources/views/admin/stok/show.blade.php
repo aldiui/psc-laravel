@@ -29,7 +29,9 @@
                                 <h4 class="text-dark">Data Detail  @yield('title')</h4>
                                 <div class="ml-auto">
                                     <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
-                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    @if($stok->status != 1)
+                                        <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">
@@ -44,6 +46,10 @@
                                         <div class="col-4 col-lg-2 mb-2">Status</div>
                                         <div class="col-8 col-lg-10 mb-2">
                                             : {!! statusBadge($stok->status) !!}
+                                        </div>
+                                        <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
+                                        <div class="col-8 col-lg-10 mb-2">
+                                            : <button class="btn btn-primary" type="button" onclick="confirmStok({{ $stok->id }}, event)"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
                                         </div>
                                     </div>
                                 </div>

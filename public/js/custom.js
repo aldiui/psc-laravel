@@ -168,7 +168,6 @@ const handleValidationErrors = (error, formId = null, fields = null) => {
 };
 
 const confirmDelete = (url, tableId) => {
-    console.log("url", url);
     swal({
         title: "Apakah Kamu Yakin?",
         text: "ingin menghapus data ini!",
@@ -241,4 +240,38 @@ const updateJam = () => {
 
 const setUpJam = (jam) => {
     return jam < 10 ? "0" + jam : jam;
+};
+
+const confirmStok = (id, event) => {
+    swal({
+        title: "Apakah Kamu Yakin?",
+        text: "Akan menyelesaikan proses!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            event.preventDefault();
+            const data = {
+                _token: $("meta[name='csrf-token']").attr("content"),
+                status: 1,
+            };
+
+            const successCallback = function (response) {
+                handleSuccess(response, null, null, `/admin/stok/${id}`);
+            };
+
+            const errorCallback = function (error) {
+                console.log(error);
+            };
+
+            ajaxCall(
+                `/admin/stok/${id}`,
+                "POST",
+                data,
+                successCallback,
+                errorCallback
+            );
+        }
+    });
 };
