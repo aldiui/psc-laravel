@@ -8,8 +8,8 @@
 @section('main')
     <section class="section">
         <div class="d-flex align-items-stretch flex-wrap">
-            <div class="col-lg-4 col-12 min-vh-100 order-2 bg-white d-flex justify-content-center align-items-center">
-                <div class="py-5">
+            <div class="col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white d-flex justify-content-center align-items-center">
+                <div class="py-2">
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
                     </div>
@@ -41,9 +41,9 @@
             </div>
             <div class="d-none d-lg-block col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
                 data-background="{{ asset('img/unsplash/login-bg.jpg') }}">
-                <div class="absolute-bottom-left index-2 py-5">
+                <div class="absolute-bottom-left index-2">
                     <div class="text-light p-5 pb-2">
-                        <div class="mb-5 py-5">
+                        <div class="mb-5 pb-3">
                             <h5 class="font-weight-normal text-muted-transparent">Tasikmalaya, Jawa Barat</h5>
                         </div>
                     </div>
