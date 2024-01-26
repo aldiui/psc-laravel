@@ -13,7 +13,7 @@
 @section('main')
 <div class="main-content">
     <section class="section">
-        <div class="section-header">
+        <div class="section-header d-none d-lg-block">
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="/home">Home</a></div>
@@ -28,21 +28,23 @@
                         <div class="card-header">
                             <h4 class="text-dark">Data Detail  @yield('title')</h4>
                             <div class="ml-auto">
-                                <a href="{{ route('stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
+                                <div class="d-none d-lg-inline">
+                                    <a href="{{ route('stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
+                                </div>
                                 <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="mb-4">
                                 <div class="row">
-                                    <div class="col-5 col-lg-2 mb-2">Tanggal</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Nama</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Jenis</div>
-                                    <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
-                                    <div class="col-5 col-lg-2 mb-2">Status</div>
-                                    <div class="col-5 col-lg-10 mb-2">
+                                    <div class="col-4 col-lg-2 mb-2">Tanggal</div>
+                                    <div class="col-8 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
+                                    <div class="col-4 col-lg-2 mb-2">Nama</div>
+                                    <div class="col-8 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
+                                    <div class="col-4 col-lg-2 mb-2">Jenis</div>
+                                    <div class="col-8 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
+                                    <div class="col-4 col-lg-2 mb-2">Status</div>
+                                    <div class="col-8 col-lg-10 mb-2">
                                         : {!! statusBadge($stok->status) !!}
                                     </div>
                                 </div>

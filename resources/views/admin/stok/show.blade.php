@@ -35,14 +35,14 @@
                             <div class="card-body">
                                 <div class="mb-4">
                                     <div class="row">
-                                        <div class="col-5 col-lg-2 mb-2">Tanggal</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Nama</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Jenis</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Status</div>
-                                        <div class="col-5 col-lg-10 mb-2">
+                                        <div class="col-4 col-lg-2 mb-2">Tanggal</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Nama</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Jenis</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Status</div>
+                                        <div class="col-8 col-lg-10 mb-2">
                                             : {!! statusBadge($stok->status) !!}
                                         </div>
                                     </div>

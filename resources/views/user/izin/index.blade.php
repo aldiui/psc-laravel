@@ -16,7 +16,7 @@
 @endphp
     <div class="main-content">
         <section class="section">
-            <div class="section-header">
+            <div class="section-header d-none d-lg-block">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/">Home</a></div>
