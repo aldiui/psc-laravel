@@ -11,6 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
-        return view('user.home.index', compact('presensi'));
+        $presensis = Presensi::where('user_id', Auth::user()->id)->latest()->limit(5)->get();
+        return view('user.home.index', compact('presensi', 'presensis'));
     }
 }

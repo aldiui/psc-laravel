@@ -13,7 +13,7 @@
 @endphp
     <div class="main-content mb-5 pb-5">
         <section class="section">
-            <div class="card mb-3 p-1 rounded-pill">
+            <div class="card mb-3 mb-lg-4 p-1 rounded-pill">
                 <div class="card-body d-flex justify-content-between align-content-center py-2">
                     <div>
                         <div class="small mb-1">Selamat Datang, </div>
@@ -24,7 +24,7 @@
                         class="img-big d-block "></div>
                 </div>
             </div>
-            <div class="card mb-3">
+            <div class="card mb-3 mb-lg-4">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between mb-3">
                         <div class="small">{{ formatTanggal() }}</div>
@@ -56,7 +56,7 @@
                     </div>                    
                 </div>
             </div>
-            <div class="card mb-3">
+            <div class="card mb-3 mb-lg-4">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-around">
                         <div>
@@ -78,7 +78,55 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="d-lg-none">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-title">Presensi</div>
+                    <div class="small text-info">Lihat selengkapnya</div>
+                </div>
+                @if($presensis->isNotEmpty())
+                    @foreach ($presensis as $presensi)
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <div class="small mb-2">{{ formatTanggal($presensi->tanggal)}}</div>
+                            <div class="row no-gutters mb-0">
+                                <div class="col-6 d-flex align-items-center">
+                                    <div class="mr-2">
+                                        <div class="p-2 {{ $presensi && $presensi->alasan_in ? 'text-danger' : 'text-secondary' }} rounded">
+                                            <i class="fas fa-map-marker-alt text-lg"></i>
+                                        </div>
+                                    </div>
+                                    <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
+                                        <div class="small">Masuk</div>
+                                        <div class="text-lg">{{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 d-flex align-items-center">
+                                    <div class="mr-2">
+                                        <div class="p-2 {{ $presensi && $presensi->alasan_out ? 'text-danger' : 'text-secondary' }} rounded">
+                                            <i class="far fas fa-map-marker-alt text-lg"></i>
+                                        </div>
+                                    </div>
+                                    <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                                        <div class="small">Keluar</div>
+                                        <div class="text-lg">{{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
+                                    </div>
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                    @endforeach
+                @else
+                    <div class="text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-7">
+                                <img src="{{ asset('img/null.png') }}" class="img-fluid mb-2" alt="">
+                            </div>
+                        </div>
+                        <div>Belum ada presensi</div>
+                    </div>
+                @endif
+            </div>
+            <div class="row d-none d-lg-flex">
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="bulan_filter" class="form-label">Bulan</label>
