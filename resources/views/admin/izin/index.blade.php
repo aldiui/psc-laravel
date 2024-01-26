@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="izinTable">
+                                    <table class="table" id="izinTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>

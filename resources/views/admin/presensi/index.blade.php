@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="presensiTable">
+                                    <table class="table" id="presensiTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>

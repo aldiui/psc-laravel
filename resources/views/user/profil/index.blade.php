@@ -38,7 +38,6 @@
                                         <input type="text" class="form-control" id="nama" name="nama" value="{{ Auth::user()->nama}}">
                                         <small class="invalid-feedback" id="errornama"></small>
                                     </div>
-                
                                     <div class="form-group">
                                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}">

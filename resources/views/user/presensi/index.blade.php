@@ -9,23 +9,21 @@
 
 @section('main')
     <div class="main-content mb-5 pb-5">
-        <section class="section">
-            <div class="section-body">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="d-flex justify-content-between mb-2">
-                            <div class="mb-2">{{ formatTanggal() }}</div>
-                            <div class="mb-2" id="jam"></div>
-                        </div>
-                        <input type="hidden" name="location" id="location">
-                        <div id="map" class="mb-3 rounded-lg" style="height: 420px; width: 100%;"></div>
-                        <button type="submit" id="presensiButton" class="btn {{ $presensi ? ($presensi->clock_out == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
-                            {{ $presensi ? ($presensi->clock_out == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
-                        </button>                    
-                    </div>
+        <input type="hidden" name="location" id="location">
+        <div class="card">
+            <div class="card-body text-center m-0 p-0">
+                <div class="d-flex justify-content-between p-3">
+                    <div class="mb-2">{{ formatTanggal() }}</div>
+                    <div class="mb-2" id="jam"></div>
+                </div>
+                <div id="map" class="mb-3 rounded-lg mx-0" style="height: 420px; width: 100%;"></div>
+                <div class="p-3">
+                    <button type="submit" id="presensiButton" class="btn {{ $presensi ? ($presensi->clock_out == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
+                        {{ $presensi ? ($presensi->clock_out == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
+                    </button>                    
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 @include('user.presensi.alasan')
 @include('user.presensi.catatan')
