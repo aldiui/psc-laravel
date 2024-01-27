@@ -76,13 +76,13 @@ class StokController extends Controller
 
         if ($request->ajax()) {
             if ($request->input("mode") == "datatable") {
-                $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
+                $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return $editButton . $deleteButton;
+                        return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
                     })
                     ->addColumn('nama', function ($detailStok) {
                         return $detailStok->barang->nama;
