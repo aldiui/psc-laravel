@@ -137,6 +137,10 @@ class StokController extends Controller
                             'qty' => $barang->qty + $detailStok->qty,
                         ]);
                     } else {
+                        if ($barang->qty < $detailStok->qty) {
+                            return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
+                        }
+
                         $barang->update([
                             'qty' => $barang->qty - $detailStok->qty,
                         ]);

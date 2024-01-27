@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
                                         <div class="col-8 col-lg-10 mb-2">
-                                            : <button class="btn btn-primary" type="button" onclick="confirmStok({{ $stok->id }}, event)"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
+                                            : <button class="btn btn-primary btn-sm" type="button" onclick="confirmStok('{{ $stok->id }}')"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
                                         </div>
                                     </div>
                                 </div>
@@ -141,6 +141,38 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         }); 
+
+        function confirmStok(id) {
+            swal({
+                title: "Apakah Kamu Yakin?",
+                text: "Akan menyelesaikan proses!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    const data = {
+                        status: '1',
+                    };
+
+                    const successCallback = function (response) {
+                        handleSuccess(response, null, null, `/admin/stok/${id}`);
+                    };
+
+                    const errorCallback = function (error) {
+                        console.log(error);
+                    };
+
+                    ajaxCall(
+                        `/admin/stok/${id}`,
+                        "GET",
+                        data,
+                        successCallback,
+                        errorCallback
+                    );
+                }
+            });
+        };
 
         function getSelectEdit(){
             select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "Pilih Barang", "#editModal");
