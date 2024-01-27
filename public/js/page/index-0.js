@@ -1,101 +1,96 @@
-"use strict";
-
-var statistics_chart = document.getElementById("myChart").getContext('2d');
+var statistics_chart = document.getElementById("myChart").getContext("2d");
 
 var myChart = new Chart(statistics_chart, {
-  type: 'line',
-  data: {
-    labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    datasets: [{
-      label: 'Statistics',
-      data: [640, 387, 530, 302, 430, 270, 488],
-      borderWidth: 5,
-      borderColor: '#6777ef',
-      backgroundColor: 'transparent',
-      pointBackgroundColor: '#fff',
-      pointBorderColor: '#6777ef',
-      pointRadius: 4
-    }]
-  },
-  options: {
-    legend: {
-      display: false
+    type: "line",
+    data: {
+        labels: [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+        ],
+        datasets: [
+            {
+                label: "Stok Masuk",
+                data: [
+                    100, 120, 80, 150, 200, 180, 120, 160, 140, 200, 180, 220,
+                    250, 180, 200, 220, 190, 210, 180, 200, 220, 250, 180, 200,
+                    220, 190, 210, 180, 200, 220, 250,
+                ],
+                borderWidth: 5,
+                borderColor: "#6777ef",
+                backgroundColor: "transparent",
+                pointBackgroundColor: "#fff",
+                pointBorderColor: "#6777ef",
+                pointRadius: 4,
+            },
+            {
+                label: "Stok Keluar",
+                data: [
+                    80, 100, 70, 120, 150, 130, 100, 120, 110, 140, 120, 160,
+                    180, 140, 150, 170, 140, 160, 130, 150, 170, 180, 140, 150,
+                    170, 140, 160, 130, 150, 170, 180,
+                ],
+                borderWidth: 5,
+                borderColor: "#ff5733",
+                backgroundColor: "transparent",
+                pointBackgroundColor: "#fff",
+                pointBorderColor: "#ff5733",
+                pointRadius: 4,
+            },
+        ],
     },
-    scales: {
-      yAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false,
+    options: {
+        legend: {
+            display: true,
         },
-        ticks: {
-          stepSize: 150
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          color: '#fbfbfb',
-          lineWidth: 2
-        }
-      }]
+        scales: {
+            yAxes: [
+                {
+                    gridLines: {
+                        display: false,
+                        drawBorder: false,
+                    },
+                    ticks: {
+                        stepSize: 50,
+                    },
+                },
+            ],
+            xAxes: [
+                {
+                    gridLines: {
+                        color: "#fbfbfb",
+                        lineWidth: 2,
+                    },
+                },
+            ],
+        },
     },
-  }
 });
-
-$('#visitorMap').vectorMap(
-{
-  map: 'world_en',
-  backgroundColor: '#ffffff',
-  borderColor: '#f2f2f2',
-  borderOpacity: .8,
-  borderWidth: 1,
-  hoverColor: '#000',
-  hoverOpacity: .8,
-  color: '#ddd',
-  normalizeFunction: 'linear',
-  selectedRegions: false,
-  showTooltip: true,
-  pins: {
-    id: '<div class="jqvmap-circle"></div>',
-    my: '<div class="jqvmap-circle"></div>',
-    th: '<div class="jqvmap-circle"></div>',
-    sy: '<div class="jqvmap-circle"></div>',
-    eg: '<div class="jqvmap-circle"></div>',
-    ae: '<div class="jqvmap-circle"></div>',
-    nz: '<div class="jqvmap-circle"></div>',
-    tl: '<div class="jqvmap-circle"></div>',
-    ng: '<div class="jqvmap-circle"></div>',
-    si: '<div class="jqvmap-circle"></div>',
-    pa: '<div class="jqvmap-circle"></div>',
-    au: '<div class="jqvmap-circle"></div>',
-    ca: '<div class="jqvmap-circle"></div>',
-    tr: '<div class="jqvmap-circle"></div>',
-  },
-});
-
-// weather
-getWeather();
-setInterval(getWeather, 600000);
-
-function getWeather() {
-  $.simpleWeather({
-  location: 'Bogor, Indonesia',
-  unit: 'c',
-  success: function(weather) {
-    var html = '';
-    html += '<div class="weather">';
-    html += '<div class="weather-icon text-primary"><span class="wi wi-yahoo-' + weather.code + '"></span></div>';
-    html += '<div class="weather-desc">';
-    html += '<h4>' + weather.temp + '&deg;' + weather.units.temp + '</h4>';
-    html += '<div class="weather-text">' + weather.currently + '</div>';
-    html += '<ul><li>' + weather.city + ', ' + weather.region + '</li>';
-    html += '<li> <i class="wi wi-strong-wind"></i> ' + weather.wind.speed+' '+weather.units.speed + '</li></ul>';
-    html += '</div>';
-    html += '</div>';
-
-    $("#myWeather").html(html);
-  },
-  error: function(error) {
-    $("#myWeather").html('<div class="alert alert-danger">'+error+'</div>');
-  }
-  });
-}
