@@ -154,7 +154,7 @@
                     const data = {
                         status: '1',
                     };
-
+                    
                     const successCallback = function (response) {
                         handleSuccess(response, null, null, `/admin/stok/${id}`);
                     };
