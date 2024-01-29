@@ -198,7 +198,7 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
 
-const select2ToJson = (selector, url, title, modal = null) => {
+const select2ToJson = (selector, url, modal = null) => {
     const selectElem = $(selector).empty();
 
     const successCallback = function (response) {

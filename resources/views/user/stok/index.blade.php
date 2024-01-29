@@ -104,46 +104,47 @@
             $("#bulan_filter, #tahun_filter").on("change", function () {
                 $("#stokTable").DataTable().ajax.reload();
             });
-        });
-
-        $("#saveData").submit(function (e) {
+            
+            $("#saveData").submit(function (e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('stok.store') }}";
                 const data = new FormData(this);
-
+    
                 const successCallback = function (response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "stokTable", "createModal");
                 };
-
+    
                 const errorCallback = function (error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["tanggal"]);
                 };
-
+    
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
+    
             $("#updateData").submit(function (e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/stok/${kode}`;
                 const data = new FormData(this);
-
+    
                 const successCallback = function (response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "stokTable", "editModal");
                 };
-
+    
                 const errorCallback = function (error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["tanggal"]);
                 };
-
+    
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
+        });
+
         
     </script>
 @endpush
