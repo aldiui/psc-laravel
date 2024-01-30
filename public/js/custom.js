@@ -204,6 +204,11 @@ const select2ToJson = (selector, url, modal = null) => {
     const successCallback = function (response) {
         selectElem.empty();
 
+        const emptyOption = $("<option></option>");
+        emptyOption.attr("value", "");
+        emptyOption.text("-- Pilih Data --");
+        selectElem.append(emptyOption);
+
         const responseList = response.data;
         responseList.forEach(function (row) {
             const option = $("<option></option>");

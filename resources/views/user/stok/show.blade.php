@@ -31,7 +31,9 @@
                                 <div class="d-none d-lg-inline">
                                     <a href="{{ route('stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
                                 </div>
-                                <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                @if($stok->status != 1)
+                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                @endif
                             </div>
                         </div>
                         <div class="card-body">
