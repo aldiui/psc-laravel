@@ -96,7 +96,7 @@
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'tgl', name: 'tgl' },
                 { data: 'detail_stoks_count', name: 'detail_stoks_count' },
-                { data: 'jenis', name: 'jenis' },
+                { data: 'jenis_badge', name: 'jenis_badge' },
                 { data: 'status_badge', name: 'status_badge' },
                 { data: 'aksi', name: 'aksi' },  
             ]);

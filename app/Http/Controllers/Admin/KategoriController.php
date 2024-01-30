@@ -84,7 +84,7 @@ class KategoriController extends Controller
 
             ob_end_clean();
             ob_start();
-            return $pdf->download($namaFile);
+            return $pdf->stream($namaFile);
         }
 
         $kategori = Kategori::find($id);

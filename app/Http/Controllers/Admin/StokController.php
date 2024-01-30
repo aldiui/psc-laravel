@@ -32,16 +32,19 @@ class StokController extends Controller
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/stok/' . $stok->id . '`, [`id`, `tanggal`, `jenis`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return $detailButton . $editButton . $deleteButton;
+                        return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton;
                     })
                     ->addColumn('status_badge', function ($stok) {
                         return statusBadge($stok->status);
+                    })
+                    ->addColumn('jenis_badge', function ($stok) {
+                        return jenisBadge($stok->jenis);
                     })
                     ->addColumn('tgl', function ($stok) {
                         return formatTanggal($stok->tanggal);
                     })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'status_badge', 'nama', 'tgl'])
+                    ->rawColumns(['aksi', 'status_badge', 'nama', 'tgl', 'jenis_badge'])
                     ->make(true);
             }
 

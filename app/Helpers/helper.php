@@ -46,6 +46,31 @@ if (!function_exists('statusBadge')) {
     }
 }
 
+if (!function_exists('jenisBadge')) {
+    function jenisBadge($jenis)
+    {
+        $jenisIcon = ($jenis == 'Masuk') ? '<i class="fas fa-plus-square mr-1"></i>' : '<i class="fas fa-minus-square mr-1"></i>';
+        $jenisClass = ($jenis == 'Masuk') ? 'badge-success' :  'badge-danger';
+
+        return "<span class='badge $jenisClass'>$jenisIcon $jenis</span>";
+    }
+}
+
+if (!function_exists('generateBase64Image')) {
+    function generateBase64Image($imagePath)
+    {
+        if (file_exists($imagePath)) {
+            $data = file_get_contents($imagePath);
+            $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+            $base64Image = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+            return $base64Image;
+        } else {
+            return '';
+        }
+    }
+}
+
 if (!function_exists('formatTanggal')) {
     function formatTanggal($tanggal = null, $format = 'l, j F Y')
     {
