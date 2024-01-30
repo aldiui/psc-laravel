@@ -17,11 +17,10 @@
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/admin">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('admin.tim.index') }}"> @yield('title')</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('admin.stok.index') }}"> @yield('title')</a></div>
                     <div class="breadcrumb-item">Detail @yield('title')</div>
                 </div>
             </div>
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
@@ -30,21 +29,32 @@
                                 <h4 class="text-dark">Data Detail  @yield('title')</h4>
                                 <div class="ml-auto">
                                     <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
-                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    @if($stok->status != 1)
+                                        <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="mb-4">
                                     <div class="row">
-                                        <div class="col-5 col-lg-2 mb-2">Tanggal</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->tanggal }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Nama</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Jenis</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Status</div>
-                                        <div class="col-5 col-lg-10 mb-2">
+                                        <div class="col-4 col-lg-2 mb-2">Tanggal</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Nama</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Jenis</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
+                                        <div class="col-4 col-lg-2 mb-2">Status</div>
+                                        <div class="col-8 col-lg-10 mb-2">
                                             : {!! statusBadge($stok->status) !!}
+                                        </div>
+                                        <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
+                                        <div class="col-8 col-lg-10 mb-2">
+                                            : 
+                                            @if($stok->status != 1)
+                                                <button class="btn btn-primary btn-sm" type="button" onclick="confirmStok('{{ $stok->id }}')"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
+                                            @else
+                                                {!! statusBadge($stok->status) !!}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +104,7 @@
             ]);
 
             $("#createBtn").click(function () {
-                select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "Pilih Barang", "#createModal");
+                select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
             });
 
             $("#saveData").submit(function (e) {
@@ -138,7 +148,7 @@
         }); 
 
         function getSelectEdit(){
-            select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "Pilih Barang", "#editModal");
+            select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "#editModal");
         }
     </script>
 @endpush

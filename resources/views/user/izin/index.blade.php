@@ -16,7 +16,7 @@
 @endphp
     <div class="main-content">
         <section class="section">
-            <div class="section-header">
+            <div class="section-header d-none d-lg-block">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/">Home</a></div>
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="izinTable">
+                                    <table class="table" id="izinTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>

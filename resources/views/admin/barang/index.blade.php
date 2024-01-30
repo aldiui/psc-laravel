@@ -37,7 +37,7 @@
                                     <a href="{{ route('admin.barang.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="barangTable">
+                                    <table class="table" id="barangTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>
@@ -87,8 +87,8 @@
             
             
             $("#createBtn").click(function () {
-                select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "Pilih Unit", "#createModal");
-                select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "Pilih Kategori", "#createModal");
+                select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
+                select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
             });
 
             $("#saveData").submit(function (e) {
@@ -134,8 +134,8 @@
         });
 
         function getSelectEdit(){
-            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "Pilih Unit", "#editModal");
-            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "Pilih Kategori", "#editModal");
+            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "#editModal");
+            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "#editModal");
         }
     </script>
 @endpush

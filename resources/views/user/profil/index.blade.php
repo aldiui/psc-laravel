@@ -10,7 +10,7 @@
 @section('main')
     <div class="main-content mb-5 pb-5">
         <section class="section">
-            <div class="section-header">
+            <div class="section-header d-none d-lg-block">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="/">Home</a></div>
@@ -38,7 +38,6 @@
                                         <input type="text" class="form-control" id="nama" name="nama" value="{{ Auth::user()->nama}}">
                                         <small class="invalid-feedback" id="errornama"></small>
                                     </div>
-                
                                     <div class="form-group">
                                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}">
@@ -55,7 +54,8 @@
                                         <small class="invalid-feedback" id="errorno_hp"></small>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-none d-lg-block">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-block w-100 d-lg-none">Simpan</button>
                                     </div>
                                 </form>
                             </div>
@@ -83,9 +83,17 @@
                                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-none d-lg-block">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-block w-100 d-lg-none">Simpan</button>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="card d-lg-none">
+                            <div class="card-body">
+                                <a href="{{ route('logout') }}" class="btn btn-block btn-danger">
+                                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                                </a>
                             </div>
                         </div>
                     </div>

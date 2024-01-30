@@ -37,8 +37,11 @@ class StokController extends Controller
                     ->addColumn('status_badge', function ($stok) {
                         return statusBadge($stok->status);
                     })
+                    ->addColumn('tgl', function ($stok) {
+                        return formatTanggal($stok->tanggal);
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['aksi', 'status_badge', 'nama'])
+                    ->rawColumns(['aksi', 'status_badge', 'nama', 'tgl'])
                     ->make(true);
             }
 
@@ -73,13 +76,13 @@ class StokController extends Controller
 
         if ($request->ajax()) {
             if ($request->input("mode") == "datatable") {
-                $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
+                $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return $editButton . $deleteButton;
+                        return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
                     })
                     ->addColumn('nama', function ($detailStok) {
                         return $detailStok->barang->nama;
@@ -101,10 +104,14 @@ class StokController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'tanggal' => 'required',
-            'jenis' => 'required',
-        ]);
+        $cekStatus = $request->input('status');
+
+        if (isset($cekStatus)) {
+            $dataValidator = ['status' => 'required'];
+        } else {
+            $dataValidator = ['tanggal' => 'required', 'jenis' => 'required'];
+        }
+        $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
@@ -116,10 +123,36 @@ class StokController extends Controller
             return redirect(route('admin.stok.index'));
         }
 
-        $stok->update([
-            'tanggal' => $request->input('tanggal'),
-            'jenis' => $request->input('jenis'),
-        ]);
+        if (isset($cekStatus)) {
+            $stok->update([
+                'status' => $cekStatus,
+            ]);
+
+            if ($cekStatus == 1) {
+                $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
+                foreach ($detailStoks as $detailStok) {
+                    $barang = $detailStok->barang;
+                    if ($stok->jenis == "Masuk") {
+                        $barang->update([
+                            'qty' => $barang->qty + $detailStok->qty,
+                        ]);
+                    } else {
+                        if ($barang->qty < $detailStok->qty) {
+                            return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
+                        }
+
+                        $barang->update([
+                            'qty' => $barang->qty - $detailStok->qty,
+                        ]);
+                    }
+                }
+            }
+        } else {
+            $stok->update([
+                'tanggal' => $request->input('tanggal'),
+                'jenis' => $request->input('jenis'),
+            ]);
+        }
 
         return $this->successResponse($stok, 'Data Stok diupdate.', 200);
     }

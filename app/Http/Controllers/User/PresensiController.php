@@ -97,8 +97,11 @@ class PresensiController extends Controller
                                 return '<span class="badge badge-danger"><i class="fas fa-times-circle mr-1"></i> Belum Presensi</span>';
                             }
                         })
+                        ->addColumn('tgl', function ($row) {
+                            return formatTanggal($row->tanggal);
+                        })
                         ->addIndexColumn()
-                        ->rawColumns(['presensi_masuk', 'presensi_keluar'])
+                        ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl'])
                         ->make(true);
                 }
             }

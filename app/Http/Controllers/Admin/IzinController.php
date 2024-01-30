@@ -25,13 +25,13 @@ class IzinController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
-                        $confirmButton = '<button class="btn btn-sm btn-primary mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
+                        $confirmButton = '<button class="btn btn-sm btn-primary mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
                         return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
                     })
                     ->addColumn('tanggal', function ($izin) {
-                        return ($izin->tanggal_selesai == null) ? $izin->tanggal_mulai : $izin->tanggal_mulai . ' - ' . $izin->tanggal_selesai;
+                        return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
                     })
                     ->addColumn('status_badge', function ($izin) {
                         return statusBadge($izin->status);
@@ -60,6 +60,14 @@ class IzinController extends Controller
         if (!$izin) {
             return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
         }
+
+        $formattedTanggalMulai = formatTanggal($izin->tanggal_mulai);
+        $formattedTanggalSelesai = ($izin->tanggal_selesai == null) ? null : formatTanggal($izin->tanggal_selesai);
+        $formattedTanggalRange = ($formattedTanggalSelesai == null) ? $formattedTanggalMulai : $formattedTanggalMulai . ' - ' . $formattedTanggalSelesai;
+
+        $izin->tgl_mulai = $formattedTanggalMulai;
+        $izin->tgl_selesai = $formattedTanggalSelesai;
+        $izin->tgl_range = $formattedTanggalRange;
 
         return $this->successResponse($izin, 'Data Izin ditemukan.');
     }

@@ -168,7 +168,6 @@ const handleValidationErrors = (error, formId = null, fields = null) => {
 };
 
 const confirmDelete = (url, tableId) => {
-    console.log("url", url);
     swal({
         title: "Apakah Kamu Yakin?",
         text: "ingin menghapus data ini!",
@@ -177,9 +176,7 @@ const confirmDelete = (url, tableId) => {
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            const data = {
-                _token: $("meta[name='csrf-token']").attr("content"),
-            };
+            const data = null;
 
             const successCallback = function (response) {
                 handleSuccess(response, tableId, null);
@@ -201,11 +198,16 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
 
-const select2ToJson = (selector, url, title, modal = null) => {
+const select2ToJson = (selector, url, modal = null) => {
     const selectElem = $(selector).empty();
 
     const successCallback = function (response) {
         selectElem.empty();
+
+        const emptyOption = $("<option></option>");
+        emptyOption.attr("value", "");
+        emptyOption.text("-- Pilih Data --");
+        selectElem.append(emptyOption);
 
         const responseList = response.data;
         responseList.forEach(function (row) {
@@ -241,4 +243,36 @@ const updateJam = () => {
 
 const setUpJam = (jam) => {
     return jam < 10 ? "0" + jam : jam;
+};
+
+const confirmStok = (id) => {
+    swal({
+        title: "Apakah Kamu Yakin?",
+        text: "Akan menyelesaikan proses!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            const data = new FormData();
+            data.append("_method", "PUT");
+            data.append("status", "1");
+
+            const successCallback = function (response) {
+                handleSuccess(response, null, null, `/admin/stok/${id}`);
+            };
+
+            const errorCallback = function (error) {
+                console.log(error);
+            };
+
+            ajaxCall(
+                `/admin/stok/${id}`,
+                "POST",
+                data,
+                successCallback,
+                errorCallback
+            );
+        }
+    });
 };

@@ -13,36 +13,120 @@
 @endphp
     <div class="main-content mb-5 pb-5">
         <section class="section">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="text-dark mb-1">Selamat Datang, </div>
-                    <div class="text-dark mb-1">{{ Auth::user()->nama }} ( {{ Auth::user()->jabatan }} )</div>
+            <div class="card mb-3 mb-lg-4 p-1 rounded-pill">
+                <div class="card-body d-flex justify-content-between align-content-center py-2">
+                    <div>
+                        <div class="small">{{ getGreeting() }}, </div>
+                        <div class="mb-1 font-weight-bold">{{ Auth::user()->nama }}</div>
+                        <div class="small">{{ Auth::user()->jabatan }}</div>
+                    </div>
+                    <div style="background-image: url('{{ asset('/storage/img/karyawan/' . (Auth::user()->image ?? 'default.png')) }}');"
+                        class="img-big d-block "></div>
                 </div>
             </div>
-            <div class="row no-gutters mb-0">
-                <div class="col-6">
-                    <div class="card bg-success mr-1">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Presensi Masuk</div>
-                            <div class="mb-2">{{ $presensi ? $presensi->clock_in : "00:00:00" }}</div>
-                            <div>{{ $presensi ? ($presensi->alasan_in ? "Diluar Radius" : "Dalam Radius") : "Belum Ada" }}</div>
+            <div class="card mb-3 mb-lg-4">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div class="small">{{ formatTanggal() }}</div>
+                        <div class="small" id="jam"></div>
+                    </div>
+                    <div class="row no-gutters mb-0">
+                        <div class="col-6 d-flex align-items-center">
+                            <div class="mr-2">
+                                <div class="p-2 {{ $presensi ? 'bg-success' : 'bg-secondary' }} rounded">
+                                    <i class="far {{ $presensi ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
+                                <div class="small">Masuk</div>
+                                <div class="text-lg">{{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                            <div class="mr-2">
+                                <div class="p-2 {{ $presensi && $presensi->clock_out ? 'bg-success' : 'bg-secondary' }} rounded">
+                                    <i class="far {{ $presensi && $presensi->clock_out ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
+                                </div>
+                            </div>
+                            <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                                <div class="small">Keluar</div>
+                                <div class="text-lg">{{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="card mb-3 mb-lg-4">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-around">
+                        <div>
+                            <a class="text-decoration-none text-center text-info"
+                                href="{{ url('izin') }}"><i class="d-block mb-2 text-lg fas fa-calendar"></i> <div class="text-mini text-center text-dark">Izin</div></a>
+                        </div>
+                        <div>
+                            <a class="text-decoration-none text-center text-success"
+                                href="{{ url('presensi') }}"><i class="d-block mb-2 text-lg fas fa-camera"></i> <div class="text-mini text-center text-dark">Presensi</div></a>
+                        </div>
+                        <div>
+                            <a class="text-decoration-none text-center text-warning"
+                                href="{{ url('stok') }}"><i class="d-block mb-2 text-lg fas fa-clipboard-list"></i> <div class="text-mini text-center text-dark">Stok</div></a>
+                        </div>
+                        <div>
+                            <a class="text-decoration-none text-center text-primary"
+                                href="{{ url('profil') }}"><i class="d-block mb-2 text-lg fas fa-user"></i> <div class="text-mini text-center text-dark">Profil</div></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="card bg-danger ml-1">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Presensi Keluar</div>
-                            <div class="mb-2">{{ $presensi ? ($presensi->clock_out ?? "00:00:00"): "00:00:00" }}</div>
-                            <div>{{ $presensi ? ($presensi->alasan_out ? "Diluar Radius" : "Belum Ada") : "Belum Ada" }}</div>
+            </div>
+            <div class="d-lg-none">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-title">Presensi</div>
+                    <div class="small text-info">Lihat selengkapnya</div>
+                </div>
+                @if($presensis->isNotEmpty())
+                    @foreach ($presensis as $presensi)
+                    <div class="card mb-2">
+                        <div class="card-body p-3">
+                            <div class="small mb-2">{{ formatTanggal($presensi->tanggal)}}</div>
+                            <div class="row no-gutters mb-0">
+                                <div class="col-6 d-flex align-items-center">
+                                    <div class="mr-2">
+                                        <div class="p-2 {{ $presensi && $presensi->alasan_in ? 'text-danger' : 'text-secondary' }} rounded">
+                                            <i class="fas fa-map-marker-alt text-lg"></i>
+                                        </div>
+                                    </div>
+                                    <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
+                                        <div class="small">Masuk</div>
+                                        <div class="text-lg">{{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 d-flex align-items-center">
+                                    <div class="mr-2">
+                                        <div class="p-2 {{ $presensi && $presensi->alasan_out ? 'text-danger' : 'text-secondary' }} rounded">
+                                            <i class="far fas fa-map-marker-alt text-lg"></i>
+                                        </div>
+                                    </div>
+                                    <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                                        <div class="small">Keluar</div>
+                                        <div class="text-lg">{{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
+                                    </div>
+                                </div>
+                            </div>        
                         </div>
                     </div>
-                </div>
+                    @endforeach
+                @else
+                    <div class="text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-9">
+                                <img src="{{ asset('img/null.png') }}" class="img-fluid mb-2" alt="">
+                            </div>
+                        </div>
+                        <div>Belum ada presensi</div>
+                    </div>
+                @endif
             </div>
-            <div class="card mt-0">
-                <div class="card-header">
-                    <h4 class="text-dark">Data Riwayat Presensi</h4>
-                </div>
+            <div class="card d-none d-lg-block">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -67,7 +151,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table" id="presensiTable">
+                        <table class="table" id="presensiTable" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">Tanggal</th>
@@ -95,8 +179,10 @@
 
     <script>
         $(document).ready(function() {
+            setInterval(updateJam, 1000);
+
             datatableCall('presensiTable', '{{ route('presensi') }}', [
-                { data: 'tanggal', name: 'tanggal' },
+                { data: 'tgl', name: 'tgl' },
                 { data: 'presensi_masuk', name: 'presensi_masuk' },
                 { data: 'presensi_keluar', name: 'presensi_keluar' },
                 { data: 'catatan', name: 'catatan' },  

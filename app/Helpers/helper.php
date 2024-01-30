@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('calculateDistance')) {
     function calculateDistance($latPresesensi, $lonPresesensi, $latSetting, $lonSetting)
     {
@@ -41,5 +43,30 @@ if (!function_exists('statusBadge')) {
         $statusText = ($status == '0') ? 'Menunggu' : (($status == '1') ? 'Disetujui' : 'Ditolak');
 
         return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
+    }
+}
+
+if (!function_exists('formatTanggal')) {
+    function formatTanggal($tanggal = null, $format = 'l, j F Y')
+    {
+        $parsedDate = Carbon::parse($tanggal)->locale('id')->settings(['formatFunction' => 'translatedFormat']);
+        return $parsedDate->format($format);
+    }
+}
+
+if (!function_exists('getGreeting')) {
+    function getGreeting()
+    {
+        $hour = now()->hour;
+
+        if ($hour >= 5 && $hour < 12) {
+            return 'Selamat Pagi';
+        } elseif ($hour >= 12 && $hour < 17) {
+            return 'Selamat Siang';
+        } elseif ($hour >= 17 && $hour < 20) {
+            return 'Selamat Sore';
+        } else {
+            return 'Selamat Malam';
+        }
     }
 }

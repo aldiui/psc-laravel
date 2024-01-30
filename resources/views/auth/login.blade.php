@@ -17,13 +17,13 @@
                     </h4>
                     <form id="login" autocomplete="off">
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">Email <span class="text-danger">*</span></label>
                             <input id="email" type="email" class="form-control" name="email">
                             <small class="invalid-feedback" id="erroremail"></small>
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="control-label">Password</label>
+                            <label for="password" class="control-label">Password <span class="text-danger">*</span></label>
                             <input id="password" type="password" class="form-control" name="password">
                             <small class="invalid-feedback" id="errorpassword"></small>
                         </div>

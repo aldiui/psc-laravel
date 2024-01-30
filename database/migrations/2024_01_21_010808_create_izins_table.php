@@ -18,8 +18,8 @@ return new class extends Migration
             $table->date('tanggal_selesai')->nullable();
             $table->text('alasan');
             $table->string('file')->nullable();
-            $table->enum('tipe', ['Izin','Sakit','Cuti']);
-            $table->string('status')->default('0');  
+            $table->enum('tipe', ['Izin', 'Sakit', 'Cuti']);
+            $table->string('status')->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

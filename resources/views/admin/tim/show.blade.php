@@ -36,10 +36,10 @@
                             <div class="card-body">
                                 <div class="mb-4">
                                     <div class="row">
-                                        <div class="col-5 col-lg-2 mb-2">Nama Tim</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $tim->nama }}</div>
-                                        <div class="col-5 col-lg-2 mb-2">Deskripsi</div>
-                                        <div class="col-5 col-lg-10 mb-2">: {{ $tim->deskripsi }}</div>
+                                        <div class="ol-4 col-lg-2 mb-2">Nama Tim</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $tim->nama }}</div>
+                                        <div class="ol-4 col-lg-2 mb-2">Deskripsi</div>
+                                        <div class="col-8 col-lg-10 mb-2">: {{ $tim->deskripsi }}</div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">

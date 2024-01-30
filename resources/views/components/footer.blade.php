@@ -17,7 +17,7 @@
                 href="{{ url('presensi') }}"><i class="d-block mb-2 fas fa-camera"></i> <div class="text-mini text-center">Presensi</div></a>
         </div>
         <div>
-            <a class="text-decoration-none {{ Request::is('stok') ? 'text-danger' : 'text-secondary' }} text-center"
+            <a class="text-decoration-none {{ Request::is('stok/*') || Request::is('stok') ? 'text-danger' : 'text-secondary' }} text-center"
                 href="{{ url('stok') }}"><i class="d-block mb-2 fas fa-clipboard-list"></i> <div class="text-mini text-center">Stok</div></a>
         </div>
         <div>
