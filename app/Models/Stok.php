@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Models\DetailStok;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Stok extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     public function user()
@@ -22,5 +22,5 @@ class Stok extends Model
     {
         return $this->hasMany(DetailStok::class);
     }
-    
+
 }
