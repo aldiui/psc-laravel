@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2 d-none d-lg-block">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">{{ config(string: 'app.name') }}</a>
+            <a href="/">{{ config( 'app.name') }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/">{{ config(string: 'app.name') }}</a>
+            <a href="/">{{ config( 'app.name') }}</a>
         </div>
         <ul class="sidebar-menu">
             <li class="{{ Request::is('/') ? 'active' : '' }}">
