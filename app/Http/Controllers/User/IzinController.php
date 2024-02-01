@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\User;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -84,7 +84,6 @@ class IzinController extends Controller
         $izin = Izin::with('user')->find($id);
 
         if ($request->ajax()) {
-
             if (!$izin) {
                 return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
             }
@@ -94,6 +93,7 @@ class IzinController extends Controller
             if (!$izin || $izin->status != '1') {
                 return redirect()->route('izin.index');
             }
+
             $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
 
             $options = [

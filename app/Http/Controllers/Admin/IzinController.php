@@ -81,7 +81,6 @@ class IzinController extends Controller
         $izin = Izin::with('user')->find($id);
 
         if ($request->ajax()) {
-
             if (!$izin) {
                 return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
             }
@@ -99,6 +98,7 @@ class IzinController extends Controller
             if (!$izin || $izin->status != '1') {
                 return redirect()->route('admin.izin.index');
             }
+
             $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
 
             $options = [
