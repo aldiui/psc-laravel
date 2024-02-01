@@ -41,6 +41,10 @@
                 <a class="nav-link"
                     href="{{ url('admin/presensi') }}"><i class="fas fa-camera"></i> <span>Presensi</span></a>
             </li>
+            <li class="{{ Request::is('admin/rekap-presensi') ? 'active' : '' }}">
+                <a class="nav-link"
+                    href="{{ url('admin/rekap-presensi') }}"><i class="fas fa-book"></i> <span>Rekap Presensi</span></a>
+            </li>
             <li class="{{ Request::is('admin/izin') ? 'active' : '' }}">
                 <a class="nav-link"
                     href="{{ url('admin/izin') }}"><i class="fas fa-calendar"></i> <span>Izin</span></a>

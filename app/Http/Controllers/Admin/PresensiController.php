@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Presensi;
+use App\Models\User;
 use App\Traits\ApiResponder;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 
@@ -61,4 +63,60 @@ class PresensiController extends Controller
 
         return view('admin.presensi.index');
     }
+
+    public function rekapPresensi(Request $request)
+    {
+        if ($request->ajax()) {
+            $bulan = $request->input("bulan");
+            $tahun = $request->input("tahun");
+            $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
+            $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+
+            $karyawans = User::where('role', 'user')->get();
+
+            $dates = Carbon::parse($startDate);
+            $labels = [];
+
+            while ($dates <= $endDate) {
+                $dateString = $dates->toDateString();
+                $labels[] = formatTanggal($dateString, 'd');
+                $dates->addDay();
+            }
+
+            foreach ($karyawans as $karyawan) {
+                $presensi = [];
+
+                for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
+                    $date = Carbon::create($tahun, $bulan, $day);
+
+                    $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
+                        ->whereDate('tanggal', $date)
+                        ->count();
+
+                    $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
+                        ->whereDate('tanggal', $date)
+                        ->whereNotNull('clock_out')
+                        ->count();
+
+                    $presensi[] = [
+                        "masuk" => $presensiMasukCount,
+                        "keluar" => $presensiKeluarCount,
+                    ];
+                }
+
+                $presensiData[] = [
+                    'nama' => $karyawan->nama,
+                    'presensi' => $presensi,
+                ];
+            }
+
+            return $this->successResponse([
+                'labels' => $labels,
+                'presensi_data' => $presensiData,
+            ], 'Data presensi ditemukan.');
+        }
+
+        return view('admin.presensi.rekap');
+    }
+
 }

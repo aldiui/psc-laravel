@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="stokTable" width="100%">
+                                    <table class="table table-bordered table-striped" id="stokTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>

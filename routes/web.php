@@ -18,7 +18,6 @@ Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->n
 
 Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.index');
-    Route::redirect('coba', '/admin');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
@@ -28,10 +27,12 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('tim', App\Http\Controllers\Admin\TimController::class)->names('admin.tim');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
     Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
+    Route::get('rekap-presensi', [App\Http\Controllers\Admin\PresensiController::class, 'rekapPresensi'])->name('admin.presensi.rekap');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
     Route::resource('detail-tim', App\Http\Controllers\Admin\DetailTimController::class)->names('admin.detail-tim');
     Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
+
 });
 
 Route::middleware(['auth', 'checkRole:user'])->group(function () {

@@ -276,3 +276,105 @@ const confirmStok = (id) => {
         }
     });
 };
+
+const createChart = (labels, stokMasuk, stokKeluar) => {
+    const statistics_chart = $("#myChart");
+
+    if (statistics_chart.data("chart")) {
+        statistics_chart.data("chart").destroy();
+    }
+
+    const ctx = statistics_chart[0].getContext("2d");
+
+    const myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "Stok Masuk",
+                    data: stokMasuk,
+                    borderWidth: 5,
+                    borderColor: "#6777ef",
+                    backgroundColor: "rgba(103, 119, 239, 0.3)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: "#6777ef",
+                    pointRadius: 4,
+                },
+                {
+                    label: "Stok Keluar",
+                    data: stokKeluar,
+                    borderWidth: 5,
+                    borderColor: "#ff5733",
+                    backgroundColor: "rgba(255, 87, 51, 0.3)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: "#ff5733",
+                    pointRadius: 4,
+                },
+            ],
+        },
+        options: {
+            legend: {
+                display: true,
+            },
+            scales: {
+                yAxes: [
+                    {
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            stepSize: 50,
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        gridLines: {
+                            color: "#fbfbfb",
+                            lineWidth: 2,
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+    statistics_chart.data("chart", myChart);
+};
+
+const updateTable = (data) => {
+    $("#presensiTable").empty();
+
+    const theadRow = $("<tr>");
+    theadRow.append('<th class="text-center" style="width: 500px;">Nama</th>');
+
+    data.labels.forEach((label) => {
+        theadRow.append(`<th colspan="2" class="text-center">${label}</th>`);
+    });
+
+    const thead = $('<thead clas="text-center">').append(theadRow);
+    $("#presensiTable").append(thead);
+
+    const tbody = $("<tbody>");
+
+    data.presensi_data.forEach((item) => {
+        const row = $("<tr>");
+        row.append($("<td>").text(item.nama));
+
+        item.presensi.forEach((count) => {
+            row.append(`
+                <td class="text-center"><span class="badge ${
+                    count.masuk === 0 ? "badge-danger" : "badge-success"
+                }">${count.masuk}</span></td>
+                <td class="text-center"><span class="badge ${
+                    count.keluar === 0 ? "badge-danger" : "badge-success"
+                }">${count.keluar}</span></td>
+            `);
+        });
+        tbody.append(row);
+    });
+
+    $("#presensiTable").append(tbody);
+};
