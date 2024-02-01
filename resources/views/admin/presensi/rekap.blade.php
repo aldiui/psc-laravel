@@ -48,6 +48,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
                                         
@@ -82,6 +85,8 @@
             };
 
             const url = `/admin/rekap-presensi?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            const downloadPdf = `/admin/rekap-presensi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
 
             ajaxCall(url, "GET", null, successCallback, errorCallback);
         };

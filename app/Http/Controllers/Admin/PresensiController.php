@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Presensi;
 use App\Models\User;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
@@ -66,9 +67,9 @@ class PresensiController extends Controller
 
     public function rekapPresensi(Request $request)
     {
+        $bulan = $request->input("bulan");
+        $tahun = $request->input("tahun");
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
             $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
@@ -114,6 +115,70 @@ class PresensiController extends Controller
                 'labels' => $labels,
                 'presensi_data' => $presensiData,
             ], 'Data presensi ditemukan.');
+        }
+
+        if ($request->input("mode") == "pdf") {
+            $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
+            $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+
+            $karyawans = User::where('role', 'user')->get();
+
+            $dates = Carbon::parse($startDate);
+            $labels = [];
+
+            while ($dates <= $endDate) {
+                $dateString = $dates->toDateString();
+                $labels[] = formatTanggal($dateString, 'd');
+                $dates->addDay();
+            }
+
+            foreach ($karyawans as $karyawan) {
+                $presensi = [];
+
+                for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
+                    $date = Carbon::create($tahun, $bulan, $day);
+
+                    $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
+                        ->whereDate('tanggal', $date)
+                        ->count();
+
+                    $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
+                        ->whereDate('tanggal', $date)
+                        ->whereNotNull('clock_out')
+                        ->count();
+
+                    $presensi[] = [
+                        "masuk" => $presensiMasukCount,
+                        "keluar" => $presensiKeluarCount,
+                    ];
+                }
+
+                $presensiData[] = [
+                    'nama' => $karyawan->nama,
+                    'presensi' => $presensi,
+                ];
+            }
+
+            $pdf = PDF::loadView('admin.presensi.pdf', [
+                'labels' => $labels,
+                'presensi_data' => $presensiData,
+            ]);
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('legal', 'landscape');
+
+            $namaFile = 'laporan_rekap_presensi.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
         }
 
         return view('admin.presensi.rekap');
