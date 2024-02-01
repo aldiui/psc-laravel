@@ -151,7 +151,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table" id="presensiTable" width="100%">
+                        <table class="table table-bordered table-striped" id="presensiTable" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">Tanggal</th>

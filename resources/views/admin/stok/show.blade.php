@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table" id="detailStokTable" width="100%">
+                                    <table class="table table-bordered table-striped" id="detailStokTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>
