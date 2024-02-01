@@ -104,11 +104,12 @@
                 { data: 'status_badge', name: 'status_badge' },
                 { data: 'aksi', name: 'aksi' },  
             ]);
+
+            renderData();
             
             $("#bulan_filter, #tahun_filter").on("change", function () {
                 $("#izinTable").DataTable().ajax.reload();
-                const downloadPdf = `/admin/izin?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
-                $("#downloadPdf").attr("href", downloadPdf);
+                renderData();
             });
 
             $("#confirmData").submit(function (e) {
@@ -131,5 +132,10 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        const renderData = () => {
+            const downloadPdf = `/admin/izin?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush
