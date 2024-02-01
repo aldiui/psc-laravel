@@ -13,7 +13,7 @@
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
                     </div>
-                    <h4 class="text-dark text-center mb-3 font-weight-normal">Selamat Datang di <br> <span class="font-weight-bold">PSC 119</span>
+                    <h4 class="text-dark text-center mb-3 font-weight-normal">Selamat Datang di <br> <span class="font-weight-bold">{{ config(string: 'app.name') }}</span>
                     </h4>
                     <form id="login" autocomplete="off">
                         <div class="form-group">
