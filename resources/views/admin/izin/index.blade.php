@@ -53,6 +53,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table" id="izinTable" width="100%">
                                         <thead>
@@ -104,8 +107,9 @@
             
             $("#bulan_filter, #tahun_filter").on("change", function () {
                 $("#izinTable").DataTable().ajax.reload();
+                const downloadPdf = `/admin/izin?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+                $("#downloadPdf").attr("href", downloadPdf);
             });
-
 
             $("#confirmData").submit(function (e) {
                 setButtonLoadingState("#confirmData .btn.btn-success", true);

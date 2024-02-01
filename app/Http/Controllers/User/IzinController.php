@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Traits\ApiResponder;
 use DataTables;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class IzinController extends Controller
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info' href='/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a>";
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
@@ -78,15 +79,40 @@ class IzinController extends Controller
         return $this->successResponse($izin, 'Data Izin ditambahkan.', 201);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $izin = Izin::find($id);
+        $izin = Izin::with('user')->find($id);
 
-        if (!$izin) {
-            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
+        if ($request->ajax()) {
+
+            if (!$izin) {
+                return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
+            }
+
+            return $this->successResponse($izin, 'Data Izin ditemukan.');
+        } else {
+            if (!$izin || $izin->status != '1') {
+                return redirect()->route('izin.index');
+            }
+            $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'potrait');
+
+            $namaFile = 'izin.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
         }
 
-        return $this->successResponse($izin, 'Data Izin ditemukan.');
     }
 
     public function update(Request $request, $id)

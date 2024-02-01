@@ -217,11 +217,11 @@ const select2ToJson = (selector, url, modal = null) => {
                 option.text(
                     row.unit.nama !== "Kosong"
                         ? row.nama +
-                              " - Jumlah Stok : " +
+                              " ( Jumlah Stok : " +
                               row.qty +
                               " " +
-                              row.unit.nama
-                        : row.nama + " - " + row.qty
+                              row.unit.nama + " )"
+                        : row.nama + " ( Jumlah Stok : " + row.qty + " )"
                 );
             } else {
                 option.text(row.nama);

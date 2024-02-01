@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\User;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,9 +18,9 @@ class IzinController extends Controller
 
     public function index(Request $request)
     {
+        $bulan = $request->input("bulan");
+        $tahun = $request->input("tahun");
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
 
             $izins = Izin::with('user')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
@@ -28,7 +29,7 @@ class IzinController extends Controller
                         $confirmButton = '<button class="btn btn-sm btn-primary mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
+                        return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<a class='btn btn-info' href='/admin/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a>";
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
@@ -50,26 +51,72 @@ class IzinController extends Controller
             return $this->successResponse($izins, 'Data izin ditemukan.');
         }
 
+        if ($request->input("mode") == "pdf") {
+            $izins = Izin::with('user')->where('status', '1')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+
+            $pdf = PDF::loadView('admin.izin.rekap', compact('izins'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('legal', 'landscape');
+
+            $namaFile = 'laporan_rekap_izin.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
+        }
+
         return view('admin.izin.index');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $izin = Izin::find($id);
+        $izin = Izin::with('user')->find($id);
 
-        if (!$izin) {
-            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
+        if ($request->ajax()) {
+
+            if (!$izin) {
+                return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
+            }
+
+            $formattedTanggalMulai = formatTanggal($izin->tanggal_mulai);
+            $formattedTanggalSelesai = ($izin->tanggal_selesai == null) ? null : formatTanggal($izin->tanggal_selesai);
+            $formattedTanggalRange = ($formattedTanggalSelesai == null) ? $formattedTanggalMulai : $formattedTanggalMulai . ' - ' . $formattedTanggalSelesai;
+
+            $izin->tgl_mulai = $formattedTanggalMulai;
+            $izin->tgl_selesai = $formattedTanggalSelesai;
+            $izin->tgl_range = $formattedTanggalRange;
+
+            return $this->successResponse($izin, 'Data Izin ditemukan.');
+        } else {
+            if (!$izin || $izin->status != '1') {
+                return redirect()->route('admin.izin.index');
+            }
+            $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'potrait');
+
+            $namaFile = 'izin.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
         }
-
-        $formattedTanggalMulai = formatTanggal($izin->tanggal_mulai);
-        $formattedTanggalSelesai = ($izin->tanggal_selesai == null) ? null : formatTanggal($izin->tanggal_selesai);
-        $formattedTanggalRange = ($formattedTanggalSelesai == null) ? $formattedTanggalMulai : $formattedTanggalMulai . ' - ' . $formattedTanggalSelesai;
-
-        $izin->tgl_mulai = $formattedTanggalMulai;
-        $izin->tgl_selesai = $formattedTanggalSelesai;
-        $izin->tgl_range = $formattedTanggalRange;
-
-        return $this->successResponse($izin, 'Data Izin ditemukan.');
     }
 
     public function update(Request $request, $id)
