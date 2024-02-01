@@ -216,7 +216,11 @@ const select2ToJson = (selector, url, modal = null) => {
             if (row.qty >= 0) {
                 option.text(
                     row.unit.nama !== "Kosong"
-                        ? row.nama + " - Jumlah Stok : " + row.qty + " " + row.unit.nama
+                        ? row.nama +
+                              " - Jumlah Stok : " +
+                              row.qty +
+                              " " +
+                              row.unit.nama
                         : row.nama + " - " + row.qty
                 );
             } else {
@@ -356,19 +360,21 @@ const updateTable = (data) => {
     $("#presensiTable").empty();
 
     const theadRow = $("<tr>");
+    theadRow.append("<th>#</th>");
     theadRow.append('<th class="text-center" style="width: 500px;">Nama</th>');
 
     data.labels.forEach((label) => {
         theadRow.append(`<th colspan="2" class="text-center">${label}</th>`);
     });
 
-    const thead = $('<thead clas="text-center">').append(theadRow);
+    const thead = $('<thead class="text-center">').append(theadRow);
     $("#presensiTable").append(thead);
 
     const tbody = $("<tbody>");
 
-    data.presensi_data.forEach((item) => {
+    data.presensi_data.forEach((item, index) => {
         const row = $("<tr>");
+        row.append($("<td>").text(index + 1));
         row.append($("<td>").text(item.nama));
 
         item.presensi.forEach((count) => {
