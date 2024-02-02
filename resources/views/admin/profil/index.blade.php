@@ -3,7 +3,6 @@
 @section('title', 'Profil')
 
 @push('style')
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/dropify/css/dropify.css') }}">    
 @endpush
 
@@ -95,7 +94,6 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/dropify/js/dropify.js') }}"></script>
 

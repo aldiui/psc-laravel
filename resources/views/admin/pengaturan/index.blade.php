@@ -59,12 +59,10 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-
             $("#updateData").submit(function (e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();

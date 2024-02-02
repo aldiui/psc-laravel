@@ -3,7 +3,6 @@
 @section('title', 'Presensi')
 
 @push('style')
-    <!-- CSS Libraries -->
     <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' /> 
 @endpush
 
@@ -30,7 +29,6 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraries -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
 
