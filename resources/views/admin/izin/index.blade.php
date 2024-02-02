@@ -86,11 +86,10 @@
     <script src="{{ asset('library/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('library/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ asset('library/dropify/js/dropify.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            $('.dropify').dropify();
-
             datatableCall('izinTable', '{{ route('admin.izin.index') }}', [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                 { data: 'img', name: 'img' },
