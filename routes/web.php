@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::match(['get', 'post'], '/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle']);
+Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'handleCallback']);
 
 Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.index');

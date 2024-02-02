@@ -21,19 +21,22 @@
                             <input id="email" type="email" class="form-control" name="email">
                             <small class="invalid-feedback" id="erroremail"></small>
                         </div>
-
                         <div class="form-group">
                             <label for="password" class="control-label">Password <span class="text-danger">*</span></label>
                             <input id="password" type="password" class="form-control" name="password">
                             <small class="invalid-feedback" id="errorpassword"></small>
                         </div>
-
                         <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">Login
+                            <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">
+                                <i class="fas fa-sign-in mr-2"></i>Login
                             </button>
                         </div>
                     </form>
-
+                    <div class="form-group">
+                        <a href="/google" class="btn btn-block btn-light btn-lg btn-icon icon-right">
+                            <i class="fab fa-google mr-2"></i>Login Menggunakan Google
+                        </a>
+                    </div>
                     <div class="text-small mt-5 text-center">
                         Copyright &copy; {{ date("Y")}} <div class="bullet"></div> Created By <span>UBSI Tasikmalaya</span>
                     </div>
@@ -65,13 +68,13 @@
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "Login");
+                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Login");
                     const redirect = response.data.role == 'admin' ? '/admin' : '/';
                     handleSuccess(response, null, null, redirect);
                 };
 
                 const errorCallback = function (error) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "Login");
+                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Login");
                     handleValidationErrors(error, "login", ["email", "password"]);
                 };
 

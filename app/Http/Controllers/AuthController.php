@@ -8,6 +8,7 @@ use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -40,9 +41,28 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleCallback(Request $request)
+    {
+        $getCallback = Socialite::driver('google')->user();
+        $user = User::where('email', $getCallback->email)->first();
+
+        if (!$user) {
+            return $this->errorResponse(null, 'Email anda tidak terdaftar.', 401);
+        }
+
+        $user = Auth::user();
+        return $this->successResponse($user, 'Login berhasil.');
+    }
+
     public function logout()
     {
         Auth::logout();
         return redirect()->route('login');
     }
+
 }
