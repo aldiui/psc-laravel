@@ -3,6 +3,7 @@
 @section('title', 'Pengaturan')
 
 @push('style')
+    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' /> 
 @endpush
 
 @section('main')
@@ -52,6 +53,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat provident ipsa quod omnis rerum cum a modi id voluptates sequi, voluptatem enim voluptas accusamus dolorum exercitationem at nihil iste! Pariatur.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -60,6 +66,7 @@
 
 @push('scripts')
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
 
     <script>
         $(document).ready(function() {
