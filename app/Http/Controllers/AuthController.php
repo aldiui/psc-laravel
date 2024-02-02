@@ -48,15 +48,19 @@ class AuthController extends Controller
 
     public function handleCallback(Request $request)
     {
-        $getCallback = Socialite::driver('google')->stateless()->user();
-        dd($getCallback);
+        try {
+            $getCallback = Socialite::driver('google')->stateless()->user();
+        } catch (\Exception $e) {
+            return $this->errorResponse(null, 'Failed to retrieve user details from Google.', 401);
+        }
+
         $user = User::where('email', $getCallback->email)->first();
 
         if (!$user) {
             return $this->errorResponse(null, 'Email anda tidak terdaftar.', 401);
         }
 
-        $user = Auth::user();
+        Auth::login($user);
         return $user->role == 'admin' ? redirect('/admin') : redirect('/');
     }
 
