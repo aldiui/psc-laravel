@@ -91,6 +91,12 @@
                         </div>
                         <div class="card d-lg-none">
                             <div class="card-body">
+                                @if(Auth::user()->role == "admin")
+                                <a href="{{ route('admin.index') }}"
+                                    class="btn btn-info  btn-block">
+                                    <i class="fas fa-user"></i> Switch Admin
+                                </a>
+                                @endif
                                 <a href="{{ route('logout') }}" class="btn btn-block btn-danger">
                                     <i class="fas fa-sign-out-alt mr-1"></i> Logout
                                 </a>

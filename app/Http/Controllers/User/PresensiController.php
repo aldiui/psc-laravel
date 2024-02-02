@@ -31,7 +31,7 @@ class PresensiController extends Controller
                 }
 
                 $getLocation = explode(",", $request->location);
-                $calculateDistance = calculateDistance($getLocation[0], $getLocation[1], $pengaturan->longitude, $pengaturan->latitude);
+                $calculateDistance = calculateDistance($getLocation[0], $getLocation[1], $pengaturan->latitude, $pengaturan->longitude);
 
                 if ($calculateDistance >= $pengaturan->radius) {
                     if ($request->alasan == null) {

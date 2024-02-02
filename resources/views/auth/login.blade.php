@@ -69,8 +69,7 @@
 
                 const successCallback = function (response) {
                     setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Login");
-                    const redirect = response.data.role == 'admin' ? '/admin' : '/';
-                    handleSuccess(response, null, null, redirect);
+                    handleSuccess(response, null, null, "/");
                 };
 
                 const errorCallback = function (error) {

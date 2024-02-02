@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
 
 });
 
-Route::middleware(['auth', 'checkRole:user'])->group(function () {
+Route::middleware(['auth', 'checkRole:user,admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('profil');
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');

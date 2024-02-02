@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::check()) {
-            return Auth::user()->role == 'admin' ? redirect('/admin') : redirect('/');
+            return redirect('/');
         }
 
         if ($request->isMethod('post')) {
@@ -61,7 +61,8 @@ class AuthController extends Controller
         }
 
         Auth::login($user);
-        return $user->role == 'admin' ? redirect('/admin') : redirect('/');
+        return redirect('/');
+
     }
 
     public function logout()
