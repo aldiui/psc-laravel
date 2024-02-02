@@ -56,6 +56,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="stokTable" width="100%">
                                         <thead>
@@ -104,8 +107,11 @@
                 { data: 'aksi', name: 'aksi' },  
             ]);
 
+            renderData();
+
             $("#bulan_filter, #tahun_filter").on("change", function () {
-                $("#stokTable").DataTable().ajax.reload();
+                $("#izinTable").DataTable().ajax.reload();
+                renderData();
             });
 
             $("#saveData").submit(function (e) {
@@ -147,5 +153,10 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        const renderData = () => {
+            const downloadPdf = `/admin/stok?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush

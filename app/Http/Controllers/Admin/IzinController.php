@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -20,8 +21,8 @@ class IzinController extends Controller
     {
         $bulan = $request->input("bulan");
         $tahun = $request->input("tahun");
-        if ($request->ajax()) {
 
+        if ($request->ajax()) {
             $izins = Izin::with('user')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
@@ -53,8 +54,9 @@ class IzinController extends Controller
 
         if ($request->input("mode") == "pdf") {
             $izins = Izin::with('user')->where('status', '1')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
-            $pdf = PDF::loadView('admin.izin.rekap', compact('izins'));
+            $pdf = PDF::loadView('admin.izin.rekap', compact('izins', 'bulanTahun'));
 
             $options = [
                 'margin_top' => 20,

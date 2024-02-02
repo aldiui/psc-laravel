@@ -7,6 +7,10 @@
 
 @section('main')
     <div>
+        <center>
+            <u><h3>Data @yield('title') {{ $bulanTahun }}</h3></u>
+        </center>
+        <br>
         <table width="100%" border="1" cellpadding="2.5" cellspacing="0">
             <thead>
                 <tr>

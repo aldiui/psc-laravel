@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailStok;
 use App\Models\Stok;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,10 +19,10 @@ class StokController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
+        $bulan = $request->input("bulan");
+        $tahun = $request->input("tahun");
 
+        if ($request->ajax()) {
             $stoks = Stok::with('user')->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($stoks)
@@ -50,6 +52,30 @@ class StokController extends Controller
 
             return $this->successResponse($stoks, 'Data stok ditemukan.');
         }
+
+        if ($request->input("mode") == "pdf") {
+            $stoks = Stok::with('user')->where('status', 1)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
+
+            $pdf = PDF::loadView('admin.stok.pdf', compact('stoks', 'bulanTahun'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('legal', 'landscape');
+
+            $namaFile = 'laporan_rekap_stok.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
+        }
+
         return view('admin.stok.index');
     }
 

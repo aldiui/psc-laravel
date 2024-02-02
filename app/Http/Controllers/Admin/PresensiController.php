@@ -158,10 +158,12 @@ class PresensiController extends Controller
                     'presensi' => $presensi,
                 ];
             }
+            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,
                 'presensi_data' => $presensiData,
+                'bulanTahun' => $bulanTahun,
             ]);
 
             $options = [
