@@ -911,8 +911,8 @@ class DatabaseSeeder extends Seeder
         DB::table('tims')->insert($timData);
 
         $pengaturanData = [
-            'longitude' => '-7.3072588',
-            'latitude' => '108.2004862',
+            'latitude' => '-7.3072588',
+            'longitude' => '108.2004862',
             'radius' => '100',
         ];
 

@@ -57,7 +57,7 @@ class AuthController extends Controller
         $user = User::where('email', $getCallback->email)->first();
 
         if (!$user) {
-            return $this->errorResponse(null, 'Email anda tidak terdaftar.', 401);
+            return redirect('/login');
         }
 
         Auth::login($user);

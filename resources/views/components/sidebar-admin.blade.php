@@ -4,7 +4,7 @@
             <a href="/">{{ config( 'app.name') }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/">{{ config( 'app.name') }}</a>
+            <a href="/">PSC</a>
         </div>
         <ul class="sidebar-menu">
             <li class="{{ Request::is('admin') ? 'active' : '' }}">

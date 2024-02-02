@@ -110,16 +110,16 @@
             const location = $("#location");
             location.val(position.coords.latitude + ", " + position.coords.longitude);
 
-            const map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
+            let map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
 
             L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini').openPopup();
 
-            const pengaturan = "{{ $pengaturan->nama }}";
-            L.marker([{{ $pengaturan->longitude }}, {{ $pengaturan->latitude }}]).addTo(map).bindPopup(pengaturan).openPopup(); 
+            const pengaturan = "PSC 119 SICETAR";
+            L.marker([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}]).addTo(map).bindPopup(pengaturan).openPopup(); 
 
-            const circle = L.circle([{{ $pengaturan->longitude }}, {{ $pengaturan->latitude }}], {
+            const circle = L.circle([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}], {
                 color: 'green',
                 fillColor: 'green',
                 fillOpacity: 0.5,

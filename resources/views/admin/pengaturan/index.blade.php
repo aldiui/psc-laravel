@@ -3,7 +3,7 @@
 @section('title', 'Pengaturan')
 
 @push('style')
-    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.8.0/dist/leaflet.css' crossorigin='' /> 
+    <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} /> 
 @endpush
 
 @section('main')
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="card">
-                            <div class="card-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat provident ipsa quod omnis rerum cum a modi id voluptates sequi, voluptatem enim voluptas accusamus dolorum exercitationem at nihil iste! Pariatur.</div>
+                            <div id="map" class="rounded-lg mx-0" style="height: 450px; width: 100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -61,10 +61,14 @@
 
 @push('scripts')
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
-    <script src='https://unpkg.com/leaflet@1.8.0/dist/leaflet.js' crossorigin=''></script>
+    <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
 
     <script>
         $(document).ready(function() {
+            let map;
+
+            showPositionPengaturan();
+
             $("#updateData").submit(function (e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
@@ -74,6 +78,8 @@
                 const successCallback = function (response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);  
                     handleSuccess(response, null, null, "no");
+                    clearMap();
+                    showPositionPengaturan(); 
                 };
 
                 const errorCallback = function (error) {
@@ -83,6 +89,7 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
+
         });
     </script>
 @endpush
