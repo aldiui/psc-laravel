@@ -18,7 +18,6 @@ class PengaturanController extends Controller
 
         if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
-                'nama' => 'required',
                 'longitude' => 'required',
                 'latitude' => 'required',
                 'radius' => 'required',
@@ -29,7 +28,6 @@ class PengaturanController extends Controller
             }
 
             $pengaturan->update([
-                'nama' => $request->input('nama'),
                 'longitude' => $request->input('longitude'),
                 'latitude' => $request->input('latitude'),
                 'radius' => $request->input('radius'),

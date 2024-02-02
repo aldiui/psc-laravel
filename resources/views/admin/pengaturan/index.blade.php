@@ -27,11 +27,6 @@
                                 <form id="updateData">
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="nama" class="form-label">Nama <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nama" name="nama" value="{{ $pengaturan->nama }}">
-                                        <small class="invalid-feedback" id="errornama"></small>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="longitude" class="form-label">Longitude <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="longitude" name="longitude" value="{{ $pengaturan->longitude }}">
                                         <small class="invalid-feedback" id="errorlongitude"></small>
