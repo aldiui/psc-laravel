@@ -43,12 +43,13 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     public function handleCallback(Request $request)
     {
-        $getCallback = Socialite::driver('google')->user();
+        $getCallback = Socialite::driver('google')->stateless()->user();
+        dd($getCallback);
         $user = User::where('email', $getCallback->email)->first();
 
         if (!$user) {
@@ -56,7 +57,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        return $this->successResponse($user, 'Login berhasil.');
+        return $user->role == 'admin' ? redirect('/admin') : redirect('/');
     }
 
     public function logout()

@@ -50,7 +50,7 @@ if (!function_exists('jenisBadge')) {
     function jenisBadge($jenis)
     {
         $jenisIcon = ($jenis == 'Masuk') ? '<i class="fas fa-plus-square mr-1"></i>' : '<i class="fas fa-minus-square mr-1"></i>';
-        $jenisClass = ($jenis == 'Masuk') ? 'badge-success' :  'badge-danger';
+        $jenisClass = ($jenis == 'Masuk') ? 'badge-success' : 'badge-danger';
 
         return "<span class='badge $jenisClass'>$jenisIcon $jenis</span>";
     }
