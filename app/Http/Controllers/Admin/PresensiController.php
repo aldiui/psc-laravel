@@ -121,7 +121,7 @@ class PresensiController extends Controller
             $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
-            $karyawans = User::where('role', 'user')->get();
+            $karyawans = User::all();
 
             $dates = Carbon::parse($startDate);
             $labels = [];
