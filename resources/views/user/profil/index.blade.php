@@ -12,7 +12,7 @@
             <div class="section-header d-none d-lg-block">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/">Home</a></div>
+                    <div class="breadcrumb-item active"><a href="/">Beranda</a></div>
                     <div class="breadcrumb-item">@yield('title')</div>
                 </div>
             </div>

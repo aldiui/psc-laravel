@@ -15,7 +15,7 @@
         <div class="section-header d-none d-lg-block">
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="/home">Home</a></div>
+                <div class="breadcrumb-item active"><a href="/">Beranda</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('stok.index') }}"> @yield('title')</a></div>
                 <div class="breadcrumb-item">Detail @yield('title')</div>
             </div>
