@@ -46,17 +46,9 @@ class DatabaseSeeder extends Seeder
 
         $userData = [
             [
-                'nama' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('11221122'),
-                'role' => 'admin',
-                'jabatan' => 'admin',
-                "no_hp" => '08123456789',
-            ],
-            [
                 'nama' => 'Revi Rosidah A.Md. Kom',
                 'email' => 'revi@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'admin',
                 'jabatan' => 'Administrasi',
                 "no_hp" => '08123456789',
@@ -64,7 +56,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Endah Sulistiawati, A.Md. Keb',
                 'email' => 'endah@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'admin',
                 'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
@@ -72,7 +64,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Reni Nurhayati, A.Md. Keb',
                 'email' => 'reni@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'admin',
                 'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
@@ -80,7 +72,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Rizka Sri Wahyu U, A.Md. Keb',
                 'email' => 'rizka@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'admin',
                 'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
@@ -88,7 +80,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Derry',
                 'email' => 'derry@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -96,7 +88,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Gian',
                 'email' => 'gian@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -104,7 +96,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Rudi',
                 'email' => 'rudi@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -112,7 +104,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Piping',
                 'email' => 'piping@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -120,7 +112,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Wandi',
                 'email' => 'wandi@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -128,7 +120,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Mega',
                 'email' => 'mega@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -136,7 +128,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Anggi',
                 'email' => 'anggi@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -144,7 +136,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Veta',
                 'email' => 'veta@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -152,7 +144,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Putri',
                 'email' => 'Putri@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -160,7 +152,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Rivai',
                 'email' => 'rivai@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -168,7 +160,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Asep',
                 'email' => 'asep@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -176,7 +168,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Sepi',
                 'email' => 'sepi@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -184,7 +176,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Ricki',
                 'email' => 'ricki@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -192,7 +184,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nama' => 'Ujang',
                 'email' => 'ujang@gmail.com',
-                'password' => bcrypt('user1234'),
+                'password' => bcrypt('11221122'),
                 'role' => 'user',
                 'jabatan' => 'Tim Medis',
                 "no_hp" => '08123456789',
@@ -919,20 +911,20 @@ class DatabaseSeeder extends Seeder
         DB::table('pengaturans')->insert($pengaturanData);
 
         $detailTimData = [
-            ['tim_id' => '1', 'user_id' => '6', 'posisi' => 'Ketua'],
-            ['tim_id' => '1', 'user_id' => '10', 'posisi' => 'Anggota'],
-            ['tim_id' => '1', 'user_id' => '14', 'posisi' => 'Anggota'],
-            ['tim_id' => '1', 'user_id' => '16', 'posisi' => 'Anggota'],
-            ['tim_id' => '2', 'user_id' => '7', 'posisi' => 'Ketua'],
-            ['tim_id' => '2', 'user_id' => '11', 'posisi' => 'Anggota'],
-            ['tim_id' => '2', 'user_id' => '17', 'posisi' => 'Anggota'],
-            ['tim_id' => '3', 'user_id' => '8', 'posisi' => 'Ketua'],
-            ['tim_id' => '3', 'user_id' => '12', 'posisi' => 'Anggota'],
-            ['tim_id' => '3', 'user_id' => '18', 'posisi' => 'Anggota'],
-            ['tim_id' => '4', 'user_id' => '9', 'posisi' => 'Ketua'],
-            ['tim_id' => '4', 'user_id' => '13', 'posisi' => 'Anggota'],
-            ['tim_id' => '4', 'user_id' => '15', 'posisi' => 'Anggota'],
-            ['tim_id' => '4', 'user_id' => '19', 'posisi' => 'Anggota'],
+            ['tim_id' => '1', 'user_id' => '5', 'posisi' => 'Ketua'],
+            ['tim_id' => '1', 'user_id' => '9', 'posisi' => 'Anggota'],
+            ['tim_id' => '1', 'user_id' => '13', 'posisi' => 'Anggota'],
+            ['tim_id' => '1', 'user_id' => '15', 'posisi' => 'Anggota'],
+            ['tim_id' => '2', 'user_id' => '6', 'posisi' => 'Ketua'],
+            ['tim_id' => '2', 'user_id' => '10', 'posisi' => 'Anggota'],
+            ['tim_id' => '2', 'user_id' => '16', 'posisi' => 'Anggota'],
+            ['tim_id' => '3', 'user_id' => '7', 'posisi' => 'Ketua'],
+            ['tim_id' => '3', 'user_id' => '11', 'posisi' => 'Anggota'],
+            ['tim_id' => '3', 'user_id' => '17', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '8', 'posisi' => 'Ketua'],
+            ['tim_id' => '4', 'user_id' => '12', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '14', 'posisi' => 'Anggota'],
+            ['tim_id' => '4', 'user_id' => '18', 'posisi' => 'Anggota'],
         ];
 
         DB::table('detail_tims')->insert($detailTimData);
