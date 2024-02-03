@@ -19,12 +19,18 @@
                 </tr>
             </thead>    
             <tbody valign="top">
-                @foreach($units as $unit)
-                <tr>
-                    <td style="text-align: center;">{{ $loop->iteration }}</td>
-                    <td>{{ $unit->nama }}</td>
-                </tr>
-                @endforeach
+                @if($units->isEmpty())
+                    <tr>
+                        <td colspan="2" align="center">Data @yield('title') kosong</td>
+                    </tr>
+                @else
+                    @foreach($units as $unit)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $unit->nama }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

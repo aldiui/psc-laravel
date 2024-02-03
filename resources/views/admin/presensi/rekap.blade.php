@@ -90,8 +90,5 @@
 
             ajaxCall(url, "GET", null, successCallback, errorCallback);
         };
-
-
-
     </script>
 @endpush

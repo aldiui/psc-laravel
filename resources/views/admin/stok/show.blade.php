@@ -3,7 +3,6 @@
 @section('title', 'Stok')
 
 @push('style')
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
@@ -85,14 +84,12 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('library/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
 
-    <!--  -->
     <script>
         $(document).ready(function() {
             datatableCall('detailStokTable', '/admin/stok/{{ $stok->id }}', [

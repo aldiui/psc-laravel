@@ -21,14 +21,20 @@
                 </tr>
             </thead>    
             <tbody valign="top">
-                @foreach($tims as $tim)
-                <tr>
-                    <td style="text-align: center;">{{ $loop->iteration }}</td>
-                    <td>{{ $tim->nama }}</td>
-                    <td>{{ $tim->deskripsi }}</td>
-                    <td style="text-align: center;">{{ $tim->detail_tims_count}}</td>
-                </tr>
-                @endforeach
+                @if($tims->isEmpty())
+                    <tr>
+                        <td colspan="4" align="center">Data @yield('title') kosong</td>
+                    </tr>
+                @else
+                    @foreach($tims as $tim)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $tim->nama }}</td>
+                        <td>{{ $tim->deskripsi }}</td>
+                        <td style="text-align: center;">{{ $tim->detail_tims_count}}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

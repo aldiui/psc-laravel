@@ -3,7 +3,6 @@
 @section('title', 'Izin')
 
 @push('style')
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">

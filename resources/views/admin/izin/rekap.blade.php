@@ -22,15 +22,21 @@
                 </tr>
             </thead>    
             <tbody valign="top">
-                @foreach($izins as $izin)
-                <tr>
-                    <td style="text-align: center;">{{ $loop->iteration }}</td>
-                    <td>{{ $izin->user->nama }}</td>
-                    <td style="text-align: center;">{{ ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}</td>
-                    <td style="text-align: center;">{{ $izin->tipe }}</td>
-                    <td>{{ $izin->alasan }}</td>
-                </tr>
-                @endforeach
+                @if($izins->isEmpty())
+                    <tr>
+                        <td colspan="5" align="center">Data @yield('title') kosong</td>
+                    </tr>
+                @else
+                    @foreach($izins as $izin)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $izin->user->nama }}</td>
+                        <td style="text-align: center;">{{ ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}</td>
+                        <td style="text-align: center;">{{ $izin->tipe }}</td>
+                        <td>{{ $izin->alasan }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

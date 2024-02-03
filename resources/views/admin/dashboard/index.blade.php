@@ -3,7 +3,6 @@
 @section('title', 'Dashboard')
 
 @push('style')
-    <!-- CSS Libraries -->
 @endpush
 
 @section('main')

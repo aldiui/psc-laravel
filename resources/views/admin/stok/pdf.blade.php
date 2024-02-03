@@ -22,15 +22,21 @@
                 </tr>
             </thead>    
             <tbody valign="top">
-                @foreach($stoks as $stok)
-                <tr>
-                    <td style="text-align: center;">{{ $loop->iteration }}</td>
-                    <td>{{ formatTanggal($stok->tanggal) }}</td>
-                    <td>{{ $stok->user->nama }}</td>
-                    <td>{{ $stok->detail_stoks_count }}</td>
-                    <td>{{ $stok->jenis }}</td>
-                </tr>
-                @endforeach
+                @if($stoks->isEmpty())
+                    <tr>
+                        <td colspan="5" align="center">Data @yield('title') kosong</td>
+                    </tr>
+                @else
+                    @foreach($stoks as $stok)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ formatTanggal($stok->tanggal) }}</td>
+                        <td>{{ $stok->user->nama }}</td>
+                        <td>{{ $stok->detail_stoks_count }}</td>
+                        <td>{{ $stok->jenis }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

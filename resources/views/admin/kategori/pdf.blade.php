@@ -20,13 +20,19 @@
                 </tr>
             </thead>    
             <tbody valign="top">
-                @foreach($kategoris as $kategori)
-                <tr>
-                    <td style="text-align: center;">{{ $loop->iteration }}</td>
-                    <td>{{ $kategori->nama }}</td>
-                    <td>{{ $kategori->deskripsi }}</td>
-                </tr>
-                @endforeach
+                @if($kategoris->isEmpty())
+                    <tr>
+                        <td colspan="3" align="center">Data @yield('title') kosong</td>
+                    </tr>
+                @else
+                    @foreach($kategoris as $kategori)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $kategori->nama }}</td>
+                        <td>{{ $kategori->deskripsi }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
