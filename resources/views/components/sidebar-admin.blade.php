@@ -62,11 +62,11 @@
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="{{ route('home') }}"
                 class="btn btn-info  btn-block btn-icon-split">
-                <i class="fas fa-user"></i> Switch Karyawan
+                <i class="fas fa-user"></i> Ganti Karyawan
             </a>
             <a href="{{ route('logout') }}"
                 class="btn btn-danger btn-block btn-icon-split">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i> Keluar
             </a>
         </div>
     </aside>

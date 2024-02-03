@@ -9,7 +9,7 @@
         <ul class="sidebar-menu">
             <li class="{{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link"
-                    href="{{ url('/') }}"><i class="fas fa-home"></i> <span>Home</span></a>
+                    href="{{ url('/') }}"><i class="fas fa-home"></i> <span>Beranda</span></a>
             </li>
             <li class="{{ Request::is('izin') ? 'active' : '' }}">
                 <a class="nav-link"
@@ -32,12 +32,12 @@
             @if(Auth::user()->role == "admin")
             <a href="{{ route('admin.index') }}"
                 class="btn btn-info  btn-block btn-icon-split">
-                <i class="fas fa-user"></i> Switch Admin
+                <i class="fas fa-user"></i> Ganti Admin
             </a>
             @endif
             <a href="{{ route('logout') }}"
                 class="btn btn-danger  btn-block btn-icon-split">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i> Keluar
             </a>
         </div>
     </aside>

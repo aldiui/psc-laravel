@@ -25,7 +25,7 @@
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}"
                     class="dropdown-item has-icon text-danger">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> Keluar
                 </a>
             </div>
         </li>

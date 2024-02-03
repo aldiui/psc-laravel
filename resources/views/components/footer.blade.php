@@ -6,7 +6,7 @@
 <footer class="main-footer d-block d-lg-none fixed-bottom bg-white">
     <div class="d-flex justify-content-between">
         <div>
-            <a class="text-decoration-none {{ Request::is('/') ? 'text-danger' : 'text-secondary' }} text-center" href="{{ url('/') }}"><i class="d-block mb-2 fas fa-home"></i> <div class="text-mini text-center">Home</div></a>
+            <a class="text-decoration-none {{ Request::is('/') ? 'text-danger' : 'text-secondary' }} text-center" href="{{ url('/') }}"><i class="d-block mb-2 fas fa-home"></i> <div class="text-mini text-center">Beranda</div></a>
         </div>
         <div>
             <a class="text-decoration-none {{ Request::is('izin') ? 'text-danger' : 'text-secondary' }} text-center"

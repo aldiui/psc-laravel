@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Masuk')
 
 @push('style')
 @endpush
@@ -28,13 +28,13 @@
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">
-                                <i class="fas fa-sign-in mr-2"></i>Login
+                                <i class="fas fa-sign-in mr-2"></i>Masuk
                             </button>
                         </div>
                     </form>
                     <div class="form-group">
                         <a href="/google" class="btn btn-block btn-outline-danger btn-lg btn-icon icon-right">
-                            <i class="fab fa-google mr-2"></i>Login Menggunakan Google
+                            <i class="fab fa-google mr-2"></i>Masuk Menggunakan Google
                         </a>
                     </div>
                     <div class="text-small mt-5 text-center">
@@ -62,18 +62,18 @@
     <script>
         $(document).ready(function() {
             $("#login").submit(function (e) {
-                setButtonLoadingState("#login .btn.btn-danger", true, "Login");
+                setButtonLoadingState("#login .btn.btn-danger", true, "Masuk");
                 e.preventDefault();
                 const url = "{{ route('login') }}";
                 const data = new FormData(this);
 
                 const successCallback = function (response) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Login");
+                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Masuk");
                     handleSuccess(response, null, null, "/");
                 };
 
                 const errorCallback = function (error) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Login");
+                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Masuk");
                     handleValidationErrors(error, "login", ["email", "password"]);
                 };
 

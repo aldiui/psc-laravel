@@ -17,6 +17,9 @@ const datatableCall = (targetId, url, columns) => {
             [25, 50, 100, 250, -1],
             [25, 50, 100, 250, "All"],
         ],
+        language: {
+            url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json",
+        },
     });
 };
 
