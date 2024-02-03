@@ -21,7 +21,7 @@
                         <div class="mb-1 font-weight-bold">{{ Auth::user()->nama }}</div>
                         <div class="small">{{ Auth::user()->jabatan }}</div>
                     </div>
-                    <div style="background-image: url('{{ asset('/storage/img/karyawan/' . (Auth::user()->image ?? 'default.png')) }}');"
+                    <div style="background-image: url('{{ asset(Auth::user()->image != 'default.png' ? '/storage/img/karyawan/' . Auth::user()->image : '/images/default.png') }}');"
                         class="img-big d-block "></div>
                 </div>
             </div>

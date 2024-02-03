@@ -13,9 +13,8 @@
             <a href="#"
                 data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user d-flex justify-content-center align-items-center">
-                <div style="background-image: url('{{ asset('/storage/img/karyawan/' . (Auth::user()->image ?? 'default.png')) }}');"
-                    class="img-navbar d-block mr-3"></div>
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->nama ?? "NULL" }}</div>
+                <div style="background-image: url('{{ asset(Auth::user()->image != 'default.png' ? '/storage/img/karyawan/' . Auth::user()->image : '/images/default.png') }}');" class="img-navbar d-block mr-3"></div>
+                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->nama }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="{{ route('profil')}}"
