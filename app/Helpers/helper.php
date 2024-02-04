@@ -95,3 +95,34 @@ if (!function_exists('getGreeting')) {
         }
     }
 }
+
+function generatePresensiColumn($presensi, $tipe)
+{
+    if ($tipe == 'masuk') {
+        if ($presensi->clock_in) {
+            return '
+            <div>
+                <div class="mb-2">
+                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->clock_in . '</span>
+                </div>
+                <div class="mb-2">' . ($presensi->alasan_in ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_in ? "<span>Keterangan : " . $presensi->alasan_in . "</span>" : "") . '</div>
+            </div>';
+        } else {
+            return '<span class="badge badge-danger"><i class="fas fa-times"></i> Belum Presensi</span>';
+        }
+    } elseif ($tipe = 'keluar') {
+        if ($presensi->clock_out) {
+            return '
+            <div>
+                <div class="mb-2">
+                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->clock_out . '</span>
+                </div>
+                <div class="mb-2">' . ($presensi->alasan_out ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_out ? "<span>Keterangan : " . $presensi->alasan_out . "</span>" : "") . '</div>
+            </div>';
+        } else {
+            return '<span class="badge badge-danger"><i class="fas fa-times-circle mr-1"></i> Belum Presensi</span>';
+        }
+    }
+}

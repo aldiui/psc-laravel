@@ -39,15 +39,14 @@
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
             } else {
-                swal("Geolocation is not supported by this browser.");
+                handleSimpleError("Geolocation is not supported by this browser.");
             }
-
-
+            
             $("#presensiButton").click(function(e) {
                 const textButton = "{{ $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}";
                 setButtonLoadingState("#presensiButton", true, textButton);
                 e.preventDefault();
-
+                
                 const url = "{{ route('presensi') }}";
                 const data = new FormData();
                 const locationValue = $("#location").val();

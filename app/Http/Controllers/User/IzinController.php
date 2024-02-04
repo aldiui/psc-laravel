@@ -29,7 +29,6 @@ class IzinController extends Controller
                     ->addColumn('aksi', function ($izin) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-
                         return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info' href='/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a>";
                     })
                     ->addColumn('tanggal', function ($izin) {

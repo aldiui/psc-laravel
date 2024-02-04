@@ -25,7 +25,6 @@ class KategoriController extends Controller
                     ->addColumn('aksi', function ($kategori) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/kategori/' . $kategori->id . '`, `kategoriTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-
                         return $editButton . $deleteButton;
                     })
                     ->addIndexColumn()

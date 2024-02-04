@@ -26,7 +26,6 @@ class BarangController extends Controller
                     ->addColumn('aksi', function ($barang) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/barang/' . $barang->id . '`, [`id`,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/barang/' . $barang->id . '`, `barangTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($barang) {
@@ -105,6 +104,8 @@ class BarangController extends Controller
 
             $namaFile = 'Barang.pdf';
 
+            ob_end_clean();
+            ob_start();
             return $pdf->stream($namaFile);
         }
 
@@ -114,8 +115,6 @@ class BarangController extends Controller
             return $this->errorResponse(null, 'Data barang tidak ditemukan.', 404);
         }
 
-        ob_end_clean();
-        ob_start();
         return $this->successResponse($barang, 'Data barang ditemukan.');
     }
 

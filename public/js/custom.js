@@ -163,11 +163,21 @@ const handleValidationErrors = (error, formId = null, fields = null) => {
         swal({
             title: "Gagal",
             icon: "error",
-            text: error.responseJSON.message,
+            text: error.responseJSON.message || error,
             timer: 2000,
             buttons: false,
         });
     }
+};
+
+const handleSimpleError = (error) => {
+    swal({
+        title: "Gagal",
+        icon: "error",
+        text: error,
+        timer: 2000,
+        buttons: false,
+    });
 };
 
 const confirmDelete = (url, tableId) => {

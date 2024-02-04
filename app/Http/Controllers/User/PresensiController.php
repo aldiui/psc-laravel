@@ -69,33 +69,11 @@ class PresensiController extends Controller
                 $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
                 if ($request->input("mode") == "datatable") {
                     return DataTables::of($presensis)
-                        ->addColumn('presensi_masuk', function ($row) {
-                            if ($row->clock_in) {
-                                return '
-                                <div>
-                                    <div class="mb-2">
-                                        <span class="badge badge-success"><i class="far fa-clock"></i> ' . $row->clock_in . '</span>
-                                    </div>
-                                    <div class="mb-2">' . ($row->alasan_in ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
-                                    <div class="mb-2">' . ($row->alasan_in ? "<span>Keterangan : " . $row->alasan_in . "</span>" : "") . '</div>
-                                </div>';
-                            } else {
-                                return '<span class="badge badge-danger"><i class="fas fa-times"></i> Belum Presensi</span>';
-                            }
+                        ->addColumn('presensi_masuk', function ($presensi) {
+                            return generatePresensiColumn($presensi, 'masuk');
                         })
-                        ->addColumn('presensi_keluar', function ($row) {
-                            if ($row->clock_out) {
-                                return '
-                                <div>
-                                    <div class="mb-2">
-                                        <span class="badge badge-success"><i class="far fa-clock"></i> ' . $row->clock_out . '</span>
-                                    </div>
-                                    <div class="mb-2">' . ($row->alasan_out ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
-                                    <div class="mb-2">' . ($row->alasan_out ? "<span>Keterangan : " . $row->alasan_out . "</span>" : "") . '</div>
-                                </div>';
-                            } else {
-                                return '<span class="badge badge-danger"><i class="fas fa-times-circle mr-1"></i> Belum Presensi</span>';
-                            }
+                        ->addColumn('presensi_keluar', function ($presensi) {
+                            return generatePresensiColumn($presensi, 'keluar');
                         })
                         ->addColumn('tgl', function ($row) {
                             return formatTanggal($row->tanggal);

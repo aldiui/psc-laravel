@@ -27,7 +27,6 @@ class KaryawanController extends Controller
                     ->addColumn('aksi', function ($karyawan) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/karyawan/' . $karyawan->id . '`, `karyawanTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($karyawan) {

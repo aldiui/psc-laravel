@@ -28,7 +28,6 @@ class StokController extends Controller
                         $detailButton = '<a class="btn btn-sm btn-info mr-1" href="/stok/' . $stok->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/stok/' . $stok->id . '`, [`id`, `tanggal`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-
                         return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton;
                     })
                     ->addColumn('status_badge', function ($stok) {
