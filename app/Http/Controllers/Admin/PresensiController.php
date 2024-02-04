@@ -176,7 +176,7 @@ class PresensiController extends Controller
             $pdf->setOptions($options);
             $pdf->setPaper('legal', 'landscape');
 
-            $namaFile = 'laporan_rekap_presensi.pdf';
+            $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
 
             ob_end_clean();
             ob_start();
