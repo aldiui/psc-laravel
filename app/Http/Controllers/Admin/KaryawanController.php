@@ -30,7 +30,7 @@ class KaryawanController extends Controller
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($karyawan) {
-                        return '<img src="/storage/img/karyawan/' . $karyawan->image . '" width="100px" alt="">';
+                        return '<img src="' . ($karyawan->image != 'default.png' ? '/storage/img/karyawan/' . $karyawan->image : '/images/default.png') . '" width="100px" alt="">';
                     })
                     ->addIndexColumn()
                     ->rawColumns(['aksi', 'img'])

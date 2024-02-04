@@ -26,7 +26,7 @@ class PresensiController extends Controller
                         return $presensi->user->nama;
                     })
                     ->addColumn('img', function ($presensi) {
-                        return '<img src="/storage/img/karyawan/' . $presensi->user->image . '" width="100px" alt="">';
+                        return '<img src="' . ($presensi->user->image != 'default.png' ? '/storage/img/karyawan/' . $presensi->user->image : '/images/default.png') . '" width="100px" alt="">';
                     })
                     ->addColumn('presensi_masuk', function ($presensi) {
                         return generatePresensiColumn($presensi, 'masuk');

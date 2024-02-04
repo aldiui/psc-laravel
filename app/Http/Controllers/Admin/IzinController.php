@@ -41,7 +41,7 @@ class IzinController extends Controller
                         return $izin->user->nama;
                     })
                     ->addColumn('img', function ($izin) {
-                        return '<img src="/storage/img/karyawan/' . $izin->user->image . '" width="100px" alt="">';
+                        return '<img src="' . ($izin->user->image != 'default.png' ? '/storage/img/karyawan/' . $izin->user->image : '/images/default.png') . '" width="100px" alt="">';
                     })
                     ->addIndexColumn()
                     ->rawColumns(['aksi', 'status_badge', 'tanggal', 'nama', 'img'])

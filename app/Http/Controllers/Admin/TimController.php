@@ -104,7 +104,7 @@ class TimController extends Controller
                         return $detailTim->user->nama;
                     })
                     ->addColumn('img', function ($detailTim) {
-                        return '<img src="/storage/img/karyawan/' . $detailTim->user->image . '" width="100px" alt="">';
+                        return '<img src="' . ($detailTim->user->image != 'default.png' ? '/storage/img/karyawan/' . $detailTim->user->image : '/images/default.png') . '" width="100px" alt="">';
                     })
                     ->addIndexColumn()
                     ->rawColumns(['nama', 'img', 'aksi'])
