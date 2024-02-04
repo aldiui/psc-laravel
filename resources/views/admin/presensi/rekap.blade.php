@@ -14,7 +14,7 @@
             <div class="section-header">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/admin">Dasbor</a></div>
+                    <div class="breadcrumb-item active"><a href="/admin">Beranda</a></div>
                     <div class="breadcrumb-item">@yield('title')</div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
-                                        
+
                                     </table>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
             renderData();
             $("#bulan_filter, #tahun_filter").on("change", function () {
                 renderData();
-            });     
+            });
         });
 
         const renderData = () => {

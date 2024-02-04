@@ -14,7 +14,8 @@
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
                     </div>
                     <h4 class="text-dark text-center mb-2 font-weight-normal">Selamat Datang di</h4>
-                    <h4 class="font-weight-bold text-dark text-center mb-3">{{ config('app.name') }}</h4>
+                    <h4 class="font-weight-bold text-dark text-center mb-2">{{ config('app.name') }}</h4>
+                    <small class='text-center mb-3 d-block '>Sistem Informasi Logistik dan Kinerja</small>
                     <form id="login" autocomplete="off">
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger">*</span></label>
@@ -47,7 +48,8 @@
                 <div class="absolute-bottom-left index-2">
                     <div class="text-light p-5 pb-2">
                         <div class="mb-5 pb-3">
-                            <h5 class="font-weight-normal text-muted-transparent">Tasikmalaya, Jawa Barat</h5>
+                            <h5 class="font-weight-normal text-muted-transparent">Dinas Kesehatan Kota Tasikmalaya</h5>
+                            <h5 class="font-weight-normal text-muted-transparent">PSC  119 (PUBLIC SAFETY CENTER) SICETAR</h5>
                         </div>
                     </div>
                 </div>

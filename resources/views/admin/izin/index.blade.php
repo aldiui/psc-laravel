@@ -17,7 +17,7 @@
             <div class="section-header">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/admin">Dasbor</a></div>
+                    <div class="breadcrumb-item active"><a href="/admin">Beranda</a></div>
                     <div class="breadcrumb-item">@yield('title')</div>
                 </div>
             </div>
