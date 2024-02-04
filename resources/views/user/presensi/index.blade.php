@@ -63,7 +63,7 @@
 
                 const successCallback = function (response) {
                     setButtonLoadingState("#presensiButton", false, textButton);
-                    handleSuccess(response, null, null, "/presensi");
+                    handleSuccess(response, null, null, "/");
                 };
 
                 const errorCallback = function (error) {
