@@ -9,7 +9,7 @@
         <ul class="sidebar-menu">
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
                 <a class="nav-link"
-                href="{{ url('admin') }}"><i class="fas fa-dashboard"></i> <span>Dashboard</span></a>
+                href="{{ url('admin') }}"><i class="fas fa-dashboard"></i> <span>Dasbor</span></a>
             </li>
             <li class="menu-header">Manajemen Stok</li>
             <li class="{{ Request::is('admin/unit') ? 'active' : '' }}">
