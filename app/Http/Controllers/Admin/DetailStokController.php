@@ -103,7 +103,7 @@ class DetailStokController extends Controller
             'deskripsi' => $request->input('deskripsi'),
         ]);
 
-        return $this->successResponse($detailStok, 'Data Detail Stok diupdate.');
+        return $this->successResponse($detailStok, 'Data Detail Stok diubah.');
     }
 
     public function destroy($id)

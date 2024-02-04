@@ -1,6 +1,6 @@
 <footer class="main-footer d-none d-lg-block">
     <div class="text-center">
-        Copyright &copy; {{ date("Y")}} <div class="bullet"></div> Created By <span>UBSI Tasikmalaya</span>
+        Hak Cipta &copy; {{ date("Y")}} <div class="bullet"></div> Dibuat Oleh <span>UBSI Tasikmalaya</span>
     </div>
 </footer>
 <footer class="main-footer d-block d-lg-none fixed-bottom bg-white">

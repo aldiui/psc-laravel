@@ -144,7 +144,7 @@ class TimController extends Controller
             'deskripsi' => $request->input('deskripsi'),
         ]);
 
-        return $this->successResponse($tim, 'Data tim diupdate.');
+        return $this->successResponse($tim, 'Data tim diubah.');
     }
 
     public function destroy($id)

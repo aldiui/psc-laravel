@@ -114,7 +114,7 @@ class UnitController extends Controller
             'nama' => $request->input('nama'),
         ]);
 
-        return $this->successResponse($unit, 'Data unit diupdate.');
+        return $this->successResponse($unit, 'Data unit diubah.');
     }
 
     public function destroy($id)

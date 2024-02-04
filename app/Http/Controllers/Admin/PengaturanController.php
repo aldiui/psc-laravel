@@ -33,7 +33,7 @@ class PengaturanController extends Controller
                 'radius' => $request->input('radius'),
             ]);
 
-            return $this->successResponse($pengaturan, 'Data pengaturan diupdate.');
+            return $this->successResponse($pengaturan, 'Data pengaturan diubah.');
         }
 
         return view('admin.pengaturan.index', compact('pengaturan'));

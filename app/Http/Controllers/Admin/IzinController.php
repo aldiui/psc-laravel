@@ -137,7 +137,7 @@ class IzinController extends Controller
 
         $izin->update(['status' => $request->status]);
 
-        return $this->successResponse($izin, 'Data izin diupdate.');
+        return $this->successResponse($izin, 'Data izin diubah.');
     }
 
     public function destroy($id)

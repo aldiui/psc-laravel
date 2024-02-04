@@ -94,37 +94,5 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
-
-        const clearMap = () => {
-            if (map) {
-                map.remove();
-            }
-        };
-
-        const showPositionPengaturan = () => {
-            const latitude = $("#latitude").val();
-            const longitude = $("#longitude").val();
-            const radius = $("#radius").val();
-
-            map = L.map("map").setView([latitude, longitude], 20);
-
-            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                attribution:
-                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            }).addTo(map);
-
-            const pengaturan = "PSC 119 SICETAR";
-            L.marker([latitude, longitude])
-                .addTo(map)
-                .bindPopup(pengaturan)
-                .openPopup();
-
-            const circle = L.circle([latitude, longitude], {
-                color: "green",
-                fillColor: "green",
-                fillOpacity: 0.5,
-                radius: radius,
-            }).addTo(map);
-        };
     </script>
 @endpush

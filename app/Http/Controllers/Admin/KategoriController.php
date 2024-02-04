@@ -118,7 +118,7 @@ class KategoriController extends Controller
             'deskripsi' => $request->input('deskripsi'),
         ]);
 
-        return $this->successResponse($kategori, 'Data kategori diupdate.');
+        return $this->successResponse($kategori, 'Data kategori diubah.');
     }
 
     public function destroy($id)

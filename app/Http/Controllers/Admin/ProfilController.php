@@ -53,7 +53,7 @@ class ProfilController extends Controller
 
             $user->update($updateUser);
 
-            return $this->successResponse($user, 'Data profil diupdate.');
+            return $this->successResponse($user, 'Data profil diubah.');
         }
 
         return view('admin.profil.index');
@@ -84,6 +84,6 @@ class ProfilController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return $this->successResponse($user, 'Data password diupdate.');
+        return $this->successResponse($user, 'Data password diubah.');
     }
 }

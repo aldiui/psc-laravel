@@ -71,7 +71,7 @@ class DetailTimController extends Controller
             'posisi' => $request->input('posisi'),
         ]);
 
-        return $this->successResponse($detailTim, 'Data Detail Tim diupdate.');
+        return $this->successResponse($detailTim, 'Data Detail Tim diubah.');
     }
 
     public function destroy($id)

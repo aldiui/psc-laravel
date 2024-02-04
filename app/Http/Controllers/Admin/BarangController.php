@@ -159,7 +159,7 @@ class BarangController extends Controller
 
         $barang->update($updateBarang);
 
-        return $this->successResponse($barang, 'Data barang diupdate.');
+        return $this->successResponse($barang, 'Data barang diubah.');
     }
 
     public function destroy($id)

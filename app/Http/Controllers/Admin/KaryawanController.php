@@ -167,7 +167,7 @@ class KaryawanController extends Controller
 
         $karyawan->update($updateKaryawan);
 
-        return $this->successResponse($karyawan, 'Data karyawan diupdate.');
+        return $this->successResponse($karyawan, 'Data karyawan diubah.');
     }
 
     public function destroy($id)

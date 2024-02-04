@@ -120,7 +120,7 @@ class StokController extends Controller
             'tanggal' => $request->input('tanggal'),
         ]);
 
-        return $this->successResponse($stok, 'Data Stok diupdate.', 200);
+        return $this->successResponse($stok, 'Data Stok diubah.', 200);
     }
 
     public function destroy($id)

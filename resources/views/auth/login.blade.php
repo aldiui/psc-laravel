@@ -13,8 +13,8 @@
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
                     </div>
-                    <h4 class="text-dark text-center mb-3 font-weight-normal">Selamat Datang di <br> <span class="font-weight-bold">{{ config('app.name') }}</span>
-                    </h4>
+                    <h4 class="text-dark text-center mb-2 font-weight-normal">Selamat Datang di</h4>
+                    <h4 class="font-weight-bold text-dark text-center mb-3">{{ config('app.name') }}</h4>
                     <form id="login" autocomplete="off">
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger">*</span></label>
@@ -38,12 +38,12 @@
                         </a>
                     </div>
                     <div class="text-small mt-5 text-center">
-                        Copyright &copy; {{ date("Y")}} <div class="bullet"></div> Created By <span>UBSI Tasikmalaya</span>
+                        Hak Cipta &copy; {{ date("Y")}} <div class="bullet"></div> Dibuat Oleh <span>UBSI Tasikmalaya</span>
                     </div>
                 </div>
             </div>
-            <div class="d-none d-lg-block col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
-                data-background="{{ asset('img/unsplash/login-bg.jpg') }}">
+            <div class="d-none d-lg-block col-lg-8 py-5 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
+                data-background="{{ asset('images/bg-login.jpeg') }}">
                 <div class="absolute-bottom-left index-2">
                     <div class="text-light p-5 pb-2">
                         <div class="mb-5 pb-3">
