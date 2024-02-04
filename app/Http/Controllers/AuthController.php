@@ -51,7 +51,7 @@ class AuthController extends Controller
         try {
             $getCallback = Socialite::driver('google')->stateless()->user();
         } catch (\Exception $e) {
-            return $this->errorResponse(null, 'Failed to retrieve user details from Google.', 401);
+            return redirect('/login');
         }
 
         $user = User::where('email', $getCallback->email)->first();
