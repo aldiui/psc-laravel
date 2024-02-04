@@ -95,7 +95,7 @@
             ]);
 
             $("#createBtn").click(function () {
-                select2ToJson("#barang_id", "{{ route('barang.index') }}", "#createModal");
+                select2ToJson("#barang_id", "{{ route('barang') }}", "#createModal");
             });
 
             $("#saveData").submit(function (e) {
@@ -139,7 +139,7 @@
         }); 
 
         function getSelectEdit(){
-            select2ToJson(".editBarang", "{{ route('barang.index') }}", "#editModal");
+            select2ToJson(".editBarang", "{{ route('barang') }}", "#editModal");
         }
     </script>
 @endpush
