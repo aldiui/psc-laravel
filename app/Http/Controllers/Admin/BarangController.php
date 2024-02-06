@@ -104,11 +104,11 @@ class BarangController extends Controller
 
             $namaFile = 'Barang.pdf';
 
-            // ob_end_clean();
-            // ob_start();
-            // return $pdf->stream($namaFile);
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
 
-            return view("layouts.view-pdf");
+            // return view("layouts.view-pdf");
         }
 
         $barang = Barang::find($id);
