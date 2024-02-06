@@ -6,9 +6,9 @@
 @endpush
 
 @section('main')
-@php
-    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-@endphp
+    @php
+        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    @endphp
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -32,7 +32,9 @@
                                             <label for="bulan_filter" class="form-label">Bulan</label>
                                             <select name="bulan_filter" id="bulan_filter" class="form-control">
                                                 @foreach ($bulans as $key => $value)
-                                                    <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                                    <option value="{{ $key + 1 }}"
+                                                        {{ $key + 1 == date('m') ? 'selected' : '' }}>
+                                                        {{ $value }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -42,14 +44,17 @@
                                             <label for="tahun_filter" class="form-label">Tahun</label>
                                             <select name="tahun_filter" id="tahun_filter" class="form-control">
                                                 @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                                    <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == date('Y') ? 'selected' : '' }}>{{ $i }}
+                                                    </option>
                                                 @endfor
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i
+                                            class="fas fa-file-pdf mr-2"></i>Pdf</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
@@ -69,23 +74,24 @@
     <script>
         $(document).ready(function() {
             renderData();
-            $("#bulan_filter, #tahun_filter").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function() {
                 renderData();
             });
         });
 
         const renderData = () => {
-            const successCallback = function (response) {
+            const successCallback = function(response) {
                 updateTable(response.data);
                 console.log(response.data)
             };
 
-            const errorCallback = function (error) {
+            const errorCallback = function(error) {
                 console.error(error);
             };
 
             const url = `/admin/rekap-presensi?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
-            const downloadPdf = `/admin/rekap-presensi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            const downloadPdf =
+                `/admin/rekap-presensi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
 
             ajaxCall(url, "GET", null, successCallback, errorCallback);

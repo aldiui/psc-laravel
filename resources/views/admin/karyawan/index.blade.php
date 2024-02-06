@@ -26,13 +26,16 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
-                            <div class="mb-3">
-                                    <a href="{{ route('admin.karyawan.show', 'pdf') }}" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.karyawan.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                <div class="mb-3">
+                                    <a href="{{ route('admin.karyawan.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.karyawan.show', 'excel') }}"
+                                        class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="karyawanTable" width="100%">
@@ -48,7 +51,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +60,8 @@
             </div>
         </section>
     </div>
-@include('admin.karyawan.create')
-@include('admin.karyawan.edit')
+    @include('admin.karyawan.create')
+    @include('admin.karyawan.edit')
 @endsection
 
 @push('scripts')
@@ -72,51 +75,72 @@
         $(document).ready(function() {
             $('.dropify').dropify();
 
-            datatableCall('karyawanTable', '{{ route('admin.karyawan.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'img', name: 'img' },
-                { data: 'nama', name: 'nama' },
-                { data: 'jabatan', name: 'jabatan' },
-                { data: 'role', name: 'role' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('karyawanTable', '{{ route('admin.karyawan.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'jabatan',
+                    name: 'jabatan'
+                },
+                {
+                    data: 'role',
+                    name: 'role'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.karyawan.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "karyawanTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role", "image"]);
+                    handleValidationErrors(error, "saveData", ["nama", "email", "password",
+                        "konfirmasi_password", "jabatan", "no_hp", "role", "image"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/karyawan/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     $('#updateData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "karyawanTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "email", "password", "konfirmasi_password", "jabatan", "no_hp", "role", "image"]);
+                    handleValidationErrors(error, "updateData", ["nama", "email", "password",
+                        "konfirmasi_password", "jabatan", "no_hp", "role", "image"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

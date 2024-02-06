@@ -8,7 +8,9 @@
 @section('main')
     <div>
         <center>
-            <u><h3>Data @yield('title')</h3></u>
+            <u>
+                <h3>Data @yield('title')</h3>
+            </u>
         </center>
         <br>
         <table width="100%" border="1" cellpadding="2.5" cellspacing="0">
@@ -20,21 +22,21 @@
                     <th width="30%">Jabatan</th>
                     <th width="30%">No Hp</th>
                 </tr>
-            </thead>    
+            </thead>
             <tbody valign="top">
-                @if($karyawans->isEmpty())
+                @if ($karyawans->isEmpty())
                     <tr>
                         <td colspan="5" align="center">Data @yield('title') kosong</td>
                     </tr>
                 @else
-                    @foreach($karyawans as $karyawan)
-                    <tr>
-                        <td style="text-align: center;">{{ $loop->iteration }}</td>
-                        <td>{{ $karyawan->nama }}</td>
-                        <td>{{ $karyawan->email }}</td>
-                        <td>{{ $karyawan->jabatan }}</td>
-                        <td>{{ $karyawan->no_hp }}</td>
-                    </tr>
+                    @foreach ($karyawans as $karyawan)
+                        <tr>
+                            <td style="text-align: center;">{{ $loop->iteration }}</td>
+                            <td>{{ $karyawan->nama }}</td>
+                            <td>{{ $karyawan->email }}</td>
+                            <td>{{ $karyawan->jabatan }}</td>
+                            <td>{{ $karyawan->no_hp }}</td>
+                        </tr>
                     @endforeach
                 @endif
             </tbody>

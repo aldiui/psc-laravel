@@ -6,9 +6,9 @@
 @endpush
 
 @section('main')
-@php
-    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-@endphp
+    @php
+        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    @endphp
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -89,7 +89,9 @@
                                         <label for="bulan_filter" class="form-label">Bulan</label>
                                         <select name="bulan_filter" id="bulan_filter" class="form-control">
                                             @foreach ($bulans as $key => $value)
-                                                <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                                <option value="{{ $key + 1 }}"
+                                                    {{ $key + 1 == date('m') ? 'selected' : '' }}>{{ $value }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -99,14 +101,14 @@
                                         <label for="tahun_filter" class="form-label">Tahun</label>
                                         <select name="tahun_filter" id="tahun_filter" class="form-control">
                                             @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                                <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                                <option value="{{ $i }}" {{ $i == date('Y') ? 'selected' : '' }}>
+                                                    {{ $i }}</option>
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <canvas id="myChart"
-                                height="182"></canvas>
+                            <canvas id="myChart" height="182"></canvas>
                         </div>
                     </div>
                 </div>
@@ -121,17 +123,17 @@
         $(document).ready(function() {
             renderData();
 
-            $("#bulan_filter, #tahun_filter").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function() {
                 renderData();
             });
         });
 
         const renderData = () => {
-            const successCallback = function (response) {
+            const successCallback = function(response) {
                 createChart(response.data.labels, response.data.stokMasuk, response.data.stokKeluar);
             };
 
-            const errorCallback = function (error) {
+            const errorCallback = function(error) {
                 console.error(error);
             };
 
@@ -140,5 +142,4 @@
             ajaxCall(url, "GET", null, successCallback, errorCallback);
         };
     </script>
-
 @endpush

@@ -25,13 +25,16 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <a href="{{ route('admin.kategori.show', 'pdf') }}" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.kategori.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                    <a href="{{ route('admin.kategori.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.kategori.show', 'excel') }}"
+                                        class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="kategoriTable" width="100%">
@@ -45,7 +48,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +57,8 @@
             </div>
         </section>
     </div>
-@include('admin.kategori.create')
-@include('admin.kategori.edit')
+    @include('admin.kategori.create')
+    @include('admin.kategori.edit')
 @endsection
 
 @push('scripts')
@@ -66,25 +69,36 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('kategoriTable', '{{ route('admin.kategori.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'nama', name: 'nama' },
-                { data: 'deskripsi', name: 'deskripsi' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('kategoriTable', '{{ route('admin.kategori.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'deskripsi',
+                    name: 'deskripsi'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.kategori.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "kategoriTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama", "deskripsi"]);
                 };
@@ -93,19 +107,19 @@
             });
 
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/kategori/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "kategoriTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["nama", "deskripsi"]);
                 };

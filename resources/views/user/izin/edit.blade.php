@@ -13,12 +13,12 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="file" class="form-label">File </label>
-                        <input type="file" name="file" id="file"
-                        class="dropify" data-height="200">
+                        <input type="file" name="file" id="file" class="dropify" data-height="200">
                         <small class="invalid-feedback" id="errorfile"></small>
                     </div>
                     <div class="form-group">
-                        <label for="tanggal_mulai" class="form-label">Tanggal Mulai <span class="text-danger">*</span></label>
+                        <label for="tanggal_mulai" class="form-label">Tanggal Mulai <span
+                                class="text-danger">*</span></label>
                         <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
                         <small class="invalid-feedback" id="errortanggal_malai"></small>
                     </div>

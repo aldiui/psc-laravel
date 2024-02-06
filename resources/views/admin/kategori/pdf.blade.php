@@ -8,7 +8,9 @@
 @section('main')
     <div>
         <center>
-            <u><h3>Data @yield('title')</h3></u>
+            <u>
+                <h3>Data @yield('title')</h3>
+            </u>
         </center>
         <br>
         <table width="100%" border="1" cellpadding="2.5" cellspacing="0">
@@ -18,19 +20,19 @@
                     <th width="35%">Nama</th>
                     <th style="">Deskripsi</th>
                 </tr>
-            </thead>    
+            </thead>
             <tbody valign="top">
-                @if($kategoris->isEmpty())
+                @if ($kategoris->isEmpty())
                     <tr>
                         <td colspan="3" align="center">Data @yield('title') kosong</td>
                     </tr>
                 @else
-                    @foreach($kategoris as $kategori)
-                    <tr>
-                        <td style="text-align: center;">{{ $loop->iteration }}</td>
-                        <td>{{ $kategori->nama }}</td>
-                        <td>{{ $kategori->deskripsi }}</td>
-                    </tr>
+                    @foreach ($kategoris as $kategori)
+                        <tr>
+                            <td style="text-align: center;">{{ $loop->iteration }}</td>
+                            <td>{{ $kategori->nama }}</td>
+                            <td>{{ $kategori->deskripsi }}</td>
+                        </tr>
                     @endforeach
                 @endif
             </tbody>

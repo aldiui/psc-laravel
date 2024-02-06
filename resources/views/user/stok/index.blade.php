@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Stok')
@@ -10,9 +9,9 @@
 @endpush
 
 @section('main')
-@php
-    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-@endphp
+    @php
+        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    @endphp
     <div class="main-content">
         <section class="section">
             <div class="section-header d-none d-lg-block">
@@ -29,7 +28,8 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -39,7 +39,9 @@
                                             <label for="bulan_filter" class="form-label">Bulan</label>
                                             <select name="bulan_filter" id="bulan_filter" class="form-control">
                                                 @foreach ($bulans as $key => $value)
-                                                    <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                                    <option value="{{ $key + 1 }}"
+                                                        {{ $key + 1 == date('m') ? 'selected' : '' }}>
+                                                        {{ $value }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -49,7 +51,9 @@
                                             <label for="tahun_filter" class="form-label">Tahun</label>
                                             <select name="tahun_filter" id="tahun_filter" class="form-control">
                                                 @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                                    <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == date('Y') ? 'selected' : '' }}>{{ $i }}
+                                                    </option>
                                                 @endfor
                                             </select>
                                         </div>
@@ -69,7 +73,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +82,8 @@
             </div>
         </section>
     </div>
-@include('user.stok.create')
-@include('user.stok.edit')
+    @include('user.stok.create')
+    @include('user.stok.edit')
 @endsection
 
 @push('scripts')
@@ -90,59 +94,74 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('stokTable', '{{ route('stok.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'tgl', name: 'tgl' },
-                { data: 'detail_stoks_count', name: 'detail_stoks_count' },
-                { data: 'jenis_badge', name: 'jenis_badge' },
-                { data: 'status_badge', name: 'status_badge' },
-                { data: 'aksi', name: 'aksi' },  
+            datatableCall('stokTable', '{{ route('stok.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'tgl',
+                    name: 'tgl'
+                },
+                {
+                    data: 'detail_stoks_count',
+                    name: 'detail_stoks_count'
+                },
+                {
+                    data: 'jenis_badge',
+                    name: 'jenis_badge'
+                },
+                {
+                    data: 'status_badge',
+                    name: 'status_badge'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#bulan_filter, #tahun_filter").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#stokTable").DataTable().ajax.reload();
             });
-            
-            $("#saveData").submit(function (e) {
+
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('stok.store') }}";
                 const data = new FormData(this);
-    
-                const successCallback = function (response) {
+
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "stokTable", "createModal");
                 };
-    
-                const errorCallback = function (error) {
+
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["tanggal"]);
                 };
-    
+
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-    
-            $("#updateData").submit(function (e) {
+
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/stok/${kode}`;
                 const data = new FormData(this);
-    
-                const successCallback = function (response) {
+
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "stokTable", "editModal");
                 };
-    
-                const errorCallback = function (error) {
+
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["tanggal"]);
                 };
-    
+
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
-
-        
     </script>
 @endpush

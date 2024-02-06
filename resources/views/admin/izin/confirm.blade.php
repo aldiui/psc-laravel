@@ -22,11 +22,11 @@
                         <div class="col-7 mb-2">: <span id="alasan"></span></div>
                         <div class="col-12 mb-2">File</div>
                         <div class="col-12 mb-2">
-                            <img id="file" class="img-fluid"/>
+                            <img id="file" class="img-fluid" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="status" class="form-label">Status  <span class="text-danger">*</span></label>
+                        <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                         <select name="status" id="status" class="form-control">
                             <option value="">-- Pilih Status --</option>
                             <option value="1">Setujui</option>

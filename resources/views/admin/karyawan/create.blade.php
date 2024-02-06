@@ -11,8 +11,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="image" class="form-label">Foto </label>
-                        <input type="file" name="image" id="image"
-                        class="dropify" data-height="200">
+                        <input type="file" name="image" id="image" class="dropify" data-height="200">
                         <small class="invalid-feedback" id="errorimage"></small>
                     </div>
                     <div class="form-group">
@@ -32,8 +31,10 @@
                         <small class="invalid-feedback" id="errorpassword"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password_confirmation" class="form-label">Konfirmasi Password <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        <label for="password_confirmation" class="form-label">Konfirmasi Password <span
+                                class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password_confirmation"
+                            name="password_confirmation">
                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                     </div>
                     <div class="form-group">
@@ -64,4 +65,3 @@
         </div>
     </div>
 </div>
-

@@ -9,9 +9,9 @@
 @endpush
 
 @section('main')
-@php
-    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-@endphp
+    @php
+        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    @endphp
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -35,7 +35,9 @@
                                             <label for="bulan_filter" class="form-label">Bulan</label>
                                             <select name="bulan_filter" id="bulan_filter" class="form-control">
                                                 @foreach ($bulans as $key => $value)
-                                                    <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                                    <option value="{{ $key + 1 }}"
+                                                        {{ $key + 1 == date('m') ? 'selected' : '' }}>
+                                                        {{ $value }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -45,14 +47,17 @@
                                             <label for="tahun_filter" class="form-label">Tahun</label>
                                             <select name="tahun_filter" id="tahun_filter" class="form-control">
                                                 @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                                    <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                                    <option value="{{ $i }}"
+                                                        {{ $i == date('Y') ? 'selected' : '' }}>{{ $i }}
+                                                    </option>
                                                 @endfor
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i
+                                            class="fas fa-file-pdf mr-2"></i>Pdf</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table" id="izinTable" width="100%">
@@ -69,7 +74,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +83,7 @@
             </div>
         </section>
     </div>
-@include('admin.izin.confirm')
+    @include('admin.izin.confirm')
 @endsection
 
 @push('scripts')
@@ -90,38 +95,60 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('izinTable', '{{ route('admin.izin.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'img', name: 'img' },
-                { data: 'nama', name: 'nama' },
-                { data: 'tanggal', name: 'tanggal' },
-                { data: 'tipe', name: 'tipe' },
-                { data: 'status_badge', name: 'status_badge' },
-                { data: 'aksi', name: 'aksi' },  
+            datatableCall('izinTable', '{{ route('admin.izin.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'tanggal',
+                    name: 'tanggal'
+                },
+                {
+                    data: 'tipe',
+                    name: 'tipe'
+                },
+                {
+                    data: 'status_badge',
+                    name: 'status_badge'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
             renderData();
-            
-            $("#bulan_filter, #tahun_filter").on("change", function () {
+
+            $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#izinTable").DataTable().ajax.reload();
                 renderData();
             });
 
-            $("#confirmData").submit(function (e) {
+            $("#confirmData").submit(function(e) {
                 setButtonLoadingState("#confirmData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#confirmData #id").val();
                 const url = `/admin/izin/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#confirmData .btn.btn-success", false);
                     handleSuccess(response, "izinTable", "confirmModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#confirmData .btn.btn-success", false);
-                    handleValidationErrors(error, "confirmData", ["tanggal_mulai", "tanggal_selesai", "tipe", "alasan", "file"]);
+                    handleValidationErrors(error, "confirmData", ["tanggal_mulai", "tanggal_selesai",
+                        "tipe", "alasan", "file"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -129,7 +156,8 @@
         });
 
         const renderData = () => {
-            const downloadPdf = `/admin/izin?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            const downloadPdf =
+                `/admin/izin?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
         }
     </script>

@@ -8,7 +8,8 @@
 @section('main')
     <section class="section">
         <div class="d-flex align-items-stretch flex-wrap">
-            <div class="col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white d-flex justify-content-center align-items-center">
+            <div
+                class="col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white d-flex justify-content-center align-items-center">
                 <div class="py-2">
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
@@ -39,7 +40,8 @@
                         </a>
                     </div>
                     <div class="text-small mt-5 text-center">
-                        Hak Cipta &copy; {{ date("Y")}} <div class="bullet"></div> Dibuat Oleh <span>UBSI Tasikmalaya</span>
+                        Hak Cipta &copy; {{ date('Y') }} <div class="bullet"></div> Dibuat Oleh <span>UBSI
+                            Tasikmalaya</span>
                     </div>
                 </div>
             </div>
@@ -49,7 +51,8 @@
                     <div class="text-light p-5 pb-2">
                         <div class="mb-5 pb-3">
                             <h5 class="font-weight-normal text-muted-transparent">Dinas Kesehatan Kota Tasikmalaya</h5>
-                            <h5 class="font-weight-normal text-muted-transparent">PSC  119 (PUBLIC SAFETY CENTER) SICETAR</h5>
+                            <h5 class="font-weight-normal text-muted-transparent">PSC 119 (PUBLIC SAFETY CENTER) SICETAR
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -63,19 +66,21 @@
 
     <script>
         $(document).ready(function() {
-            $("#login").submit(function (e) {
+            $("#login").submit(function(e) {
                 setButtonLoadingState("#login .btn.btn-danger", true, "Masuk");
                 e.preventDefault();
                 const url = "{{ route('login') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Masuk");
+                const successCallback = function(response) {
+                    setButtonLoadingState("#login .btn.btn-danger", false,
+                        "<i class='fas fa-sign-in mr-2'></i>Masuk");
                     handleSuccess(response, null, null, "/");
                 };
 
-                const errorCallback = function (error) {
-                    setButtonLoadingState("#login .btn.btn-danger", false, "<i class='fas fa-sign-in mr-2'></i>Masuk");
+                const errorCallback = function(error) {
+                    setButtonLoadingState("#login .btn.btn-danger", false,
+                        "<i class='fas fa-sign-in mr-2'></i>Masuk");
                     handleValidationErrors(error, "login", ["email", "password"]);
                 };
 

@@ -26,10 +26,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="text-dark">Data Detail  @yield('title')</h4>
+                                <h4 class="text-dark">Data Detail @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <a href="{{ route('admin.tim.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>
-                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <a href="{{ route('admin.tim.index') }}" class="btn btn-secondary"><i
+                                            class="fas fa-arrow-left mr-2"></i>Kembali</a>
+                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -54,7 +56,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -63,8 +65,8 @@
             </div>
         </section>
     </div>
-@include('admin.detail-tim.create')
-@include('admin.detail-tim.edit')
+    @include('admin.detail-tim.create')
+    @include('admin.detail-tim.edit')
 @endsection
 
 @push('scripts')
@@ -76,30 +78,45 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('detailTimTable', '/admin/tim/{{ $tim->id }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'img', name: 'img' },
-                { data: 'nama', name: 'nama' },
-                { data: 'posisi', name: 'posisi' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('detailTimTable', '/admin/tim/{{ $tim->id }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'posisi',
+                    name: 'posisi'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#createBtn").click(function () {
-                select2ToJson("#user_id", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan", "#createModal");
+            $("#createBtn").click(function() {
+                select2ToJson("#user_id", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan",
+                    "#createModal");
             });
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.detail-tim.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "detailTimTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["tim_id", "user_id", "posisi"]);
                 };
@@ -107,28 +124,29 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/detail-tim/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "detailTimTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["user_id", "posisi"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-        }); o
+        });
+        o
 
-        function getSelectEdit(){
+        function getSelectEdit() {
             select2ToJson(".editUser", "{{ route('admin.karyawan.index') }}", "Pilih Karyawan", "#editModal");
         }
     </script>

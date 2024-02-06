@@ -13,8 +13,7 @@
                     @method('PUT')
                     <div class="form-group">
                         <label for="image" class="form-label">Foto </label>
-                        <input type="file" name="image" id="image"
-                        class="dropify" data-height="200">
+                        <input type="file" name="image" id="image" class="dropify" data-height="200">
                         <small class="invalid-feedback" id="errorimage"></small>
                     </div>
                     <div class="form-group">
@@ -34,7 +33,8 @@
                     </div>
                     <div class="form-group">
                         <label for="password_confirmation" class="form-label">Konfirmasi Password </label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        <input type="password" class="form-control" id="password_confirmation"
+                            name="password_confirmation">
                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                     </div>
                     <div class="form-group">

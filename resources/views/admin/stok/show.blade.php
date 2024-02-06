@@ -25,11 +25,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="text-dark">Data Detail  @yield('title')</h4>
+                                <h4 class="text-dark">Data Detail @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i class="fas fa-arrow-left mr-2"></i>Kembali</a>    
-                                    @if($stok->status != 1)
-                                        <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <a href="{{ route('admin.stok.index') }}" class="btn btn-secondary"><i
+                                            class="fas fa-arrow-left mr-2"></i>Kembali</a>
+                                    @if ($stok->status != 1)
+                                        <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i
+                                                class="fas fa-plus mr-2"></i>Tambah</button>
                                     @endif
                                 </div>
                             </div>
@@ -48,9 +50,11 @@
                                         </div>
                                         <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
                                         <div class="col-8 col-lg-10 mb-2">
-                                            : 
-                                            @if($stok->status != 1)
-                                                <button class="btn btn-primary btn-sm" type="button" onclick="confirmStok('{{ $stok->id }}')"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
+                                            :
+                                            @if ($stok->status != 1)
+                                                <button class="btn btn-primary btn-sm" type="button"
+                                                    onclick="confirmStok('{{ $stok->id }}')"><i
+                                                        class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
                                             @else
                                                 {!! statusBadge($stok->status) !!}
                                             @endif
@@ -70,7 +74,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -79,8 +83,8 @@
             </div>
         </section>
     </div>
-@include('admin.detail-stok.create')
-@include('admin.detail-stok.edit')
+    @include('admin.detail-stok.create')
+    @include('admin.detail-stok.edit')
 @endsection
 
 @push('scripts')
@@ -92,59 +96,77 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('detailStokTable', '/admin/stok/{{ $stok->id }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'nama', name: 'nama' },
-                { data: 'qty', name: 'qty' },
-                { data: 'deskripsi', name: 'deskripsi' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('detailStokTable', '/admin/stok/{{ $stok->id }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'qty',
+                    name: 'qty'
+                },
+                {
+                    data: 'deskripsi',
+                    name: 'deskripsi'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#createBtn").click(function () {
+            $("#createBtn").click(function() {
                 select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
             });
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.detail-stok.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "detailStokTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleValidationErrors(error, "saveData", ["stok_id", "barang_id", "qty", "deskripsi"]);
+                    handleValidationErrors(error, "saveData", ["stok_id", "barang_id", "qty",
+                        "deskripsi"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/detail-stok/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "detailStokTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["stok_id", "barang_id", "qty", "deskripsi"]);
+                    handleValidationErrors(error, "updateData", ["stok_id", "barang_id", "qty",
+                        "deskripsi"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-        }); 
+        });
 
-        function getSelectEdit(){
+        function getSelectEdit() {
             select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "#editModal");
         }
     </script>

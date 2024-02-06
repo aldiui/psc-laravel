@@ -25,13 +25,16 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <a href="{{ route('admin.tim.show', 'pdf') }}" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.tim.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                    <a href="{{ route('admin.tim.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.tim.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i
+                                            class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="timTable" width="100%">
@@ -40,13 +43,13 @@
                                                 <th scope="col" width="5%">#</th>
                                                 <th scope="col">Nama</th>
                                                 <th scope="col">Deskripsi</th>
-                                                <th scope="col">Anggota</th>                                            
+                                                <th scope="col">Anggota</th>
                                                 <th scope="col" width="20%">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +58,8 @@
             </div>
         </section>
     </div>
-@include('admin.tim.create')
-@include('admin.tim.edit')
+    @include('admin.tim.create')
+    @include('admin.tim.edit')
 @endsection
 
 @push('scripts')
@@ -67,26 +70,40 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('timTable', '{{ route('admin.tim.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'nama', name: 'nama' },
-                { data: 'deskripsi', name: 'deskripsi' },
-                { data: 'detail_tims_count', name: 'detail_tims_count' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('timTable', '{{ route('admin.tim.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'deskripsi',
+                    name: 'deskripsi'
+                },
+                {
+                    data: 'detail_tims_count',
+                    name: 'detail_tims_count'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.tim.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "timTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama", "deskripsi"]);
                 };
@@ -95,19 +112,19 @@
             });
 
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/tim/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "timTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["nama", "deskripsi"]);
                 };

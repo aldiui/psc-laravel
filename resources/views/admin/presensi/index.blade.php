@@ -30,8 +30,9 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="tanggal_filter" class="form-label">Tanggal</label>
-                                            <input type="date" name="tanggal_filter" id="tanggal_filter" value="{{ date('Y-m-d') }}" class="form-control">
-                                        </div>    
+                                            <input type="date" name="tanggal_filter" id="tanggal_filter"
+                                                value="{{ date('Y-m-d') }}" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -48,7 +49,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -67,16 +68,33 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('presensiTable', '{{ route('admin.presensi.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'img', name: 'img' },
-                { data: 'nama', name: 'nama' },
-                { data: 'presensi_masuk', name: 'presensi_masuk' },
-                { data: 'presensi_keluar', name: 'presensi_keluar' },
-                { data: 'catatan', name: 'catatan' },  
+            datatableCall('presensiTable', '{{ route('admin.presensi.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'presensi_masuk',
+                    name: 'presensi_masuk'
+                },
+                {
+                    data: 'presensi_keluar',
+                    name: 'presensi_keluar'
+                },
+                {
+                    data: 'catatan',
+                    name: 'catatan'
+                },
             ]);
 
-            $("#tanggal_filter").on("change", function () {
+            $("#tanggal_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
             });
         });

@@ -3,7 +3,7 @@
 @section('title', 'Pengaturan')
 
 @push('style')
-    <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} /> 
+    <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
     <link rel="stylesheet" href="{{ asset('library/leaflet-search/src/leaflet-search.css') }}" />
     <link rel="stylesheet" href="{{ asset('library/leaflet/geosearch.css') }}" />
 @endpush
@@ -29,18 +29,24 @@
                                 <form id="updateData">
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="longitude" class="form-label">Longitude <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="longitude" name="longitude" value="{{ $pengaturan->longitude }}">
+                                        <label for="longitude" class="form-label">Longitude <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="longitude" name="longitude"
+                                            value="{{ $pengaturan->longitude }}">
                                         <small class="invalid-feedback" id="errorlongitude"></small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="latitude" class="form-label">Latitude <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="latitude" name="latitude" value="{{ $pengaturan->latitude }}">
+                                        <label for="latitude" class="form-label">Latitude <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="latitude" name="latitude"
+                                            value="{{ $pengaturan->latitude }}">
                                         <small class="invalid-feedback" id="errorlatitude"></small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="radius" class="form-label">Radius <span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="radius" name="radius" value="{{ $pengaturan->radius }}">
+                                        <label for="radius" class="form-label">Radius <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="radius" name="radius"
+                                            value="{{ $pengaturan->radius }}">
                                         <small class="invalid-feedback" id="errorradius"></small>
                                     </div>
                                     <div class="form-group">
@@ -73,22 +79,24 @@
 
             showPositionPengaturan();
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
-                const url = `{{ route('admin.pengaturan')}}`;
+                const url = `{{ route('admin.pengaturan') }}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);  
+                const successCallback = function(response) {
+                    setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, null, null, "no");
                     clearMap();
-                    showPositionPengaturan(); 
+                    showPositionPengaturan();
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "longitude", "latitude", "radius"]);
+                    handleValidationErrors(error, "updateData", ["nama", "longitude", "latitude",
+                        "radius"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

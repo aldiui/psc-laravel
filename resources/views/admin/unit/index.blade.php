@@ -25,16 +25,19 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <a href="{{ route('admin.unit.show', 'pdf') }}" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.unit.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                    <a href="{{ route('admin.unit.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.unit.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i
+                                            class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
-                                <table class="table table-bordered table-striped" id="unitTable" width="100%">
+                                    <table class="table table-bordered table-striped" id="unitTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>
@@ -44,7 +47,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -53,8 +56,8 @@
             </div>
         </section>
     </div>
-@include('admin.unit.create')
-@include('admin.unit.edit')
+    @include('admin.unit.create')
+    @include('admin.unit.edit')
 @endsection
 
 @push('scripts')
@@ -65,24 +68,32 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('unitTable', '{{ route('admin.unit.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'nama', name: 'nama' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('unitTable', '{{ route('admin.unit.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.unit.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "unitTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama"]);
                 };
@@ -90,19 +101,19 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/unit/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "unitTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleValidationErrors(error, "updateData", ["nama"]);
                 };

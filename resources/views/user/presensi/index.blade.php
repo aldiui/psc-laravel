@@ -3,7 +3,7 @@
 @section('title', 'Presensi')
 
 @push('style')
-    <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} /> 
+    <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
 @endpush
 
 @section('main')
@@ -17,15 +17,17 @@
                 </div>
                 <div id="map" class="mb-3 rounded-lg mx-0" style="height: 420px; width: 100%;"></div>
                 <div class="p-3">
-                    <button type="submit" id="presensiButton" class="btn {{ $presensi ? ($presensi->clock_out == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block" {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
+                    <button type="submit" id="presensiButton"
+                        class="btn {{ $presensi ? ($presensi->clock_out == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block"
+                        {{ $presensi ? ($presensi->clock_out == null ? '' : 'disabled') : '' }}>
                         {{ $presensi ? ($presensi->clock_out == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
-                    </button>                    
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-@include('user.presensi.alasan')
-@include('user.presensi.catatan')
+    @include('user.presensi.alasan')
+    @include('user.presensi.catatan')
 @endsection
 
 @push('scripts')
@@ -35,18 +37,18 @@
     <script>
         $(document).ready(function() {
             setInterval(updateJam, 1000);
-            
+
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
             } else {
                 handleSimpleError("Geolocation is not supported by this browser.");
             }
-            
+
             $("#presensiButton").click(function(e) {
                 const textButton = "{{ $presensi ? 'Presensi Keluar' : 'Presensi Masuk' }}";
                 setButtonLoadingState("#presensiButton", true, textButton);
                 e.preventDefault();
-                
+
                 const url = "{{ route('presensi') }}";
                 const data = new FormData();
                 const locationValue = $("#location").val();
@@ -55,21 +57,23 @@
                 data.append('alasan', $("#alasan").val());
                 data.append('catatan', catatanValue);
 
-                if(textButton == "Presensi Keluar" && catatanValue.trim() === "") {
+                if (textButton == "Presensi Keluar" && catatanValue.trim() === "") {
                     setButtonLoadingState("#presensiButton", false, textButton);
                     getModal('catatanModal');
                 }
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     setButtonLoadingState("#presensiButton", false, textButton);
                     handleSuccess(response, null, null, "/");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#presensiButton", false, textButton);
                     handleValidationErrors(error);
-                    if(locationValue) {
-                        setTimeout(function() { getModal('alasanModal'); }, 2000);
+                    if (locationValue) {
+                        setTimeout(function() {
+                            getModal('alasanModal');
+                        }, 2000);
                     }
                 };
 
@@ -81,7 +85,7 @@
             });
 
             $("#saveAlasan").click(function() {
-                const alasanValue = $("#alasan").val(); 
+                const alasanValue = $("#alasan").val();
                 setButtonLoadingState("#saveAlasan", false);
                 if (alasanValue.trim() === "") {
                     $("#alasan").addClass("is-invalid");
@@ -93,7 +97,7 @@
             });
 
             $("#saveCatatan").click(function() {
-                const catatanValue = $("#catatan").val(); 
+                const catatanValue = $("#catatan").val();
                 setButtonLoadingState("#saveCatatan", false);
                 if (catatanValue.trim() === "") {
                     $("#catatan").addClass("is-invalid");
@@ -111,12 +115,16 @@
 
             let map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-            L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini').openPopup();
+            L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini')
+                .openPopup();
 
             const pengaturan = "PSC 119 SICETAR";
-            L.marker([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}]).addTo(map).bindPopup(pengaturan).openPopup(); 
+            L.marker([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}]).addTo(map).bindPopup(pengaturan)
+                .openPopup();
 
             const circle = L.circle([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}], {
                 color: 'green',

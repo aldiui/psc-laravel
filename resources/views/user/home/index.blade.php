@@ -9,9 +9,9 @@
 @endpush
 
 @section('main')
-@php
-    $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-@endphp
+    @php
+        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    @endphp
     <div class="main-content mb-5 pb-5">
         <section class="section">
             <div class="card mb-3 mb-lg-4 p-1 rounded-pill">
@@ -35,46 +35,59 @@
                         <div class="col-6 d-flex align-items-center">
                             <div class="mr-2">
                                 <div class="p-2 {{ $presensi ? 'bg-success' : 'bg-secondary' }} rounded">
-                                    <i class="far {{ $presensi ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
+                                    <i
+                                        class="far {{ $presensi ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
                                 </div>
                             </div>
                             <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
                                 <div class="small">Masuk</div>
-                                <div class="text-lg">{{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
+                                <div class="text-lg">
+                                    {{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
                             </div>
                         </div>
                         <div class="col-6 d-flex align-items-center">
                             <div class="mr-2">
-                                <div class="p-2 {{ $presensi && $presensi->clock_out ? 'bg-success' : 'bg-secondary' }} rounded">
-                                    <i class="far {{ $presensi && $presensi->clock_out ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
+                                <div
+                                    class="p-2 {{ $presensi && $presensi->clock_out ? 'bg-success' : 'bg-secondary' }} rounded">
+                                    <i
+                                        class="far {{ $presensi && $presensi->clock_out ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
                                 </div>
                             </div>
                             <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
                                 <div class="small">Keluar</div>
-                                <div class="text-lg">{{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
+                                <div class="text-lg">
+                                    {{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <div class="card mb-3 mb-lg-4">
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-around">
                         <div>
-                            <a class="text-decoration-none text-center text-info"
-                                href="{{ url('izin') }}"><i class="d-block mb-2 text-lg fas fa-calendar"></i> <div class="text-mini text-center text-dark">Izin</div></a>
+                            <a class="text-decoration-none text-center text-info" href="{{ url('izin') }}"><i
+                                    class="d-block mb-2 text-lg fas fa-calendar"></i>
+                                <div class="text-mini text-center text-dark">Izin</div>
+                            </a>
                         </div>
                         <div>
-                            <a class="text-decoration-none text-center text-success"
-                                href="{{ url('presensi') }}"><i class="d-block mb-2 text-lg fas fa-camera"></i> <div class="text-mini text-center text-dark">Presensi</div></a>
+                            <a class="text-decoration-none text-center text-success" href="{{ url('presensi') }}"><i
+                                    class="d-block mb-2 text-lg fas fa-camera"></i>
+                                <div class="text-mini text-center text-dark">Presensi</div>
+                            </a>
                         </div>
                         <div>
-                            <a class="text-decoration-none text-center text-warning"
-                                href="{{ url('stok') }}"><i class="d-block mb-2 text-lg fas fa-clipboard-list"></i> <div class="text-mini text-center text-dark">Stok</div></a>
+                            <a class="text-decoration-none text-center text-warning" href="{{ url('stok') }}"><i
+                                    class="d-block mb-2 text-lg fas fa-clipboard-list"></i>
+                                <div class="text-mini text-center text-dark">Stok</div>
+                            </a>
                         </div>
                         <div>
-                            <a class="text-decoration-none text-center text-primary"
-                                href="{{ url('profil') }}"><i class="d-block mb-2 text-lg fas fa-user"></i> <div class="text-mini text-center text-dark">Profil</div></a>
+                            <a class="text-decoration-none text-center text-primary" href="{{ url('profil') }}"><i
+                                    class="d-block mb-2 text-lg fas fa-user"></i>
+                                <div class="text-mini text-center text-dark">Profil</div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -84,37 +97,44 @@
                     <div class="text-title">Presensi</div>
                     <div class="small text-info">Lihat selengkapnya</div>
                 </div>
-                @if($presensis->isNotEmpty())
+                @if ($presensis->isNotEmpty())
                     @foreach ($presensis as $presensi)
-                    <div class="card mb-2">
-                        <div class="card-body p-3">
-                            <div class="small mb-2">{{ formatTanggal($presensi->tanggal)}}</div>
-                            <div class="row no-gutters mb-0">
-                                <div class="col-6 d-flex align-items-center">
-                                    <div class="mr-2">
-                                        <div class="p-2 {{ $presensi && $presensi->alasan_in ? 'text-danger' : 'text-secondary' }} rounded">
-                                            <i class="fas fa-map-marker-alt text-lg"></i>
+                        <div class="card mb-2">
+                            <div class="card-body p-3">
+                                <div class="small mb-2">{{ formatTanggal($presensi->tanggal) }}</div>
+                                <div class="row no-gutters mb-0">
+                                    <div class="col-6 d-flex align-items-center">
+                                        <div class="mr-2">
+                                            <div
+                                                class="p-2 {{ $presensi && $presensi->alasan_in ? 'text-danger' : 'text-secondary' }} rounded">
+                                                <i class="fas fa-map-marker-alt text-lg"></i>
+                                            </div>
+                                        </div>
+                                        <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
+                                            <div class="small">Masuk</div>
+                                            <div class="text-lg">
+                                                {{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
-                                        <div class="small">Masuk</div>
-                                        <div class="text-lg">{{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
-                                    </div>
-                                </div>
-                                <div class="col-6 d-flex align-items-center">
-                                    <div class="mr-2">
-                                        <div class="p-2 {{ $presensi && $presensi->alasan_out ? 'text-danger' : 'text-secondary' }} rounded">
-                                            <i class="far fas fa-map-marker-alt text-lg"></i>
+                                    <div class="col-6 d-flex align-items-center">
+                                        <div class="mr-2">
+                                            <div
+                                                class="p-2 {{ $presensi && $presensi->alasan_out ? 'text-danger' : 'text-secondary' }} rounded">
+                                                <i class="far fas fa-map-marker-alt text-lg"></i>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                                            <div class="small">Keluar</div>
+                                            <div class="text-lg">
+                                                {{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
-                                        <div class="small">Keluar</div>
-                                        <div class="text-lg">{{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
-                                    </div>
                                 </div>
-                            </div>        
+                            </div>
                         </div>
-                    </div>
                     @endforeach
                 @else
                     <div class="text-center">
@@ -135,7 +155,8 @@
                                 <label for="bulan_filter" class="form-label">Bulan</label>
                                 <select name="bulan_filter" id="bulan_filter" class="form-control">
                                     @foreach ($bulans as $key => $value)
-                                        <option value="{{ $key + 1 }}" {{ (($key + 1) == date('m')) ? 'selected' : ''}}>{{ $value }}</option>
+                                        <option value="{{ $key + 1 }}"
+                                            {{ $key + 1 == date('m') ? 'selected' : '' }}>{{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,7 +166,8 @@
                                 <label for="tahun_filter" class="form-label">Tahun</label>
                                 <select name="tahun_filter" id="tahun_filter" class="form-control">
                                     @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                        <option value="{{ $i }}" {{ ($i == date('Y')) ? 'selected' : ''}}>{{ $i }}</option>
+                                        <option value="{{ $i }}" {{ $i == date('Y') ? 'selected' : '' }}>
+                                            {{ $i }}</option>
                                     @endfor
                                 </select>
                             </div>
@@ -163,7 +185,7 @@
                             </thead>
                             <tbody>
                             </tbody>
-                        </table>                                
+                        </table>
                     </div>
                 </div>
             </div>
@@ -181,14 +203,25 @@
         $(document).ready(function() {
             setInterval(updateJam, 1000);
 
-            datatableCall('presensiTable', '{{ route('presensi') }}', [
-                { data: 'tgl', name: 'tgl' },
-                { data: 'presensi_masuk', name: 'presensi_masuk' },
-                { data: 'presensi_keluar', name: 'presensi_keluar' },
-                { data: 'catatan', name: 'catatan' },  
+            datatableCall('presensiTable', '{{ route('presensi') }}', [{
+                    data: 'tgl',
+                    name: 'tgl'
+                },
+                {
+                    data: 'presensi_masuk',
+                    name: 'presensi_masuk'
+                },
+                {
+                    data: 'presensi_keluar',
+                    name: 'presensi_keluar'
+                },
+                {
+                    data: 'catatan',
+                    name: 'catatan'
+                },
             ]);
 
-            $("#bulan_filter, #tahun_filter").on("change", function () {
+            $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
             });
         });

@@ -27,13 +27,16 @@
                             <div class="card-header">
                                 <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i class="fas fa-plus mr-2"></i>Tambah</button>
+                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <a href="{{ route('admin.barang.show', 'pdf') }}" class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.barang.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                    <a href="{{ route('admin.barang.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.barang.show', 'excel') }}" class="btn btn-sm px-3 btn-info"><i
+                                            class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="barangTable" width="100%">
@@ -49,7 +52,7 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                    </table>                                
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +61,8 @@
             </div>
         </section>
     </div>
-@include('admin.barang.create')
-@include('admin.barang.edit')
+    @include('admin.barang.create')
+    @include('admin.barang.edit')
 @endsection
 
 @push('scripts')
@@ -74,64 +77,85 @@
         $(document).ready(function() {
             $('.dropify').dropify();
 
-            datatableCall('barangTable', '{{ route('admin.barang.index') }}', [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'img', name: 'img' },
-                { data: 'nama', name: 'nama' },
-                { data: 'qty_unit', name: 'qty_unit' },
-                { data: 'kategori', name: 'kategori' },
-                { data: 'aksi', name: 'aksi' },
+            datatableCall('barangTable', '{{ route('admin.barang.index') }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'img',
+                    name: 'img'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'qty_unit',
+                    name: 'qty_unit'
+                },
+                {
+                    data: 'kategori',
+                    name: 'kategori'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
-            
-            
-            $("#createBtn").click(function () {
+
+
+            $("#createBtn").click(function() {
                 select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
                 select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
             });
 
-            $("#saveData").submit(function (e) {
+            $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
                 const url = "{{ route('admin.barang.store') }}";
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "barangTable", "createModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleValidationErrors(error, "saveData", ["nama", "kategori_id", "unit_id", "qty", "deskripsi", "image"]);
+                    handleValidationErrors(error, "saveData", ["nama", "kategori_id", "unit_id", "qty",
+                        "deskripsi", "image"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function (e) {
+            $("#updateData").submit(function(e) {
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
                 const url = `/admin/barang/${kode}`;
                 const data = new FormData(this);
 
-                const successCallback = function (response) {
+                const successCallback = function(response) {
                     $('#updateData #image').parent().find(".dropify-clear").trigger('click');
                     setButtonLoadingState("#updateData .btn.btn-success", false);
                     handleSuccess(response, "barangTable", "editModal");
                 };
 
-                const errorCallback = function (error) {
+                const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "kategori_id", "unit_id", "qty", "deskripsi", "image"]);
+                    handleValidationErrors(error, "updateData", ["nama", "kategori_id", "unit_id",
+                        "qty", "deskripsi", "image"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
 
-        function getSelectEdit(){
+        function getSelectEdit() {
             select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "#editModal");
             select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "#editModal");
         }

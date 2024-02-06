@@ -36,7 +36,8 @@
         <table width="100%">
             <tr>
                 <td>
-                    <p class="text-line-height">Bermaksud mengajukan izin yaitu pada {{ ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}
+                    <p class="text-line-height">Bermaksud mengajukan izin yaitu pada
+                        {{ $izin->tanggal_selesai == null ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}
                         dengan alasan {{ $izin->alasan }}.</p>
                     <p>Jika ada pertanyaan mengenai pengajuan izin ini, Bapak/Ibu dapat menanyakan saya
                         {{ $izin->user->email }}.</p>
