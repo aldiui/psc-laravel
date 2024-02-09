@@ -56,7 +56,9 @@
                                                     onclick="confirmStok('{{ $stok->id }}')"><i
                                                         class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
                                             @else
-                                                {!! statusBadge($stok->status) !!}
+                                                @if ($stok->approval_id != null)
+                                                    {{ $stok->approval->nama }}
+                                                @endif
                                             @endif
                                         </div>
                                     </div>

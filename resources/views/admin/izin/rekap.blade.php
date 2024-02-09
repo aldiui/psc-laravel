@@ -21,6 +21,7 @@
                     <th style="">Tanggal</th>
                     <th width="10%">Tipe</th>
                     <th style="">Alasan</th>
+                    <th>Persetujuan</th>
                 </tr>
             </thead>
             <tbody valign="top">
@@ -38,6 +39,7 @@
                             </td>
                             <td style="text-align: center;">{{ $izin->tipe }}</td>
                             <td>{{ $izin->alasan }}</td>
+                            <td>{{ $izin->approval->nama }}</td>
                         </tr>
                     @endforeach
                 @endif

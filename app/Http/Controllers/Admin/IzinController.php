@@ -10,6 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,13 +24,13 @@ class IzinController extends Controller
         $tahun = $request->input("tahun");
 
         if ($request->ajax()) {
-            $izins = Izin::with('user')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+            $izins = Izin::with(['user', 'approval'])->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
                         $confirmButton = '<button class="btn btn-sm btn-primary mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                        return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<a class='btn btn-info' href='/admin/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a>";
+                        return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<a class='btn btn-info mb-2' href='/admin/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
@@ -52,7 +53,7 @@ class IzinController extends Controller
         }
 
         if ($request->input("mode") == "pdf") {
-            $izins = Izin::with('user')->where('status', '1')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+            $izins = Izin::with(['user', 'approval'])->where('status', '1')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('admin.izin.rekap', compact('izins', 'bulanTahun'));
@@ -134,7 +135,10 @@ class IzinController extends Controller
             return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);
         }
 
-        $izin->update(['status' => $request->status]);
+        $izin->update([
+            'status' => $request->status,
+            'approval_id' => Auth::user()->id,
+        ]);
 
         return $this->successResponse($izin, 'Data izin diubah.');
     }

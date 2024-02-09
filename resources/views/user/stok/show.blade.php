@@ -50,6 +50,10 @@
                                         <div class="col-8 col-lg-10 mb-2">
                                             : {!! statusBadge($stok->status) !!}
                                         </div>
+                                        @if ($stok->approval_id != null)
+                                            <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $stok->approval->nama }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="table-responsive">

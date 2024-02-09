@@ -23,7 +23,7 @@ class StokController extends Controller
         $tahun = $request->input("tahun");
 
         if ($request->ajax()) {
-            $stoks = Stok::with('user')->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+            $stoks = Stok::with(['user', 'approval'])->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($stoks)
                     ->addColumn('nama', function ($presensi) {
@@ -33,7 +33,7 @@ class StokController extends Controller
                         $detailButton = '<a class="btn btn-sm btn-info mr-1" href="/admin/stok/' . $stok->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/admin/stok/' . $stok->id . '`, [`id`, `tanggal`, `jenis`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                        return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton;
+                        return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton . "<div class='mt-2'> Di setujui oleh " . $stok->approval->nama . "</div>";
                     })
                     ->addColumn('status_badge', function ($stok) {
                         return statusBadge($stok->status);
@@ -53,7 +53,7 @@ class StokController extends Controller
         }
 
         if ($request->input("mode") == "pdf") {
-            $stoks = Stok::with('user')->where('status', 1)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+            $stoks = Stok::with(['user', 'approval'])->where('status', 1)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('admin.stok.pdf', compact('stoks', 'bulanTahun'));
@@ -100,7 +100,7 @@ class StokController extends Controller
 
     public function show(Request $request, $id)
     {
-        $stok = Stok::with('user')->find($id);
+        $stok = Stok::with(['user', 'approval'])->find($id);
 
         if ($request->ajax()) {
             if ($request->input("mode") == "datatable") {
@@ -154,6 +154,7 @@ class StokController extends Controller
         if (isset($cekStatus)) {
             $stok->update([
                 'status' => $cekStatus,
+                'approval_id' => Auth::user()->id,
             ]);
 
             if ($cekStatus == 1) {

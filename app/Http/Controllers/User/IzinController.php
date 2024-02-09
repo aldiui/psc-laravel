@@ -23,13 +23,13 @@ class IzinController extends Controller
             $bulan = $request->input("bulan");
             $tahun = $request->input("tahun");
 
-            $izins = Izin::where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+            $izins = Izin::with('approval')->where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
                         $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info' href='/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a>";
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info mb-2' href='/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('izins', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('approval_id')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai')->nullable();
             $table->text('alasan');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('approval_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

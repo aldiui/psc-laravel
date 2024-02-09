@@ -20,7 +20,8 @@
                     <th>Tanggal</th>
                     <th>Nama</th>
                     <th>Total Barang</th>
-                    <th>Jensi</th>
+                    <th>Jenis</th>
+                    <th>Persetujuan</th>
                 </tr>
             </thead>
             <tbody valign="top">
@@ -36,6 +37,7 @@
                             <td>{{ $stok->user->nama }}</td>
                             <td>{{ $stok->detail_stoks_count }}</td>
                             <td>{{ $stok->jenis }}</td>
+                            <td>{{ $stok->approval->nama }}</td>
                         </tr>
                     @endforeach
                 @endif
