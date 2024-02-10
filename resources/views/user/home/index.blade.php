@@ -155,8 +155,8 @@
                                 <label for="bulan_filter" class="form-label">Bulan</label>
                                 <select name="bulan_filter" id="bulan_filter" class="form-control">
                                     @foreach ($bulans as $key => $value)
-                                        <option value="{{ $key + 1 }}"
-                                            {{ $key + 1 == date('m') ? 'selected' : '' }}>{{ $value }}</option>
+                                        <option value="{{ $key + 1 }}" {{ $key + 1 == date('m') ? 'selected' : '' }}>
+                                            {{ $value }}</option>
                                     @endforeach
                                 </select>
                             </div>
