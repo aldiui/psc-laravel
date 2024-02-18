@@ -18,11 +18,9 @@ return new class extends Migration
             $table->time('clock_in');
             $table->string('lokasi_in');
             $table->text('alasan_in')->nullable();
-            $table->string('status_in')->default("0");
             $table->time('clock_out')->nullable();
             $table->string('lokasi_out')->nullable();
             $table->text('alasan_out')->nullable();
-            $table->string('status_out')->default("0");
             $table->text('catatan')->nullable();
             $table->timestamps();
 
