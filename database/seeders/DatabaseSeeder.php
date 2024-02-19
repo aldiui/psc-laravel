@@ -234,7 +234,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ricki@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'driver',
+                'jabatan' => 'Driver',
                 "no_hp" => '08123456789',
             ],
             [
@@ -242,7 +242,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'asep@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'driver',
+                'jabatan' => 'Driver',
                 "no_hp" => '08123456789',
             ],
             [
@@ -250,7 +250,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ujang@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'driver',
+                'jabatan' => 'Driver',
                 "no_hp" => '08123456789',
             ],
 

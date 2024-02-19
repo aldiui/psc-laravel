@@ -40,7 +40,8 @@
                         </span>
                     </div>
                 </td>
-                <td width='20%'> </td>
+            <td width='20%' align="right"><img width='120px' src="{{ generateBase64Image(public_path('images/logo-psc.png')) }}"
+                        alt=""> </td>
             </tr>
         </tbody>
     </table>
