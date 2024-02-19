@@ -56,6 +56,7 @@ class PresensiController extends Controller
                     'lokasi_keluar' => $request->location,
                     'jam_keluar' => date('H:i:s'),
                     'alasan_keluar' => $request->alasan ?? null,
+                    'tugas' => $request->tugas,
                     'catatan' => $request->catatan,
                 ]);
 

@@ -4,6 +4,7 @@
 
 @push('style')
     <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
+    <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
 @endpush
 
 @section('main')
@@ -33,6 +34,8 @@
 @push('scripts')
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
+    <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+
 
     <script>
         $(document).ready(function() {
@@ -97,17 +100,19 @@
             });
 
             $("#saveCatatan").click(function() {
-                const catatanValue = $("#catatan").val();
+                const catatanValue = $("#tugas").val();
                 setButtonLoadingState("#saveCatatan", false);
-                if (catatanValue.trim() === "") {
-                    $("#catatan").addClass("is-invalid");
-                    $("#errorcatatan").text("Catatan harus diisi");
+                if (catatanValue.length === 0) {
+                    $("#tugas").addClass("is-invalid");
+                    $("#errortugas").text("Tugas harus diisi");
                 } else {
                     $("#presensiButton").click();
                     $("#catatanModal").modal("hide");
                 }
             });
         });
+
+        $(".selectMultiple").select2();
 
         const showPosition = (position) => {
             const location = $("#location");

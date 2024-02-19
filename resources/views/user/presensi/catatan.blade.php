@@ -9,7 +9,16 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="catatan" class="form-label">Catatan <span class="text-danger">*</span></label>
+                    <label for="tugas" class="form-label">Tugas <span class="text-danger">*</span></label>
+                    <select name="tugas" class="form-control select2" multiple="" id="tugas">
+                        @foreach (getTugas() as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
+                    <small class="invalid-feedback" id="errortugas"></small>
+                </div>
+                <div class="form-group">
+                    <label for="catatan" class="form-label">Catatan</label>
                     <textarea class="form-control" id="catatan" name="catatan"></textarea>
                     <small class="invalid-feedback" id="errorcatatan"></small>
                 </div>
