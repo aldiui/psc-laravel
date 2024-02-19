@@ -19,6 +19,7 @@
                     <th width="5%">No</th>
                     <th width="35%">Nama</th>
                     <th width="35%">Email</th>
+                    <th width="20%">Password</th>
                     <th width="30%">Jabatan</th>
                     <th width="30%">No Hp</th>
                 </tr>
@@ -34,6 +35,7 @@
                             <td style="text-align: center;">{{ $loop->iteration }}</td>
                             <td>{{ $karyawan->nama }}</td>
                             <td>{{ $karyawan->email }}</td>
+                            <td>tasikmalaya</td>
                             <td>{{ $karyawan->jabatan }}</td>
                             <td>{{ $karyawan->no_hp }}</td>
                         </tr>

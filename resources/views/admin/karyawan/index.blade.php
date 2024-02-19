@@ -44,6 +44,7 @@
                                                 <th scope="col" width="5%">#</th>
                                                 <th scope="col" width="10%">Foto</th>
                                                 <th scope="col">Nama</th>
+                                                <th scope="col">Email</th>
                                                 <th scope="col">Jabatan</th>
                                                 <th scope="col">Role</th>
                                                 <th scope="col" width="20%">Aksi</th>
@@ -86,6 +87,10 @@
                 {
                     data: 'nama',
                     name: 'nama'
+                },
+                {
+                    data: 'email',
+                    name: 'email',
                 },
                 {
                     data: 'jabatan',
