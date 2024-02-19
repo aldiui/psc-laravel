@@ -32,6 +32,7 @@
                 <td align="center">
                     <h3>PEMERINTAH KOTA TASIKMALAYA </h3>
                     <h3>DINAS KESEHATAN</h3>
+                    <h3>PUBLIC SAFETY CENTER 119 SICETAR</h3>
                     <div>
                         <span>
                             Jl. Ir. H. Juanda (Komplek Perkantoran) Telp. (0265) 342437 Fax 342437
