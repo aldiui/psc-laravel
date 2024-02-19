@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
         $userData = [
             [
                 'nama' => 'dr. Asep Sony Prayoga',
-                'email' => 'asep@gmail.com',
+                'email' => 'asepsony@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
                 'jabatan' => 'Penanggungjawab Medis',
