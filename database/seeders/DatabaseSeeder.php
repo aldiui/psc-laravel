@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'reni@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
             ],
             [
@@ -194,7 +194,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'hanifah@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
             ],
             [
@@ -202,7 +202,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'yelmis@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
             ],
             [
@@ -210,7 +210,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'virda@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Operator',
                 "no_hp" => '08123456789',
             ],
             [
@@ -218,7 +218,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'Revi@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'super admin',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Administrasi',
                 "no_hp" => '08123456789',
             ],
             [
@@ -226,7 +226,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'sepi@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'Koordinator driver',
                 "no_hp" => '08123456789',
             ],
             [
@@ -234,7 +234,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ricki@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'driver',
                 "no_hp" => '08123456789',
             ],
             [
@@ -242,7 +242,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'asep@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'driver',
                 "no_hp" => '08123456789',
             ],
             [
@@ -250,7 +250,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ujang@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
-                'jabatan' => 'Tenaga Kesehatan',
+                'jabatan' => 'driver',
                 "no_hp" => '08123456789',
             ],
 
