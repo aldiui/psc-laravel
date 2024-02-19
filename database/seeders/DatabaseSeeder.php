@@ -143,7 +143,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'nama' => 'Anggi Rosnani, Am. Keb',
-                'email' => 'Anggi@gmail.com',
+                'email' => 'anggi@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
                 'jabatan' => 'Tenaga Kesehatan',
@@ -151,7 +151,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'nama' => 'Jayanti Megawati, Am. Keb',
-                'email' => 'Jayanti@gmail.com',
+                'email' => 'jayanti@gmail.com',
                 'password' => bcrypt('tasikmalaya'),
                 'role' => 'user',
                 'jabatan' => 'Tenaga Kesehatan',
