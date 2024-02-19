@@ -54,7 +54,6 @@ class BarangController extends Controller
             'nama' => 'required',
             'kategori_id' => 'required|numeric',
             'unit_id' => 'required|numeric',
-            'deskripsi' => 'required',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
@@ -124,7 +123,6 @@ class BarangController extends Controller
             'nama' => 'required',
             'kategori_id' => 'required|numeric',
             'unit_id' => 'required|numeric',
-            'deskripsi' => 'required',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);

@@ -131,8 +131,32 @@ if (!function_exists('getTugas')) {
     function getTugas()
     {
         $tugas = [
+            // PJ unit drivers
             "Melakukan Pengecekan kesiapan Rutin Seluruh Unit saat Memulai bertugas",
             "Menginventarisir semua aset unit baik medis maupun non medis",
+            "Berkolaborasi dengan team medis untuk Pengecekan alkes Medis ",
+            "Menjaga Kebersihan dan kerapihan Unit baik mesin maupun body kendaraan",
+            "Berkolaborasi dengan team drivers bilamana ada yang perlu di identifikasi",
+            "Berkoordinasi secara berjenjang dengan katim dan team medis untuk kesiapan dan kendala unit",
+            "Menjalankan aktifitas sesuai SOP berkendara dan berlalu lintas",
+            "Berkoordinasi dengan Koordinator bila mana ada kendala dalam pelaksanaan yang tidak selesai dalam team",
+            // PJ Anggota Team
+            "Melaksanakan Aplusan shift dari team sebelumnya",
+            "Melaksanakan Ngaji dan Drzikir rutin sebelum menjalankan aktifitas",
+            "Melaksanakan Pengecekan alkes dan unit dan melaporkan hasil pengecekan ke katim",
+            "Melaksanakan penanganan Kegawatdaruratan dan evakuasi sesuai SOP",
+            "Membuat Pelaporan dan dokumentasi kegiatan ke katim",
+            // PJ Admin
+            "Menyiapkan seluruh lembar anamnesa team medis, lembar cheklis dan Pemakaian Alkes",
+            "Melaksanakan Perintah langsung dari Koordinator dan ketua Pelaksana",
+            "Berkolaborasi dengan Pj Alkes untuk Melakukan Stock Opnam secara berkala",
+            "Melakukan pengarsifan seluruh dokument PSC baik softcopy maupun hardcopy",
+            "Berkolaborasi dengan Pj Alkes Melaksanakan perekapan data keluar masuk alkes",
+            "Melakukan Perekapan absesi rutin bulanan",
+            "Melakukan Perekapan rutin laporan kegiatan bulanan dari team",
+            "Melaksanakan proses pengajuan dan pencairan gaji karyawan bulanan",
+            "Berkoordinasi dengan koordinator bila ada kendala dalam pelaksanaan ",
+            // PJ Koordinator
             "Menyusun Program dan Perencanaan kegiatan Bulanan",
             "Memonitoring Seluruh Pelaksanaan Kegiatan dari seluruh PJ dan Katim",
             "Berkoordinasi dengan seluruh Katim dan PJ Untuk Membahas Kendala",

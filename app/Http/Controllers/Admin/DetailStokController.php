@@ -20,7 +20,6 @@ class DetailStokController extends Controller
             'stok_id' => 'required',
             'barang_id' => 'required',
             'qty' => 'required',
-            'deskripsi' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +70,6 @@ class DetailStokController extends Controller
         $validator = Validator::make($request->all(), [
             'barang_id' => 'required',
             'qty' => 'required',
-            'deskripsi' => 'required',
         ]);
 
         if ($validator->fails()) {

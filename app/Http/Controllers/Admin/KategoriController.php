@@ -42,7 +42,6 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'deskripsi' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -99,7 +98,6 @@ class KategoriController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'deskripsi' => 'required',
         ]);
 
         if ($validator->fails()) {
