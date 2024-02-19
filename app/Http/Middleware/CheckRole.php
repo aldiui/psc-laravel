@@ -16,7 +16,7 @@ class CheckRole
 
         $user = Auth::user();
 
-        if ($user->role == $role || $user->role == 'admin') {
+        if ($user->role == $role || $user->role == 'super admin' || $user->role == 'admin') {
             return $next($request);
         }
 

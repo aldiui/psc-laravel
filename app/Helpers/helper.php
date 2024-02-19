@@ -99,30 +99,49 @@ if (!function_exists('getGreeting')) {
 function generatePresensiColumn($presensi, $tipe)
 {
     if ($tipe == 'masuk') {
-        if ($presensi->clock_in) {
+        if ($presensi->jam_masuk) {
             return '
             <div>
                 <div class="mb-2">
-                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->clock_in . '</span>
+                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->jam_masuk . '</span>
                 </div>
-                <div class="mb-2">' . ($presensi->alasan_in ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
-                <div class="mb-2">' . ($presensi->alasan_in ? "<span>Keterangan : " . $presensi->alasan_in . "</span>" : "") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_masuk ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_masuk ? "<span>Keterangan : " . $presensi->alasan_masuk . "</span>" : "") . '</div>
             </div>';
         } else {
             return '<span class="badge badge-danger"><i class="fas fa-times"></i> Belum Presensi</span>';
         }
     } elseif ($tipe = 'keluar') {
-        if ($presensi->clock_out) {
+        if ($presensi->jam_keluar) {
             return '
             <div>
                 <div class="mb-2">
-                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->clock_out . '</span>
+                    <span class="badge badge-success"><i class="far fa-clock"></i> ' . $presensi->jam_keluar . '</span>
                 </div>
-                <div class="mb-2">' . ($presensi->alasan_out ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
-                <div class="mb-2">' . ($presensi->alasan_out ? "<span>Keterangan : " . $presensi->alasan_out . "</span>" : "") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_keluar ? "<span class='text-danger font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Diluar Radius </span>" : "<span class='text-success font-weight-bold'><i class='fas fa-map-marker-alt mr-1'></i> Dalam Radius </span>") . '</div>
+                <div class="mb-2">' . ($presensi->alasan_keluar ? "<span>Keterangan : " . $presensi->alasan_keluar . "</span>" : "") . '</div>
             </div>';
         } else {
             return '<span class="badge badge-danger"><i class="fas fa-times-circle mr-1"></i> Belum Presensi</span>';
         }
+    }
+}
+
+if (!function_exists('getTugas')) {
+    function getTugas()
+    {
+        $tugas = [
+            "Melakukan Pengecekan kesiapan Rutin Seluruh Unit saat Memulai bertugas",
+            "Menginventarisir semua aset unit baik medis maupun non medis",
+            "Menyusun Program dan Perencanaan kegiatan Bulanan",
+            "Memonitoring Seluruh Pelaksanaan Kegiatan dari seluruh PJ dan Katim",
+            "Berkoordinasi dengan seluruh Katim dan PJ Untuk Membahas Kendala",
+            "Berkoordinasi dengan admint untuk membahas kendala administrasi",
+            "Melakukan Koordinasi lintas sektor dan lintas terkait",
+            "Melaksanakan Evaluasi bulanan untuk mengidentifikasi kendala Pelaksanaan",
+            "Berkolaborasi dengan admint untuk membuat laporan bulanan (absensi & kegiatan)",
+        ];
+
+        return $tugas;
     }
 }

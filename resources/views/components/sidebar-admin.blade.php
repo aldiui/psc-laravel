@@ -26,31 +26,33 @@
                 <a class="nav-link" href="{{ url('admin/stok') }}"><i class="fas fa-clipboard-list"></i>
                     <span>Stok</span></a>
             </li>
-            <li class="menu-header">Manajemen Karyawan</li>
-            <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i>
-                    <span>Karyawan</span></a>
-            </li>
-            <li class="{{ Request::is('admin/tim/*') || Request::is('admin/tim') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/tim') }}"><i class="fas fa-users"></i> <span>Tim</span></a>
-            </li>
-            <li class="{{ Request::is('admin/presensi') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/presensi') }}"><i class="fas fa-camera"></i>
-                    <span>Presensi</span></a>
-            </li>
-            <li class="{{ Request::is('admin/rekap-presensi') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/rekap-presensi') }}"><i class="fas fa-book"></i> <span>Rekap
-                        Presensi</span></a>
-            </li>
-            <li class="{{ Request::is('admin/izin') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/izin') }}"><i class="fas fa-calendar"></i>
-                    <span>Izin</span></a>
-            </li>
+            @if (Auth::user()->role == 'super admin')
+                <li class="menu-header">Manajemen Karyawan</li>
+                <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i>
+                        <span>Karyawan</span></a>
+                </li>
+                <li class="{{ Request::is('admin/presensi') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/presensi') }}"><i class="fas fa-camera"></i>
+                        <span>Presensi</span></a>
+                </li>
+                <li class="{{ Request::is('admin/rekap-presensi') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/rekap-presensi') }}"><i class="fas fa-book"></i>
+                        <span>Rekap
+                            Presensi</span></a>
+                </li>
+                <li class="{{ Request::is('admin/izin') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/izin') }}"><i class="fas fa-calendar"></i>
+                        <span>Izin</span></a>
+                </li>
+            @endif
             <li class="menu-header">Manajemen Pengaturan</li>
-            <li class="{{ Request::is('admin/pengaturan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/pengaturan') }}"><i class="fas fa-gear"></i>
-                    <span>Pengaturan</span></a>
-            </li>
+            @if (Auth::user()->role == 'super admin')
+                <li class="{{ Request::is('admin/pengaturan') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('admin/pengaturan') }}"><i class="fas fa-gear"></i>
+                        <span>Pengaturan</span></a>
+                </li>
+            @endif
             <li class="{{ Request::is('admin/profil') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('admin/profil') }}"><i class="fas fa-user"></i>
                     <span>Profil</span></a>

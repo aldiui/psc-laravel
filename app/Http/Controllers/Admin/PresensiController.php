@@ -51,7 +51,7 @@ class PresensiController extends Controller
             $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
-            $karyawans = User::where('role', 'user')->get();
+            $karyawans = User::all();
 
             $dates = Carbon::parse($startDate);
             $labels = [];
@@ -74,7 +74,7 @@ class PresensiController extends Controller
 
                     $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
                         ->whereDate('tanggal', $date)
-                        ->whereNotNull('clock_out')
+                        ->whereNotNull('jam_keluar')
                         ->count();
 
                     $presensi[] = [
@@ -122,7 +122,7 @@ class PresensiController extends Controller
 
                     $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
                         ->whereDate('tanggal', $date)
-                        ->whereNotNull('clock_out')
+                        ->whereNotNull('jam_keluar')
                         ->count();
 
                     $presensi[] = [

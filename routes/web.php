@@ -23,21 +23,19 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
-    Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
-    Route::resource('tim', App\Http\Controllers\Admin\TimController::class)->names('admin.tim');
+    Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
+    Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
+
+    Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
     Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
     Route::get('rekap-presensi', [App\Http\Controllers\Admin\PresensiController::class, 'rekapPresensi'])->name('admin.presensi.rekap');
-    Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
-    Route::resource('detail-tim', App\Http\Controllers\Admin\DetailTimController::class)->names('admin.detail-tim');
-    Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
-
 });
 
-Route::middleware(['auth', 'checkRole:user,admin'])->group(function () {
+Route::middleware(['auth', 'checkRole:user'])->group(function () {
     Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('profil');
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');

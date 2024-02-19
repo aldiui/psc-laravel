@@ -44,18 +44,18 @@ class PresensiController extends Controller
                     $presensi = Presensi::create([
                         'user_id' => Auth::user()->id,
                         'tanggal' => date('Y-m-d'),
-                        'lokasi_in' => $request->location,
-                        'clock_in' => date('H:i:s'),
-                        'alasan_in' => $request->alasan ?? null,
+                        'lokasi_masuk' => $request->location,
+                        'jam_masuk' => date('H:i:s'),
+                        'alasan_masuk' => $request->alasan ?? null,
                     ]);
 
                     return $this->successResponse($presensi, 'Presensi Masuk berhasil.');
                 }
 
                 $presensi->update([
-                    'lokasi_out' => $request->location,
-                    'clock_out' => date('H:i:s'),
-                    'alasan_out' => $request->alasan ?? null,
+                    'lokasi_keluar' => $request->location,
+                    'jam_keluar' => date('H:i:s'),
+                    'alasan_keluar' => $request->alasan ?? null,
                     'catatan' => $request->catatan,
                 ]);
 

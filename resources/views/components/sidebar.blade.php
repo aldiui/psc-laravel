@@ -25,7 +25,7 @@
             </li>
         </ul>
         <div class="hide-sidebar-mini mt-4 mb-4 p-3">
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'super admin')
                 <a href="{{ route('admin.index') }}" class="btn btn-info  btn-block btn-icon-split">
                     <i class="fas fa-user"></i> Ganti Admin
                 </a>

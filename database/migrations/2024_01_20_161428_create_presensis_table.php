@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->date('tanggal');
-            $table->time('clock_in');
-            $table->string('lokasi_in');
-            $table->text('alasan_in')->nullable();
-            $table->time('clock_out')->nullable();
-            $table->string('lokasi_out')->nullable();
-            $table->text('alasan_out')->nullable();
+            $table->time('jam_masuk');
+            $table->string('lokasi_masuk');
+            $table->text('alasan_masuk')->nullable();
+            $table->time('jam_keluar')->nullable();
+            $table->string('lokasi_keluar')->nullable();
+            $table->text('alasan_keluar')->nullable();
+            $table->text('tugas')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();
 

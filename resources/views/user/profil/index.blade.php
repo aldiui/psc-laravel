@@ -104,7 +104,7 @@
                         </div>
                         <div class="card d-lg-none">
                             <div class="card-body">
-                                @if (Auth::user()->role == 'admin')
+                                @if (Auth::user()->role == 'admin' || Auth::user()->role == 'super admin')
                                     <a href="{{ route('admin.index') }}" class="btn btn-info  btn-block">
                                         <i class="fas fa-user"></i> Ganti Admin
                                     </a>

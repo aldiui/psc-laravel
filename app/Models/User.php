@@ -3,17 +3,14 @@
 namespace App\Models;
 
 use App\Models\Izin;
-use App\Models\Stok;
 use App\Models\Presensi;
-use App\Models\DetailTim;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Stok;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
-
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -29,15 +26,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-
     public function stoks()
     {
         return $this->hasMany(Stok::class);
-    }
-
-    public function detailTims()
-    {
-        return $this->hasMany(DetailTim::class);
     }
 
     public function presensis()
@@ -49,5 +40,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Izin::class);
     }
-    
+
 }
