@@ -19,7 +19,7 @@ class PresensiController extends Controller
     {
         $pengaturan = Pengaturan::find(1);
         $cekPresensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d', strtotime('-1 day')))->first();
-        if ($cekPresensi->jam_keluar == null) {
+        if ($cekPresensi && $cekPresensi->jam_keluar == null) {
             $presensi = $cekPresensi;
         } else {
             $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
