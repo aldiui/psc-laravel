@@ -180,7 +180,7 @@
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Presensi Masuk</th>
                                     <th scope="col">Presensi Keluar</th>
-                                    <th scope="col">Catatan</th>
+                                    <th scope="col" width="25%">Tugas</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -216,8 +216,8 @@
                     name: 'presensi_keluar'
                 },
                 {
-                    data: 'catatan',
-                    name: 'catatan'
+                    data: 'tugas',
+                    name: 'tugas'
                 },
             ]);
 

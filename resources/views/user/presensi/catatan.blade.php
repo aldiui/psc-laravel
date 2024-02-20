@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="tugas" class="form-label">Tugas <span class="text-danger">*</span></label>
-                    <select name="tugas" class="form-control select2" multiple="" id="tugas">
+                    <select name="tugas[]" class="form-control select2" multiple="" id="tugas">
                         @foreach (getTugas() as $item)
                             <option value="{{ $item }}">{{ $item }}</option>
                         @endforeach

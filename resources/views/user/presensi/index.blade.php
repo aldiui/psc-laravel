@@ -55,12 +55,13 @@
                 const url = "{{ route('presensi') }}";
                 const data = new FormData();
                 const locationValue = $("#location").val();
-                const catatanValue = $("#catatan").val();
+                const tugasValue = $("#tugas").val();
                 data.append('location', locationValue);
                 data.append('alasan', $("#alasan").val());
-                data.append('catatan', catatanValue);
+                data.append('tugas', tugasValue);
+                data.append('catatan', $("#catatan").val());
 
-                if (textButton == "Presensi Keluar" && catatanValue.trim() === "") {
+                if (textButton == "Presensi Keluar" && tugasValue.length == 0) {
                     setButtonLoadingState("#presensiButton", false, textButton);
                     getModal('catatanModal');
                 }
@@ -80,7 +81,7 @@
                     }
                 };
 
-                if (textButton === "Presensi Keluar" && catatanValue.trim() !== "") {
+                if (textButton === "Presensi Keluar" && tugasValue.length > 0) {
                     ajaxCall(url, "POST", data, successCallback, errorCallback);
                 } else if (textButton === "Presensi Masuk") {
                     ajaxCall(url, "POST", data, successCallback, errorCallback);
@@ -100,9 +101,9 @@
             });
 
             $("#saveCatatan").click(function() {
-                const catatanValue = $("#tugas").val();
+                const tugasValue = $("#tugas").val();
                 setButtonLoadingState("#saveCatatan", false);
-                if (catatanValue.length === 0) {
+                if (tugasValue.length == 0) {
                     $("#tugas").addClass("is-invalid");
                     $("#errortugas").text("Tugas harus diisi");
                 } else {
