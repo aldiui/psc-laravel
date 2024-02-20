@@ -18,7 +18,12 @@ class PresensiController extends Controller
     public function index(Request $request)
     {
         $pengaturan = Pengaturan::find(1);
-        $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
+        $cekPresensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d', strtotime('-1 day')))->first();
+        if ($cekPresensi->jam_keluar == null) {
+            $presensi = $cekPresensi;
+        } else {
+            $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
+        }
 
         if ($request->ajax()) {
             if ($request->isMethod("post")) {
