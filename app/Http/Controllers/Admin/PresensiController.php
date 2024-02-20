@@ -45,50 +45,46 @@ class PresensiController extends Controller
 
     public function rekapPresensi(Request $request)
     {
+        set_time_limit(300);
         $bulan = $request->input("bulan");
         $tahun = $request->input("tahun");
-        if ($request->ajax()) {
-            $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
-            $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
-            $karyawans = User::all();
+        $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
+        $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+        $karyawans = User::all();
 
-            $dates = Carbon::parse($startDate);
-            $labels = [];
+        $dates = Carbon::parse($startDate);
+        $labels = [];
+        while ($dates <= $endDate) {
+            $dateString = $dates->toDateString();
+            $labels[] = formatTanggal($dateString, 'd');
+            $dates->addDay();
+        }
 
-            while ($dates <= $endDate) {
-                $dateString = $dates->toDateString();
-                $labels[] = formatTanggal($dateString, 'd');
-                $dates->addDay();
-            }
-
-            foreach ($karyawans as $karyawan) {
-                $presensi = [];
-
-                for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
-                    $date = Carbon::create($tahun, $bulan, $day);
-
-                    $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
-                        ->whereDate('tanggal', $date)
-                        ->count();
-
-                    $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
-                        ->whereDate('tanggal', $date)
-                        ->whereNotNull('jam_keluar')
-                        ->count();
-
-                    $presensi[] = [
-                        "masuk" => $presensiMasukCount,
-                        "keluar" => $presensiKeluarCount,
-                    ];
-                }
-
-                $presensiData[] = [
-                    'nama' => $karyawan->nama,
-                    'presensi' => $presensi,
+        $presensiData = [];
+        foreach ($karyawans as $karyawan) {
+            $presensi = [];
+            for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
+                $date = Carbon::create($tahun, $bulan, $day);
+                $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
+                    ->whereDate('tanggal', $date)
+                    ->count();
+                $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
+                    ->whereDate('tanggal', $date)
+                    ->whereNotNull('jam_keluar')
+                    ->count();
+                $presensi[] = [
+                    "masuk" => $presensiMasukCount,
+                    "keluar" => $presensiKeluarCount,
                 ];
             }
+            $presensiData[] = [
+                'nama' => $karyawan->nama,
+                'presensi' => $presensi,
+            ];
+        }
 
+        if ($request->ajax()) {
             return $this->successResponse([
                 'labels' => $labels,
                 'presensi_data' => $presensiData,
@@ -96,72 +92,25 @@ class PresensiController extends Controller
         }
 
         if ($request->input("mode") == "pdf") {
-            $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
-            $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
-
-            $karyawans = User::all();
-
-            $dates = Carbon::parse($startDate);
-            $labels = [];
-
-            while ($dates <= $endDate) {
-                $dateString = $dates->toDateString();
-                $labels[] = formatTanggal($dateString, 'd');
-                $dates->addDay();
-            }
-
-            foreach ($karyawans as $karyawan) {
-                $presensi = [];
-
-                for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
-                    $date = Carbon::create($tahun, $bulan, $day);
-
-                    $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
-                        ->whereDate('tanggal', $date)
-                        ->count();
-
-                    $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
-                        ->whereDate('tanggal', $date)
-                        ->whereNotNull('jam_keluar')
-                        ->count();
-
-                    $presensi[] = [
-                        "masuk" => $presensiMasukCount,
-                        "keluar" => $presensiKeluarCount,
-                    ];
-                }
-
-                $presensiData[] = [
-                    'nama' => $karyawan->nama,
-                    'presensi' => $presensi,
-                ];
-            }
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
-
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,
                 'presensi_data' => $presensiData,
                 'bulanTahun' => $bulanTahun,
             ]);
-
             $options = [
                 'margin_top' => 20,
                 'margin_right' => 20,
                 'margin_bottom' => 20,
                 'margin_left' => 20,
             ];
-
             $pdf->setOptions($options);
             $pdf->setPaper('legal', 'landscape');
-
             $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
-
-            ob_end_clean();
-            ob_start();
             return $pdf->stream($namaFile);
         }
 
-        return view('admin.presensi.rekap');
+        return view('admin.presensi.rekap', compact('labels', 'presensiData'));
     }
 
 }
