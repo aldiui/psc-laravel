@@ -42,21 +42,21 @@
                             <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
                                 <div class="small">Masuk</div>
                                 <div class="text-lg">
-                                    {{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}</div>
+                                    {{ $presensi && $presensi->jam_masuk ? $presensi->jam_masuk : '00:00:00' }}</div>
                             </div>
                         </div>
                         <div class="col-6 d-flex align-items-center">
                             <div class="mr-2">
                                 <div
-                                    class="p-2 {{ $presensi && $presensi->clock_out ? 'bg-success' : 'bg-secondary' }} rounded">
+                                    class="p-2 {{ $presensi && $presensi->jam_keluar ? 'bg-success' : 'bg-secondary' }} rounded">
                                     <i
-                                        class="far {{ $presensi && $presensi->clock_out ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
+                                        class="far {{ $presensi && $presensi->jam_keluar ? 'fa-check-circle' : 'fa-times-circle' }}  text-lg text-white"></i>
                                 </div>
                             </div>
-                            <div class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                            <div class="{{ $presensi && $presensi->jam_keluar ? 'text-dark' : 'text-secondary' }}">
                                 <div class="small">Keluar</div>
                                 <div class="text-lg">
-                                    {{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}</div>
+                                    {{ $presensi && $presensi->jam_keluar ? $presensi->jam_keluar : '00:00:00' }}</div>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                                         <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
                                             <div class="small">Masuk</div>
                                             <div class="text-lg">
-                                                {{ $presensi && $presensi->clock_in ? $presensi->clock_in : '00:00:00' }}
+                                                {{ $presensi && $presensi->jam_masuk ? $presensi->jam_masuk : '00:00:00' }}
                                             </div>
                                         </div>
                                     </div>
@@ -125,10 +125,10 @@
                                             </div>
                                         </div>
                                         <div
-                                            class="{{ $presensi && $presensi->clock_out ? 'text-dark' : 'text-secondary' }}">
+                                            class="{{ $presensi && $presensi->jam_keluar ? 'text-dark' : 'text-secondary' }}">
                                             <div class="small">Keluar</div>
                                             <div class="text-lg">
-                                                {{ $presensi && $presensi->clock_out ? $presensi->clock_out : '00:00:00' }}
+                                                {{ $presensi && $presensi->jam_keluar ? $presensi->jam_keluar : '00:00:00' }}
                                             </div>
                                         </div>
                                     </div>
