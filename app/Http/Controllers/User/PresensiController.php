@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Pengaturan;
 use App\Models\Presensi;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,30 +69,75 @@ class PresensiController extends Controller
 
                 return $this->successResponse($presensi, 'Presensi Keluar berhasil.');
             }
-
-            if ($request->isMethod('get')) {
-                $bulan = $request->input("bulan");
-                $tahun = $request->input("tahun");
-
-                $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
-                if ($request->input("mode") == "datatable") {
-                    return DataTables::of($presensis)
-                        ->addColumn('presensi_masuk', function ($presensi) {
-                            return generatePresensiColumn($presensi, 'masuk');
-                        })
-                        ->addColumn('presensi_keluar', function ($presensi) {
-                            return generatePresensiColumn($presensi, 'keluar');
-                        })
-                        ->addColumn('tgl', function ($row) {
-                            return formatTanggal($row->tanggal);
-                        })
-                        ->addIndexColumn()
-                        ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl'])
-                        ->make(true);
-                }
-            }
         }
 
         return view('user.presensi.index', compact('presensi', 'pengaturan'));
+    }
+
+    public function rekapPresensi(Request $request)
+    {
+        $bulan = $request->input("bulan");
+        $tahun = $request->input("tahun");
+
+        if ($request->input("mode") == "datatable") {
+            $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+            return DataTables::of($presensis)
+                ->addColumn('presensi_masuk', function ($presensi) {
+                    return generatePresensiColumn($presensi, 'masuk');
+                })
+                ->addColumn('presensi_keluar', function ($presensi) {
+                    return generatePresensiColumn($presensi, 'keluar');
+                })
+                ->addColumn('tgl', function ($row) {
+                    return formatTanggal($row->tanggal);
+                })
+                ->addColumn('tugas_catatan', function ($presensi) {
+                    if ($presensi->tugas) {
+                        $tugas = stringToArray($presensi->tugas);
+                        $catatan = $presensi->catatan;
+
+                        $output = '<div><ul style="padding-left: 20px; margin:0%">';
+
+                        foreach ($tugas as $task) {
+                            $output .= "<li>$task</li>";
+                        }
+
+                        if ($catatan) {
+                            $output .= "<li>$catatan</li>";
+                        }
+
+                        $output .= '</ul></div>';
+
+                        return $output;
+                    }
+                })
+                ->addIndexColumn()
+                ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl', 'tugas_catatan'])
+                ->make(true);
+        }
+
+        if ($request->input("mode") == "pdf") {
+            $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
+            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
+
+            $pdf = PDF::loadView('user.presensi.pdf', [
+                'presensis' => $presensis,
+                'bulanTahun' => $bulanTahun,
+            ]);
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('legal', 'potrat');
+
+            $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
+
+            return $pdf->stream($namaFile);
+        }
     }
 }

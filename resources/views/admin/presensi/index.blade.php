@@ -89,8 +89,8 @@
                     name: 'presensi_keluar'
                 },
                 {
-                    data: 'tugas',
-                    name: 'tugas'
+                    data: 'tugas_catatan',
+                    name: 'tugas_catatan'
                 },
             ]);
 

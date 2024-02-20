@@ -92,62 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-lg-none">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="text-title">Presensi</div>
-                    <div class="small text-info">Lihat selengkapnya</div>
-                </div>
-                @if ($presensis->isNotEmpty())
-                    @foreach ($presensis as $presensi)
-                        <div class="card mb-2">
-                            <div class="card-body p-3">
-                                <div class="small mb-2">{{ formatTanggal($presensi->tanggal) }}</div>
-                                <div class="row no-gutters mb-0">
-                                    <div class="col-6 d-flex align-items-center">
-                                        <div class="mr-2">
-                                            <div
-                                                class="p-2 {{ $presensi && $presensi->alasan_in ? 'text-danger' : 'text-secondary' }} rounded">
-                                                <i class="fas fa-map-marker-alt text-lg"></i>
-                                            </div>
-                                        </div>
-                                        <div class="{{ $presensi ? 'text-dark' : 'text-secondary' }}">
-                                            <div class="small">Masuk</div>
-                                            <div class="text-lg">
-                                                {{ $presensi && $presensi->jam_masuk ? $presensi->jam_masuk : '00:00:00' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 d-flex align-items-center">
-                                        <div class="mr-2">
-                                            <div
-                                                class="p-2 {{ $presensi && $presensi->alasan_out ? 'text-danger' : 'text-secondary' }} rounded">
-                                                <i class="far fas fa-map-marker-alt text-lg"></i>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="{{ $presensi && $presensi->jam_keluar ? 'text-dark' : 'text-secondary' }}">
-                                            <div class="small">Keluar</div>
-                                            <div class="text-lg">
-                                                {{ $presensi && $presensi->jam_keluar ? $presensi->jam_keluar : '00:00:00' }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <div class="text-center">
-                        <div class="row justify-content-center">
-                            <div class="col-9">
-                                <img src="{{ asset('img/null.png') }}" class="img-fluid mb-2" alt="">
-                            </div>
-                        </div>
-                        <div>Belum ada presensi</div>
-                    </div>
-                @endif
-            </div>
-            <div class="card d-none d-lg-block">
+            <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -172,6 +117,10 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i
+                                class="fas fa-file-pdf mr-2"></i>Pdf</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="presensiTable" width="100%">
@@ -203,7 +152,7 @@
         $(document).ready(function() {
             setInterval(updateJam, 1000);
 
-            datatableCall('presensiTable', '{{ route('presensi') }}', [{
+            datatableCall('presensiTable', '{{ route('rekap-presensi') }}', [{
                     data: 'tgl',
                     name: 'tgl'
                 },
@@ -216,14 +165,23 @@
                     name: 'presensi_keluar'
                 },
                 {
-                    data: 'tugas',
-                    name: 'tugas'
+                    data: 'tugas_catatan',
+                    name: 'tugas_catatan'
                 },
             ]);
 
+            renderData();
+
             $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
+                renderData();
             });
         });
+
+        const renderData = () => {
+            const downloadPdf =
+                `/rekap-presensi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush

@@ -45,6 +45,7 @@ Route::middleware(['auth', 'checkRole:user,admin,super admin'])->group(function 
     Route::resource('izin', App\Http\Controllers\User\IzinController::class)->names('izin');
     Route::resource('stok', App\Http\Controllers\User\StokController::class)->names('stok');
     Route::get('barang', [App\Http\Controllers\User\BarangController::class, 'index'])->name('barang');
+    Route::get('rekap-presensi', [App\Http\Controllers\User\PresensiController::class, 'rekapPresensi'])->name('rekap-presensi');
     Route::resource('detail-stok', App\Http\Controllers\User\DetailStokController::class)->names('detail-stok');
 });
 

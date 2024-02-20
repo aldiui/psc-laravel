@@ -169,3 +169,8 @@ if (!function_exists('getTugas')) {
         return $tugas;
     }
 }
+
+function stringToArray($string)
+{
+    return explode(',', $string);
+}

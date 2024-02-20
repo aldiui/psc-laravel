@@ -378,7 +378,7 @@ const updateTable = (data) => {
     theadRow.append('<th class="text-center" style="width: 500px;">Nama</th>');
 
     data.labels.forEach((label) => {
-        theadRow.append(`<th colspan="2" class="text-center">${label}</th>`);
+        theadRow.append(`<th class="text-center">${label}</th>`);
     });
 
     const thead = $('<thead class="text-center">').append(theadRow);
@@ -393,12 +393,12 @@ const updateTable = (data) => {
 
         item.presensi.forEach((count) => {
             row.append(`
-                <td class="text-center"><span class="badge ${
-                    count.masuk === 0 ? "badge-danger" : "badge-success"
-                }">${count.masuk}</span></td>
-                <td class="text-center"><span class="badge ${
-                    count.keluar === 0 ? "badge-danger" : "badge-success"
-                }">${count.keluar}</span></td>
+                <td class="text-center">
+                    <div class="d-flex gap-2">
+                        <span class="badge ${ count.masuk === 0 ? "badge-danger" : "badge-success"} mr-2">${count.masuk}</span>
+                        <span class="badge ${ count.keluar === 0 ? "badge-danger" : "badge-success"}">${count.keluar}</span>
+                    </div>
+                </td>
             `);
         });
         tbody.append(row);

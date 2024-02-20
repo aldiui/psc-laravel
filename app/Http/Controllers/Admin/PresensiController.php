@@ -34,8 +34,29 @@ class PresensiController extends Controller
                     ->addColumn('presensi_keluar', function ($presensi) {
                         return generatePresensiColumn($presensi, 'keluar');
                     })
+                    ->addColumn('tugas_catatan', function ($presensi) {
+                        if ($presensi->tugas) {
+                            $tugas = stringToArray($presensi->tugas);
+                            $catatan = $presensi->catatan;
+
+                            $output = '<div><ul style="padding-left: 20px; margin:0%">';
+
+                            foreach ($tugas as $task) {
+                                $output .= "<li>$task</li>";
+                            }
+
+                            if ($catatan) {
+                                $output .= "<li>$catatan</li>";
+                            }
+
+                            $output .= '</ul></div>';
+
+                            return $output;
+                        }
+                    })
+
                     ->addIndexColumn()
-                    ->rawColumns(['nama', 'img', 'presensi_masuk', 'presensi_keluar'])
+                    ->rawColumns(['nama', 'img', 'presensi_masuk', 'presensi_keluar', 'tugas_catatan'])
                     ->make(true);
             }
         }
@@ -46,18 +67,19 @@ class PresensiController extends Controller
     public function rekapPresensi(Request $request)
     {
         set_time_limit(300);
-        $bulan = $request->input("bulan");
-        $tahun = $request->input("tahun");
+
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
 
         $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
         $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
+
         $karyawans = User::all();
 
         $dates = Carbon::parse($startDate);
         $labels = [];
         while ($dates <= $endDate) {
-            $dateString = $dates->toDateString();
-            $labels[] = formatTanggal($dateString, 'd');
+            $labels[] = $dates->format('d');
             $dates->addDay();
         }
 
@@ -66,18 +88,19 @@ class PresensiController extends Controller
             $presensi = [];
             for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
                 $date = Carbon::create($tahun, $bulan, $day);
-                $presensiMasukCount = Presensi::where('user_id', $karyawan->id)
+                $cekPresensi = Presensi::where('user_id', $karyawan->id)
                     ->whereDate('tanggal', $date)
-                    ->count();
-                $presensiKeluarCount = Presensi::where('user_id', $karyawan->id)
-                    ->whereDate('tanggal', $date)
-                    ->whereNotNull('jam_keluar')
-                    ->count();
+                    ->first();
+
+                $masuk = $cekPresensi ? 1 : 0;
+                $keluar = $cekPresensi?->jam_keluar ? 1 : 0;
+
                 $presensi[] = [
-                    "masuk" => $presensiMasukCount,
-                    "keluar" => $presensiKeluarCount,
+                    'masuk' => $masuk,
+                    'keluar' => $keluar,
                 ];
             }
+
             $presensiData[] = [
                 'nama' => $karyawan->nama,
                 'presensi' => $presensi,
@@ -91,22 +114,27 @@ class PresensiController extends Controller
             ], 'Data presensi ditemukan.');
         }
 
-        if ($request->input("mode") == "pdf") {
+        if ($request->input('mode') === 'pdf') {
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
+
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,
                 'presensi_data' => $presensiData,
                 'bulanTahun' => $bulanTahun,
             ]);
+
             $options = [
                 'margin_top' => 20,
                 'margin_right' => 20,
                 'margin_bottom' => 20,
                 'margin_left' => 20,
             ];
+
             $pdf->setOptions($options);
             $pdf->setPaper('legal', 'landscape');
+
             $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
+
             return $pdf->stream($namaFile);
         }
 
