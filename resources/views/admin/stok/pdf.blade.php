@@ -27,7 +27,7 @@
             <tbody valign="top">
                 @if ($stoks->isEmpty())
                     <tr>
-                        <td colspan="5" align="center">Data @yield('title') kosong</td>
+                        <td colspan="6" align="center">Data @yield('title') kosong</td>
                     </tr>
                 @else
                     @foreach ($stoks as $stok)
