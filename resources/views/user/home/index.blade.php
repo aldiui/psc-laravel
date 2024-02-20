@@ -14,11 +14,11 @@
     @endphp
     <div class="main-content mb-5 pb-5">
         <section class="section">
-            <div class="card mb-3 mb-lg-4 p-1 rounded-pill">
+            <div class="card mb-3 mb-lg-4 p-1">
                 <div class="card-body d-flex justify-content-between align-content-center py-2">
                     <div>
                         <div class="small">{{ getGreeting() }}, </div>
-                        <div class="mb-1 font-weight-bold">{{ Auth::user()->nama }}</div>
+                        <div class="mb-1 font-weight-bold clearfix">{{ Auth::user()->nama }}</div>
                         <div class="small">{{ Auth::user()->jabatan }}</div>
                     </div>
                     <div style="background-image: url('{{ asset(Auth::user()->image != 'default.png' ? '/storage/img/karyawan/' . Auth::user()->image : '/images/default.png') }}');"
