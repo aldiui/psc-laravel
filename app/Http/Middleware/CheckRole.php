@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles)
     {
         if (!Auth::check()) {
             return redirect(route('login'));
@@ -16,8 +16,10 @@ class CheckRole
 
         $user = Auth::user();
 
-        if ($user->role == $role || $user->role == 'super admin' || $user->role == 'admin') {
-            return $next($request);
+        foreach ($roles as $role) {
+            if ($user->role == $role) {
+                return $next($request);
+            }
         }
 
         return redirect('/');

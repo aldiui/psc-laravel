@@ -18,7 +18,7 @@ Route::get('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->n
 Route::get('/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [App\Http\Controllers\AuthController::class, 'handleCallback']);
 
-Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'checkRole:admin,super admin'])->group(function () {
     Route::get('', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.index');
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
@@ -27,7 +27,9 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');
     Route::resource('detail-stok', App\Http\Controllers\Admin\DetailStokController::class)->names('admin.detail-stok');
+});
 
+Route::prefix('admin')->middleware(['auth', 'checkRole:super admin'])->group(function () {
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
     Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
@@ -35,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin'])->group(function 
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
 });
 
-Route::middleware(['auth', 'checkRole:user'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('profil');
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');
