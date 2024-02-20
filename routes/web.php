@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:super admin'])->group(fun
     Route::match(['get', 'put'], 'pengaturan', [App\Http\Controllers\Admin\PengaturanController::class, 'index'])->name('admin.pengaturan');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'checkRole:user, admin, super admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('profil');
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');
