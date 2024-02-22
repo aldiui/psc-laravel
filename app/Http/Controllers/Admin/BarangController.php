@@ -24,8 +24,8 @@ class BarangController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($barangs)
                     ->addColumn('aksi', function ($barang) {
-                        $editButton = '<button class="btn btn-sm btn-warning mr-1" onclick="getSelectEdit(); getModal(`editModal`, `/admin/barang/' . $barang->id . '`, [`id`,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/barang/' . $barang->id . '`, `barangTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex mr-1" onclick="getSelectEdit(); getModal(`editModal`, `/admin/barang/' . $barang->id . '`, [`id`,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/barang/' . $barang->id . '`, `barangTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($barang) {

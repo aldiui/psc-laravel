@@ -28,8 +28,8 @@ class IzinController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
-                        $confirmButton = '<button class="btn btn-sm btn-primary mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
-                        $deleteButton = '<button class="btn btn-sm btn-danger" onclick="confirmDelete(`/admin/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
+                        $confirmButton = '<button class="btn btn-sm btn-primary d-inline-flex mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
+                        $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return ($izin->status == '0' || $izin->status == '2') ? $confirmButton . $deleteButton : "<a class='btn btn-info mb-2' href='/admin/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
                     })
                     ->addColumn('tanggal', function ($izin) {
