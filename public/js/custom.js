@@ -212,11 +212,13 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
 };
 
 const select2ToJson = (selector, url, modal = null) => {
-    const selectElem = $(selector).empty();
+    const selectElem = $(selector);
+
+    if (selectElem.children().length > 0) {
+        return;
+    }
 
     const successCallback = function (response) {
-        selectElem.empty();
-
         const emptyOption = $("<option></option>");
         emptyOption.attr("value", "");
         emptyOption.text("-- Pilih Data --");
