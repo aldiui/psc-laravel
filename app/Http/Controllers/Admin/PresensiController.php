@@ -76,24 +76,32 @@ class PresensiController extends Controller
 
         $karyawans = User::all();
 
-        $dates = Carbon::parse($startDate);
         $labels = [];
-        while ($dates <= $endDate) {
-            $labels[] = $dates->format('d');
-            $dates->addDay();
+        for ($day = 1; $day <= $endDate->day; $day++) {
+            $labels[] = $day;
         }
 
         $presensiData = [];
         foreach ($karyawans as $karyawan) {
             $presensi = [];
-            for ($day = 1; $day <= $endDate->daysInMonth; $day++) {
-                $date = Carbon::create($tahun, $bulan, $day);
-                $cekPresensi = Presensi::where('user_id', $karyawan->id)
-                    ->whereDate('tanggal', $date)
-                    ->first();
 
-                $masuk = $cekPresensi ? 1 : 0;
-                $keluar = $cekPresensi?->jam_keluar ? 1 : 0;
+            $presensiRecords = Presensi::where('user_id', $karyawan->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->orderBy('tanggal', 'asc')
+                ->get();
+
+            for ($day = 1; $day <= $endDate->day; $day++) {
+                $date = Carbon::create($tahun, $bulan, $day);
+                $masuk = 0;
+                $keluar = 0;
+
+                foreach ($presensiRecords as $presensiRecord) {
+                    if ($presensiRecord->tanggal == $date->toDateString()) {
+                        $masuk = 1;
+                        $keluar = $presensiRecord->jam_keluar ? 1 : 0;
+                        break;
+                    }
+                }
 
                 $presensi[] = [
                     'masuk' => $masuk,
@@ -115,7 +123,7 @@ class PresensiController extends Controller
         }
 
         if ($request->input('mode') === 'pdf') {
-            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
+            $bulanTahun = $startDate->locale('id')->translatedFormat('F Y');
 
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,

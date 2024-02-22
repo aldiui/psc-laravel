@@ -58,7 +58,6 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
-
                                     </table>
                                 </div>
                             </div>
