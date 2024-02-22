@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Exports\UnitExport;
 use App\Http\Controllers\Controller;
 use App\Models\Unit;
 use App\Traits\ApiResponder;
-use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Facades\Excel;
 
 class UnitController extends Controller
 {
@@ -57,33 +54,6 @@ class UnitController extends Controller
 
     public function show($id)
     {
-        if ($id == 'excel') {
-            ob_end_clean();
-            ob_start();
-            return Excel::download(new UnitExport(), 'Unit.xlsx');
-        }
-
-        if ($id == 'pdf') {
-            $units = Unit::all();
-            $pdf = PDF::loadView('admin.unit.pdf', compact('units'));
-
-            $options = [
-                'margin_top' => 20,
-                'margin_right' => 20,
-                'margin_bottom' => 20,
-                'margin_left' => 20,
-            ];
-
-            $pdf->setOptions($options);
-            $pdf->setPaper('a4', 'landscape');
-
-            $namaFile = 'Unit.pdf';
-
-            ob_end_clean();
-            ob_start();
-            return $pdf->stream($namaFile);
-        }
-
         $unit = Unit::find($id);
 
         if (!$unit) {
