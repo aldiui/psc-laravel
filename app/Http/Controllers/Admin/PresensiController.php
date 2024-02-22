@@ -132,10 +132,10 @@ class PresensiController extends Controller
             ]);
 
             $options = [
-                'margin_top' => 20,
-                'margin_right' => 20,
-                'margin_bottom' => 20,
-                'margin_left' => 20,
+                'margin_top' => 0,
+                'margin_right' => 0,
+                'margin_bottom' => 0,
+                'margin_left' => 0,
             ];
 
             $pdf->setOptions($options);
