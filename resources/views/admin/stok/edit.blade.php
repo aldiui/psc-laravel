@@ -17,7 +17,7 @@
                         <small class="invalid-feedback" id="errortanggal"></small>
                     </div>
                     <div class="form-group">
-                        <label for="jenis" class="form-label">Jenis</label>
+                        <label for="jenis" class="form-label">Jenis <span class="text-danger">*</span></label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">-- Pilih Jenis --</option>
                             <option value="Masuk">Masuk</option>

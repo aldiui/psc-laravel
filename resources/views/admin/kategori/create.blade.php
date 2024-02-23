@@ -15,7 +15,7 @@
                         <small class="invalid-feedback" id="errornama"></small>
                     </div>
                     <div class="form-group">
-                        <label for="deskripsi" class="form-label">Deskripsi <span class="text-danger">*</span></label>
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
                         <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
                         <small class="invalid-feedback" id="errordeskripsi"></small>
                     </div>
