@@ -133,7 +133,7 @@
             renderData();
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
-                $("#izinTable").DataTable().ajax.reload();
+                $("stokTable").DataTable().ajax.reload();
                 renderData();
             });
 
