@@ -393,21 +393,25 @@ const updateTable = (data) => {
         row.append($("<td>").text(index + 1));
         row.append($("<td>").text(item.nama));
 
-        item.presensi.forEach((count) => {
-            row.append(`
-                <td class="text-center">
-                    <div class="d-flex gap-2">
-                        <span class="badge ${ count.masuk === 0 ? "badge-danger" : "badge-success"} mr-2">${count.masuk}</span>
-                        <span class="badge ${ count.keluar === 0 ? "badge-danger" : "badge-success"}">${count.keluar}</span>
-                    </div>
-                </td>
-            `);
-        });
+        for (const day in item.presensi) {
+            if (item.presensi.hasOwnProperty(day)) {
+                const count = item.presensi[day];
+                row.append(`
+                    <td class="text-center">
+                        <div class="d-flex gap-2">
+                            <span class="badge ${ count.masuk === 0 ? "badge-danger" : "badge-success"} mr-2">${count.masuk}</span>
+                            <span class="badge ${ count.keluar === 0 ? "badge-danger" : "badge-success"}">${count.keluar}</span>
+                        </div>
+                    </td>
+                `);
+            }
+        }
         tbody.append(row);
     });
 
     $("#presensiTable").append(tbody);
 };
+
 
 const clearMap = () => {
     if (map) {

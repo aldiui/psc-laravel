@@ -74,51 +74,36 @@ class PresensiController extends Controller
         $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
         $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
-        $karyawans = User::all();
+        $presensiRecords = Presensi::select('user_id', 'tanggal', 'jam_keluar')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('tanggal')
+            ->get();
 
-        $labels = [];
-        for ($day = 1; $day <= $endDate->day; $day++) {
-            $labels[] = $day;
-        }
+        $karyawans = User::select('id', 'nama')->get()->keyBy('id');
 
         $presensiData = [];
+
         foreach ($karyawans as $karyawan) {
-            $presensi = [];
-
-            $presensiRecords = Presensi::where('user_id', $karyawan->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
-                ->orderBy('tanggal', 'asc')
-                ->get();
-
-            for ($day = 1; $day <= $endDate->day; $day++) {
-                $date = Carbon::create($tahun, $bulan, $day);
-                $masuk = 0;
-                $keluar = 0;
-
-                foreach ($presensiRecords as $presensiRecord) {
-                    if ($presensiRecord->tanggal == $date->toDateString()) {
-                        $masuk = 1;
-                        $keluar = $presensiRecord->jam_keluar ? 1 : 0;
-                        break;
-                    }
-                }
-
-                $presensi[] = [
-                    'masuk' => $masuk,
-                    'keluar' => $keluar,
-                ];
-            }
-
-            $presensiData[] = [
+            $presensiData[$karyawan->id] = [
                 'nama' => $karyawan->nama,
-                'presensi' => $presensi,
+                'presensi' => array_fill(1, $endDate->day, ['masuk' => 0, 'keluar' => 0]),
             ];
         }
+
+        foreach ($presensiRecords as $record) {
+            $tanggal = Carbon::parse($record->tanggal)->day;
+            $user_id = $record->user_id;
+
+            $presensiData[$user_id]['presensi'][$tanggal]['masuk'] = 1;
+            $presensiData[$user_id]['presensi'][$tanggal]['keluar'] = $record->jam_keluar ? 1 : 0;
+        }
+
+        $labels = range(1, $endDate->day);
 
         if ($request->ajax()) {
             return $this->successResponse([
                 'labels' => $labels,
-                'presensi_data' => $presensiData,
+                'presensi_data' => array_values($presensiData),
             ], 'Data presensi ditemukan.');
         }
 
@@ -127,7 +112,7 @@ class PresensiController extends Controller
 
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,
-                'presensi_data' => $presensiData,
+                'presensi_data' => array_values($presensiData),
                 'bulanTahun' => $bulanTahun,
             ]);
 

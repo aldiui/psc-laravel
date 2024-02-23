@@ -58,6 +58,7 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
+
                                     </table>
                                 </div>
                             </div>
@@ -79,11 +80,22 @@
         });
 
         const renderData = () => {
-            const successCallback = function(response) {
-                updateTable(response.data);
-                console.log(response.data)
-            };
+            $("#presensiTable").html(`
+                <tr>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>`);
 
+            const successCallback = function(response) {
+                $("#presensiTable").empty();
+                updateTable(response.data);
+                console.log(response.data);
+            };
             const errorCallback = function(error) {
                 console.error(error);
             };
