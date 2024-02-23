@@ -66,7 +66,7 @@
                                                 <th scope="col" width="5%">#</th>
                                                 <th scope="col">Tanggal</th>
                                                 <th scope="col">Total Barang</th>
-                                                <th scope="col">Tipe</th>
+                                                <th scope="col">Jenis</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col" width="20%">Aksi</th>
                                             </tr>
