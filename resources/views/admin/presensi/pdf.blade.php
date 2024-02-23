@@ -21,26 +21,37 @@
                     @foreach ($labels as $label)
                         <th colspan="2">{{ $label }}</th>
                     @endforeach
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody valign="top">
                 @foreach ($presensi_data as $row)
+                    @php
+                        $jumlah_masuk = 0;
+                    @endphp
                     <tr>
                         <td style="text-align: center;">{{ $loop->iteration }}</td>
                         <td>{{ $row['nama'] }}</td>
                         @foreach ($row['presensi'] as $p)
-                            <td
-                                style="text-align: center; background-color: {{ $p['masuk'] == 0 ? 'red' : 'green' }}; color:white">
-                                {{ $p['masuk'] }}
+                            <td style="text-align: center">
+                                {{ $p['masuk'] == 0 ? '-' : 'v' }}
                             </td>
-                            <td
-                                style="text-align: center; background-color: {{ $p['keluar'] == 0 ? 'red' : 'green' }}; color:white">
-                                {{ $p['keluar'] }}
+                            <td style="text-align: center">
+                                {{ $p['keluar'] == 0 ? '-' : 'v' }}
                             </td>
+                            @if ($p['masuk'] == 1)
+                                @php
+                                    $jumlah_masuk++;
+                                @endphp
+                            @endif
                         @endforeach
+                        <td style="text-align: center">
+                            {{ $jumlah_masuk }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
     </div>
 @endsection
