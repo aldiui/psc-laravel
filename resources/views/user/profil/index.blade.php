@@ -47,13 +47,6 @@
                                         <small class="invalid-feedback" id="erroremail"></small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="jabatan" class="form-label">Jabatan <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="jabatan" name="jabatan"
-                                            value="{{ Auth::user()->jabatan }}">
-                                        <small class="invalid-feedback" id="errorjabatan"></small>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="no_hp" class="form-label">No Hp <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="no_hp" name="no_hp"
@@ -145,7 +138,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "email", "jabatan", "no_hp",
+                    handleValidationErrors(error, "updateData", ["nama", "email", "no_hp",
                         "image"
                     ]);
                 };

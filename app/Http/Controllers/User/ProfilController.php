@@ -21,7 +21,6 @@ class ProfilController extends Controller
                 'nama' => 'required',
                 'image' => 'image|mimes:png,jpg,jpeg',
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id,
-                'jabatan' => 'required',
                 'no_hp' => 'required',
             ]);
 
@@ -38,7 +37,6 @@ class ProfilController extends Controller
             $updateUser = [
                 'nama' => $request->input('nama'),
                 'email' => $request->input('email'),
-                'jabatan' => $request->input('jabatan'),
                 'no_hp' => $request->input('no_hp'),
             ];
 
