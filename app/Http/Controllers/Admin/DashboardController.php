@@ -25,7 +25,10 @@ class DashboardController extends Controller
             $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
-            $stokMasukData = Stok::with('detailStoks')->where('jenis', 'Masuk')->where('status', 1)->whereBetween('tanggal', [$startDate, $endDate])
+            $stokMasukData = Stok::with('detailStoks')
+                ->where('jenis', 'Masuk')
+                ->where('status', 1)
+                ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get([
@@ -34,7 +37,10 @@ class DashboardController extends Controller
                 ])
                 ->pluck('count', 'date');
 
-            $stokKeluarData = Stok::with('detailStoks')->where('jenis', 'Keluar')->where('status', 1)->whereBetween('tanggal', [$startDate, $endDate])
+            $stokKeluarData = Stok::with('detailStoks')
+                ->where('jenis', 'Keluar')
+                ->where('status', 1)
+                ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get([
@@ -43,11 +49,11 @@ class DashboardController extends Controller
                 ])
                 ->pluck('count', 'date');
 
-            $dates = Carbon::parse($startDate);
             $labels = [];
             $stokMasuk = [];
             $stokKeluar = [];
 
+            $dates = Carbon::parse($startDate);
             while ($dates <= $endDate) {
                 $dateString = $dates->toDateString();
                 $labels[] = formatTanggal($dateString, 'd');
