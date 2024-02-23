@@ -24,6 +24,11 @@
                 <td>:</td>
                 <td>{{ Auth::user()->jabatan }}</td>
             </tr>
+            <tr>
+                <td>Total Kehadiran</td>
+                <td>:</td>
+                <td>{{ $presensis->count() }} Hari</td>
+            </tr>
         </table>
         <br>
         <table width="100%" border="1" cellpadding="2.5" cellspacing="0">
@@ -59,14 +64,16 @@
                             </td>
                             <td style="text-align: center;">
                                 <div>{{ $row->jam_keluar }}</div>
-                                <div>
-                                    {!! $row->alasan_keluar
-                                        ? "<span style='color:red'>Diluar Radius </span>"
-                                        : "<span style='color:green'> Dalam Radius </span>" !!}
-                                </div>
-                                <div>
-                                    {!! $row->alasan_keluar ? 'Keterangan : ' . $row->alasan_keluar : '' !!}
-                                </div>
+                                @if ($row->jam_keluar)
+                                    <div>
+                                        {!! $row->alasan_keluar
+                                            ? "<span style='color:red'>Diluar Radius </span>"
+                                            : "<span style='color:green'> Dalam Radius </span>" !!}
+                                    </div>
+                                    <div>
+                                        {!! $row->alasan_keluar ? 'Keterangan : ' . $row->alasan_keluar : '' !!}
+                                    </div>
+                                @endif
                             </td>
                             <td>
                                 @if ($row->tugas)

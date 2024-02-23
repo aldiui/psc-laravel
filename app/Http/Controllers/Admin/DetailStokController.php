@@ -17,8 +17,8 @@ class DetailStokController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'stok_id' => 'required',
-            'barang_id' => 'required',
+            'stok_id' => 'required|exists:stoks,id',
+            'barang_id' => 'required|exists:barangs,id',
             'qty' => 'required',
         ]);
 
@@ -68,7 +68,7 @@ class DetailStokController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'barang_id' => 'required',
+            'barang_id' => 'required|exists:barangs,id',
             'qty' => 'required',
         ]);
 

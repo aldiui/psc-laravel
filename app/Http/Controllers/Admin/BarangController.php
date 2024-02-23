@@ -52,8 +52,8 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'kategori_id' => 'required|numeric',
-            'unit_id' => 'required|numeric',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'unit_id' => 'required|exists:units,id',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
@@ -121,8 +121,8 @@ class BarangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
-            'kategori_id' => 'required|numeric',
-            'unit_id' => 'required|numeric',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'unit_id' => 'required|exists:units,id',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
         ]);
