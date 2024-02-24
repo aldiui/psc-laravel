@@ -44,7 +44,7 @@ class StokController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($stoks, 'Data stok ditemukan.');
+            return $this->successResponse($stoks, 'Data Stok ditemukan.');
         }
         return view('user.stok.index');
     }
@@ -90,10 +90,10 @@ class StokController extends Controller
             }
 
             if (!$stok) {
-                return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data Stok tidak ditemukan.', 404);
             }
 
-            return $this->successResponse($stok, 'Data stok ditemukan.');
+            return $this->successResponse($stok, 'Data Stok ditemukan.');
         }
 
         return view('user.stok.show', compact('stok'));
@@ -127,12 +127,12 @@ class StokController extends Controller
         $stok = Stok::find($id);
 
         if (!$stok) {
-            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Stok tidak ditemukan.', 404);
         }
 
         $stok->delete();
 
-        return $this->successResponse(null, 'Data stok dihapus.');
+        return $this->successResponse(null, 'Data Stok dihapus.');
     }
 
 }

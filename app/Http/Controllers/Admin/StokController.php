@@ -49,7 +49,7 @@ class StokController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($stoks, 'Data stok ditemukan.');
+            return $this->successResponse($stoks, 'Data Stok ditemukan.');
         }
 
         if ($request->input("mode") == "pdf") {
@@ -95,7 +95,7 @@ class StokController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
-        return $this->successResponse($stok, 'Data Stok ditambahkan.', 201);
+        return $this->successResponse($stok, 'Data tok ditambahkan.', 201);
     }
 
     public function show(Request $request, $id)
@@ -121,10 +121,10 @@ class StokController extends Controller
             }
 
             if (!$stok) {
-                return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data tok tidak ditemukan.', 404);
             }
 
-            return $this->successResponse($stok, 'Data stok ditemukan.');
+            return $this->successResponse($stok, 'Data tok ditemukan.');
         }
 
         return view('admin.stok.show', compact('stok'));
@@ -183,7 +183,7 @@ class StokController extends Controller
             ]);
         }
 
-        return $this->successResponse($stok, 'Data Stok diubah.', 200);
+        return $this->successResponse($stok, 'Data tok diubah.', 200);
     }
 
     public function destroy($id)
@@ -191,12 +191,12 @@ class StokController extends Controller
         $stok = Stok::find($id);
 
         if (!$stok) {
-            return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data tok tidak ditemukan.', 404);
         }
 
         $stok->delete();
 
-        return $this->successResponse(null, 'Data stok dihapus.');
+        return $this->successResponse(null, 'Data tok dihapus.');
     }
 
 }

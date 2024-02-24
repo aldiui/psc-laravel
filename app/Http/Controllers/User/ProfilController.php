@@ -31,7 +31,7 @@ class ProfilController extends Controller
             $user = Auth::user();
 
             if (!$user) {
-                return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
             }
 
             $updateUser = [
@@ -71,7 +71,7 @@ class ProfilController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
         if (!Hash::check($request->input('password_lama'), $user->password)) {
@@ -82,6 +82,6 @@ class ProfilController extends Controller
             'password' => bcrypt($request->input('password')),
         ]);
 
-        return $this->successResponse($user, 'Data password diupdate.');
+        return $this->successResponse($user, 'Data Password diupdate.');
     }
 }

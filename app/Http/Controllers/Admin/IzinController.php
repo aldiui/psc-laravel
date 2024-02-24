@@ -49,7 +49,7 @@ class IzinController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($izins, 'Data izin ditemukan.');
+            return $this->successResponse($izins, 'Data Izin ditemukan.');
         }
 
         if ($request->input("mode") == "pdf") {
@@ -132,7 +132,7 @@ class IzinController extends Controller
         $izin = Izin::find($id);
 
         if (!$izin) {
-            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
         }
 
         $izin->update([
@@ -140,7 +140,7 @@ class IzinController extends Controller
             'approval_id' => Auth::user()->id,
         ]);
 
-        return $this->successResponse($izin, 'Data izin diubah.');
+        return $this->successResponse($izin, 'Data Izin diubah.');
     }
 
     public function destroy($id)
@@ -148,7 +148,7 @@ class IzinController extends Controller
         $izin = Izin::find($id);
 
         if (!$izin) {
-            return $this->errorResponse(null, 'Data izin tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
         }
 
         if (Storage::exists('public/img/izin/' . $izin->file)) {
@@ -157,7 +157,7 @@ class IzinController extends Controller
 
         $izin->delete();
 
-        return $this->successResponse(null, 'Data izin dihapus.');
+        return $this->successResponse(null, 'Data Izin dihapus.');
     }
 
 }

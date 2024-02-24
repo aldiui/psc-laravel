@@ -29,7 +29,7 @@ class UnitController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($units, 'Data unit ditemukan.');
+            return $this->successResponse($units, 'Data Unit ditemukan.');
         }
 
         return view('admin.unit.index');
@@ -49,7 +49,7 @@ class UnitController extends Controller
             'nama' => $request->input('nama'),
         ]);
 
-        return $this->successResponse($unit, 'Data unit ditambahkan.', 201);
+        return $this->successResponse($unit, 'Data Unit ditambahkan.', 201);
     }
 
     public function show($id)
@@ -57,10 +57,10 @@ class UnitController extends Controller
         $unit = Unit::find($id);
 
         if (!$unit) {
-            return $this->errorResponse(null, 'Data unit tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Unit tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($unit, 'Data unit ditemukan.');
+        return $this->successResponse($unit, 'Data Unit ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -76,14 +76,14 @@ class UnitController extends Controller
         $unit = Unit::find($id);
 
         if (!$unit) {
-            return $this->errorResponse(null, 'Data unit tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Unit tidak ditemukan.', 404);
         }
 
         $unit->update([
             'nama' => $request->input('nama'),
         ]);
 
-        return $this->successResponse($unit, 'Data unit diubah.');
+        return $this->successResponse($unit, 'Data Unit diubah.');
     }
 
     public function destroy($id)
@@ -91,11 +91,11 @@ class UnitController extends Controller
         $unit = Unit::find($id);
 
         if (!$unit) {
-            return $this->errorResponse(null, 'Data unit tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Unit tidak ditemukan.', 404);
         }
 
         $unit->delete();
 
-        return $this->successResponse(null, 'Data unit dihapus.');
+        return $this->successResponse(null, 'Data Unit dihapus.');
     }
 }

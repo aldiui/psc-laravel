@@ -37,7 +37,7 @@ class KaryawanController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($karyawans, 'Data karyawan ditemukan.');
+            return $this->successResponse($karyawans, 'Data Karyawan ditemukan.');
         }
 
         return view('admin.karyawan.index');
@@ -74,7 +74,7 @@ class KaryawanController extends Controller
             'image' => $image ?? "default.png",
         ]);
 
-        return $this->successResponse($karyawan, 'Data karyawan ditambahkan.', 201);
+        return $this->successResponse($karyawan, 'Data Karyawan ditambahkan.', 201);
     }
 
     public function show($id)
@@ -110,10 +110,10 @@ class KaryawanController extends Controller
         $karyawan = User::find($id);
 
         if (!$karyawan) {
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($karyawan, 'Data karyawan ditemukan.');
+        return $this->successResponse($karyawan, 'Data Karyawan ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -140,7 +140,7 @@ class KaryawanController extends Controller
         $karyawan = User::find($id);
 
         if (!$karyawan) {
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
         $updateKaryawan = [
@@ -166,7 +166,7 @@ class KaryawanController extends Controller
 
         $karyawan->update($updateKaryawan);
 
-        return $this->successResponse($karyawan, 'Data karyawan diubah.');
+        return $this->successResponse($karyawan, 'Data Karyawan diubah.');
     }
 
     public function destroy($id)
@@ -174,7 +174,7 @@ class KaryawanController extends Controller
         $karyawan = User::find($id);
 
         if (!$karyawan) {
-            return $this->errorResponse(null, 'Data karyawan tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
         if ($karyawan->image != 'default.png' && Storage::exists('public/img/karyawan/' . $karyawan->image)) {
@@ -183,6 +183,6 @@ class KaryawanController extends Controller
 
         $karyawan->delete();
 
-        return $this->successResponse(null, 'Data karyawan dihapus.');
+        return $this->successResponse(null, 'Data Karyawan dihapus.');
     }
 }

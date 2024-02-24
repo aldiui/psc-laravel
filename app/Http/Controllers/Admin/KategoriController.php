@@ -29,7 +29,7 @@ class KategoriController extends Controller
                     ->make(true);
             }
 
-            return $this->successResponse($kategoris, 'Data kategori ditemukan.');
+            return $this->successResponse($kategoris, 'Data Kategori ditemukan.');
         }
 
         return view('admin.kategori.index');
@@ -50,7 +50,7 @@ class KategoriController extends Controller
             'deskripsi' => $request->input('deskripsi'),
         ]);
 
-        return $this->successResponse($kategori, 'Data kategori ditambahkan.', 201);
+        return $this->successResponse($kategori, 'Data Kategori ditambahkan.', 201);
     }
 
     public function show($id)
@@ -58,10 +58,10 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
 
         if (!$kategori) {
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Kategori tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($kategori, 'Data kategori ditemukan.');
+        return $this->successResponse($kategori, 'Data Kategori ditemukan.');
     }
 
     public function update(Request $request, $id)
@@ -77,7 +77,7 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
 
         if (!$kategori) {
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Kategori tidak ditemukan.', 404);
         }
 
         $kategori->update([
@@ -85,7 +85,7 @@ class KategoriController extends Controller
             'deskripsi' => $request->input('deskripsi'),
         ]);
 
-        return $this->successResponse($kategori, 'Data kategori diubah.');
+        return $this->successResponse($kategori, 'Data Kategori diubah.');
     }
 
     public function destroy($id)
@@ -93,11 +93,11 @@ class KategoriController extends Controller
         $kategori = Kategori::find($id);
 
         if (!$kategori) {
-            return $this->errorResponse(null, 'Data kategori tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Kategori tidak ditemukan.', 404);
         }
 
         $kategori->delete();
 
-        return $this->successResponse(null, 'Data kategori dihapus.');
+        return $this->successResponse(null, 'Data Kategori dihapus.');
     }
 }

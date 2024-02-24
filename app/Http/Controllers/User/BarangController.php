@@ -15,7 +15,7 @@ class BarangController extends Controller
     {
         if ($request->ajax()) {
             $barangs = Barang::with('unit', 'kategori')->get();
-            return $this->successResponse($barangs, 'Data barang ditemukan.');
+            return $this->successResponse($barangs, 'Data Barang ditemukan.');
         }
     }
 }
