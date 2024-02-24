@@ -29,7 +29,7 @@ class IzinController extends Controller
                     ->addColumn('aksi', function ($izin) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline  mr-1" onclick="getModal(`editModal`, `/izin/' . $izin->id . '`, [`id`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline  " onclick="confirmDelete(`/izin/' . $izin->id . '`, `izinTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info mb-2' href='/izin/" . $izin->id . "'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
+                        return ($izin->status == '0' || $izin->status == '2') ? $editButton . $deleteButton : "<a class='btn btn-info mb-2' href='/izin/" . $izin->id . "' target='_blank'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
                     })
                     ->addColumn('tanggal', function ($izin) {
                         return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);

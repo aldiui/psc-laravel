@@ -34,11 +34,6 @@
                             </button>
                         </div>
                     </form>
-                    <div class="form-group">
-                        <a href="/google" class="btn btn-block btn-outline-danger btn-lg btn-icon icon-right">
-                            <i class="fab fa-google mr-2"></i>Masuk Menggunakan Google
-                        </a>
-                    </div>
                     <div class="text-small mt-5 text-center">
                         Hak Cipta &copy; {{ date('Y') }} <div class="bullet"></div> Dibuat Oleh <span>UBSI
                             Tasikmalaya</span>

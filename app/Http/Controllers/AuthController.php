@@ -8,7 +8,6 @@ use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -39,30 +38,6 @@ class AuthController extends Controller
         }
 
         return view('auth.login');
-    }
-
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->stateless()->redirect();
-    }
-
-    public function handleCallback(Request $request)
-    {
-        try {
-            $getCallback = Socialite::driver('google')->stateless()->user();
-        } catch (\Exception $e) {
-            return redirect('/login');
-        }
-
-        $user = User::where('email', $getCallback->email)->first();
-
-        if (!$user) {
-            return redirect('/login');
-        }
-
-        Auth::login($user);
-        return redirect('/');
-
     }
 
     public function logout()

@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1"><i
+                                    <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1" target="_blank"><i
                                             class="fas fa-file-pdf mr-2"></i>Pdf</a>
                                 </div>
                                 <div class="table-responsive">
