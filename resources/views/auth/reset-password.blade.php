@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Masuk')
+@section('title', 'Reset Password')
 
 @push('style')
 @endpush
@@ -14,29 +14,30 @@
                     <div class="text-center mb-4">
                         <img src="{{ asset('images/icons/icon-72x72.png') }}" alt="logo">
                     </div>
-                    <h4 class="text-dark text-center mb-2 font-weight-normal">Selamat Datang di</h4>
+                    <h4 class="text-dark text-center mb-2 font-weight-normal">Reset Password</h4>
                     <h4 class="font-weight-bold text-dark text-center mb-2">{{ config('app.name') }}</h4>
                     <small class='text-center mb-3 d-block '>Sistem Informasi Logistik dan Kinerja</small>
-                    <form id="login" autocomplete="off">
+                    <form id="reset-password" autocomplete="off">
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <input type="hidden" name="email" value="{{ $_GET['email'] }}">
                         <div class="form-group">
-                            <label for="email">Email <span class="text-danger">*</span></label>
-                            <input id="email" type="email" class="form-control" name="email">
-                            <small class="invalid-feedback" id="erroremail"></small>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="control-label">Password <span class="text-danger">*</span></label>
-                            <input id="password" type="password" class="form-control" name="password">
+                            <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password" name="password">
                             <small class="invalid-feedback" id="errorpassword"></small>
                         </div>
                         <div class="form-group">
+                            <label for="password_confirmation" class="form-label">Konfirmasi Password <span
+                                    class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="password_confirmation"
+                                name="password_confirmation">
+                            <small class="invalid-feedback" id="errorpassword_confirmation"></small>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">
-                                <i class="fas fa-sign-in mr-2"></i>Masuk
+                                Reset Password
                             </button>
                         </div>
                     </form>
-                    <div class="text-center">
-                        <a href="{{ route('password.request') }}" class="text-small font-weight-bold">Lupa Password ?</a>
-                    </div>
                     <div class="text-small mt-5 text-center">
                         Hak Cipta &copy; {{ date('Y') }} <div class="bullet"></div> Dibuat Oleh <span>UBSI
                             Tasikmalaya</span>
@@ -64,22 +65,20 @@
 
     <script>
         $(document).ready(function() {
-            $("#login").submit(function(e) {
-                setButtonLoadingState("#login .btn.btn-danger", true, "Masuk");
+            $("#reset-password").submit(function(e) {
+                setButtonLoadingState("#reset-password .btn.btn-danger", true, "Reset Password");
                 e.preventDefault();
-                const url = "{{ route('login') }}";
+                const url = "{{ route('password.update') }}";
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
-                    setButtonLoadingState("#login .btn.btn-danger", false,
-                        "<i class='fas fa-sign-in mr-2'></i>Masuk");
+                    setButtonLoadingState("#reset-password .btn.btn-danger", false, "Reset Password");
                     handleSuccess(response, null, null, "/");
                 };
 
                 const errorCallback = function(error) {
-                    setButtonLoadingState("#login .btn.btn-danger", false,
-                        "<i class='fas fa-sign-in mr-2'></i>Masuk");
-                    handleValidationErrors(error, "login", ["email", "password"]);
+                    setButtonLoadingState("#reset-password .btn.btn-danger", false, "Reset Password");
+                    handleValidationErrors(error, "reset-password", ["email", "password"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
