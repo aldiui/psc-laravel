@@ -113,9 +113,8 @@
                 },
             ]);
 
-            $("#createBtn").click(function() {
-                getSelectEdit()
-            });
+            select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
+
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
@@ -166,9 +165,5 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
-
-        function getSelectEdit() {
-            select2ToJson("#barang_id", "{{ route('barang') }}", "#createModal");
-        }
     </script>
 @endpush

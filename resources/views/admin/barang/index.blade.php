@@ -103,10 +103,8 @@
                 },
             ]);
 
-
-            $("#createBtn").click(function() {
-                getSelectEdit()
-            });
+            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
+            select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
@@ -159,10 +157,5 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
-
-        function getSelectEdit() {
-            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
-            select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
-        }
     </script>
 @endpush
