@@ -61,7 +61,7 @@
                                         <tr>
                                             <th width="5%">No</th>
                                             <th width="35%">Barang</th>
-                                            <th width="10%">Stok</th>
+                                            <th width="10%">Qty</th>
                                             <th>Deskripsi</th>
                                         </tr>
                                     </thead>
@@ -70,7 +70,7 @@
                                             <tr>
                                                 <td style="text-align: center;">{{ $loop->iteration }}</td>
                                                 <td>{{ $detail_stok->barang->nama }}</td>
-                                                <td style="text-align: center;">{{ $detail_stok->qty }}</td>
+                                                <td style="text-align: center;">{{ $detail_stok->qty.' '.$detail_stok->barang->unit->nama }}</td>
                                                 <td>{{ $detail_stok->deskripsi }}</td>
                                             </tr>
                                         @endforeach
