@@ -25,6 +25,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin,super admin'])->gro
     Route::resource('kategori', App\Http\Controllers\Admin\KategoriController::class)->names('admin.kategori');
     Route::resource('unit', App\Http\Controllers\Admin\UnitController::class)->names('admin.unit');
     Route::resource('barang', App\Http\Controllers\Admin\BarangController::class)->names('admin.barang');
+    Route::resource('barang-bawah', App\Http\Controllers\Admin\BarangBawahController::class)->names('admin.barang-bawah');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\Admin\ProfilController::class, 'index'])->name('admin.profil');
     Route::put('profil/password', [App\Http\Controllers\Admin\ProfilController::class, 'updatePassword'])->name('admin.profil.password');
     Route::resource('stok', App\Http\Controllers\Admin\StokController::class)->names('admin.stok');

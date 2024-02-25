@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Stok')
+@section('title', 'Barang Bawah')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">
@@ -12,11 +12,10 @@
 @section('main')
     <div class="main-content">
         <section class="section">
-            <div class="section-header d-none d-lg-block">
+            <div class="section-header">
                 <h1>@yield('title')</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/">Beranda</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('stok.index') }}"> @yield('title')</a></div>
+                    <div class="breadcrumb-item active"><a href="/admin">Beranda</a></div>
                     <div class="breadcrumb-item">Detail @yield('title')</div>
                 </div>
             </div>
@@ -25,39 +24,15 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="text-dark">Data Detail @yield('title')</h4>
+                                <h4 class="text-dark">Data @yield('title')</h4>
                                 <div class="ml-auto">
-                                    <div class="d-none d-lg-inline">
-                                        <a href="{{ route('stok.index') }}" class="btn btn-secondary"><i
-                                                class="fas fa-arrow-left mr-2"></i>Kembali</a>
-                                    </div>
-                                    @if ($stok->status != 1)
-                                        <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i
-                                                class="fas fa-plus mr-2"></i>Tambah</button>
-                                    @endif
+                                    <button class="btn btn-success" id="createBtn" onclick="getModal('createModal')"><i
+                                            class="fas fa-plus mr-2"></i>Tambah</button>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="mb-4">
-                                    <div class="row">
-                                        <div class="col-4 col-lg-2 mb-2">Tanggal</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ formatTanggal($stok->tanggal) }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Nama</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->user->nama }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Jenis</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $stok->jenis }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Status</div>
-                                        <div class="col-8 col-lg-10 mb-2">
-                                            : {!! statusBadge($stok->status) !!}
-                                        </div>
-                                        @if ($stok->approval_id != null)
-                                            <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
-                                            <div class="col-8 col-lg-10 mb-2">: {{ $stok->approval->nama }}</div>
-                                        @endif
-                                    </div>
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped" id="detailStokTable" width="100%">
+                                    <table class="table table-bordered table-striped" id="barangBawahTable" width="100%">
                                         <thead>
                                             <tr>
                                                 <th scope="col" width="5%">#</th>
@@ -78,9 +53,8 @@
             </div>
         </section>
     </div>
-
-    @include('user.detail-stok.create')
-    @include('user.detail-stok.edit')
+    @include('admin.barang-bawah.create')
+    @include('admin.barang-bawah.edit')
 @endsection
 
 @push('scripts')
@@ -92,7 +66,7 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('detailStokTable', '/stok/{{ $stok->id }}', [{
+            datatableCall('barangBawahTable', '{{ route('admin.barang-bawah.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 },
@@ -115,18 +89,18 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#barang_id", "{{ route('barang') }}", "#createModal");
+                select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('detail-stok.store') }}";
+                const url = "{{ route('admin.barang-bawah.store') }}";
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
-                    handleSuccess(response, "detailStokTable", "createModal");
+                    handleSuccess(response, "barangBawahTable", "createModal");
                 };
 
                 const errorCallback = function(error) {
@@ -143,12 +117,12 @@
                 setButtonLoadingState("#updateData .btn.btn-success", true);
                 e.preventDefault();
                 const kode = $("#updateData #id").val();
-                const url = `/detail-stok/${kode}`;
+                const url = `/admin/barang-bawah/${kode}`;
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "detailStokTable", "editModal");
+                    handleSuccess(response, "barangBawahTable", "editModal");
                 };
 
                 const errorCallback = function(error) {
@@ -163,7 +137,7 @@
         });
 
         function getSelectEdit() {
-            select2ToJson(".editBarang", "{{ route('barang') }}", "#editModal");
+            select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "#editModal");
         }
     </script>
 @endpush

@@ -115,8 +115,11 @@ class StokController extends Controller
                     ->addColumn('nama', function ($detailStok) {
                         return $detailStok->barang->nama;
                     })
+                    ->addColumn('quantity', function ($detailStok) {
+                        return $detailStok->qty . " " . ($detailStok->barang->unit->nama !== 'Kosong' ? ' ' . $detailStok->barang->unit->nama : '');
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['nama', 'aksi'])
+                    ->rawColumns(['nama', 'aksi', 'quantity'])
                     ->make(true);
             }
 

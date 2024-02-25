@@ -440,12 +440,22 @@ class DatabaseSeeder extends Seeder
                 'kategori_id' => '2',
             ],
             [
-                'nama' => 'Infus Set Dewasa& Anak',
+                'nama' => 'Infus Set Dewasa & Anak',
                 'unit_id' => '1',
                 'kategori_id' => '3',
             ],
             [
                 'nama' => 'Tegaderm/IV Dressing',
+                'unit_id' => '1',
+                'kategori_id' => '3',
+            ],
+            [
+                'nama' => 'Gouwn',
+                'unit_id' => '1',
+                'kategori_id' => '3',
+            ],
+            [
+                'nama' => 'Hazmat',
                 'unit_id' => '1',
                 'kategori_id' => '3',
             ],
@@ -545,12 +555,12 @@ class DatabaseSeeder extends Seeder
                 'kategori_id' => '3',
             ],
             [
-                'nama' => 'Verband Gulung   5 cm',
+                'nama' => 'Verband / Kassa Gulung  5 cm',
                 'unit_id' => '6',
                 'kategori_id' => '3',
             ],
             [
-                'nama' => 'Verband Gulung 10 cm',
+                'nama' => 'Verband / Kassa Gulung 10 cm',
                 'unit_id' => '7',
                 'kategori_id' => '3',
             ],
@@ -770,7 +780,7 @@ class DatabaseSeeder extends Seeder
                 'kategori_id' => '6',
             ],
             [
-                'nama' => 'Plester/Micropore',
+                'nama' => 'Plester / Micropore',
                 'unit_id' => '1',
                 'kategori_id' => '6',
             ],
@@ -796,6 +806,11 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'nama' => 'Masker',
+                'unit_id' => '5',
+                'kategori_id' => '6',
+            ],
+            [
+                'nama' => 'Masker N95',
                 'unit_id' => '5',
                 'kategori_id' => '6',
             ],
@@ -965,5 +980,45 @@ class DatabaseSeeder extends Seeder
         ];
 
         DB::table('pengaturans')->insert($pengaturanData);
+
+        $barangBawahData = [
+            ['barang_id' => '1', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '2', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '3', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '32', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '12', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '13', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '14', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '29', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '30', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '31', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '41', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '42', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '43', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '44', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '45', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '46', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '37', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '47', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '48', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '74', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '102', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '59', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '38', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '39', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '40', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '49', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '50', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '51', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '52', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '53', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '105', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '110', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '109', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '111', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '60', 'qty' => '0', 'deskripsi' => null],
+            ['barang_id' => '61', 'qty' => '0', 'deskripsi' => null],
+        ];
+        DB::table('barang_bawahs')->insert($barangBawahData);
     }
 }

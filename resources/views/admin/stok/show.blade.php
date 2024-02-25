@@ -107,8 +107,8 @@
                     name: 'nama'
                 },
                 {
-                    data: 'qty',
-                    name: 'qty'
+                    data: 'quantity',
+                    name: 'quantity'
                 },
                 {
                     data: 'deskripsi',
