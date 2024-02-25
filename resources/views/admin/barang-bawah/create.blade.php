@@ -2,13 +2,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Data</h5>
+                <h5 class="modal-title"><span id="label-modal"></span> Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form id="saveData" autocomplete="off">
                 <div class="modal-body">
+                    <input type="hidden" id="id">
                     <div class="form-group">
                         <label for="barang_id" class="form-label">Barang <span class="text-danger">*</span></label>
                         <select name="barang_id" id="barang_id" class="form-control"></select>

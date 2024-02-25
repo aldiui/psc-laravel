@@ -20,7 +20,7 @@ class KategoriController extends Controller
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($kategoris)
                     ->addColumn('aksi', function ($kategori) {
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`editModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/kategori/' . $kategori->id . '`, `kategoriTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return $editButton . $deleteButton;
                     })

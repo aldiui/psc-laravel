@@ -33,9 +33,10 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <a href="{{ route('admin.karyawan.show', 'pdf') }}"
-                                        class="btn btn-sm px-3 btn-danger mr-1" target="_blank"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
-                                    <a href="{{ route('admin.karyawan.show', 'excel') }}"
-                                        class="btn btn-sm px-3 btn-info" target="_blank"><i class="fas fa-file-excel mr-2"></i>Excel</a>
+                                        class="btn btn-sm px-3 btn-danger mr-1" target="_blank"><i
+                                            class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.karyawan.show', 'excel') }}" class="btn btn-sm px-3 btn-info"
+                                        target="_blank"><i class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="karyawanTable" width="100%">
@@ -62,7 +63,6 @@
         </section>
     </div>
     @include('admin.karyawan.create')
-    @include('admin.karyawan.edit')
 @endsection
 
 @push('scripts')
@@ -109,8 +109,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.karyawan.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.karyawan.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/karyawan/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
@@ -128,28 +134,6 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/karyawan/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "karyawanTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "email", "password",
-                        "konfirmasi_password", "jabatan", "no_hp", "role", "image"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
     </script>
 @endpush

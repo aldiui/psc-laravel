@@ -86,7 +86,6 @@
         </section>
     </div>
     @include('admin.detail-stok.create')
-    @include('admin.detail-stok.edit')
 @endsection
 
 @push('scripts')
@@ -121,14 +120,20 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
+                getSelectEdit()
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.detail-stok.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.detail-stok.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/detail-stok/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
@@ -169,7 +174,7 @@
         });
 
         function getSelectEdit() {
-            select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "#editModal");
+            select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
         }
     </script>
 @endpush

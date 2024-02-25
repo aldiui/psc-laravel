@@ -50,8 +50,14 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
+    const cekLabelModal = $("#label-modal");
+    if(cekLabelModal){
+        $("#id").val("");
+        cekLabelModal.text('Tambah');
+    }
 
     if (url) {
+        cekLabelModal.text('Edit');
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {
@@ -213,7 +219,10 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
 
 const select2ToJson = (selector, url, modal = null) => {
     const selectElem = $(selector);
-    selectElem.empty();
+   
+    if (selectElem.children().length > 0) {
+        return;
+    }
 
     const successCallback = function (response) {
         const emptyOption = $("<option></option>");

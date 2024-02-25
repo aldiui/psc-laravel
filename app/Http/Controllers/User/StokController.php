@@ -26,7 +26,7 @@ class StokController extends Controller
                 return DataTables::of($stoks)
                     ->addColumn('aksi', function ($stok) {
                         $detailButton = '<a class="btn btn-sm btn-info d-inline-flex align-items-baseline mr-1" href="/stok/' . $stok->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getModal(`editModal`, `/stok/' . $stok->id . '`, [`id`, `tanggal`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getModal(`createModal`, `/stok/' . $stok->id . '`, [`id`, `tanggal`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex align-items-baseline" onclick="confirmDelete(`/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton . "<div class='mt-2'> Di setujui oleh " . $stok->approval->nama . "</div>";
                     })
@@ -76,7 +76,7 @@ class StokController extends Controller
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getSelectEdit(), getModal(`createModal`, `/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex align-items-baseline" onclick="confirmDelete(`/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
                         return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);

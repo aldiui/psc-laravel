@@ -83,7 +83,6 @@
         </section>
     </div>
     @include('user.stok.create')
-    @include('user.stok.edit')
 @endsection
 
 @push('scripts')
@@ -127,8 +126,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('stok.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('stok.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/stok/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
@@ -143,25 +148,6 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
 
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/stok/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "stokTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["tanggal"]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
     </script>
 @endpush

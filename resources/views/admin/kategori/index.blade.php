@@ -52,7 +52,6 @@
         </section>
     </div>
     @include('admin.kategori.create')
-    @include('admin.kategori.edit')
 @endsection
 
 @push('scripts')
@@ -84,8 +83,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.kategori.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.kategori.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/kategori/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);

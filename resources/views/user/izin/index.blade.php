@@ -84,7 +84,6 @@
         </section>
     </div>
     @include('user.izin.create')
-    @include('user.izin.edit')
 @endsection
 
 @push('scripts')
@@ -131,8 +130,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('izin.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('izin.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/izin/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
@@ -143,29 +148,6 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["tanggal_mulai", "tanggal_selesai",
-                        "tipe", "alasan", "file"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/izin/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "izinTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["tanggal_mulai", "tanggal_selesai",
                         "tipe", "alasan", "file"
                     ]);
                 };

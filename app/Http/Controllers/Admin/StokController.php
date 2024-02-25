@@ -31,7 +31,7 @@ class StokController extends Controller
                     })
                     ->addColumn('aksi', function ($stok) {
                         $detailButton = '<a class="btn btn-sm btn-info d-inline-flex  align-items-baseline  mr-1" href="/admin/stok/' . $stok->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`editModal`, `/admin/stok/' . $stok->id . '`, [`id`, `tanggal`, `jenis`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/stok/' . $stok->id . '`, [`id`, `tanggal`, `jenis`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton . "<div class='mt-2'> Di setujui oleh " . $stok->approval->nama . "</div>";
                     })
@@ -95,7 +95,7 @@ class StokController extends Controller
             'user_id' => Auth::user()->id,
         ]);
 
-        return $this->successResponse($stok, 'Data tok ditambahkan.', 201);
+        return $this->successResponse($stok, 'Data Stok ditambahkan.', 201);
     }
 
     public function show(Request $request, $id)
@@ -107,7 +107,7 @@ class StokController extends Controller
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getSelectEdit(), getModal(`editModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getSelectEdit(), getModal(`createModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
                         return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
@@ -124,10 +124,10 @@ class StokController extends Controller
             }
 
             if (!$stok) {
-                return $this->errorResponse(null, 'Data tok tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data Stok tidak ditemukan.', 404);
             }
 
-            return $this->successResponse($stok, 'Data tok ditemukan.');
+            return $this->successResponse($stok, 'Data Stok ditemukan.');
         }
 
         return view('admin.stok.show', compact('stok'));
@@ -186,7 +186,7 @@ class StokController extends Controller
             ]);
         }
 
-        return $this->successResponse($stok, 'Data tok diubah.', 200);
+        return $this->successResponse($stok, 'Data Stok diubah.', 200);
     }
 
     public function destroy($id)
@@ -194,12 +194,12 @@ class StokController extends Controller
         $stok = Stok::find($id);
 
         if (!$stok) {
-            return $this->errorResponse(null, 'Data tok tidak ditemukan.', 404);
+            return $this->errorResponse(null, 'Data Stok tidak ditemukan.', 404);
         }
 
         $stok->delete();
 
-        return $this->successResponse(null, 'Data tok dihapus.');
+        return $this->successResponse(null, 'Data Stok dihapus.');
     }
 
 }

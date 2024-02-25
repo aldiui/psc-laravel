@@ -51,7 +51,6 @@
         </section>
     </div>
     @include('admin.unit.create')
-    @include('admin.unit.edit')
 @endsection
 
 @push('scripts')
@@ -79,8 +78,14 @@
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.unit.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.unit.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/unit/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
@@ -90,26 +95,6 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama"]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/unit/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "unitTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

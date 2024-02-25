@@ -63,7 +63,6 @@
         </section>
     </div>
     @include('admin.barang.create')
-    @include('admin.barang.edit')
 @endsection
 
 @push('scripts')
@@ -106,15 +105,20 @@
 
 
             $("#createBtn").click(function() {
-                select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
-                select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
+                getSelectEdit()
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.barang.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.barang.store') }}";
                 const data = new FormData(this);
+
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/barang/${kode}`;
+                }
 
                 const successCallback = function(response) {
                     $('#saveData #image').parent().find(".dropify-clear").trigger('click');
@@ -157,8 +161,8 @@
         });
 
         function getSelectEdit() {
-            select2ToJson(".editUnit", "{{ route('admin.unit.index') }}", "#editModal");
-            select2ToJson(".editKategori", "{{ route('admin.kategori.index') }}", "#editModal");
+            select2ToJson("#unit_id", "{{ route('admin.unit.index') }}", "#createModal");
+            select2ToJson("#kategori_id", "{{ route('admin.kategori.index') }}", "#createModal");
         }
     </script>
 @endpush

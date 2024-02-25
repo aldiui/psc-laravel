@@ -54,7 +54,6 @@
         </section>
     </div>
     @include('admin.barang-bawah.create')
-    @include('admin.barang-bawah.edit')
 @endsection
 
 @push('scripts')
@@ -89,15 +88,20 @@
             ]);
 
             $("#createBtn").click(function() {
-                select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
+                getSelectEdit()
             });
 
             $("#saveData").submit(function(e) {
                 setButtonLoadingState("#saveData .btn.btn-success", true);
                 e.preventDefault();
-                const url = "{{ route('admin.barang-bawah.store') }}";
+                const kode = $("#saveData #id").val();
+                let url = "{{ route('admin.barang-bawah.store') }}";
                 const data = new FormData(this);
 
+                if (kode !== "") {
+                    data.append("_method", "PUT");
+                    url = `/admin/barang-bawah/${kode}`;
+                }
                 const successCallback = function(response) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleSuccess(response, "barangBawahTable", "createModal");
@@ -112,32 +116,10 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/barang-bawah/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "barangBawahTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["stok_id", "barang_id", "qty",
-                        "deskripsi"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
 
         function getSelectEdit() {
-            select2ToJson(".editBarang", "{{ route('admin.barang.index') }}", "#editModal");
+            select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
         }
     </script>
 @endpush
