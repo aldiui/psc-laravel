@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\DetailStok;
-use App\Models\Stok;
-use App\Traits\ApiResponder;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use DataTables;
+use Carbon\Carbon;
+use App\Models\Stok;
+use App\Models\DetailStok;
+use App\Models\BarangBawah;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -136,30 +137,30 @@ class StokController extends Controller
     public function update(Request $request, $id)
     {
         $cekStatus = $request->input('status');
-
+    
         if (isset($cekStatus)) {
             $dataValidator = ['status' => 'required'];
         } else {
             $dataValidator = ['tanggal' => 'required', 'jenis' => 'required'];
         }
         $validator = Validator::make($request->all(), $dataValidator);
-
+    
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
-
+    
         $stok = Stok::find($id);
-
+    
         if (!$stok) {
             return redirect(route('admin.stok.index'));
         }
-
+    
         if (isset($cekStatus)) {
             $stok->update([
                 'status' => $cekStatus,
                 'approval_id' => Auth::user()->id,
             ]);
-
+    
             if ($cekStatus == 1) {
                 $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
                 foreach ($detailStoks as $detailStok) {
@@ -168,26 +169,38 @@ class StokController extends Controller
                         $barang->update([
                             'qty' => $barang->qty + $detailStok->qty,
                         ]);
-                    } else {
-                        if ($barang->qty < $detailStok->qty) {
-                            return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
+                    } elseif($stok->jenis == "Keluar Gudang Atas") {
+                        if ($barang->qty >= $detailStok->qty) {
+                            $barang->update([
+                                'qty' => $barang->qty - $detailStok->qty,
+                            ]); 
+                            $cekStokBarangBawah = BarangBawah::where('barang_id' , $detailStok->barang_id)->first();
+                            if ($cekStokBarangBawah) {
+                                $cekStokBarangBawah->update([
+                                    'qty' => $cekStokBarangBawah->qty + $detailStok->qty,
+                                ]);
+                            }
                         }
-
-                        $barang->update([
-                            'qty' => $barang->qty - $detailStok->qty,
-                        ]);
+                    } elseif($stok->jenis == "Keluar Gudang Bawah") {
+                        $cekStokBarangBawah = BarangBawah::where('barang_id' , $detailStok->barang_id)->first();
+                            if ($cekStokBarangBawah && $cekStokBarangBawah->qty >= $detailStok->qty) {
+                                $cekStokBarangBawah->update([
+                                    'qty' => $cekStokBarangBawah->qty - $detailStok->qty,
+                                ]);
+                            }
                     }
                 }
+            } else {
+                $stok->update([
+                    'tanggal' => $request->input('tanggal'),
+                    'jenis' => $request->input('jenis'),
+                ]);
             }
-        } else {
-            $stok->update([
-                'tanggal' => $request->input('tanggal'),
-                'jenis' => $request->input('jenis'),
-            ]);
         }
-
+    
         return $this->successResponse($stok, 'Data Stok diubah.', 200);
     }
+    
 
     public function destroy($id)
     {

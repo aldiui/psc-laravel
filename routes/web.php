@@ -47,7 +47,7 @@ Route::middleware(['auth', 'checkRole:user,admin,super admin'])->group(function 
     Route::match(['get', 'post'], 'presensi', [App\Http\Controllers\User\PresensiController::class, 'index'])->name('presensi');
     Route::resource('izin', App\Http\Controllers\User\IzinController::class)->names('izin');
     Route::resource('stok', App\Http\Controllers\User\StokController::class)->names('stok');
-    Route::get('barang', [App\Http\Controllers\User\BarangController::class, 'index'])->name('barang');
+    Route::get('barang-bawah', [App\Http\Controllers\User\BarangBawahController::class, 'index'])->name('barang-bawah');
     Route::get('rekap-presensi', [App\Http\Controllers\User\PresensiController::class, 'rekapPresensi'])->name('rekap-presensi');
     Route::resource('detail-stok', App\Http\Controllers\User\DetailStokController::class)->names('detail-stok');
 });

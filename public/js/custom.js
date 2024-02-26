@@ -51,13 +51,13 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
     const cekLabelModal = $("#label-modal");
-    if(cekLabelModal){
+    if (cekLabelModal) {
         $("#id").val("");
-        cekLabelModal.text('Tambah');
+        cekLabelModal.text("Tambah");
     }
 
     if (url) {
-        cekLabelModal.text('Edit');
+        cekLabelModal.text("Edit");
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {
@@ -217,9 +217,9 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
 
-const select2ToJson = (selector, url, modal = null) => {
+const select2ToJson = (selector, url, modal = null, jenis = 'null') => {
     const selectElem = $(selector);
-   
+
     if (selectElem.children().length > 0) {
         return;
     }
@@ -233,20 +233,25 @@ const select2ToJson = (selector, url, modal = null) => {
         const responseList = response.data;
         responseList.forEach(function (row) {
             const option = $("<option></option>");
-            option.attr("value", row.id);
-            if (row.qty >= 0) {
-                option.text(
-                    row.unit.nama !== "Kosong"
-                        ? row.nama +
-                              " ( Jumlah Stok : " +
-                              row.qty +
-                              " " +
-                              row.unit.nama +
-                              " )"
-                        : row.nama + " ( Jumlah Stok : " + row.qty + " )"
-                );
-            } else {
-                option.text(row.nama);
+            if (jenis == 'null') {
+                option.attr("value", row.id);
+                if (row.qty >= 0) {
+                    option.text(
+                        row.unit.nama !== "Kosong"
+                            ? row.nama +
+                                " ( Jumlah Stok : " +
+                                row.qty +
+                                " " +
+                                row.unit.nama +
+                                " )"
+                            : row.nama + " ( Jumlah Stok : " + row.qty + " )"
+                    );
+                } else {
+                    option.text(row.nama);
+                }
+            } else if (jenis == "barang-bawah") {
+                option.attr("value", row.barang_id);
+                option.text(row.barang.nama);
             }
             selectElem.append(option);
         });
@@ -405,8 +410,16 @@ const updateTable = (data) => {
                 row.append(`
                     <td class="text-center">
                         <div class="d-flex gap-2">
-                            <span class="badge ${ count.masuk === 0 ? "badge-danger" : "badge-success"} mr-2">${count.masuk}</span>
-                            <span class="badge ${ count.keluar === 0 ? "badge-danger" : "badge-success"}">${count.keluar}</span>
+                            <span class="badge ${
+                                count.masuk === 0
+                                    ? "badge-danger"
+                                    : "badge-success"
+                            } mr-2">${count.masuk}</span>
+                            <span class="badge ${
+                                count.keluar === 0
+                                    ? "badge-danger"
+                                    : "badge-success"
+                            }">${count.keluar}</span>
                         </div>
                     </td>
                 `);
@@ -417,7 +430,6 @@ const updateTable = (data) => {
 
     $("#presensiTable").append(tbody);
 };
-
 
 const clearMap = () => {
     if (map) {

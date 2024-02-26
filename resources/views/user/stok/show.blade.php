@@ -113,7 +113,7 @@
                 },
             ]);
 
-            select2ToJson("#barang_id", "{{ route('admin.barang.index') }}", "#createModal");
+            select2ToJson("#barang_id", "{{ route('barang-bawah') }}", "#createModal",'barang-bawah');
 
 
             $("#saveData").submit(function(e) {

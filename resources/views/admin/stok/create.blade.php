@@ -20,7 +20,8 @@
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">-- Pilih Jenis --</option>
                             <option value="Masuk">Masuk</option>
-                            <option value="Keluar">Keluar</option>
+                            <option value="Keluar Gudang Atas">Keluar Gudang Atas</option> 
+                            <option value="Keluar Gudang Bawah">Keluar Gudang Bawah</option> 
                         </select>
                         <small class="invalid-feedback" id="errorjenis"></small>
                     </div>
