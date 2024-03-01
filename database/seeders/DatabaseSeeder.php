@@ -974,8 +974,8 @@ class DatabaseSeeder extends Seeder
         DB::table('barangs')->insert($barangData);
 
         $pengaturanData = [
-            'latitude' => '-7.3072588',
-            'longitude' => '108.2004862',
+            'latitude' => '-7.3072973',
+            'longitude' => '108.2030444',
             'radius' => '500',
         ];
 
