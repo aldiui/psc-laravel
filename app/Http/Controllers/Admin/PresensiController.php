@@ -10,6 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PresensiController extends Controller
 {
@@ -55,7 +56,7 @@ class PresensiController extends Controller
                         }
                     })
                     ->addColumn('aksi', function ($presensi) {
-                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/presensi/' . $presensi->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/presensi/' . $presensi->id . '`, [`id`, `user_id`,  `jam_masuk`, `jam_keluar`, `alasan_masuk`, `alasan_keluar`, `tugas`, `catatan`, `tanggal`, `karyawan`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         return $editButton;
                     })
                     ->addIndexColumn()
@@ -135,6 +136,45 @@ class PresensiController extends Controller
         }
 
         return view('admin.presensi.rekap', compact('labels', 'presensiData'));
+    }
+
+    public function show($id)
+    {
+        $presensi = Presensi::find($id);
+
+        if (!$presensi) {
+            return $this->errorResponse(null, 'Data Presensi tidak ditemukan.', 404);
+        }
+
+        $presensi->karyawan = $presensi->user->nama;
+
+        return $this->successResponse($presensi, 'Data Presensi ditemukan.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'jam_masuk' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+        }
+
+        $presensi = Presensi::find($id);
+
+        if (!$presensi) {
+            return $this->errorResponse(null, 'Data Presensi tidak ditemukan.', 404);
+        }
+
+        $presensi->update([
+            'jam_masuk' => $request->input('jam_masuk'),
+            'jam_keluar' => $request->input('jam_keluar'),
+            'alasan_masuk' => $request->input('alasan_masuk'),
+            'alasan_keluar' => $request->input('alasan_keluar'),
+        ]);
+
+        return $this->successResponse($presensi, 'Data Presensi diubah.');
     }
 
 }

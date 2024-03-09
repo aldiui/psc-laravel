@@ -59,6 +59,7 @@
             </div>
         </section>
     </div>
+    @include('admin.presensi.create')
 @endsection
 
 @push('scripts')
@@ -101,6 +102,28 @@
 
             $("#tanggal_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
+            });
+
+            $("#saveData").submit(function(e) {
+                setButtonLoadingState("#saveData .btn.btn-success", true);
+                e.preventDefault();
+                const kode = $("#saveData #id").val();
+                const data = new FormData(this);
+
+                data.append("_method", "PUT");
+                url = `/admin/presensi/${kode}`;
+
+                const successCallback = function(response) {
+                    setButtonLoadingState("#saveData .btn.btn-success", false);
+                    handleSuccess(response, "presensiTable", "createModal");
+                };
+
+                const errorCallback = function(error) {
+                    setButtonLoadingState("#saveData .btn.btn-success", false);
+                    handleValidationErrors(error, "saveData", ["jam_masuk"]);
+                };
+
+                ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
     </script>

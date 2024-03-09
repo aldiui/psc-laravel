@@ -133,29 +133,6 @@
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
-
-            $("#updateData").submit(function(e) {
-                setButtonLoadingState("#updateData .btn.btn-success", true);
-                e.preventDefault();
-                const kode = $("#updateData #id").val();
-                const url = `/admin/barang/${kode}`;
-                const data = new FormData(this);
-
-                const successCallback = function(response) {
-                    $('#updateData #image').parent().find(".dropify-clear").trigger('click');
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleSuccess(response, "barangTable", "editModal");
-                };
-
-                const errorCallback = function(error) {
-                    setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "kategori_id", "unit_id",
-                        "qty", "deskripsi", "image"
-                    ]);
-                };
-
-                ajaxCall(url, "POST", data, successCallback, errorCallback);
-            });
         });
     </script>
 @endpush
