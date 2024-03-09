@@ -217,7 +217,7 @@ const setButtonLoadingState = (buttonSelector, isLoading, title = "Simpan") => {
     $(buttonSelector).prop("disabled", isLoading).html(buttonText);
 };
 
-const select2ToJson = (selector, url, modal = null, jenis = 'null') => {
+const select2ToJson = (selector, url, modal = null, jenis = "null") => {
     const selectElem = $(selector);
 
     if (selectElem.children().length > 0) {
@@ -233,17 +233,17 @@ const select2ToJson = (selector, url, modal = null, jenis = 'null') => {
         const responseList = response.data;
         responseList.forEach(function (row) {
             const option = $("<option></option>");
-            if (jenis == 'null') {
+            if (jenis == "null") {
                 option.attr("value", row.id);
                 if (row.qty >= 0) {
                     option.text(
                         row.unit.nama !== "Kosong"
                             ? row.nama +
-                                " ( Jumlah Stok : " +
-                                row.qty +
-                                " " +
-                                row.unit.nama +
-                                " )"
+                                  " ( Jumlah Stok : " +
+                                  row.qty +
+                                  " " +
+                                  row.unit.nama +
+                                  " )"
                             : row.nama + " ( Jumlah Stok : " + row.qty + " )"
                     );
                 } else {

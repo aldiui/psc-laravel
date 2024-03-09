@@ -44,6 +44,21 @@
                         <textarea class="form-control" id="alasan_keluar" name="alasan_keluar"></textarea>
                         <small class="invalid-feedback" id="erroralasan_keluar"></small>
                     </div>
+                    <div class="form-group">
+                        <label for="tugas" class="form-label">Tugas</label>
+                        <small><span class="text-danger d-inline-block">* Jika sudah mengisi mohon jangan diisi kembali</span></small>
+                        <select name="tugas[]" class="form-control select2" multiple="" id="tugas">
+                            @foreach (getTugas() as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                            @endforeach
+                        </select>
+                        <small class="invalid-feedback" id="errortugas"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="catatan" class="form-label">Catatan</label>
+                        <textarea class="form-control" id="catatan" name="catatan"></textarea>
+                        <small class="invalid-feedback" id="errorcatatan"></small>
+                    </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
