@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Barang Bawah')
+@section('title', 'Gudang Bawah')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('library/datatables/datatables.min.css') }}">

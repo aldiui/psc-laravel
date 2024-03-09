@@ -37,7 +37,7 @@ class DetailStokController extends Controller
             return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
         }
 
-        if ($stok->jenis == 'Keluar Gudang Bawah') {
+        if ($stok->jenis == 'Masuk Unit') {
             $cekStokBarang = BarangBawah::where('barang_id', $request->input('barang_id'))->first();
             if ($cekStokBarang->qty < $request->input('qty')) {
                 return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
@@ -88,7 +88,7 @@ class DetailStokController extends Controller
             return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
         }
 
-        if ($stok->jenis == 'Keluar Gudang Bawah') {
+        if ($stok->jenis == 'Masuk Unit') {
             $cekStokBarang = BarangBawah::where('barang_id', $request->input('barang_id'))->first();
             if ($cekStokBarang->qty < $request->input('qty')) {
                 return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);

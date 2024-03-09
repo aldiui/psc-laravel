@@ -54,9 +54,12 @@ class PresensiController extends Controller
                             return $output;
                         }
                     })
-
+                    ->addColumn('aksi', function ($presensi) {
+                        $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/presensi/' . $presensi->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
+                        return $editButton;
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['nama', 'img', 'presensi_masuk', 'presensi_keluar', 'tugas_catatan'])
+                    ->rawColumns(['nama', 'img', 'presensi_masuk', 'presensi_keluar', 'tugas_catatan', 'aksi'])
                     ->make(true);
             }
         }

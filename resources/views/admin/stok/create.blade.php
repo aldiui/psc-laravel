@@ -19,9 +19,9 @@
                         <label for="jenis" class="form-label">Jenis <span class="text-danger">*</span></label>
                         <select name="jenis" id="jenis" class="form-control">
                             <option value="">-- Pilih Jenis --</option>
-                            <option value="Masuk">Masuk</option>
-                            <option value="Keluar Gudang Atas">Keluar Gudang Atas</option> 
-                            <option value="Keluar Gudang Bawah">Keluar Gudang Bawah</option> 
+                            <option value="Masuk Gudang Atas">Masuk Gudang Atas</option>
+                            <option value="Masuk Gudang Bawah">Masuk Gudang Bawah</option>
+                            <option value="Masuk Unit">Masuk Unit</option>
                         </select>
                         <small class="invalid-feedback" id="errorjenis"></small>
                     </div>

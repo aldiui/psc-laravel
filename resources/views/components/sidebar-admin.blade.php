@@ -20,11 +20,13 @@
                     <span>Kategori</span></a>
             </li>
             <li class="{{ Request::is('admin/barang') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/barang') }}"><i class="fas fa-box"></i> <span>Barang</span></a>
+                <a class="nav-link" href="{{ url('admin/barang') }}"><i class="fas fa-box"></i> <span>Gudang
+                        Atas</span></a>
             </li>
             <li class="{{ Request::is('admin/barang-bawah') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/barang-bawah') }}"><i class="fas fa-box"></i> <span>Barang
-                        Bawah</span></a>
+                <a class="nav-link" href="{{ url('admin/barang-bawah') }}"><i class="fas fa-box"></i> <span>Gudang
+                        Bawah
+                    </span></a>
             </li>
             <li class="{{ Request::is('admin/stok/*') || Request::is('admin/stok') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('admin/stok') }}"><i class="fas fa-clipboard-list"></i>

@@ -119,7 +119,9 @@
                 },
             ]);
 
-        select2ToJson("#barang_id", "{{ $stok->jenis == 'Keluar Gudang Bawah' ? route('admin.barang-bawah.index') : route('admin.barang.index') }}", "#createModal","{{ $stok->jenis == 'Keluar Gudang Bawah' ? 'barang-bawah' : 'null' }}");
+            select2ToJson("#barang_id",
+                "{{ $stok->jenis == 'Masuk Unit' ? route('admin.barang-bawah.index') : route('admin.barang.index') }}",
+                "#createModal", "{{ $stok->jenis == 'Masuk Unit' ? 'barang-bawah' : 'null' }}");
 
 
             $("#saveData").submit(function(e) {

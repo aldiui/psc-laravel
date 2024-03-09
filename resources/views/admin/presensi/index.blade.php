@@ -45,6 +45,7 @@
                                                 <th scope="col">Presensi Masuk</th>
                                                 <th scope="col">Presensi Keluar</th>
                                                 <th scope="col" width="25%">Tugas</th>
+                                                <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,6 +92,10 @@
                 {
                     data: 'tugas_catatan',
                     name: 'tugas_catatan'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
                 },
             ]);
 

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stoks', function (Blueprint $table) {                                                                                 
+        Schema::create('stoks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('approval_id')->nullable();
             $table->date('tanggal');
-        $table->enum('jenis', ['Masuk', 'Keluar Gudang Atas','Keluar Gudang Bawah'])->default('Keluar Gudang Bawah');
+            $table->enum('jenis', ['Masuk Gudang Atas', 'Masuk Gudang Bawah', 'Masuk Unit'])->default('Masuk Unit');
             $table->string('status')->default(0);
             $table->timestamps();
 
