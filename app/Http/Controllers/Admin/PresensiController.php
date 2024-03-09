@@ -147,6 +147,10 @@ class PresensiController extends Controller
         }
 
         $presensi->karyawan = $presensi->user->nama;
+        $presensi->jam_masuk = date("H:i", strtotime($presensi->jam_masuk));
+        if ($presensi->jam_keluar != null) {
+            $presensi->jam_keluar = date("H:i", strtotime($presensi->jam_keluar));
+        }
 
         return $this->successResponse($presensi, 'Data Presensi ditemukan.');
     }
