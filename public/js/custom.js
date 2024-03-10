@@ -61,9 +61,21 @@ const getModal = (targetId, url = null, fields = null) => {
         const successCallback = function (response) {
             fields.forEach((field) => {
                 if (response.data[field]) {
-                    $(`#${targetId} #${field}`)
-                        .val(response.data[field])
-                        .trigger("change");
+                    if (field == "tugas") {
+                        const selectElem = $(`#${targetId} #${field}`);
+                        selectElem.val([]).trigger("change");
+                        let string = response.data[field];
+                        let array = string
+                            .split(",")
+                            .map((item) => item.trim());
+
+                        selectElem.prop("multiple", true);
+                        selectElem.val(array).trigger("change");
+                    } else {
+                        $(`#${targetId} #${field}`)
+                            .val(response.data[field])
+                            .trigger("change");
+                    }
                 }
             });
         };

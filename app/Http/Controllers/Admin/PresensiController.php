@@ -172,12 +172,12 @@ class PresensiController extends Controller
         }
 
         $presensi->update([
-            'jam_masuk' => $request->input('jam_masuk'),
-            'jam_keluar' => $request->input('jam_keluar'),
-            'alasan_masuk' => $request->input('alasan_masuk'),
-            'alasan_keluar' => $request->input('alasan_keluar'),
-            'catatan' => $request->input('catatan'),
-
+            'jam_masuk' => $request->jam_masuk,
+            'jam_keluar' => $request->jam_keluar,
+            'alasan_masuk' => $request->alasan_masuk,
+            'alasan_keluar' => $request->alasan_keluar,
+            'catatan' => $request->catatan,
+            'tugas' => implode(",", $request->tugas),
         ]);
 
         return $this->successResponse($presensi, 'Data Presensi diubah.');
