@@ -25,9 +25,7 @@
                     </div>
                     <div class="form-group">
                         <label for="alasan_masuk" class="form-label">Alasan Masuk</label>
-                        <small><span class="text-danger d-inline-block">* Jika mengisi alasan masuk maka ada presensi
-                                masuk diluar
-                                radius</span></small>
+                    <small><span class="text-danger d-inline-block">* Kenapa Mengisi Alasan Presensi Masuk ? Karna Anda Presensi Masuk di Luar radius !</span></small>
                         <textarea class="form-control" id="alasan_masuk" name="alasan_masuk"></textarea>
                         <small class="invalid-feedback" id="erroralasan_masuk"></small>
                     </div>
@@ -38,9 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label for="alasan_keluar" class="form-label">Alasan Keluar</label>
-                        <small><span class="text-danger d-inline-block">* Jika mengisi alasan keluar maka ada presensi
-                                masuk diluar
-                                radius</span></small>
+                        <small><span class="text-danger d-inline-block">* Kenapa Mengisi Alasan Presensi Keluar ? Karna Anda Presensi Keluar di Luar radius !</span></small>
                         <textarea class="form-control" id="alasan_keluar" name="alasan_keluar"></textarea>
                         <small class="invalid-feedback" id="erroralasan_keluar"></small>
                     </div>

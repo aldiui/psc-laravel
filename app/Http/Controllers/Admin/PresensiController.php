@@ -176,6 +176,8 @@ class PresensiController extends Controller
             'jam_keluar' => $request->input('jam_keluar'),
             'alasan_masuk' => $request->input('alasan_masuk'),
             'alasan_keluar' => $request->input('alasan_keluar'),
+            'catatan' => $request->input('catatan'),
+
         ]);
 
         return $this->successResponse($presensi, 'Data Presensi diubah.');
