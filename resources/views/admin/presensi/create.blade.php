@@ -44,8 +44,6 @@
                     </div>
                     <div class="form-group">
                         <label for="tugas" class="form-label">Tugas</label>
-                        <small><span class="text-danger d-inline-block">* Jika sudah mengisi mohon jangan diisi
-                                kembali</span></small>
                         <select name="tugas[]" class="form-control select2" multiple="multiple" id="tugas">
                             @foreach (getTugas() as $item)
                                 <option value="{{ $item }}">{{ $item }}</option>

@@ -21,7 +21,7 @@ class BarangController extends Controller
     {
         if ($request->ajax()) {
             $barangs = Barang::with('unit', 'kategori')->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($barangs)
                     ->addColumn('aksi', function ($barang) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getModal(`createModal`, `/admin/barang/' . $barang->id . '`, [`id`,`kategori_id`,`unit_id`,`nama`, `deskripsi`, `qty`, `image`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
@@ -68,11 +68,11 @@ class BarangController extends Controller
         }
 
         $barang = Barang::create([
-            'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'unit_id' => $request->unit_id,
+            'deskripsi' => $request->deskripsi,
+            'qty' => $request->qty,
             'image' => $image ?? null,
         ]);
 
@@ -138,11 +138,11 @@ class BarangController extends Controller
         }
 
         $updateBarang = [
-            'nama' => $request->input('nama'),
-            'kategori_id' => $request->input('kategori_id'),
-            'unit_id' => $request->input('unit_id'),
-            'deskripsi' => $request->input('deskripsi'),
-            'qty' => $request->input('qty'),
+            'nama' => $request->nama,
+            'kategori_id' => $request->kategori_id,
+            'unit_id' => $request->unit_id,
+            'deskripsi' => $request->deskripsi,
+            'qty' => $request->qty,
         ];
 
         if ($request->hasFile('image')) {

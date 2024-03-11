@@ -20,13 +20,13 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
             $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
             $stokMasukData = Stok::with('detailStoks')
-                ->where('jenis', 'Masuk')
+                ->where('jenis', 'Masuk Gudang Atas')
                 ->where('status', 1)
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
@@ -38,7 +38,7 @@ class DashboardController extends Controller
                 ->pluck('count', 'date');
 
             $stokKeluarData = Stok::with('detailStoks')
-                ->where('jenis', 'Keluar')
+                ->where('jenis', 'Masuk Gudang Bawah')
                 ->where('status', 1)
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')

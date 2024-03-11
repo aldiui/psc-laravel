@@ -17,7 +17,7 @@ class BarangBawahController extends Controller
     {
         if ($request->ajax()) {
             $barangBawahs = BarangBawah::with('barang')->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($barangBawahs)
                     ->addColumn('aksi', function ($barangBawah) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getModal(`createModal`, `/admin/barang-bawah/' . $barangBawah->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
@@ -52,15 +52,15 @@ class BarangBawahController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $cekBarangBawah = BarangBawah::where('barang_id', $request->input('barang_id'))->first();
+        $cekBarangBawah = BarangBawah::where('barang_id', $request->barang_id)->first();
         if ($cekBarangBawah) {
             return $this->errorResponse(null, 'Data Barang Bawah sudah ada.', 409);
         }
 
         $barangBawah = BarangBawah::create([
-            'barang_id' => $request->input('barang_id'),
-            'qty' => $request->input('qty'),
-            'deskripsi' => $request->input('deskripsi'),
+            'barang_id' => $request->barang_id,
+            'qty' => $request->qty,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($barangBawah, 'Data Barang Bawah ditambahkan.', 201);
@@ -95,9 +95,9 @@ class BarangBawahController extends Controller
         }
 
         $barangBawah->update([
-            'barang_id' => $request->input('barang_id'),
-            'qty' => $request->input('qty'),
-            'deskripsi' => $request->input('deskripsi'),
+            'barang_id' => $request->barang_id,
+            'qty' => $request->qty,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($barangBawah, 'Data Barang Bawah diubah.');

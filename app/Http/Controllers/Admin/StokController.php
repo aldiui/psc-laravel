@@ -20,12 +20,12 @@ class StokController extends Controller
 
     public function index(Request $request)
     {
-        $bulan = $request->input("bulan");
-        $tahun = $request->input("tahun");
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
 
         if ($request->ajax()) {
             $stoks = Stok::with(['user', 'approval'])->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($stoks)
                     ->addColumn('nama', function ($presensi) {
                         return $presensi->user->nama;
@@ -53,7 +53,7 @@ class StokController extends Controller
             return $this->successResponse($stoks, 'Data Stok ditemukan.');
         }
 
-        if ($request->input("mode") == "pdf") {
+        if ($request->mode == "pdf") {
             $stoks = Stok::with(['user', 'approval', 'detailStoks'])->where('status', 1)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
@@ -91,8 +91,8 @@ class StokController extends Controller
         }
 
         $stok = Stok::create([
-            'tanggal' => $request->input('tanggal'),
-            'jenis' => $request->input('jenis'),
+            'tanggal' => $request->tanggal,
+            'jenis' => $request->jenis,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -104,7 +104,7 @@ class StokController extends Controller
         $stok = Stok::with(['user', 'approval'])->find($id);
 
         if ($request->ajax()) {
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
@@ -136,7 +136,7 @@ class StokController extends Controller
 
     public function update(Request $request, $id)
     {
-        $cekStatus = $request->input('status');
+        $cekStatus = $request->status;
 
         if (isset($cekStatus)) {
             $dataValidator = ['status' => 'required'];
@@ -192,8 +192,8 @@ class StokController extends Controller
                 }
             } else {
                 $stok->update([
-                    'tanggal' => $request->input('tanggal'),
-                    'jenis' => $request->input('jenis'),
+                    'tanggal' => $request->tanggal,
+                    'jenis' => $request->jenis,
                 ]);
             }
         }

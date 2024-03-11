@@ -18,8 +18,8 @@ class StokController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
 
             $stoks = Stok::with('user')->where('user_id', Auth::user()->id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
@@ -60,7 +60,7 @@ class StokController extends Controller
         }
 
         $stok = Stok::create([
-            'tanggal' => $request->input('tanggal'),
+            'tanggal' => $request->tanggal,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -72,7 +72,7 @@ class StokController extends Controller
         $stok = Stok::with(['user', 'approval'])->find($id);
 
         if ($request->ajax()) {
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
@@ -119,7 +119,7 @@ class StokController extends Controller
         }
 
         $stok->update([
-            'tanggal' => $request->input('tanggal'),
+            'tanggal' => $request->tanggal,
         ]);
 
         return $this->successResponse($stok, 'Data Stok diubah.', 200);

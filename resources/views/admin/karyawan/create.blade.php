@@ -1,7 +1,7 @@
 <div class="modal fade" role="dialog" id="createModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-           <div class="modal-header">
+            <div class="modal-header">
                 <h5 class="modal-title"><span id="label-modal"></span> Data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -53,6 +53,7 @@
                             <option value=""> -- Pilih Role --</option>
                             <option value="user">user</option>
                             <option value="admin">admin</option>
+                            <option value="super admin">super admin</option>
                         </select>
                         <small class="invalid-feedback" id="errorrole"></small>
                     </div>

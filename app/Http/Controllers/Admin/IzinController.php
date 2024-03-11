@@ -20,12 +20,12 @@ class IzinController extends Controller
 
     public function index(Request $request)
     {
-        $bulan = $request->input("bulan");
-        $tahun = $request->input("tahun");
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
 
         if ($request->ajax()) {
             $izins = Izin::with(['user', 'approval'])->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
                         $confirmButton = '<button class="btn btn-sm btn-primary d-inline-flex  align-items-baseline  mr-1" onclick="getDetailIzin(`confirmModal`, `/admin/izin/' . $izin->id . '`, [`id`, `tgl_mulai`, `tgl_selesai`, `alasan`, `file`, `tipe`])"><i class="fas fa-question-circle mr-1"></i>Konfirmasi</button>';
@@ -52,7 +52,7 @@ class IzinController extends Controller
             return $this->successResponse($izins, 'Data Izin ditemukan.');
         }
 
-        if ($request->input("mode") == "pdf") {
+        if ($request->mode == "pdf") {
             $izins = Izin::with(['user', 'approval'])->where('status', '1')->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 

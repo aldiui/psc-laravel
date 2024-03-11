@@ -17,7 +17,7 @@ class KategoriController extends Controller
     {
         if ($request->ajax()) {
             $kategoris = Kategori::all();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($kategoris)
                     ->addColumn('aksi', function ($kategori) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/kategori/' . $kategori->id . '`, [`id`, `nama`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
@@ -46,8 +46,8 @@ class KategoriController extends Controller
         }
 
         $kategori = Kategori::create([
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($kategori, 'Data Kategori ditambahkan.', 201);
@@ -81,8 +81,8 @@ class KategoriController extends Controller
         }
 
         $kategori->update([
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($kategori, 'Data Kategori diubah.');

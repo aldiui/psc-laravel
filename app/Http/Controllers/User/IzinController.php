@@ -20,8 +20,8 @@ class IzinController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $bulan = $request->input("bulan");
-            $tahun = $request->input("tahun");
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
 
             $izins = Izin::with('approval')->where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {

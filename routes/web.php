@@ -44,6 +44,7 @@ Route::middleware(['auth', 'checkRole:user,admin,super admin'])->group(function 
     Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'put'], 'profil', [App\Http\Controllers\User\ProfilController::class, 'index'])->name('profil');
     Route::put('profil/password', [App\Http\Controllers\User\ProfilController::class, 'updatePassword'])->name('profil.password');
+    Route::put('fcm-token', [App\Http\Controllers\User\ProfilController::class, 'updateFCMToken'])->name('profil.fcm-token');
     Route::match(['get', 'post'], 'presensi', [App\Http\Controllers\User\PresensiController::class, 'index'])->name('presensi');
     Route::resource('izin', App\Http\Controllers\User\IzinController::class)->names('izin');
     Route::resource('stok', App\Http\Controllers\User\StokController::class)->names('stok');

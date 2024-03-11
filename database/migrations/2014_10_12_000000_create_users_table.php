@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image')->default('default.png');
             $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('fcm_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         }); //

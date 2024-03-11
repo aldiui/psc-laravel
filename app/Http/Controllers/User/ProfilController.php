@@ -35,9 +35,9 @@ class ProfilController extends Controller
             }
 
             $updateUser = [
-                'nama' => $request->input('nama'),
-                'email' => $request->input('email'),
-                'no_hp' => $request->input('no_hp'),
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
             ];
 
             if ($request->hasFile('image')) {
@@ -74,14 +74,37 @@ class ProfilController extends Controller
             return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
-        if (!Hash::check($request->input('password_lama'), $user->password)) {
+        if (!Hash::check($request->password_lama, $user->password)) {
             return $this->errorResponse(null, 'Password lama tidak sesuai.', 422);
         }
 
         $user->update([
-            'password' => bcrypt($request->input('password')),
+            'password' => bcrypt($request->password),
         ]);
 
         return $this->successResponse($user, 'Data Password diupdate.');
+    }
+
+    public function updateFCMToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'fcm_token' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+        }
+
+        $user = Auth::user();
+
+        if (!$user) {
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
+        }
+
+        $user->update([
+            'fcm_token' => $request->fcm_token,
+        ]);
+
+        return $this->successResponse($user, 'Data FCM Token diupdate.');
     }
 }

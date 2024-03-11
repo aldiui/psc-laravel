@@ -76,10 +76,10 @@ class PresensiController extends Controller
 
     public function rekapPresensi(Request $request)
     {
-        $bulan = $request->input("bulan");
-        $tahun = $request->input("tahun");
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
 
-        if ($request->input("mode") == "datatable") {
+        if ($request->mode == "datatable") {
             $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             return DataTables::of($presensis)
                 ->addColumn('presensi_masuk', function ($presensi) {
@@ -116,7 +116,7 @@ class PresensiController extends Controller
                 ->make(true);
         }
 
-        if ($request->input("mode") == "pdf") {
+        if ($request->mode == "pdf") {
             $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 

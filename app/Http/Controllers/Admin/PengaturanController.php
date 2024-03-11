@@ -28,9 +28,9 @@ class PengaturanController extends Controller
             }
 
             $pengaturan->update([
-                'longitude' => $request->input('longitude'),
-                'latitude' => $request->input('latitude'),
-                'radius' => $request->input('radius'),
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'radius' => $request->radius,
             ]);
 
             return $this->successResponse($pengaturan, 'Data pengaturan diubah.');

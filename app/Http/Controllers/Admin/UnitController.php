@@ -17,7 +17,7 @@ class UnitController extends Controller
     {
         if ($request->ajax()) {
             $units = Unit::all();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($units)
                     ->addColumn('aksi', function ($unit) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/unit/' . $unit->id . '`, [`id`, `nama`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
@@ -46,7 +46,7 @@ class UnitController extends Controller
         }
 
         $unit = Unit::create([
-            'nama' => $request->input('nama'),
+            'nama' => $request->nama,
         ]);
 
         return $this->successResponse($unit, 'Data Unit ditambahkan.', 201);
@@ -80,7 +80,7 @@ class UnitController extends Controller
         }
 
         $unit->update([
-            'nama' => $request->input('nama'),
+            'nama' => $request->nama,
         ]);
 
         return $this->successResponse($unit, 'Data Unit diubah.');

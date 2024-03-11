@@ -9,7 +9,6 @@ use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,8 +20,8 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $karyawans = User::whereNot("id", Auth::user()->id)->get();
-            if ($request->input("mode") == "datatable") {
+            $karyawans = User::all();
+            if ($request->mode == "datatable") {
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
@@ -65,12 +64,12 @@ class KaryawanController extends Controller
         }
 
         $karyawan = User::create([
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'jabatan' => $request->input('jabatan'),
-            'no_hp' => $request->input('no_hp'),
-            'role' => $request->input('role'),
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'jabatan' => $request->jabatan,
+            'no_hp' => $request->no_hp,
+            'role' => $request->role,
             'image' => $image ?? "default.png",
         ]);
 
@@ -127,7 +126,7 @@ class KaryawanController extends Controller
             'role' => 'required',
         ];
 
-        if ($request->input('password') != null) {
+        if ($request->password != null) {
             $dataValidator['password'] = 'required|min:8|confirmed';
         }
 
@@ -144,11 +143,11 @@ class KaryawanController extends Controller
         }
 
         $updateKaryawan = [
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'jabatan' => $request->input('jabatan'),
-            'no_hp' => $request->input('no_hp'),
-            'role' => $request->input('role'),
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jabatan' => $request->jabatan,
+            'no_hp' => $request->no_hp,
+            'role' => $request->role,
         ];
 
         if ($request->hasFile('image')) {
@@ -160,8 +159,8 @@ class KaryawanController extends Controller
             $updateKaryawan['image'] = $image;
         }
 
-        if ($request->input('password') != null) {
-            $updateKaryawan['password'] = bcrypt($request->input('password'));
+        if ($request->password != null) {
+            $updateKaryawan['password'] = bcrypt($request->password);
         }
 
         $karyawan->update($updateKaryawan);

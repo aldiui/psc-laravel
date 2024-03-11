@@ -26,29 +26,29 @@ class DetailStokController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $cekDetailStok = DetailStok::where('stok_id', $request->input('stok_id'))->where('barang_id', $request->input('barang_id'))->first();
+        $cekDetailStok = DetailStok::where('stok_id', $request->stok_id)->where('barang_id', $request->barang_id)->first();
         if ($cekDetailStok) {
             return $this->errorResponse(null, 'Data Detail Stok sudah ada.', 409);
         }
 
-        $stok = Stok::find($request->input('stok_id'));
+        $stok = Stok::find($request->stok_id);
 
         if (!$stok) {
             return $this->errorResponse(null, 'Data stok tidak ditemukan.', 404);
         }
 
         if ($stok->jenis == 'Masuk Unit') {
-            $cekStokBarang = BarangBawah::where('barang_id', $request->input('barang_id'))->first();
-            if ($cekStokBarang->qty < $request->input('qty')) {
+            $cekStokBarang = BarangBawah::where('barang_id', $request->barang_id)->first();
+            if ($cekStokBarang->qty < $request->qty) {
                 return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
             }
         }
 
         $detailStok = DetailStok::create([
-            'stok_id' => $request->input('stok_id'),
-            'barang_id' => $request->input('barang_id'),
-            'qty' => $request->input('qty'),
-            'deskripsi' => $request->input('deskripsi'),
+            'stok_id' => $request->stok_id,
+            'barang_id' => $request->barang_id,
+            'qty' => $request->qty,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($detailStok, 'Data Detail Stok ditambahkan.', 201);
@@ -89,16 +89,16 @@ class DetailStokController extends Controller
         }
 
         if ($stok->jenis == 'Masuk Unit') {
-            $cekStokBarang = BarangBawah::where('barang_id', $request->input('barang_id'))->first();
-            if ($cekStokBarang->qty < $request->input('qty')) {
+            $cekStokBarang = BarangBawah::where('barang_id', $request->barang_id)->first();
+            if ($cekStokBarang->qty < $request->qty) {
                 return $this->errorResponse(null, 'Stok tidak mencukupi.', 409);
             }
         }
 
         $detailStok->update([
-            'barang_id' => $request->input('barang_id'),
-            'qty' => $request->input('qty'),
-            'deskripsi' => $request->input('deskripsi'),
+            'barang_id' => $request->barang_id,
+            'qty' => $request->qty,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return $this->successResponse($detailStok, 'Data Detail Stok diubah.');

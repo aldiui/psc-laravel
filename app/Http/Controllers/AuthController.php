@@ -107,5 +107,4 @@ class AuthController extends Controller
         }
         return view('auth.reset-password', compact('token'));
     }
-
 }

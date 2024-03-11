@@ -19,9 +19,9 @@ class PresensiController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $tanggal = $request->input("tanggal");
+            $tanggal = $request->tanggal;
             $presensis = Presensi::with('user')->where('tanggal', $tanggal)->latest()->get();
-            if ($request->input("mode") == "datatable") {
+            if ($request->mode == "datatable") {
                 return DataTables::of($presensis)
                     ->addColumn('nama', function ($presensi) {
                         return $presensi->user->nama;
@@ -72,8 +72,8 @@ class PresensiController extends Controller
     {
         set_time_limit(300);
 
-        $bulan = $request->input('bulan');
-        $tahun = $request->input('tahun');
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
 
         $startDate = Carbon::create($tahun, $bulan, 1)->startOfMonth();
         $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
@@ -111,7 +111,7 @@ class PresensiController extends Controller
             ], 'Data presensi ditemukan.');
         }
 
-        if ($request->input('mode') === 'pdf') {
+        if ($request->mode === 'pdf') {
             $bulanTahun = $startDate->locale('id')->translatedFormat('F Y');
 
             $pdf = PDF::loadView('admin.presensi.pdf', [
