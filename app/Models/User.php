@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Izin;
+use App\Models\Notifikasi;
 use App\Models\Presensi;
 use App\Models\Stok;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +40,11 @@ class User extends Authenticatable
     public function izins()
     {
         return $this->hasMany(Izin::class);
+    }
+
+    public function notifikasis()
+    {
+        return $this->hasMany(Notifikasi::class);
     }
 
 }

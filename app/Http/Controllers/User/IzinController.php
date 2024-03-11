@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
+use App\Models\Notifikasi;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -74,6 +75,16 @@ class IzinController extends Controller
             'tipe' => $request->input('tipe'),
             'user_id' => Auth::user()->id,
         ]);
+
+        $notifikasi = Notifikasi::create([
+            'user_id' => Auth::user()->id,
+            'target_id' => getSuperAdmin()->id,
+            'title' => 'Izin',
+            'body' => Auth::user()->nama . ' mengajukan ' . $izin->tipe . ' pada tanggal ' . formatTanggal($izin->tanggal_mulai),
+            'url' => '/admin/izin',
+        ]);
+
+        kirimNotifikasi($notifikasi->title, $notifikasi->body, getSuperAdmin()->fcm_token);
 
         return $this->successResponse($izin, 'Data Izin ditambahkan.', 201);
     }

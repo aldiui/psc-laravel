@@ -16,7 +16,6 @@ class HomeController extends Controller
         } else {
             $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
         }
-        kirimNotifikasi("SILOKIN", "Selamat Menunaikan Ibadah Puasa", Auth::user()->fcm_token);
 
         return view('user.home.index', compact('presensi'));
     }

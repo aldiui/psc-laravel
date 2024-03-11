@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
+use App\Models\Notifikasi;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -139,6 +140,16 @@ class IzinController extends Controller
             'status' => $request->status,
             'approval_id' => Auth::user()->id,
         ]);
+
+        $notifikasi = Notifikasi::create([
+            'user_id' => Auth::user()->id,
+            'target_id' => $izin->user_id,
+            'title' => 'Izin',
+            'body' => $izin->user->nama . ' mengajukan ' . $izin->tipe . ' pada tanggal ' . formatTanggal($izin->tanggal_mulai) . ($request->status == 2 ? ' ditolak' : ' disetujui'),
+            'url' => '/izin',
+        ]);
+
+        kirimNotifikasi($notifikasi->title, $notifikasi->body, $izin->user->fcm_token);
 
         return $this->successResponse($izin, 'Data Izin diubah.');
     }

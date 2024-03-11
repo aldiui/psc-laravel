@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Carbon\Carbon;
 
 if (!function_exists('calculateDistance')) {
@@ -197,19 +198,25 @@ if (!function_exists('bulan')) {
 }
 
 if (!function_exists('kirimNotifikasi')) {
-    function kirimNotifikasi($title, $body, $fcmToken)
+    function kirimNotifikasi($title, $body, $fcmTokens)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
 
         $serverKey = "AAAApBAckiI:APA91bEx7IH7g2nhgZKHzafPvRn3gbbv1XUja8hwk6d2-PDX0jtGRwSaurJtep2fXimZgGfWxS2jg5eFnJ51fUC7DU_49eT4MUFOymyl6-x6yc5UYQ0nKY2LNdbhcu5qcMmi-kr64qO_";
 
         $data = [
-            "to" => $fcmToken,
             "notification" => [
                 "title" => $title,
                 "body" => $body,
             ],
         ];
+
+        if (is_array($fcmTokens)) {
+            $data["registration_ids"] = $fcmTokens;
+        } else {
+            $data["to"] = $fcmTokens;
+        }
+
         $encodedData = json_encode($data);
 
         $headers = [
@@ -237,5 +244,13 @@ if (!function_exists('kirimNotifikasi')) {
         curl_close($ch);
         // FCM response
         return $result; // Mengembalikan hasil respons untuk diproses di tempat lain
+    }
+}
+
+if (!function_exists('getSuperAdmin')) {
+    function getSuperAdmin()
+    {
+        $superAdmin = User::where('role', 'super admin')->oldest()->first();
+        return $superAdmin;
     }
 }
