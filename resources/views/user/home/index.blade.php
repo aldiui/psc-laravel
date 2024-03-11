@@ -10,7 +10,20 @@
 
 @section('main')
     @php
-        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $bulans = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
     @endphp
     <div class="main-content mb-5 pb-5">
         <section class="section">
@@ -140,6 +153,7 @@
             </div>
         </section>
     </div>
+    @include('components.firebase')
 @endsection
 
 @push('scripts')

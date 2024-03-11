@@ -107,4 +107,27 @@ class AuthController extends Controller
         }
         return view('auth.reset-password', compact('token'));
     }
+
+    public function updateFCMToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+        }
+
+        $user = Auth::user();
+
+        if (!$user) {
+            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
+        }
+
+        $user->update([
+            'fcm_token' => $request->token,
+        ]);
+
+        return $this->successResponse($user, 'Data FCM Token diupdate.');
+    }
 }
