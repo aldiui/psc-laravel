@@ -15,7 +15,7 @@
 
     const messaging = firebase.messaging();
 
-    function initFirebaseMessagingRegistration() {
+    function startFCMToken() {
         messaging.requestPermission().then(function() {
             return messaging.getToken()
         }).then(function(token) {
@@ -44,16 +44,14 @@
         });
     }
 
-    initFirebaseMessagingRegistration()
+    startFCMToken()
 
-    messaging.onMessage(function({
-        data: {
-            body,
-            title
-        }
-    }) {
-        new Notification(title, {
-            body
-        });
+    messaging.onMessage(function(payload) {
+        const title = payload.notification.title;
+        const options = {
+            body: payload.notification.body,
+            icon: payload.notification.icon,
+        };
+        new Notification(title, options);
     });
 </script>
