@@ -19,7 +19,6 @@
         messaging.requestPermission().then(function() {
             return messaging.getToken()
         }).then(function(token) {
-            console.log(token)
             $.ajax({
                 url: "{{ route('fcm-token') }}",
                 type: "POST",
@@ -32,7 +31,7 @@
                     token: token
                 },
                 success: function(data) {
-                    console.log(data);
+                    console.log("Token saved successfully");
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
