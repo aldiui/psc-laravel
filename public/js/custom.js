@@ -328,7 +328,12 @@ const confirmStok = (id) => {
     });
 };
 
-const createChart = (labels, stokMasuk, stokKeluar) => {
+const createChart = (
+    labels,
+    stokMasukGudangAtas,
+    stokMasukGudangBawah,
+    stokMasukUnit
+) => {
     const statistics_chart = $("#myChart");
 
     if (statistics_chart.data("chart")) {
@@ -343,23 +348,33 @@ const createChart = (labels, stokMasuk, stokKeluar) => {
             labels: labels,
             datasets: [
                 {
-                    label: "Stok Masuk",
-                    data: stokMasuk,
+                    label: "Stok Masuk Gudang Atas",
+                    data: stokMasukGudangAtas,
                     borderWidth: 5,
-                    borderColor: "#6777ef",
-                    backgroundColor: "rgba(103, 119, 239, 0.3)",
+                    borderColor: "#47c363",
+                    backgroundColor: "rgba(71, 195, 99, 0.3)",
                     pointBackgroundColor: "#fff",
-                    pointBorderColor: "#6777ef",
+                    pointBorderColor: "#47c363",
                     pointRadius: 4,
                 },
                 {
-                    label: "Stok Keluar",
-                    data: stokKeluar,
+                    label: "Stok Masuk Gudang Bawah",
+                    data: stokMasukGudangBawah,
                     borderWidth: 5,
-                    borderColor: "#ff5733",
-                    backgroundColor: "rgba(255, 87, 51, 0.3)",
+                    borderColor: "#ffa426",
+                    backgroundColor: "rgba(255, 164, 38, 0.3)",
                     pointBackgroundColor: "#fff",
-                    pointBorderColor: "#ff5733",
+                    pointBorderColor: "#ffa426",
+                    pointRadius: 4,
+                },
+                {
+                    label: "Stok Masuk Unit",
+                    data: stokMasukUnit,
+                    borderWidth: 5,
+                    borderColor: "#fc544b",
+                    backgroundColor: "rgba(252, 84, 75, 0.3)",
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: "#fc544b",
                     pointRadius: 4,
                 },
             ],

@@ -7,7 +7,20 @@
 
 @section('main')
     @php
-        $bulans = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $bulans = [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
     @endphp
     <div class="main-content">
         <section class="section">
@@ -130,7 +143,8 @@
 
         const renderData = () => {
             const successCallback = function(response) {
-                createChart(response.data.labels, response.data.stokMasuk, response.data.stokKeluar);
+                createChart(response.data.labels, response.data.stokMasukGudangAtas, response.data
+                    .stokMasukGudangBawah, response.data.stokMasukUnit);
             };
 
             const errorCallback = function(error) {
