@@ -50,7 +50,7 @@
             </div>
         </section>
     </div>
-    @include('admin.unit.create')
+    @include('admin.unit.modal')
 @endsection
 
 @push('scripts')

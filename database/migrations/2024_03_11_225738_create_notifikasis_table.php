@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('title', ['Izin', 'Stok']);
             $table->string('body');
             $table->string('url')->nullable();
-            $table->string('status')->default(0);
+            $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

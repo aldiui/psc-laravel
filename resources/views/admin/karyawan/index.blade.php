@@ -62,7 +62,7 @@
             </div>
         </section>
     </div>
-    @include('admin.karyawan.create')
+    @include('admin.karyawan.modal')
 @endsection
 
 @push('scripts')

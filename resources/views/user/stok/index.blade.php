@@ -79,7 +79,7 @@
             </div>
         </section>
     </div>
-    @include('user.stok.create')
+    @include('user.stok.modal')
 @endsection
 
 @push('scripts')

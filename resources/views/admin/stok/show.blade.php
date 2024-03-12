@@ -91,7 +91,7 @@
             </div>
         </section>
     </div>
-    @include('admin.detail-stok.create')
+    @include('admin.detail-stok.modal')
 @endsection
 
 @push('scripts')

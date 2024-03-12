@@ -496,3 +496,19 @@ const showPositionPengaturan = () => {
         radius: radius,
     }).addTo(map);
 };
+
+const setViewNotifikasi = () => {
+    $.ajax({
+        url: "/notifikasi",
+    })
+        .done(function (data) {
+            $("#list-notifikasi").html(data);
+        })
+        .fail(function (data) {
+            if (data.responseJSON && data.responseJSON.message) {
+                handleSimpleError(data.responseJSON.message);
+            } else {
+                handleSimpleError("Terjadi kesalahan pada server.");
+            }
+        });
+};

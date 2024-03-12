@@ -84,7 +84,7 @@
             </div>
         </section>
     </div>
-    @include('admin.stok.create')
+    @include('admin.stok.modal')
 @endsection
 
 

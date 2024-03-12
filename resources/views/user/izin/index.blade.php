@@ -80,7 +80,7 @@
             </div>
         </section>
     </div>
-    @include('user.izin.create')
+    @include('user.izin.modal')
 @endsection
 
 @push('scripts')

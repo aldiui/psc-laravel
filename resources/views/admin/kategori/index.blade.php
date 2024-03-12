@@ -51,7 +51,7 @@
             </div>
         </section>
     </div>
-    @include('admin.kategori.create')
+    @include('admin.kategori.modal')
 @endsection
 
 @push('scripts')

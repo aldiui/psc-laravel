@@ -62,7 +62,7 @@
             </div>
         </section>
     </div>
-    @include('admin.barang.create')
+    @include('admin.barang.modal')
 @endsection
 
 @push('scripts')

@@ -149,7 +149,7 @@ class StokController extends Controller
         } else {
             $stok->update([
                 'tanggal' => $request->tanggal,
-            ]);
+            ]); 
 
             return $this->successResponse($stok, 'Data Stok diubah.', 200);
         }

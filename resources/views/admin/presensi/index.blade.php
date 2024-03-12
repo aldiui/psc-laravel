@@ -60,7 +60,7 @@
             </div>
         </section>
     </div>
-    @include('admin.presensi.create')
+    @include('admin.presensi.modal')
 @endsection
 
 @push('scripts')
