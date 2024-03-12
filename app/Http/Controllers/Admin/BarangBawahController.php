@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\BarangBawahExport;
 use App\Http\Controllers\Controller;
 use App\Models\BarangBawah;
 use App\Traits\ApiResponder;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangBawahController extends Controller
 {
@@ -68,6 +71,32 @@ class BarangBawahController extends Controller
 
     public function show($id)
     {
+        if ($id == "excel") {
+            ob_end_clean();
+            ob_start();
+            return Excel::download(new BarangBawahExport(), 'BarangBawah.xlsx');
+        }
+
+        if ($id == 'pdf') {
+            $barangBawahs = BarangBawah::with('barang.unit', 'barang.kategori')->get();
+            $pdf = PDF::loadView('admin.barang-bawah.pdf', compact('barangBawahs'));
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+
+            $namaFile = 'BarangBawah.pdf';
+
+            ob_end_clean();
+            ob_start();
+            return $pdf->stream($namaFile);
+        }
         $barangBawah = BarangBawah::find($id);
 
         if (!$barangBawah) {

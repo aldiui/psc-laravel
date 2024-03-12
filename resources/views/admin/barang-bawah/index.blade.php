@@ -31,6 +31,14 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <div class="mb-3">
+                                    <a href="{{ route('admin.barang-bawah.show', 'pdf') }}"
+                                        class="btn btn-sm px-3 btn-danger mr-1" target="_blank"><i
+                                            class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a href="{{ route('admin.barang-bawah.show', 'excel') }}"
+                                        class="btn btn-sm px-3 btn-info" target="_blank"><i
+                                            class="fas fa-file-excel mr-2"></i>Excel</a>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="barangBawahTable" width="100%">
                                         <thead>
