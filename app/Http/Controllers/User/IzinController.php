@@ -80,7 +80,7 @@ class IzinController extends Controller
             'user_id' => Auth::user()->id,
             'target_id' => getSuperAdmin()->id,
             'title' => 'Izin',
-            'body' => Auth::user()->nama . ' mengajukan ' . $izin->tipe . ' pada tanggal ' . formatTanggal($izin->tanggal_mulai),
+            'body' => Auth::user()->nama . ' Mengajukan ' . $izin->tipe . ' pada ' . formatTanggal($izin->tanggal_mulai),
             'url' => '/admin/izin',
         ]);
 

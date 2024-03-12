@@ -145,7 +145,7 @@ class IzinController extends Controller
             'user_id' => Auth::user()->id,
             'target_id' => $izin->user_id,
             'title' => 'Izin',
-            'body' => $izin->user->nama . ' mengajukan ' . $izin->tipe . ' pada tanggal ' . formatTanggal($izin->tanggal_mulai) . ($request->status == 2 ? ' ditolak' : ' disetujui'),
+            'body' => $izin->user->nama . ' Mengajukan ' . $izin->tipe . ' pada ' . formatTanggal($izin->tanggal_mulai) . ($request->status == 2 ? ' ditolak' : ' disetujui'),
             'url' => '/izin',
         ]);
 

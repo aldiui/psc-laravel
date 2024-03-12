@@ -139,7 +139,7 @@ class StokController extends Controller
                 'user_id' => Auth::user()->id,
                 'target_id' => getSuperAdmin()->id,
                 'title' => 'Stok',
-                'body' => Auth::user()->nama . ' menyerahkan stok barang ' . $stok->jenis . ' pada tanggal' . formatTanggal($stok->tanggal),
+                'body' => Auth::user()->nama . ' Menyerahkan Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
                 'url' => '/admin/stok/' . $stok->id,
             ]);
 
@@ -149,7 +149,7 @@ class StokController extends Controller
         } else {
             $stok->update([
                 'tanggal' => $request->tanggal,
-            ]); 
+            ]);
 
             return $this->successResponse($stok, 'Data Stok diubah.', 200);
         }

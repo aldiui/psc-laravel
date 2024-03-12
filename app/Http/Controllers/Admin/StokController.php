@@ -202,7 +202,7 @@ class StokController extends Controller
                     'user_id' => Auth::user()->id,
                     'target_id' => $stok->user_id,
                     'title' => 'Stok',
-                    'body' => Auth::user()->nama . ' menyetujui stok barang ' . $stok->jenis . ' pada tanggal' . formatTanggal($stok->tanggal),
+                    'body' => Auth::user()->nama . ' Menyetujui Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
                     'url' => '/stok/' . $stok->id,
                 ]);
                 kirimNotifikasi($notifikasi->title, $notifikasi->body, $stok->user->fcm_token);
