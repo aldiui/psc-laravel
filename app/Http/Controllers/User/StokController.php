@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DetailStok;
 use App\Models\Notifikasi;
 use App\Models\Stok;
+use App\Models\User;
 use App\Traits\ApiResponder;
 use DataTables;
 use Illuminate\Http\Request;
@@ -135,15 +136,21 @@ class StokController extends Controller
                 'status' => $cekStatus,
             ]);
 
-            $notifikasi = Notifikasi::create([
-                'user_id' => Auth::user()->id,
-                'target_id' => getSuperAdmin()->id,
-                'title' => 'Stok',
-                'body' => Auth::user()->nama . ' Menyerahkan Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
-                'url' => '/admin/stok/' . $stok->id,
-            ]);
+            $getAdminStok = User::whereIn('role', ['admin', 'super admin'])->get();
 
-            kirimNotifikasi($notifikasi->title, $notifikasi->body, getSuperAdmin()->fcm_token);
+            foreach ($getAdminStok as $admin) {
+                $notifikasi = Notifikasi::create([
+                    'user_id' => Auth::user()->id,
+                    'target_id' => $admin->id,
+                    'title' => 'Stok',
+                    'body' => Auth::user()->nama . ' Menyerahkan Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
+                    'url' => '/admin/stok/' . $stok->id,
+                ]);
+
+                if ($admin->fcm_token) {
+                    kirimNotifikasi($notifikasi->title, $notifikasi->body, $admin->fcm_token);
+                }
+            }
 
             return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
         } else {

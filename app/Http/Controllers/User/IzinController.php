@@ -84,7 +84,9 @@ class IzinController extends Controller
             'url' => '/admin/izin',
         ]);
 
-        kirimNotifikasi($notifikasi->title, $notifikasi->body, getSuperAdmin()->fcm_token);
+        if (getSuperAdmin()->fcm_token) {
+            kirimNotifikasi($notifikasi->title, $notifikasi->body, getSuperAdmin()->fcm_token);
+        }
 
         return $this->successResponse($izin, 'Data Izin ditambahkan.', 201);
     }

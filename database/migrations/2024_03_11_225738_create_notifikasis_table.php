@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notifikasis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('target_id')->nullable();
+            $table->unsignedBigInteger('target_id');
             $table->enum('title', ['Izin', 'Stok']);
             $table->string('body');
             $table->string('url')->nullable();

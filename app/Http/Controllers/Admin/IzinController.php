@@ -149,7 +149,9 @@ class IzinController extends Controller
             'url' => '/izin',
         ]);
 
-        kirimNotifikasi($notifikasi->title, $notifikasi->body, $izin->user->fcm_token);
+        if ($izin->user->fcm_token) {
+            kirimNotifikasi($notifikasi->title, $notifikasi->body, $izin->user->fcm_token);
+        }
 
         return $this->successResponse($izin, 'Data Izin diubah.');
     }

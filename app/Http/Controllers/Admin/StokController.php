@@ -205,7 +205,10 @@ class StokController extends Controller
                     'body' => Auth::user()->nama . ' Menyetujui Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
                     'url' => '/stok/' . $stok->id,
                 ]);
-                kirimNotifikasi($notifikasi->title, $notifikasi->body, $stok->user->fcm_token);
+
+                if ($stok->user->fcm_token) {
+                    kirimNotifikasi($notifikasi->title, $notifikasi->body, $stok->user->fcm_token);
+                }
 
                 return $this->successResponse($stok, 'Data Stok disetujui.', 200);
             } elseif ($cekStatus == 0) {
