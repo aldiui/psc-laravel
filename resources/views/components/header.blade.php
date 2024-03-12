@@ -20,8 +20,8 @@
                 <div class="dropdown-list-content dropdown-list-icons" id="list-notifikasi">
 
                 </div>
-                <div class="dropdown-footer text-center">
-                    <a href="#">Lihat Selengkapnya <i class="fas fa-chevron-right"></i></a>
+                <div class="dropdown-footer text-center text-capitalize small text-muted">
+                    Notifikasi {{ formatTanggal(date('Y-m-d'), 'F Y') }}
                 </div>
             </div>
         </li>

@@ -212,6 +212,7 @@ if (!function_exists('kirimNotifikasi')) {
             "notification" => [
                 "title" => $title,
                 "body" => $body,
+
             ],
         ];
 
@@ -236,18 +237,14 @@ if (!function_exists('kirimNotifikasi')) {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        // Disabling SSL Certificate support temporarily
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
-        // Execute post
         $result = curl_exec($ch);
         if ($result === false) {
             die('Curl failed: ' . curl_error($ch));
         }
-        // Close connection
         curl_close($ch);
-        // FCM response
-        return $result; // Mengembalikan hasil respons untuk diproses di tempat lain
+        return $result;
     }
 }
 
