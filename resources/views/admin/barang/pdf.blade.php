@@ -1,6 +1,6 @@
 @extends('layouts.pdf')
 
-@section('title', 'Barang')
+@section('title', 'Barang Gudang Atas')
 
 @push('style')
 @endpush

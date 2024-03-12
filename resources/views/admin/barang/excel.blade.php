@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th height="20" colspan="6" style="border: 1px solid black; text-align: center; font-weight: bold;">
-                LAPORAN DATA BARANG</th>
+                LAPORAN DATA BARANG GUDANG ATAS</th>
         </tr>
         <tr>
             <th width="5" style="border: 1px solid black; text-align: center; font-weight: bold;">No</th>
