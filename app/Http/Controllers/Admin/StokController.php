@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BarangBawah;
 use App\Models\DetailStok;
+use App\Models\Notifikasi;
 use App\Models\Stok;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -105,13 +106,13 @@ class StokController extends Controller
 
         if ($request->ajax()) {
             if ($request->mode == "datatable") {
-                $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
+                $detailStoks = DetailStok::with(['barang.unit', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
                     ->addColumn('aksi', function ($detailStok) {
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
+                        return $detailStok->stok->status == 3 || $detailStok->stok->status == 0 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
                     })
                     ->addColumn('nama', function ($detailStok) {
                         return $detailStok->barang->nama;
@@ -156,12 +157,18 @@ class StokController extends Controller
         }
 
         if (isset($cekStatus)) {
-            $stok->update([
-                'status' => $cekStatus,
-                'approval_id' => Auth::user()->id,
-            ]);
+            $detailStoksCount = $stok->detailStoks()->count();
+
+            if ($detailStoksCount == 0) {
+                return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
+            }
 
             if ($cekStatus == 1) {
+                $stok->update([
+                    'status' => $cekStatus,
+                    'approval_id' => Auth::user()->id,
+                ]);
+
                 $detailStoks = DetailStok::with('barang')->where('stok_id', $id)->get();
                 foreach ($detailStoks as $detailStok) {
                     $barang = $detailStok->barang;
@@ -190,15 +197,33 @@ class StokController extends Controller
                         }
                     }
                 }
-            } else {
-                $stok->update([
-                    'tanggal' => $request->tanggal,
-                    'jenis' => $request->jenis,
+
+                $notifikasi = Notifikasi::create([
+                    'user_id' => Auth::user()->id,
+                    'target_id' => $stok->user_id,
+                    'title' => 'Stok',
+                    'body' => Auth::user()->nama . ' menyetujui stok barang ' . $stok->jenis . ' pada tanggal' . formatTanggal($stok->tanggal),
+                    'url' => '/stok/' . $stok->id,
                 ]);
+                kirimNotifikasi($notifikasi->title, $notifikasi->body, $stok->user->fcm_token);
+
+                return $this->successResponse($stok, 'Data Stok disetujui.', 200);
+            } elseif ($cekStatus == 0) {
+                $stok->update([
+                    'status' => $cekStatus,
+                ]);
+
+                return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
             }
+        } else {
+            $stok->update([
+                'tanggal' => $request->tanggal,
+                'jenis' => $request->jenis,
+            ]);
+
+            return $this->successResponse($stok, 'Data Stok diubah.', 200);
         }
 
-        return $this->successResponse($stok, 'Data Stok diubah.', 200);
     }
 
     public function destroy($id)

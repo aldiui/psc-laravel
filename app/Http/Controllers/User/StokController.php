@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailStok;
+use App\Models\Notifikasi;
 use App\Models\Stok;
 use App\Traits\ApiResponder;
 use DataTables;
@@ -79,7 +80,7 @@ class StokController extends Controller
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex align-items-baseline mr-1" onclick="getModal(`createModal`, `/detail-stok/' . $detailStok->id . '`, [`id`, `barang_id`, `qty`, `deskripsi`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex align-items-baseline" onclick="confirmDelete(`/detail-stok/' . $detailStok->id . '`, `detailStokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
 
-                        return $detailStok->stok->status != 1 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
+                        return $detailStok->stok->status == 3 ? $editButton . $deleteButton : statusBadge($detailStok->stok->status);
                     })
                     ->addColumn('nama', function ($detailStok) {
                         return $detailStok->barang->nama;
@@ -104,9 +105,14 @@ class StokController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'tanggal' => 'required',
-        ]);
+        $cekStatus = $request->status;
+
+        if (isset($cekStatus)) {
+            $dataValidator = ['status' => 'required'];
+        } else {
+            $dataValidator = ['tanggal' => 'required'];
+        }
+        $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
@@ -118,9 +124,35 @@ class StokController extends Controller
             return redirect(route('stok.index'));
         }
 
-        $stok->update([
-            'tanggal' => $request->tanggal,
-        ]);
+        if (isset($cekStatus)) {
+            $detailStoksCount = $stok->detailStoks()->count();
+
+            if ($detailStoksCount == 0) {
+                return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
+            }
+
+            $stok->update([
+                'status' => $cekStatus,
+            ]);
+
+            $notifikasi = Notifikasi::create([
+                'user_id' => Auth::user()->id,
+                'target_id' => getSuperAdmin()->id,
+                'title' => 'Stok',
+                'body' => Auth::user()->nama . ' menyerahkan stok barang ' . $stok->jenis . ' pada tanggal' . formatTanggal($stok->tanggal),
+                'url' => '/admin/stok/' . $stok->id,
+            ]);
+
+            kirimNotifikasi($notifikasi->title, $notifikasi->body, getSuperAdmin()->fcm_token);
+
+            return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
+        } else {
+            $stok->update([
+                'tanggal' => $request->tanggal,
+            ]);
+
+            return $this->successResponse($stok, 'Data Stok diubah.', 200);
+        }
 
         return $this->successResponse($stok, 'Data Stok diubah.', 200);
     }

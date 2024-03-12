@@ -14,7 +14,7 @@ class BarangBawahController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $barangs = BarangBawah::with('barang')->get();
+            $barangs = BarangBawah::with(['barang.unit'])->get();
             return $this->successResponse($barangs, 'Data Barang ditemukan.');
         }
     }

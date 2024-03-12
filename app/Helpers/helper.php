@@ -39,11 +39,15 @@ if (!function_exists('calculateSelisihJarak')) {
 if (!function_exists('statusBadge')) {
     function statusBadge($status)
     {
-        $statusIcon = ($status == '0') ? '<i class="far fa-clock mr-1"></i>' : (($status == '1') ? '<i class="far fa-check-circle mr-1"></i>' : '<i class="far fa-times-circle mr-1"></i>');
-        $statusClass = ($status == '0') ? 'badge-warning' : (($status == '1') ? 'badge-success' : 'badge-danger');
-        $statusText = ($status == '0') ? 'Menunggu' : (($status == '1') ? 'Disetujui' : 'Ditolak');
-
-        return "<span class='badge $statusClass'>$statusIcon $statusText</span>";
+        if ($status == '0') {
+            return "<span class='badge badge-warning'><i class='far fa-clock mr-1'></i> Menunggu</span>";
+        } elseif ($status == '1') {
+            return "<span class='badge badge-success'><i class='far fa-check-circle mr-1'></i> Disetujui</span>";
+        } elseif ($status == '2') {
+            return "<span class='badge badge-danger'><i class='far fa-times-circle mr-1'></i> Ditolak</span>";
+        } else {
+            return "<span class='badge badge-secondary'><i class='fas fa-drafting-compass mr-1'></i> Draft</span>";
+        }
     }
 }
 

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('approval_id')->nullable();
             $table->date('tanggal');
             $table->enum('jenis', ['Masuk Gudang Atas', 'Masuk Gudang Bawah', 'Masuk Unit'])->default('Masuk Unit');
-            $table->string('status')->default(0);
+            $table->enum('status', ['0', '1', '2', '3'])->default('3');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -263,7 +263,16 @@ const select2ToJson = (selector, url, modal = null, jenis = "null") => {
                 }
             } else if (jenis == "barang-bawah") {
                 option.attr("value", row.barang_id);
-                option.text(row.barang.nama);
+                option.text(
+                    row.barang.unit.nama !== "Kosong"
+                        ? row.barang.nama +
+                              " ( Jumlah Stok : " +
+                              row.qty +
+                              " " +
+                              row.barang.unit.nama +
+                              " )"
+                        : row.barang.nama + " ( Jumlah Stok : " + row.qty + " )"
+                );
             }
             selectElem.append(option);
         });
@@ -296,10 +305,13 @@ const setUpJam = (jam) => {
     return jam < 10 ? "0" + jam : jam;
 };
 
-const confirmStok = (id) => {
+const confirmStok = (id, status, cek = false) => {
     swal({
         title: "Apakah Kamu Yakin?",
-        text: "Akan menyelesaikan proses!",
+        text:
+            status == "1"
+                ? "Akan menyetujui stok ini"
+                : "Data ini masih draft, Anda yakin akan menyerahkan ini",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -307,23 +319,18 @@ const confirmStok = (id) => {
         if (willDelete) {
             const data = new FormData();
             data.append("_method", "PUT");
-            data.append("status", "1");
+            data.append("status", status);
+            const url = cek == false ? `/admin/stok/${id}` : `/stok/${id}`;
 
             const successCallback = function (response) {
-                handleSuccess(response, null, null, `/admin/stok/${id}`);
+                handleSuccess(response, null, null, url);
             };
 
             const errorCallback = function (error) {
-                console.log(error);
+                handleValidationErrors(error, null, null, null);
             };
 
-            ajaxCall(
-                `/admin/stok/${id}`,
-                "POST",
-                data,
-                successCallback,
-                errorCallback
-            );
+            ajaxCall(url, "POST", data, successCallback, errorCallback);
         }
     });
 };

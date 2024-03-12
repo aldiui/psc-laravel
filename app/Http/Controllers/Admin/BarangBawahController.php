@@ -16,7 +16,7 @@ class BarangBawahController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $barangBawahs = BarangBawah::with('barang')->get();
+            $barangBawahs = BarangBawah::with(['barang.unit'])->get();
             if ($request->mode == "datatable") {
                 return DataTables::of($barangBawahs)
                     ->addColumn('aksi', function ($barangBawah) {

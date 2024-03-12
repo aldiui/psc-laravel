@@ -51,14 +51,20 @@
                                         <div class="col-4 col-lg-2 mb-2">Persetujuan</div>
                                         <div class="col-8 col-lg-10 mb-2">
                                             :
-                                            @if ($stok->status != 1)
+                                            @if ($stok->status == 0)
                                                 <button class="btn btn-primary btn-sm" type="button"
-                                                    onclick="confirmStok('{{ $stok->id }}')"><i
+                                                    onclick="confirmStok('{{ $stok->id }}', '1')"><i
                                                         class="fas fa-question-circle mr-1"></i>Konfirmasi</button>
-                                            @else
+                                            @elseif($stok->status == 1)
                                                 @if ($stok->approval_id != null)
                                                     {{ $stok->approval->nama }}
                                                 @endif
+                                            @elseif($stok->status == 3)
+                                                <button class="btn btn-info btn-sm" type="button"
+                                                    onclick="confirmStok('{{ $stok->id }}', '0')"><i
+                                                        class="fas fa-question-circle mr-1"></i>Serahkan Stok</button>
+                                            @else
+                                                -
                                             @endif
                                         </div>
                                     </div>
