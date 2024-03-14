@@ -128,7 +128,8 @@
             L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini')
                 .openPopup();
 
-            const pengaturan = "PSC 119 SICETAR";
+            const pengaturan = "{{ $pengaturan->nama }}";
+
             L.marker([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}]).addTo(map).bindPopup(pengaturan)
                 .openPopup();
 

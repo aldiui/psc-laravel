@@ -483,7 +483,7 @@ const showPositionPengaturan = () => {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    const pengaturan = "PSC 119 SICETAR";
+    const pengaturan = $("#nama").val();;
     L.marker([latitude, longitude])
         .addTo(map)
         .bindPopup(pengaturan)

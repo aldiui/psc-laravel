@@ -974,6 +974,7 @@ class DatabaseSeeder extends Seeder
         DB::table('barangs')->insert($barangData);
 
         $pengaturanData = [
+            'nama' => 'SICETAR PSC 119 TASIKMALAYA',
             'latitude' => '-7.3072973',
             'longitude' => '108.2030444',
             'radius' => '500',

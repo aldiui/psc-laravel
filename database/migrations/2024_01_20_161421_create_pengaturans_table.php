@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengaturans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('longitude');
             $table->string('latitude');
             $table->unsignedBigInteger('radius');
