@@ -29,7 +29,7 @@
                                 <form id="updateData">
                                     @method('PUT')
                                     <div class="form-group">
-                                        <label for="nama" class="form-label">nama <span
+                                        <label for="nama" class="form-label">Nama <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="nama" name="nama"
                                             value="{{ $pengaturan->nama }}">
