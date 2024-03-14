@@ -483,7 +483,7 @@ const showPositionPengaturan = () => {
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    const pengaturan = $("#nama").val();;
+    const pengaturan = $("#nama").val();
     L.marker([latitude, longitude])
         .addTo(map)
         .bindPopup(pengaturan)
@@ -499,6 +499,7 @@ const showPositionPengaturan = () => {
 
 const setViewNotifikasi = () => {
     $.ajax({
+        method: "GET",
         url: "/notifikasi",
     })
         .done(function (data) {
@@ -511,4 +512,22 @@ const setViewNotifikasi = () => {
                 handleSimpleError("Terjadi kesalahan pada server.");
             }
         });
+};
+
+const updateStatusNotifikasi = (url, kode) => {
+    const successCallback = function (response) {
+        window.location.href = url;
+    };
+
+    const errorCallback = function (error) {
+        console.log(error);
+    };
+
+    ajaxCall(
+        `/notifikasi/${kode}`,
+        "PUT",
+        null,
+        successCallback,
+        errorCallback
+    );
 };

@@ -13,9 +13,7 @@
                 class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
                 <div class="dropdown-header">Notifikasi
-                    <div class="float-right">
-                        <a href="#">Baca Semua</a>
-                    </div>
+
                 </div>
                 <div class="dropdown-list-content dropdown-list-icons" id="list-notifikasi">
 

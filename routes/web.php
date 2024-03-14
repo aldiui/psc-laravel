@@ -51,7 +51,7 @@ Route::middleware(['auth', 'checkRole:user,admin,super admin'])->group(function 
     Route::get('barang-bawah', [App\Http\Controllers\User\BarangBawahController::class, 'index'])->name('barang-bawah');
     Route::get('rekap-presensi', [App\Http\Controllers\User\PresensiController::class, 'rekapPresensi'])->name('rekap-presensi');
     Route::resource('detail-stok', App\Http\Controllers\User\DetailStokController::class)->names('detail-stok');
-    Route::get('notifikasi', [App\Http\Controllers\User\NotifikasiController::class, 'index'])->name('notifikasi');
+    Route::resource('notifikasi', App\Http\Controllers\User\NotifikasiController::class)->names('notifikasi');
 });
 
 Route::get('/storage-link', function () {
