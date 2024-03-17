@@ -47,10 +47,17 @@
         <br>
         <table width="100%" valign="top">
             <tr>
-                <td width="200px" align="center"></td>
+                <td width="230px" align="center"></td>
                 <td></td>
-                <td width="200px" align="center">
+                <td width="230px" align="center">
                     <div>Mengetahui/Menyetujui</div>
+                </td>
+            </tr>
+            <tr>
+                <td width="230px" align="center"></td>
+                <td></td>
+                <td width="230px" align="center">
+                    <div>Ketua Pelaksana PSC 119 Sicetar</div>
                 </td>
             </tr>
             <tr>
@@ -64,8 +71,8 @@
                     <div>{{ $izin->user->nama }}</div>
                 </td>
                 <td></td>
-                <td width="200px" align="center">
-                    <div>Ketua Pelaksana PSC 119,</div>
+                <td width="230px" align="center">
+                    <div>Kota Tasikmalaya,</div>
                     <br>
                     <br>
                     <br>
@@ -75,9 +82,9 @@
                 </td>
             </tr>
             <tr>
-                <td width="200px" align="center"></td>
+                <td width="230px" align="center"></td>
                 <td></td>
-                <td width="200px" align="center">
+                <td width="230px" align="center">
                     <div>NIP. 196908241989032002</div>
                 </td>
             </tr>
