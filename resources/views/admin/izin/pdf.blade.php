@@ -63,7 +63,7 @@
                 </td>
                 <td></td>
                 <td width="200px" align="center">
-                    <div>Ketua PSC 119 SICETAR,</div>
+                    <div>Ketua Pelaksana PSC 119,</div>
                     <br>
                     <br>
                     <br>
