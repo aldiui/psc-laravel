@@ -75,7 +75,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-success">
-                            <i class="fas fa-user-tie"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
@@ -83,6 +83,21 @@
                             </div>
                             <div class="card-body">
                                 {{ $totalKaryawan }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="card card-statistic-1">
+                        <div class="card-icon bg-primary">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Admin</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ $totalAdmin }}
                             </div>
                         </div>
                     </div>
@@ -113,7 +128,8 @@
                                         <label for="tahun_filter" class="form-label">Tahun</label>
                                         <select name="tahun_filter" id="tahun_filter" class="form-control">
                                             @for ($i = now()->year; $i >= now()->year - 4; $i--)
-                                                <option value="{{ $i }}" {{ $i == date('Y') ? 'selected' : '' }}>
+                                                <option value="{{ $i }}"
+                                                    {{ $i == date('Y') ? 'selected' : '' }}>
                                                     {{ $i }}</option>
                                             @endfor
                                         </select>

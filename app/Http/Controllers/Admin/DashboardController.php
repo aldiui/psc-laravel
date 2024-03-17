@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\Models\Barang;
+use App\Models\BarangBawah;
+use App\Models\Kategori;
 use App\Models\Stok;
 use App\Models\Unit;
 use App\Models\User;
-use App\Models\Barang;
-use App\Models\Kategori;
-use App\Models\BarangBawah;
 use App\Traits\ApiResponder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -91,6 +91,7 @@ class DashboardController extends Controller
             'totalBarang' => Barang::count(),
             'totalBarangBawah' => BarangBawah::count(),
             'totalKaryawan' => User::count(),
+            'totalAdmin' => User::whereNot('role', 'user')->count(),
         ];
 
         return view('admin.dashboard.index', $data);
