@@ -18,12 +18,12 @@
                     <div class="form-group">
                         <label for="tanggal_mulai" class="form-label">Tanggal Mulai <span
                                 class="text-danger">*</span></label>
-                        <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
+                        <input type="date" min="{{ date('Y-m-d') }}" class="form-control" id="tanggal_mulai" name="tanggal_mulai">
                         <small class="invalid-feedback" id="errortanggal_malai"></small>
                     </div>
                     <div class="form-group">
                         <label for="tanggal_selesai" class="form-label">Tanggal Selesai </label>
-                        <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
+                        <input type="date" min="{{ date('Y-m-d') }}" class="form-control" id="tanggal_selesai" name="tanggal_selesai">
                         <small class="invalid-feedback" id="errortanggal_selesai"></small>
                     </div>
                     <div class="form-group">

@@ -52,7 +52,7 @@ class IzinController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tanggal_mulai' => 'required',
+            'tanggal_mulai' => 'required|date',
             'alasan' => 'required',
             'file' => 'image|mimes:png,jpg,jpeg',
             'tipe' => 'required',
