@@ -55,7 +55,7 @@ class StokController extends Controller
         }
 
         if ($request->mode == "pdf") {
-            $stoks = Stok::with(['user', 'approval', 'detailStoks'])->where('status', 1)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
+            $stoks = Stok::with(['user', 'approval'])->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('admin.stok.pdf', compact('stoks', 'bulanTahun'));
