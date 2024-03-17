@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Izin;
-use App\Models\Notifikasi;
-use App\Models\User;
-use App\Traits\ApiResponder;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use DataTables;
+use Carbon\Carbon;
+use App\Models\Izin;
+use App\Models\User;
+use App\Models\Notifikasi;
+use App\Models\Pengaturan;
+use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -101,8 +102,8 @@ class IzinController extends Controller
             if (!$izin || $izin->status != '1') {
                 return redirect()->route('admin.izin.index');
             }
-
-            $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
+            $pengaturan = Pengaturan::find(1);
+            $pdf = PDF::loadView('admin.izin.pdf', compact(['izin', 'pengaturan']));
 
             $options = [
                 'margin_top' => 20,

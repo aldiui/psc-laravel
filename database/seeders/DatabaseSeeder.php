@@ -975,6 +975,8 @@ class DatabaseSeeder extends Seeder
 
         $pengaturanData = [
             'nama' => 'SICETAR PSC 119 TASIKMALAYA',
+            'ketua_pelaksana' => 'Nana Ernawati, SKM., M.Si',
+            'nip_ketua_pelaksana' => '196908241989032002',
             'latitude' => '-7.3072973',
             'longitude' => '108.2030444',
             'radius' => '500',

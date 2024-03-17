@@ -78,14 +78,14 @@
                     <br>
                     <br>
                     <br>
-                    <div>Nana Ernawati, SKM., M.Si</div>
+                    <div>{{ $pengaturan->ketua_pelaksana }}</div>
                 </td>
             </tr>
             <tr>
                 <td width="230px" align="center"></td>
                 <td></td>
                 <td width="230px" align="center">
-                    <div>NIP. 196908241989032002</div>
+                <div>NIP. {{ $pengaturan->nip_ketua_pelaksana }}</div>
                 </td>
             </tr>
         </table>

@@ -36,6 +36,20 @@
                                         <small class="invalid-feedback" id="errornama"></small>
                                     </div>
                                     <div class="form-group">
+                                        <label for="ketua_pelaksana" class="form-label">Ketua Pelaksana <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="ketua_pelaksana" name="ketua_pelaksana"
+                                            value="{{ $pengaturan->ketua_pelaksana }}">
+                                        <small class="invalid-feedback" id="errorketua_pelaksana"></small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nip_ketua_pelaksana" class="form-label">Nip Ketua Pelaksana <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="nip_ketua_pelaksana" name="nip_ketua_pelaksana"
+                                            value="{{ $pengaturan->nip_ketua_pelaksana }}">
+                                        <small class="invalid-feedback" id="errornip_ketua_pelaksana"></small>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="longitude" class="form-label">Longitude <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="longitude" name="longitude"
@@ -101,7 +115,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updateData .btn.btn-success", false);
-                    handleValidationErrors(error, "updateData", ["nama", "longitude", "latitude",
+                    handleValidationErrors(error, "updateData", ["nama","ketua_pelaksana","nip_ketua_pelaksana","longitude","latitude",
                         "radius"
                     ]);
                 };
