@@ -40,13 +40,12 @@
                         </span>
                     </div>
                 </td>
-            <td width='20%' align="right"><img width='120px' src="{{ generateBase64Image(public_path('images/logo-psc.png')) }}"
-                        alt=""> </td>
+                <td width='20%' align="right"><img width='120px'
+                        src="{{ generateBase64Image(public_path('images/logo-psc.png')) }}" alt=""> </td>
             </tr>
         </tbody>
     </table>
     <hr style="height:1px;background-color:black;">
-    <br>
     @yield('main')
 
 

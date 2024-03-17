@@ -32,7 +32,6 @@
                 <td>{{ $izin->user->jabatan }} </td>
             </tr>
         </table>
-        <br>
         <table width="100%">
             <tr>
                 <td>
@@ -45,9 +44,7 @@
                 </td>
             </tr>
         </table>
-        <br>
-        <br>
-        <table width="100%">
+        <table width="100%" valign="top">
             <tr>
                 <td width="200px" align="center"></td>
                 <td></td>
@@ -56,20 +53,29 @@
                 </td>
             </tr>
             <tr>
-                <td width="200px" align="center">
+                <td width="230px" align="center">
                     <div>Hormat Saya,</div>
                     <br>
                     <br>
                     <br>
-                    <p>{{ $izin->user->nama }}</p>
+                    <br>
+                    <div>{{ $izin->user->nama }}</div>
                 </td>
                 <td></td>
                 <td width="200px" align="center">
-                <div>Ketua PSC 119 SICETAR</div>
+                    <div>Ketua PSC 119 SICETAR,</div>
                     <br>
                     <br>
                     <br>
-                    <p>...</p>
+                    <br>
+                    <div>Nana Ernawati, SKM., M.Si</div>
+                </td>
+            </tr>
+            <tr>
+                <td width="200px" align="center"></td>
+                <td></td>
+                <td width="200px" align="center">
+                    <div>NIP. 196908241989032002</div>
                 </td>
             </tr>
         </table>
