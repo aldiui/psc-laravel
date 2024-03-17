@@ -44,6 +44,7 @@
                 </td>
             </tr>
         </table>
+        <br>
         <table width="100%" valign="top">
             <tr>
                 <td width="200px" align="center"></td>
@@ -59,11 +60,13 @@
                     <br>
                     <br>
                     <br>
+                    <br>
                     <div>{{ $izin->user->nama }}</div>
                 </td>
                 <td></td>
                 <td width="200px" align="center">
                     <div>Ketua Pelaksana PSC 119,</div>
+                    <br>
                     <br>
                     <br>
                     <br>
