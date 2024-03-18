@@ -5,6 +5,15 @@
 @push('style')
     <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
+    <style>
+        #my_camera,
+        #my_camera video {
+            display: inline-block;
+            width: 100% !important;
+            margin: auto;
+            height: auto !important;
+        }
+    </style>
 @endpush
 
 @section('main')
@@ -16,7 +25,14 @@
                     <div class="mb-2">{{ formatTanggal() }}</div>
                     <div class="mb-2" id="jam"></div>
                 </div>
-                <div id="map" class="mb-3 rounded-lg mx-0" style="height: 420px; width: 100%;"></div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div id="my_camera"></div>
+                    </div>
+                    <div class="col-lg-6">
+                    </div>
+                </div>
+                <div id="map" class="mb-3 rounded-lg mx-0" style="height: 500px; width: 100%;"></div>
                 <div class="p-3">
                     <button type="submit" id="presensiButton"
                         class="btn {{ $presensi ? ($presensi->jam_keluar == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block"
@@ -35,11 +51,18 @@
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-
-
+    <script src="{{ asset('js/webcam.min.js') }}"></script>
+    <script src="{{ asset('js/face-api.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            setInterval(updateJam, 1000);
+            // Webcam.set({
+            //     width: 250,
+            //     height: 250,
+            //     image_format: 'jpeg',
+            //     jpeg_quality: 90,
+            // });
+
+            // Webcam.attach('#my_camera');
 
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
@@ -115,30 +138,53 @@
 
         $(".selectMultiple").select2();
 
+        let map;
+        let circle;
+        let distanceLine;
+
         const showPosition = (position) => {
             const location = $("#location");
             location.val(position.coords.latitude + ", " + position.coords.longitude);
 
-            let map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
+            const userLatLng = [position.coords.latitude, position.coords.longitude];
 
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+            if (!map) {
+                map = L.map('map').setView(userLatLng, 20);
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+            } else {
+                map.setView(userLatLng);
+            }
 
-            L.marker([position.coords.latitude, position.coords.longitude]).addTo(map).bindPopup('Anda di sini')
-                .openPopup();
-
-            const pengaturan = "{{ $pengaturan->nama }}";
-
-            L.marker([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}]).addTo(map).bindPopup(pengaturan)
-                .openPopup();
-
-            const circle = L.circle([{{ $pengaturan->latitude }}, {{ $pengaturan->longitude }}], {
-                color: 'green',
-                fillColor: 'green',
-                fillOpacity: 0.5,
+            const pengaturan = {
+                latitude: {{ $pengaturan->latitude }},
+                longitude: {{ $pengaturan->longitude }},
+                nama: "{{ $pengaturan->nama }}",
                 radius: {{ $pengaturan->radius }}
+            };
+            const pengaturanLatLng = [pengaturan.latitude, pengaturan.longitude];
+
+            if (!circle) {
+                L.marker(pengaturanLatLng).addTo(map).bindPopup(pengaturan.nama).openPopup();
+                circle = L.circle(pengaturanLatLng, {
+                    color: 'green',
+                    fillColor: 'green',
+                    fillOpacity: 0.3,
+                    radius: pengaturan.radius
+                }).addTo(map);
+            }
+
+            if (distanceLine) {
+                map.removeLayer(distanceLine);
+            }
+
+            const lineCoordinates = [userLatLng, pengaturanLatLng];
+            distanceLine = L.polyline(lineCoordinates, {
+                color: 'red'
             }).addTo(map);
-        }
+
+            L.marker(userLatLng).addTo(map).bindPopup('Anda di sini').openPopup();
+        };
     </script>
 @endpush
