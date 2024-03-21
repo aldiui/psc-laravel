@@ -105,8 +105,8 @@ class IzinController extends Controller
             if (!$izin || $izin->status != '1') {
                 return redirect()->route('izin.index');
             }
-
-            $pdf = PDF::loadView('admin.izin.pdf', compact('izin'));
+            $pengaturan = Pengaturan::find(1);
+            $pdf = PDF::loadView('admin.izin.pdf', compact(['izin', 'pengaturan']));
 
             $options = [
                 'margin_top' => 20,
