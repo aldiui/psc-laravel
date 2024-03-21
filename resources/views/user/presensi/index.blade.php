@@ -63,8 +63,10 @@
                 <div id="map" class="mb-3 rounded-lg mx-0" style="height: 400px;
                 width: 100%;"></div>
                 <div class="p-3">
-                    <button type="submit" id="presensiButton" class="btn btn-success btn-block">
-                        Presensi Masuk
+                    <button type="submit" id="presensiButton"
+                        class="btn {{ $presensi ? ($presensi->jam_keluar == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block"
+                        {{ $presensi ? ($presensi->jam_keluar == null ? '' : 'disabled') : '' }}>
+                        {{ $presensi ? ($presensi->jam_keluar == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
                     </button>
                 </div>
             </div>
