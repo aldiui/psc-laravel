@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\IzinExport;
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\Notifikasi;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IzinController extends Controller
 {
@@ -80,7 +82,7 @@ class IzinController extends Controller
         if ($request->mode == "excel") {
             ob_end_clean();
             ob_start();
-            return Excel::download(new IzinExport(), 'Izin  .xlsx');
+            return Excel::download(new IzinExport(), 'Izin.xlsx');
         }
 
         return view('admin.izin.index');

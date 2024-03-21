@@ -25,24 +25,22 @@
                 </tr>
             </thead>
             <tbody valign="top">
-                @if ($izins->isEmpty())
+                @forelse ($izins as $izin)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $izin->user->nama }}</td>
+                        <td style="text-align: center;">
+                            {{ $izin->tanggal_selesai == null ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}
+                        </td>
+                        <td style="text-align: center;">{{ $izin->tipe }}</td>
+                        <td>{{ $izin->alasan }}</td>
+                        <td>{{ $izin->approval->nama }}</td>
+                    </tr>
+                @empty
                     <tr>
                         <td colspan="6" align="center">Data @yield('title') kosong</td>
                     </tr>
-                @else
-                    @foreach ($izins as $izin)
-                        <tr>
-                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td>{{ $izin->user->nama }}</td>
-                            <td style="text-align: center;">
-                                {{ $izin->tanggal_selesai == null ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai) }}
-                            </td>
-                            <td style="text-align: center;">{{ $izin->tipe }}</td>
-                            <td>{{ $izin->alasan }}</td>
-                            <td>{{ $izin->approval->nama }}</td>
-                        </tr>
-                    @endforeach
-                @endif
+                @endforelse
             </tbody>
         </table>
     </div>

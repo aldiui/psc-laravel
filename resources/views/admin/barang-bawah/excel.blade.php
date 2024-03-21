@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($barangBawahs as $barangBawah)
+        @forelse ($barangBawahs as $barangBawah)
             <tr>
                 <td style="border: 1px solid black; text-align: center;">{{ $loop->iteration }}</td>
                 <td style="border: 1px solid black;">{{ $barangBawah->barang->nama }}</td>
@@ -26,6 +26,10 @@
                 <td style="border: 1px solid black;">{{ $barangBawah->barang->kategori->nama }}</td>
                 <td style="border: 1px solid black;">{{ $barangBawah->deskripsi ? null : '-' }}</td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="6" align="center">Data @yield('title') kosong</td>
+            </tr>
+        @endforelse
     </tbody>
 </table>

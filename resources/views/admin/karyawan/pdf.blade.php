@@ -24,21 +24,19 @@
                 </tr>
             </thead>
             <tbody valign="top">
-                @if ($karyawans->isEmpty())
+                @forelse ($karyawans as $karyawan)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $karyawan->nama }}</td>
+                        <td>{{ $karyawan->email }}</td>
+                        <td>{{ $karyawan->jabatan }}</td>
+                        <td>{{ $karyawan->no_hp }}</td>
+                    </tr>
+                @empty
                     <tr>
                         <td colspan="5" align="center">Data @yield('title') kosong</td>
                     </tr>
-                @else
-                    @foreach ($karyawans as $karyawan)
-                        <tr>
-                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td>{{ $karyawan->nama }}</td>
-                            <td>{{ $karyawan->email }}</td>
-                            <td>{{ $karyawan->jabatan }}</td>
-                            <td>{{ $karyawan->no_hp }}</td>
-                        </tr>
-                    @endforeach
-                @endif
+                @endforelse
             </tbody>
         </table>
     </div>

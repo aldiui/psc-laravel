@@ -25,22 +25,21 @@
                 </tr>
             </thead>
             <tbody valign="top">
-                @if ($barangBawahs->isEmpty())
+                @forelse ($barangBawahs as $barangBawah)
+                    <tr>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
+                        <td>{{ $barangBawah->barang->nama }}</td>
+                        <td style="text-align: center;">{{ $barangBawah->qty }}</td>
+                        <td>{{ $barangBawah->barang->unit->nama == 'Kosong' ? '' : $barangBawah->barang->unit->nama }}
+                        </td>
+                        <td>{{ $barangBawah->barang->kategori->nama }}</td>
+                        <td>{{ $barangBawah->deskripsi ? null : '-' }}</td>
+                    </tr>
+                @empty
                     <tr>
                         <td colspan="6" align="center">Data @yield('title') kosong</td>
                     </tr>
-                @else
-                    @foreach ($barangBawahs as $barangBawah)
-                        <tr>
-                            <td style="text-align: center;">{{ $loop->iteration }}</td>
-                            <td>{{ $barangBawah->barang->nama }}</td>
-                            <td style="text-align: center;">{{ $barangBawah->qty }}</td>
-                            <td>{{ $barangBawah->barang->unit->nama == 'Kosong' ? '' : $barangBawah->barang->unit->nama }}
-                            </td>
-                            <td>{{ $barangBawah->barang->kategori->nama }}</td>
-                            <td>{{ $barangBawah->deskripsi ? null : '-' }}</td>
-                        </tr>
-                    @endforeach
+                @endforelse
                 @endif
             </tbody>
         </table>
