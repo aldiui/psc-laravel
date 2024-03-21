@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\Notifikasi;
+use App\Models\Pengaturan;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
