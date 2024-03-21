@@ -5,15 +5,30 @@
 @push('style')
     <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    <style>
-        #my_camera,
-        #my_camera video {
-            display: inline-block;
-            width: 100% !important;
-            margin: auto;
-            height: auto !important;
+    {{-- <style>
+        #webcam-container {
+            padding: 0;
+            position: relative;
         }
-    </style>
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        video {
+            background: black;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0;
+            border: 0px;
+        }
+
+        #presensiButton {
+            display: none;
+        }
+    </style> --}}
 @endpush
 
 @section('main')
@@ -25,44 +40,97 @@
                     <div class="mb-2">{{ formatTanggal() }}</div>
                     <div class="mb-2" id="jam"></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div id="my_camera"></div>
+                {{-- <div class="row">
+                    <div class="col-lg-6" id="webcam-container">
+                        <video id="webcam" autoplay playsinline></video>
                     </div>
                     <div class="col-lg-6">
                     </div>
-                </div>
+                </div> --}}
                 <div id="map" class="mb-3 rounded-lg mx-0" style="height: 500px; width: 100%;"></div>
                 <div class="p-3">
-                    <button type="submit" id="presensiButton"
-                        class="btn {{ $presensi ? ($presensi->jam_keluar == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block"
-                        {{ $presensi ? ($presensi->jam_keluar == null ? '' : 'disabled') : '' }}>
-                        {{ $presensi ? ($presensi->jam_keluar == null ? 'Presensi Keluar' : 'Sudah Presensi') : 'Presensi Masuk' }}
+                    <button type="submit" id="presensiButton" class="btn btn-success btn-block">
+                        Presensi Masuk
                     </button>
                 </div>
             </div>
         </div>
     </div>
     @include('user.presensi.alasan')
-    @include('user.presensi.catatan')
+    @if ($presensi)
+        @include('user.presensi.catatan')
+    @endif
 @endsection
 
 @push('scripts')
     <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('library/leaflet/leaflet.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('js/webcam.min.js') }}"></script>
     <script src="{{ asset('js/face-api.min.js') }}"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Webcam.set({
-            //     width: 250,
-            //     height: 250,
-            //     image_format: 'jpeg',
-            //     jpeg_quality: 90,
-            // });
+            // const webcamElement = document.getElementById("webcam");
+            // const webcam = new Webcam(webcamElement, "user");
+            // const modelPath = "models";
 
-            // Webcam.attach('#my_camera');
+            // let displaySize;
+            // let canvas;
+            // let faceDetection;
+
+            // webcam
+            //     .start()
+            //     .then((result) => {
+            //         cameraStarted();
+            //         webcamElement.style.transform = "";
+            //         console.log("webcam started");
+            //     })
+            //     .catch((err) => {
+            //         displayError();
+            //     });
+
+            // async function loadModels() {
+            //     await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
+            // }
+
+            // async function cameraStarted() {
+            //     await loadModels();
+            //     createCanvas();
+            //     startDetection();
+            // }
+
+            // function createCanvas() {
+            //     if (!canvas) {
+            //         canvas = faceapi.createCanvasFromMedia(webcamElement);
+            //         document.getElementById("webcam-container").append(canvas);
+            //     }
+            //     displaySize = {
+            //         width: webcamElement.width,
+            //         height: webcamElement.height
+            //     };
+            //     faceapi.matchDimensions(canvas, displaySize);
+            // }
+
+            // function startDetection() {
+            //     faceDetection = setInterval(async () => {
+            //         const detections = await faceapi.detectAllFaces(webcamElement, new faceapi
+            //             .TinyFaceDetectorOptions());
+
+            //         canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+            //         const resizedDetections = faceapi.resizeResults(detections, displaySize);
+            //         faceapi.draw.drawDetections(canvas, resizedDetections);
+
+            //         if (resizedDetections.length > 0) {
+            //             $('#presensiButton').show();
+            //         } else {
+            //             $('#presensiButton').hide();
+            //         }
+            //     }, 300);
+            // }
+
+            // function displayError() {
+            //     console.error("Failed to start webcam");
+            // }
 
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);

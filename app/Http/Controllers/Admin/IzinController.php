@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use DataTables;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 use App\Models\Izin;
-use App\Models\User;
 use App\Models\Notifikasi;
 use App\Models\Pengaturan;
+use App\Models\User;
 use App\Traits\ApiResponder;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use DataTables;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -75,6 +75,12 @@ class IzinController extends Controller
             ob_end_clean();
             ob_start();
             return $pdf->stream($namaFile);
+        }
+
+        if ($request->mode == "excel") {
+            ob_end_clean();
+            ob_start();
+            return Excel::download(new IzinExport(), 'Izin  .xlsx');
         }
 
         return view('admin.izin.index');
