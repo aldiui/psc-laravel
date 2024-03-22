@@ -69,7 +69,8 @@
                             <div id="webcam-container">
                                 <video id="webcam" autoplay playsinline></video>
                             </div>
-                            <small class="text-danger" style="color: red;">* Presensi harap menampilkan wajah agar bisa
+                            <small class="text-danger d-block mb-3" style="color: red;">* Presensi harap menampilkan wajah
+                                agar bisa
                                 melakukan presensi</small>
                         </div>
                     @endif
