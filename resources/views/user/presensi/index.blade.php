@@ -5,82 +5,54 @@
 @push('style')
     <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    @if (!$presensi || $presensi->jam_keluar == null)
-        <style>
-            #webcam-container {
-                padding: 0;
-                position: relative;
-            }
-
-            canvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            video {
-                background: black;
-                width: 100% !important;
-                height: auto !important;
-                margin: 0;
-                border: 0px;
-            }
-
-            #presensiButton {
-                display: none;
-            }
-
-            #map {
-                height: 500px;
-                width: 100%;
-            }
-
-            @media (max-width: 768px) {
-                #map {
-                    height: 200px;
-                }
-            }
-
-            <style>#webcam-container {
-                padding: 0;
-                position: relative;
-            }
-
-            canvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-                max-width: 100%;
-                height: auto;
-            }
-
-            video {
-                background: black;
-                width: 100% !important;
-                height: auto !important;
-                margin: 0;
-                border: 0px;
-            }
-
-            #presensiButton {
-                display: none;
-            }
-        </style>
-    @endif
 
     <style>
+        #webcam-container {
+            padding: 0;
+            position: relative;
+            width: 100%;
+            height: 500px;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        video {
+            background: black;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0;
+            border: 0px;
+        }
+
+        #presensiButton {
+            display: none;
+        }
+
         #map {
             height: 500px;
             width: 100%;
         }
 
         @media (max-width: 768px) {
+            #webcam-container {
+                height: 200px;
+            }
+
             #map {
                 height: 200px;
+            }
+
+            #presensiButton {
+                display: none;
             }
         }
     </style>
 @endpush
+
 
 @section('main')
     <div class="main-content mb-5 pb-5">
