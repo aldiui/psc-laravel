@@ -5,66 +5,70 @@
 @push('style')
     <link rel='stylesheet' href={{ asset('library/leaflet/leaflet.css') }} />
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
-    <style>
-        #webcam-container {
-            padding: 0;
-            position: relative;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        video {
-            background: black;
-            width: 100% !important;
-            height: auto !important;
-            margin: 0;
-            border: 0px;
-        }
-
-        #presensiButton {
-            display: none;
-        }
-
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            #map {
-                height: 200px;
+    @if (!$presensi || $presensi->jam_keluar == null)
+        <style>
+            #webcam-container {
+                padding: 0;
+                position: relative;
             }
-        }
 
-        <style>#webcam-container {
-            padding: 0;
-            position: relative;
-        }
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
 
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            max-width: 100%;
-            height: auto;
-        }
+            video {
+                background: black;
+                width: 100% !important;
+                height: auto !important;
+                margin: 0;
+                border: 0px;
+            }
 
-        video {
-            background: black;
-            width: 100% !important;
-            height: auto !important;
-            margin: 0;
-            border: 0px;
-        }
+            #presensiButton {
+                display: none;
+            }
 
-        #presensiButton {
-            display: none;
-        }
+            #map {
+                height: 500px;
+                width: 100%;
+            }
 
+            @media (max-width: 768px) {
+                #map {
+                    height: 200px;
+                }
+            }
+
+            <style>#webcam-container {
+                padding: 0;
+                position: relative;
+            }
+
+            canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                height: auto;
+            }
+
+            video {
+                background: black;
+                width: 100% !important;
+                height: auto !important;
+                margin: 0;
+                border: 0px;
+            }
+
+            #presensiButton {
+                display: none;
+            }
+        </style>
+    @endif
+
+    <style>
         #map {
             height: 500px;
             width: 100%;
@@ -88,12 +92,16 @@
                     <div class="mb-2" id="jam"></div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div id="webcam-container">
-                            <video id="webcam" autoplay playsinline></video>
+                    @if (!$presensi || $presensi->jam_keluar == null)
+                        <div class="col-lg-6">
+                            <div id="webcam-container">
+                                <video id="webcam" autoplay playsinline></video>
+                            </div>
+                            <small class="text-danger" style="color: red;">* Presensi harap menampilkan wajah agar bisa
+                                melakukan presensi</small>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
+                    @endif
+                    <div class="{{ $presensi ? ($presensi->jam_keluar == null ? 'col-lg-6' : 'col-12') : 'col-lg-6' }}">
                         <div id="map" class="mb-3 rounded-lg mx-0"></div>
                     </div>
                 </div>
@@ -121,62 +129,65 @@
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <script>
         $(document).ready(function() {
-            const webcamElement = document.getElementById("webcam");
-            const webcam = new Webcam(webcamElement, "user");
-            const modelPath = "models";
+            @if (!$presensi || $presensi->jam_keluar == null)
 
-            let displaySize;
-            let canvas;
-            let faceDetection;
+                const webcamElement = document.getElementById("webcam");
+                const webcam = new Webcam(webcamElement, "user");
+                const modelPath = "models";
 
-            webcam
-                .start()
-                .then((result) => {
-                    cameraStarted();
-                    console.log("webcam started");
-                })
-                .catch((err) => {
-                    console.error("Failed to start webcam");
-                });
+                let displaySize;
+                let canvas;
+                let faceDetection;
 
-            async function loadModels() {
-                await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
-            }
+                webcam
+                    .start()
+                    .then((result) => {
+                        cameraStarted();
+                        console.log("webcam started");
+                    })
+                    .catch((err) => {
+                        console.error("Failed to start webcam");
+                    });
 
-            async function cameraStarted() {
-                await loadModels();
-                createCanvas();
-                startDetection();
-            }
-
-            function createCanvas() {
-                if (!canvas) {
-                    canvas = faceapi.createCanvasFromMedia(webcamElement);
-                    document.getElementById("webcam-container").append(canvas);
+                async function loadModels() {
+                    await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
                 }
-                displaySize = {
-                    width: webcamElement.width,
-                    height: webcamElement.height
-                };
-                faceapi.matchDimensions(canvas, displaySize);
-            }
 
-            function startDetection() {
-                faceDetection = setInterval(async () => {
-                    const detections = await faceapi.detectAllFaces(webcamElement, new faceapi
-                        .TinyFaceDetectorOptions());
+                async function cameraStarted() {
+                    await loadModels();
+                    createCanvas();
+                    startDetection();
+                }
 
-                    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-                    const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                    faceapi.draw.drawDetections(canvas, resizedDetections);
-
-                    if (resizedDetections.length > 0) {
-                        $('#presensiButton').show();
-                    } else {
-                        $('#presensiButton').hide();
+                function createCanvas() {
+                    if (!canvas) {
+                        canvas = faceapi.createCanvasFromMedia(webcamElement);
+                        document.getElementById("webcam-container").append(canvas);
                     }
-                }, 300);
-            }
+                    displaySize = {
+                        width: webcamElement.width,
+                        height: webcamElement.height
+                    };
+                    faceapi.matchDimensions(canvas, displaySize);
+                }
+
+                function startDetection() {
+                    faceDetection = setInterval(async () => {
+                        const detections = await faceapi.detectAllFaces(webcamElement, new faceapi
+                            .TinyFaceDetectorOptions());
+
+                        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+                        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                        faceapi.draw.drawDetections(canvas, resizedDetections);
+
+                        if (resizedDetections.length > 0) {
+                            $('#presensiButton').show();
+                        } else {
+                            $('#presensiButton').hide();
+                        }
+                    }, 300);
+                }
+            @endif
 
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
