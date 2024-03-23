@@ -7,49 +7,55 @@
     <link rel="stylesheet" href="{{ asset('library/select2/dist/css/select2.min.css') }}">
 
     <style>
-        #webcam-container {
-            padding: 0;
-            position: relative;
-            width: 100%;
-            height: 500px;
-        }
+        /* #webcam-container {
+                    padding: 0;
+                    position: relative;
+                    width: 100%;
+                }
 
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+                canvas {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
 
-        video {
-            background: black;
-            width: 100% !important;
-            height: auto !important;
-            margin: 0;
-            border: 0px;
-        }
+                video {
+                    background: black;
+                    width: 100% !important;
+                    height: auto !important;
+                    margin: 0;
+                    border: 0px;
+                    height: 500px;
 
-        /* #presensiButton {
+                }
+
+                #presensiButton {
                     display: none;
                 } */
 
         #map {
-            height: 500px;
+            height: 450px;
             width: 100%;
         }
 
-        @media (max-width: 768px) {
-            #webcam-container {
-                height: 200px;
-            }
+        /* @media (max-width: 768px) {
+                        #webcam-container {
+                            height: 200px;
+                        }
 
-            #map {
-                height: 200px;
-            }
+                        video {
+                            height: 200px;
+                        }
 
-            /* #presensiButton {
-                        display: none;
+                        #map {
+                            height: 200px;
+                        }
+
+                        #presensiButton {
+                            display: none;
+                        }
                     } */
-        }
     </style>
 @endpush
 
@@ -63,8 +69,8 @@
                     <div class="mb-2">{{ formatTanggal() }}</div>
                     <div class="mb-2" id="jam"></div>
                 </div>
-                <div class="row">
-                    {{-- @if (!$presensi || $presensi->jam_keluar == null)
+                {{-- <div class="row">
+                    @if (!$presensi || $presensi->jam_keluar == null)
                         <div class="col-lg-6">
                             <div id="webcam-container">
                                 <video id="webcam" autoplay playsinline></video>
@@ -73,10 +79,10 @@
                                 agar bisa
                                 melakukan presensi</small>
                         </div>
-                    @endif --}}
+                    @endif
                     <div class="{{ $presensi ? ($presensi->jam_keluar == null ? 'col-lg-6' : 'col-12') : 'col-lg-6' }}">
                     </div>
-                </div>
+                </div> --}}
                 <div id="map" class="mb-3 rounded-lg mx-0"></div>
                 <div class="p-3">
                     <button type="submit" id="presensiButton"
@@ -102,64 +108,64 @@
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <script>
         $(document).ready(function() {
-            @if (!$presensi || $presensi->jam_keluar == null)
-                // const webcamElement = document.getElementById("webcam");
-                // const webcam = new Webcam(webcamElement, "user");
-                // const modelPath = "models";
+            // @if (!$presensi || $presensi->jam_keluar == null)
+            //     const webcamElement = document.getElementById("webcam");
+            //     const webcam = new Webcam(webcamElement, "user");
+            //     const modelPath = "models";
 
-                // let displaySize;
-                // let canvas;
-                // let faceDetection;
+            //     let displaySize;
+            //     let canvas;
+            //     let faceDetection;
 
-                // webcam
-                //     .start()
-                //     .then((result) => {
-                //         cameraStarted();
-                //         console.log("webcam started");
-                //     })
-                //     .catch((err) => {
-                //         console.error("Failed to start webcam");
-                //     });
+            //     webcam
+            //         .start()
+            //         .then((result) => {
+            //             cameraStarted();
+            //             console.log("webcam started");
+            //         })
+            //         .catch((err) => {
+            //             console.error("Failed to start webcam");
+            //         });
 
-                // async function loadModels() {
-                //     await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
-                // }
+            //     async function loadModels() {
+            //         await faceapi.nets.tinyFaceDetector.loadFromUri(modelPath);
+            //     }
 
-                // async function cameraStarted() {
-                //     await loadModels();
-                //     createCanvas();
-                //     startDetection();
-                // }
+            //     async function cameraStarted() {
+            //         await loadModels();
+            //         createCanvas();
+            //         startDetection();
+            //     }
 
-                // function createCanvas() {
-                //     if (!canvas) {
-                //         canvas = faceapi.createCanvasFromMedia(webcamElement);
-                //         document.getElementById("webcam-container").append(canvas);
-                //     }
-                //     displaySize = {
-                //         width: webcamElement.width,
-                //         height: webcamElement.height
-                //     };
-                //     faceapi.matchDimensions(canvas, displaySize);
-                // }
+            //     function createCanvas() {
+            //         if (!canvas) {
+            //             canvas = faceapi.createCanvasFromMedia(webcamElement);
+            //             document.getElementById("webcam-container").append(canvas);
+            //         }
+            //         displaySize = {
+            //             width: webcamElement.width,
+            //             height: webcamElement.height
+            //         };
+            //         faceapi.matchDimensions(canvas, displaySize);
+            //     }
 
-                // function startDetection() {
-                //     faceDetection = setInterval(async () => {
-                //         const detections = await faceapi.detectAllFaces(webcamElement, new faceapi
-                //             .TinyFaceDetectorOptions());
+            //     function startDetection() {
+            //         faceDetection = setInterval(async () => {
+            //             const detections = await faceapi.detectAllFaces(webcamElement, new faceapi
+            //                 .TinyFaceDetectorOptions());
 
-                //         canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-                //         const resizedDetections = faceapi.resizeResults(detections, displaySize);
-                //         faceapi.draw.drawDetections(canvas, resizedDetections);
+            //             canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+            //             const resizedDetections = faceapi.resizeResults(detections, displaySize);
+            //             faceapi.draw.drawDetections(canvas, resizedDetections);
 
-                //         if (resizedDetections.length > 0) {
-                //             $('#presensiButton').show();
-                //         } else {
-                //             $('#presensiButton').hide();
-                //         }
-                //     }, 300);
-                // }
-            @endif
+            //             if (resizedDetections.length > 0) {
+            //                 $('#presensiButton').show();
+            //             } else {
+            //                 $('#presensiButton').hide();
+            //             }
+            //         }, 300);
+            //     }
+            // @endif
 
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(showPosition);
