@@ -277,9 +277,7 @@ const select2ToJson = (selector, url, modal = null, jenis = "null") => {
             selectElem.append(option);
         });
 
-        selectElem.select2({
-            dropdownParent: $(modal),
-        });
+        selectElem.select2({});
     };
 
     const errorCallback = function (error) {
