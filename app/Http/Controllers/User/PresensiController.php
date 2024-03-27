@@ -80,7 +80,12 @@ class PresensiController extends Controller
         $tahun = $request->tahun;
 
         if ($request->mode == "datatable") {
-            $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->orderBy('tanggal', 'desc')->get();
+            $presensis = Presensi::where('user_id', Auth::user()->id)
+                ->whereMonth('tanggal', $bulan)
+                ->whereYear('tanggal', $tahun)
+                ->orderBy('id', 'desc')
+                ->get();
+
             return DataTables::of($presensis)
                 ->addColumn('presensi_masuk', function ($presensi) {
                     return generatePresensiColumn($presensi, 'masuk');
