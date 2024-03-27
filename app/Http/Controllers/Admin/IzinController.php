@@ -82,7 +82,7 @@ class IzinController extends Controller
         if ($request->mode == "excel") {
             ob_end_clean();
             ob_start();
-            return Excel::download(new IzinExport(), 'Izin.xlsx');
+            return Excel::download(new IzinExport($bulan, $tahun), 'Izin.xlsx');
         }
 
         return view('admin.izin.index');
