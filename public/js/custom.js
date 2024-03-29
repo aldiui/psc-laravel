@@ -1,4 +1,4 @@
-const datatableCall = (targetId, url, columns) => {
+const datatableCall = (targetId, url, columns, mode = "datatable") => {
     $(`#${targetId}`).DataTable({
         processing: true,
         serverSide: true,
@@ -6,7 +6,7 @@ const datatableCall = (targetId, url, columns) => {
             url: url,
             type: "GET",
             data: function (d) {
-                d.mode = "datatable";
+                d.mode = mode;
                 d.bulan = $("#bulan_filter").val() ?? null;
                 d.tahun = $("#tahun_filter").val() ?? null;
                 d.tanggal = $("#tanggal_filter").val() ?? null;

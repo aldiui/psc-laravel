@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\KaryawanExport;
 use App\Http\Controllers\Controller;
+use App\Models\Izin;
+use App\Models\Presensi;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -82,7 +84,68 @@ class KaryawanController extends Controller
     {
 
         if ($request->ajax()) {
+            $bulan = $request->bulan;
+            $tahun = $request->tahun;
+
             $karyawan = User::find($id);
+            if ($request->mode == "presensi") {
+                $presensis = Presensi::where('user_id', $id)
+                    ->whereMonth('tanggal', $bulan)
+                    ->whereYear('tanggal', $tahun)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                return DataTables::of($presensis)
+                    ->addColumn('presensi_masuk', function ($presensi) {
+                        return generatePresensiColumn($presensi, 'masuk');
+                    })
+                    ->addColumn('presensi_keluar', function ($presensi) {
+                        return generatePresensiColumn($presensi, 'keluar');
+                    })
+                    ->addColumn('tgl', function ($row) {
+                        return formatTanggal($row->tanggal);
+                    })
+                    ->addColumn('tugas_catatan', function ($presensi) {
+                        if ($presensi->tugas) {
+                            $tugas = stringToArray($presensi->tugas);
+                            $catatan = $presensi->catatan;
+
+                            $output = '<div><ul style="padding-left: 20px; margin:0%">';
+
+                            foreach ($tugas as $task) {
+                                $output .= "<li>$task</li>";
+                            }
+
+                            if ($catatan) {
+                                $output .= "<li>$catatan</li>";
+                            }
+
+                            $output .= '</ul></div>';
+
+                            return $output;
+                        }
+                    })
+                    ->addIndexColumn()
+                    ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl', 'tugas_catatan'])
+                    ->make(true);
+            }
+
+            if ($request->mode == 'izin') {
+                $izins = Izin::with('approval')->where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+                if ($request->input("mode") == "datatable") {
+                    return DataTables::of($izins)
+                        ->addColumn('tanggal', function ($izin) {
+                            return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
+                        })
+                        ->addColumn('status_badge', function ($izin) {
+                            return statusBadge($izin->status);
+                        })
+                        ->addIndexColumn()
+                        ->rawColumns(['status_badge', 'tanggal'])
+                        ->make(true);
+                }
+
+            }
 
             if (!$karyawan) {
                 return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);

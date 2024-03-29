@@ -98,20 +98,50 @@
                                                 class="fas fa-clipboard-list"></i>Stok</a>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="myTabContent2">
+                                <div class="tab-content mt-4" id="myTabContent2">
                                     <div class="tab-pane fade show active" id="presensi" role="tabpanel"
                                         aria-labelledby="presensi-tab">
                                         <div class="row">
-                                            <div class="col-12 text-center py-5">
-                                                Data Presensi
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped" id="presensiTable"
+                                                        width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="5%">No</th>
+                                                                <th scope="col">Tanggal</th>
+                                                                <th scope="col">Presensi Masuk</th>
+                                                                <th scope="col">Presensi Keluar</th>
+                                                                <th scope="col" width="25%">Tugas</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade show" id="izin" role="tabpanel"
                                         aria-labelledby="izin-tab">
                                         <div class="row">
-                                            <div class="col-12 text-center py-5">
-                                                Data Izin
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped" id="izinTable"
+                                                        width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="5%">#</th>
+                                                                <th scope="col">Tanggal</th>
+                                                                <th scope="col">Tipe</th>
+                                                                <th scope="col">Alasan</th>
+                                                                <th scope="col">Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -139,4 +169,56 @@
     <script src="{{ asset('library/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('library/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
     <script src="{{ asset('library/select2/dist/js/select2.full.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            datatableCall('presensiTable', '/admin/karyawan/{{ $karyawan->id }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                }, {
+                    data: 'tgl',
+                    name: 'tgl'
+                },
+                {
+                    data: 'presensi_masuk',
+                    name: 'presensi_masuk'
+                },
+                {
+                    data: 'presensi_keluar',
+                    name: 'presensi_keluar'
+                },
+                {
+                    data: 'tugas_catatan',
+                    name: 'tugas_catatan'
+                },
+            ], "presensi");
+
+            datatableCall('izinTable', '/admin/karyawan/{{ $karyawan->id }}', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                }, {
+                    data: 'tanggal',
+                    name: 'tanggal'
+                },
+                {
+                    data: 'tipe',
+                    name: 'tipe'
+                },
+                {
+                    data: 'alasan',
+                    name: 'alasan'
+                },
+                {
+                    data: 'status_badge',
+                    name: 'status_badge'
+                },
+            ], "izin");
+
+
+            $("#bulan_filter, #tahun_filter").on("change", function() {
+                $("#presensiTable").DataTable().ajax.reload();
+                $("#izinTable").DataTable().ajax.reload();
+            });
+        });
+    </script>
 @endpush
