@@ -52,10 +52,11 @@
                                 <div class="mb-3">
                                     <a id="downloadPdf" class="btn btn-sm px-3 btn-danger mr-1" target="_blank"><i
                                             class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                    <a id="downloadExcel" class="btn btn-sm px-3 btn-info mr-1" target="_blank"><i
+                                            class="fas fa-file-excel mr-2"></i>Excel</a>
                                 </div>
                                 <div class="table-responsive">
                                     <table id="presensiTable" class="table table-bordered table-striped" width="100%">
-
                                     </table>
                                 </div>
                             </div>
@@ -101,6 +102,9 @@
             const downloadPdf =
                 `/admin/rekap-presensi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
+            const downloadExcel =
+                `/admin/rekap-presensi?mode=excel&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadExcel").attr("href", downloadExcel);
 
             ajaxCall(url, "GET", null, successCallback, errorCallback);
         };

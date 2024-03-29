@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PresensiExport;
 use App\Http\Controllers\Controller;
 use App\Models\Presensi;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PresensiController extends Controller
 {
@@ -111,8 +113,8 @@ class PresensiController extends Controller
             ], 'Data presensi ditemukan.');
         }
 
+        $bulanTahun = $startDate->locale('id')->translatedFormat('F Y');
         if ($request->mode === 'pdf') {
-            $bulanTahun = $startDate->locale('id')->translatedFormat('F Y');
 
             $pdf = PDF::loadView('admin.presensi.pdf', [
                 'labels' => $labels,
@@ -135,7 +137,19 @@ class PresensiController extends Controller
             return $pdf->stream($namaFile);
         }
 
-        return view('admin.presensi.rekap', compact('labels', 'presensiData'));
+        if ($request->mode == "excel") {
+            $data = [
+                'labels' => $labels,
+                'presensi_data' => array_values($presensiData),
+                'bulanTahun' => $bulanTahun,
+            ];
+            ob_end_clean();
+            ob_start();
+            return Excel::download(new PresensiExport($data), 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.xlsx');
+        }
+
+        return view('admin.presensi.rekap');
+
     }
 
     public function show($id)
