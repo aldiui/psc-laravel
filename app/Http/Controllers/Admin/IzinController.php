@@ -77,9 +77,7 @@ class IzinController extends Controller
             ob_end_clean();
             ob_start();
             return $pdf->stream($namaFile);
-        }
-
-        if ($request->mode == "excel") {
+        } elseif ($request->mode == "excel") {
             ob_end_clean();
             ob_start();
             return Excel::download(new IzinExport($bulan, $tahun), 'laporan_rekap_izin_' . $bulan . '_' . $tahun . '.xlsx');

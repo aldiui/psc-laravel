@@ -78,11 +78,16 @@ class KaryawanController extends Controller
         return $this->successResponse($karyawan, 'Data Karyawan ditambahkan.', 201);
     }
 
-    public function show(Request $request , $id )
+    public function show(Request $request, $id)
     {
-        
+
         if ($request->ajax()) {
             $karyawan = User::find($id);
+
+            if (!$karyawan) {
+                return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
+            }
+
             return $this->successResponse($karyawan, 'Data Karyawan ditemukan.');
         }
 
@@ -90,9 +95,7 @@ class KaryawanController extends Controller
             ob_end_clean();
             ob_start();
             return Excel::download(new KaryawanExport(), 'Karyawan.xlsx');
-        }
-
-        if ($id == "pdf") {
+        } elseif ($id == "pdf") {
             $karyawans = User::all();
             $pdf = PDF::loadView('admin.karyawan.pdf', compact('karyawans'));
 
@@ -113,11 +116,7 @@ class KaryawanController extends Controller
             return $pdf->stream($namaFile);
         }
 
-        $karyawan = User::find($id);
-
-        if (!$karyawan) {
-            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
-        }
+        $karyawan = User::findOrFail($id);
 
         return view('admin.karyawan.show', compact('karyawan'));
     }

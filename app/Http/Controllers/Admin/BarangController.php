@@ -85,9 +85,7 @@ class BarangController extends Controller
             ob_end_clean();
             ob_start();
             return Excel::download(new BarangExport(), 'Barang.xlsx');
-        }
-
-        if ($id == 'pdf') {
+        } elseif ($id == 'pdf') {
             $barangs = Barang::with('unit', 'kategori')->get();
             $pdf = PDF::loadView('admin.barang.pdf', compact('barangs'));
 
@@ -106,15 +104,15 @@ class BarangController extends Controller
             ob_end_clean();
             ob_start();
             return $pdf->stream($namaFile);
+        } else {
+            $barang = Barang::find($id);
+
+            if (!$barang) {
+                return $this->errorResponse(null, 'Data Barang tidak ditemukan.', 404);
+            }
+
+            return $this->successResponse($barang, 'Data Barang ditemukan.');
         }
-
-        $barang = Barang::find($id);
-
-        if (!$barang) {
-            return $this->errorResponse(null, 'Data Barang tidak ditemukan.', 404);
-        }
-
-        return $this->successResponse($barang, 'Data Barang ditemukan.');
     }
 
     public function update(Request $request, $id)

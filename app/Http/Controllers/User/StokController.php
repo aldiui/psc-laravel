@@ -71,9 +71,9 @@ class StokController extends Controller
 
     public function show(Request $request, $id)
     {
-        $stok = Stok::with(['user', 'approval'])->find($id);
 
         if ($request->ajax()) {
+            $stok = Stok::with(['user', 'approval'])->find($id);
             if ($request->mode == "datatable") {
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
@@ -101,6 +101,7 @@ class StokController extends Controller
             return $this->successResponse($stok, 'Data Stok ditemukan.');
         }
 
+        $stok = Stok::with(['user', 'approval'])->findOrFail($id);
         return view('user.stok.show', compact('stok'));
     }
 

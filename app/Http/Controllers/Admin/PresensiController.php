@@ -135,9 +135,7 @@ class PresensiController extends Controller
             $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
 
             return $pdf->stream($namaFile);
-        }
-
-        if ($request->mode == "excel") {
+        } elseif ($request->mode == "excel") {
             $data = [
                 'labels' => $labels,
                 'presensi_data' => array_values($presensiData),

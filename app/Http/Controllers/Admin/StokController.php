@@ -37,7 +37,7 @@ class StokController extends Controller
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/stok/' . $stok->id . '`, `stokTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
                         return $stok->status != 1 ? $detailButton . $editButton . $deleteButton : $detailButton . "<div class='mt-2'> Di setujui oleh " . $stok->approval->nama . "</div>";
                     })
-                    ->addColumn('status_badge', function ($stok) { 
+                    ->addColumn('status_badge', function ($stok) {
                         return statusBadge($stok->status);
                     })
                     ->addColumn('jenis_badge', function ($stok) {
@@ -102,9 +102,10 @@ class StokController extends Controller
 
     public function show(Request $request, $id)
     {
-        $stok = Stok::with(['user', 'approval'])->find($id);
 
         if ($request->ajax()) {
+            $stok = Stok::with(['user', 'approval'])->find($id);
+
             if ($request->mode == "datatable") {
                 $detailStoks = DetailStok::with(['barang.unit', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
@@ -131,6 +132,8 @@ class StokController extends Controller
 
             return $this->successResponse($stok, 'Data Stok ditemukan.');
         }
+
+        $stok = Stok::with(['user', 'approval'])->findOrFail($id);
 
         return view('admin.stok.show', compact('stok'));
     }
