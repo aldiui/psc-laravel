@@ -39,7 +39,16 @@
                     </div>
                     <div class="form-group">
                         <label for="jabatan" class="form-label">Jabatan <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="jabatan" name="jabatan">
+                        <select name="jabatan" id="jabatan" class="form-control">
+                            <option value=""> -- Pilih jabatan --</option>
+                            <option value="Penanggungjawab Medis">Penanggungjawab Medis</option>
+                            <option value="Koordinator / Tenaga Kesehatan">Koordinator / Tenaga Kesehatan</option>
+                            <option value="Tenaga Kesehatan">Tenaga Kesehatan</option>
+                            <option value="Operator">Operator</option>
+                            <option value="Administrasi">Administrasi</option>
+                            <option value="Koordinator driver">Koordinator driver</option>
+                            <option value="Driver">Driver</option>
+                        </select>
                         <small class="invalid-feedback" id="errorjabatan"></small>
                     </div>
                     <div class="form-group">
