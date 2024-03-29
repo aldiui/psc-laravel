@@ -1,8 +1,8 @@
 <table>
     <thead>
         <tr>
-            <th height="20" colspan="6" style="border: 1px solid black; text-align: center; font-weight: bold;">
-                LAPORAN DATA IZIN <span style="text-transform: uppercase;">{{ $bulanTahun }}</span></th>
+            <th height="20" colspan="6" style="border: 1px solid black; text-align: center; font-weight: bold; text-transform: uppercase;">
+                LAPORAN DATA IZIN {{ $bulanTahun }}</th>
         </tr>
         <tr>
             <th width="5" style="border: 1px solid black; text-align: center; font-weight: bold;">No</th>

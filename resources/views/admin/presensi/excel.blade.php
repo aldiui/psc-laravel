@@ -2,8 +2,8 @@
     <thead>
         <tr>
             <th height="20" colspan="{{ 3 + count($labels) * 2 }}"
-                style="border: 1px solid black; text-align: center; font-weight: bold;">
-                LAPORAN DATA PRESENSI <span style="text-transform: uppercase;">{{ $bulanTahun }}</span></th>
+                style="border: 1px solid black; text-align: center; font-weight: bold; text-transform: uppercase;">
+                LAPORAN DATA PRESENSI {{ $bulanTahun }}</th>
         </tr>
         <tr>
             <th width="5" style="border: 1px solid black; text-align: center; font-weight: bold;">No</th>
