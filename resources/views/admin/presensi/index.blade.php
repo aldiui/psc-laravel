@@ -35,8 +35,8 @@
                                                 value="{{ date('Y-m-d') }}" class="form-control">
                                         </div>
                                     </div>
-                                </div> 
-                                
+                                </div>
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped" id="presensiTable" width="100%">
                                         <thead>
