@@ -24,9 +24,11 @@ class KaryawanController extends Controller
             if ($request->mode == "datatable") {
                 return DataTables::of($karyawans)
                     ->addColumn('aksi', function ($karyawan) {
+                        $detailButton = '<a class="btn btn-sm btn-info d-inline-flex  align-items-baseline  mr-1" href="/admin/karyawan/' . $karyawan->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
                         $editButton = '<button class="btn btn-sm btn-warning d-inline-flex  align-items-baseline  mr-1" onclick="getModal(`createModal`, `/admin/karyawan/' . $karyawan->id . '`, [`id`, `nama`, `email`, `jabatan`, `no_hp`, `role`])"><i class="fas fa-edit mr-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex  align-items-baseline " onclick="confirmDelete(`/admin/karyawan/' . $karyawan->id . '`, `karyawanTable`)"><i class="fas fa-trash mr-1"></i>Hapus</button>';
-                        return $editButton . $deleteButton;
+
+                        return $detailButton . $editButton . $deleteButton;
                     })
                     ->addColumn('img', function ($karyawan) {
                         return '<img src="' . ($karyawan->image != 'default.png' ? '/storage/img/karyawan/' . $karyawan->image : '/images/default.png') . '" width="100px" alt="">';
@@ -76,8 +78,13 @@ class KaryawanController extends Controller
         return $this->successResponse($karyawan, 'Data Karyawan ditambahkan.', 201);
     }
 
-    public function show($id)
+    public function show(Request $request , $id )
     {
+        
+        if ($request->ajax()) {
+            $karyawan = User::find($id);
+            return $this->successResponse($karyawan, 'Data Karyawan ditemukan.');
+        }
 
         if ($id == 'excel') {
             ob_end_clean();
@@ -112,7 +119,7 @@ class KaryawanController extends Controller
             return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
-        return $this->successResponse($karyawan, 'Data Karyawan ditemukan.');
+        return view('admin.karyawan.show', compact('karyawan'));
     }
 
     public function update(Request $request, $id)
