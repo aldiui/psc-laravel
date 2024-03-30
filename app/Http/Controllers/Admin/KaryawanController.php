@@ -10,6 +10,7 @@ use App\Models\Stok;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -279,6 +280,28 @@ class KaryawanController extends Controller
                         ->make(true);
                 }
             }
+        } elseif ($type == 'pdf') {
+            $presensis = Presensi::where('user_id', $id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
+            $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
+
+            $pdf = PDF::loadView('user.presensi.pdf', [
+                'presensis' => $presensis,
+                'bulanTahun' => $bulanTahun,
+            ]);
+
+            $options = [
+                'margin_top' => 20,
+                'margin_right' => 20,
+                'margin_bottom' => 20,
+                'margin_left' => 20,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('legal', 'potrat');
+
+            $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
+
+            return $pdf->stream($namaFile);
         }
     }
 }

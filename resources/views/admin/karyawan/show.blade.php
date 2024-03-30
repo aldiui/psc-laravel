@@ -103,6 +103,10 @@
                                         aria-labelledby="presensi-tab">
                                         <div class="row">
                                             <div class="col-12">
+                                                <div class="mb-3">
+                                                    <a id="downloadPresensiPdf" class="btn btn-sm px-3 btn-danger mr-1"
+                                                        target="_blank"><i class="fas fa-file-pdf mr-2"></i>Pdf</a>
+                                                </div>
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-striped" id="presensiTable"
                                                         width="100%">
@@ -261,12 +265,20 @@
                 },
             ]);
 
+            renderData();
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
                 $("#izinTable").DataTable().ajax.reload();
                 $("#stokTable").DataTable().ajax.reload();
+                renderData();
             });
         });
+
+        const renderData = () => {
+            const downloadPresensiPdf =
+                `/admin/karyawan/{{ $karyawan->id }}/pdf?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPresensiPdf").attr("href", downloadPresensiPdf);
+        }
     </script>
 @endpush
