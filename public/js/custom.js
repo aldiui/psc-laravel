@@ -397,6 +397,7 @@ const createChart = (
                             drawBorder: false,
                         },
                         ticks: {
+                            beginAtZero: true,
                             stepSize: 50,
                         },
                     },
