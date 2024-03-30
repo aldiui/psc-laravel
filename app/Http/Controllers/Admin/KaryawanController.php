@@ -6,6 +6,7 @@ use App\Exports\KaryawanExport;
 use App\Http\Controllers\Controller;
 use App\Models\Izin;
 use App\Models\Presensi;
+use App\Models\Stok;
 use App\Models\User;
 use App\Traits\ApiResponder;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -84,68 +85,7 @@ class KaryawanController extends Controller
     {
 
         if ($request->ajax()) {
-            $bulan = $request->bulan;
-            $tahun = $request->tahun;
-
             $karyawan = User::find($id);
-            if ($request->mode == "presensi") {
-                $presensis = Presensi::where('user_id', $id)
-                    ->whereMonth('tanggal', $bulan)
-                    ->whereYear('tanggal', $tahun)
-                    ->orderBy('id', 'desc')
-                    ->get();
-
-                return DataTables::of($presensis)
-                    ->addColumn('presensi_masuk', function ($presensi) {
-                        return generatePresensiColumn($presensi, 'masuk');
-                    })
-                    ->addColumn('presensi_keluar', function ($presensi) {
-                        return generatePresensiColumn($presensi, 'keluar');
-                    })
-                    ->addColumn('tgl', function ($row) {
-                        return formatTanggal($row->tanggal);
-                    })
-                    ->addColumn('tugas_catatan', function ($presensi) {
-                        if ($presensi->tugas) {
-                            $tugas = stringToArray($presensi->tugas);
-                            $catatan = $presensi->catatan;
-
-                            $output = '<div><ul style="padding-left: 20px; margin:0%">';
-
-                            foreach ($tugas as $task) {
-                                $output .= "<li>$task</li>";
-                            }
-
-                            if ($catatan) {
-                                $output .= "<li>$catatan</li>";
-                            }
-
-                            $output .= '</ul></div>';
-
-                            return $output;
-                        }
-                    })
-                    ->addIndexColumn()
-                    ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl', 'tugas_catatan'])
-                    ->make(true);
-            }
-
-            if ($request->mode == 'izin') {
-                $izins = Izin::with('approval')->where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
-                if ($request->input("mode") == "datatable") {
-                    return DataTables::of($izins)
-                        ->addColumn('tanggal', function ($izin) {
-                            return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
-                        })
-                        ->addColumn('status_badge', function ($izin) {
-                            return statusBadge($izin->status);
-                        })
-                        ->addIndexColumn()
-                        ->rawColumns(['status_badge', 'tanggal'])
-                        ->make(true);
-                }
-
-            }
 
             if (!$karyawan) {
                 return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
@@ -252,5 +192,93 @@ class KaryawanController extends Controller
         $karyawan->delete();
 
         return $this->successResponse(null, 'Data Karyawan dihapus.');
+    }
+
+    public function rekapData(Request $request, $id, $type)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+
+        if ($request->mode == "datatable") {
+            if ($type == "presensi") {
+                $presensis = Presensi::where('user_id', $id)
+                    ->whereMonth('tanggal', $bulan)
+                    ->whereYear('tanggal', $tahun)
+                    ->orderBy('id', 'desc')
+                    ->get();
+
+                return DataTables::of($presensis)
+                    ->addColumn('presensi_masuk', function ($presensi) {
+                        return generatePresensiColumn($presensi, 'masuk');
+                    })
+                    ->addColumn('presensi_keluar', function ($presensi) {
+                        return generatePresensiColumn($presensi, 'keluar');
+                    })
+                    ->addColumn('tgl', function ($row) {
+                        return formatTanggal($row->tanggal);
+                    })
+                    ->addColumn('tugas_catatan', function ($presensi) {
+                        if ($presensi->tugas) {
+                            $tugas = stringToArray($presensi->tugas);
+                            $catatan = $presensi->catatan;
+
+                            $output = '<div><ul style="padding-left: 20px; margin:0%">';
+
+                            foreach ($tugas as $task) {
+                                $output .= "<li>$task</li>";
+                            }
+
+                            if ($catatan) {
+                                $output .= "<li>$catatan</li>";
+                            }
+
+                            $output .= '</ul></div>';
+
+                            return $output;
+                        }
+                    })
+                    ->addIndexColumn()
+                    ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl', 'tugas_catatan'])
+                    ->make(true);
+            } elseif ($type == 'izin') {
+                $izins = Izin::with('approval')->where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+                if ($request->input("mode") == "datatable") {
+                    return DataTables::of($izins)
+                        ->addColumn('aksi', function ($izin) {
+                            return ($izin->status == '0' || $izin->status == '2') ? statusBadge($izin->status) : "<a class='btn btn-info mb-2' href='/izin/" . $izin->id . "' target='_blank'><i class='fas fa-print mr-1'></i> Cetak</a> <br> Di setujui oleh " . $izin->approval->nama;
+                        })
+                        ->addColumn('tanggal', function ($izin) {
+                            return ($izin->tanggal_selesai == null) ? formatTanggal($izin->tanggal_mulai) : formatTanggal($izin->tanggal_mulai) . ' - ' . formatTanggal($izin->tanggal_selesai);
+                        })
+                        ->addColumn('status_badge', function ($izin) {
+                            return statusBadge($izin->status);
+                        })
+                        ->addIndexColumn()
+                        ->rawColumns(['status_badge', 'tanggal', 'aksi'])
+                        ->make(true);
+                }
+            } elseif ($type == 'stok') {
+                $stoks = Stok::with('user')->where('user_id', $id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+                if ($request->input("mode") == "datatable") {
+                    return DataTables::of($stoks)
+                        ->addColumn('aksi', function ($stok) {
+                            $detailButton = '<a class="btn btn-sm btn-info d-inline-flex align-items-baseline mr-1" href="/admin/stok/' . $stok->id . '"><i class="fas fa-info-circle mr-1"></i>Detail</a>';
+                            return $stok->status != 1 ? $detailButton : $detailButton . "<div class='mt-2'> Di setujui oleh " . $stok->approval->nama . "</div>";
+                        })
+                        ->addColumn('status_badge', function ($stok) {
+                            return statusBadge($stok->status);
+                        })
+                        ->addColumn('jenis_badge', function ($stok) {
+                            return jenisBadge($stok->jenis);
+                        })
+                        ->addColumn('tgl', function ($stok) {
+                            return formatTanggal($stok->tanggal);
+                        })
+                        ->addIndexColumn()
+                        ->rawColumns(['aksi', 'tgl', 'status_badge', 'jenis_badge'])
+                        ->make(true);
+                }
+            }
+        }
     }
 }

@@ -95,7 +95,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-decoration-none" id="stok-tab" data-toggle="tab"
                                             href="#stok" role="tab" aria-controls="stok" aria-selected="true"><i
-                                                class="fas fa-clipboard-list"></i>Stok</a>
+                                                class="fas fa-clipboard-list mr-2"></i>Stok</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content mt-4" id="myTabContent2">
@@ -108,7 +108,7 @@
                                                         width="100%">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col" width="5%">No</th>
+                                                                <th scope="col" width="5%">#</th>
                                                                 <th scope="col">Tanggal</th>
                                                                 <th scope="col">Presensi Masuk</th>
                                                                 <th scope="col">Presensi Keluar</th>
@@ -136,6 +136,7 @@
                                                                 <th scope="col">Tipe</th>
                                                                 <th scope="col">Alasan</th>
                                                                 <th scope="col">Status</th>
+                                                                <th scope="col" width="25%">Tugas</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -148,8 +149,24 @@
                                     <div class="tab-pane fade show" id="stok" role="tabpanel"
                                         aria-labelledby="stok-tab">
                                         <div class="row">
-                                            <div class="col-12 text-center py-5">
-                                                Data Stok
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped" id="stokTable"
+                                                        width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col" width="5%">#</th>
+                                                                <th scope="col">Tanggal</th>
+                                                                <th scope="col">Total Barang</th>
+                                                                <th scope="col">Jenis</th>
+                                                                <th scope="col">Status</th>
+                                                                <th scope="col" width="20%">Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +189,7 @@
 
     <script>
         $(document).ready(function() {
-            datatableCall('presensiTable', '/admin/karyawan/{{ $karyawan->id }}', [{
+            datatableCall('presensiTable', '/admin/karyawan/{{ $karyawan->id }}/presensi', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 }, {
@@ -191,9 +208,9 @@
                     data: 'tugas_catatan',
                     name: 'tugas_catatan'
                 },
-            ], "presensi");
+            ]);
 
-            datatableCall('izinTable', '/admin/karyawan/{{ $karyawan->id }}', [{
+            datatableCall('izinTable', '/admin/karyawan/{{ $karyawan->id }}/izin', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
                 }, {
@@ -212,12 +229,43 @@
                     data: 'status_badge',
                     name: 'status_badge'
                 },
-            ], "izin");
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
+            ]);
+
+            datatableCall('stokTable', '/admin/karyawan/{{ $karyawan->id }}/stok', [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'tgl',
+                    name: 'tgl'
+                },
+                {
+                    data: 'detail_stoks_count',
+                    name: 'detail_stoks_count'
+                },
+                {
+                    data: 'jenis_badge',
+                    name: 'jenis_badge'
+                },
+                {
+                    data: 'status_badge',
+                    name: 'status_badge'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
+            ]);
 
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#presensiTable").DataTable().ajax.reload();
                 $("#izinTable").DataTable().ajax.reload();
+                $("#stokTable").DataTable().ajax.reload();
             });
         });
     </script>

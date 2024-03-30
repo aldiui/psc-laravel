@@ -123,7 +123,7 @@
                         <table class="table table-bordered table-striped" id="presensiTable" width="100%">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="5%">No</th>
+                                    <th scope="col" width="5%">#</th>
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Presensi Masuk</th>
                                     <th scope="col">Presensi Keluar</th>

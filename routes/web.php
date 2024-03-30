@@ -35,6 +35,7 @@ Route::prefix('admin')->middleware(['auth', 'checkRole:admin,super admin'])->gro
 
 Route::prefix('admin')->middleware(['auth', 'checkRole:super admin'])->group(function () {
     Route::resource('karyawan', App\Http\Controllers\Admin\KaryawanController::class)->names('admin.karyawan');
+    Route::get('karyawan/{id}/{type}', [App\Http\Controllers\Admin\KaryawanController::class, 'rekapData'])->name('admin.karyawan.rekap');
     Route::resource('izin', App\Http\Controllers\Admin\IzinController::class)->names('admin.izin');
     Route::resource('presensi', App\Http\Controllers\Admin\PresensiController::class)->names('admin.presensi');
     Route::get('rekap-presensi', [App\Http\Controllers\Admin\PresensiController::class, 'rekapPresensi'])->name('admin.presensi.rekap');

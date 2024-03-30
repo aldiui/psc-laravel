@@ -1,4 +1,4 @@
-const datatableCall = (targetId, url, columns, mode = "datatable") => {
+const datatableCall = (targetId, url, columns) => {
     $(`#${targetId}`).DataTable({
         processing: true,
         serverSide: true,
@@ -6,7 +6,7 @@ const datatableCall = (targetId, url, columns, mode = "datatable") => {
             url: url,
             type: "GET",
             data: function (d) {
-                d.mode = mode;
+                d.mode = "datatable";
                 d.bulan = $("#bulan_filter").val() ?? null;
                 d.tahun = $("#tahun_filter").val() ?? null;
                 d.tanggal = $("#tanggal_filter").val() ?? null;
@@ -20,6 +20,7 @@ const datatableCall = (targetId, url, columns, mode = "datatable") => {
         language: {
             url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/id.json",
         },
+        columnDefs: [{ width: "5%", targets: 0 }],
     });
 };
 
