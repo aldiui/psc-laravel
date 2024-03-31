@@ -32,18 +32,24 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div>
-                                    <div class="row">
-                                        <div class="col-4 col-lg-2 mb-2">Nama</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->nama }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Email</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->email }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Jabatan</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->jabatan }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">No Hp</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->no_hp }}</div>
-                                        <div class="col-4 col-lg-2 mb-2">Role</div>
-                                        <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->role }}</div>
+                                <div class="row">
+                                    <div class="col-lg-3 mb-3 text-center">
+                                        <img src="{{ $karyawan->image != 'default.png' ? '/storage/img/karyawan/' . $karyawan->image : '/images/default.png' }} "
+                                            class="img-fluid" width="200">
+                                    </div>
+                                    <div class="col-lg-9 mb-3">
+                                        <div class="row">
+                                            <div class="col-4 col-lg-2 mb-2">Nama</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->nama }}</div>
+                                            <div class="col-4 col-lg-2 mb-2">Email</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->email }}</div>
+                                            <div class="col-4 col-lg-2 mb-2">Jabatan</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->jabatan }}</div>
+                                            <div class="col-4 col-lg-2 mb-2">No Hp</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->no_hp }}</div>
+                                            <div class="col-4 col-lg-2 mb-2">Role</div>
+                                            <div class="col-8 col-lg-10 mb-2">: {{ $karyawan->role }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

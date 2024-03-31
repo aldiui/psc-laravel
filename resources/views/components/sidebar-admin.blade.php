@@ -1,10 +1,10 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="/">{{ config('app.name') }}</a>
+            <a href="/admin">{{ config('app.name') }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="/">PSC</a>
+            <a href="/admin">PSC</a>
         </div>
         <ul class="sidebar-menu">
             <li class="{{ Request::is('admin') ? 'active' : '' }}">
@@ -34,7 +34,7 @@
             </li>
             @if (Auth::user()->role == 'super admin')
                 <li class="menu-header">Manajemen Karyawan</li>
-                <li class="{{ Request::is('admin/karyawan') ? 'active' : '' }}">
+                <li class="{{ Request::is('admin/karyawan/*') || Request::is('admin/karyawan') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ url('admin/karyawan') }}"><i class="fas fa-user-tie"></i>
                         <span>Karyawan</span></a>
                 </li>
