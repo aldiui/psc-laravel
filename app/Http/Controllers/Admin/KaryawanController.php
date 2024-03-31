@@ -302,6 +302,13 @@ class KaryawanController extends Controller
             $namaFile = 'laporan_rekap_presensi_' . $bulan . '_' . $tahun . '.pdf';
 
             return $pdf->stream($namaFile);
+        } elseif ($type == 'data') {
+            $presensi = Presensi::where('user_id', $id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
+            $izin = Izin::where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->count();
+            $stok = Stok::where('user_id', $id)->whereMonth('Tanggal', $bulan)->whereYear('Tanggal', $tahun)->count();
+            $logbook = Presensi::where('user_id', $id)->whereNotNull('tugas')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
+
+            return $this->successResponse(compact('presensi', 'izin', 'stok', 'logbook'), 'Data Karyawan ditemukan.');
         }
     }
 }

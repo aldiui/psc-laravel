@@ -81,11 +81,82 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="card card-statistic-1">
+                                    <div class="card-icon bg-success">
+                                        <i class="fas fa-camera"></i>
+                                    </div>
+                                    <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4>Presensi</h4>
+                                        </div>
+                                        <div class="card-body" id="data-presensi">
+                                            0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="card card-statistic-1">
+                                    <div class="card-icon bg-info">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4>Izin</h4>
+                                        </div>
+                                        <div class="card-body" id="data-izin">
+                                            0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="card card-statistic-1">
+                                    <div class="card-icon bg-danger">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </div>
+                                    <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4>Stok</h4>
+                                        </div>
+                                        <div class="card-body" id="data-stok">
+                                            0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-12">
+                                <div class="card card-statistic-1">
+                                    <div class="card-icon bg-warning">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="card-wrap">
+                                        <div class="card-header">
+                                            <h4>Logbook</h4>
+                                        </div>
+                                        <div class="card-body" id="data-logbook">
+                                            0
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
                                 <ul class="nav nav-pills gap-3" id="myTab3" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link text-decoration-none active" id="presensi-tab" data-toggle="tab"
-                                            href="#presensi" role="tab" aria-controls="presensi" aria-selected="true"><i
-                                                class="fas fa-camera mr-2"></i>Presensi</a>
+                                        <a class="nav-link text-decoration-none active" id="presensi-tab"
+                                            data-toggle="tab" href="#presensi" role="tab" aria-controls="presensi"
+                                            aria-selected="true"><i class="fas fa-camera mr-2"></i>Presensi</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-decoration-none" id="Izin-tab" data-toggle="tab"
@@ -279,6 +350,21 @@
             const downloadPresensiPdf =
                 `/admin/karyawan/{{ $karyawan->id }}/pdf?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPresensiPdf").attr("href", downloadPresensiPdf);
+
+            const successCallback = function(response) {
+                $("#data-presensi").html(response.data.presensi);
+                $("#data-izin").html(response.data.izin);
+                $("#data-stok").html(response.data.stok);
+                $("#data-logbook").html(response.data.logbook);
+            };
+
+            const errorCallback = function(error) {
+                console.log(error);
+            };
+
+            ajaxCall(
+                `/admin/karyawan/{{ $karyawan->id }}/data?bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`,
+                "GET", null, successCallback, errorCallback);
         }
     </script>
 @endpush
