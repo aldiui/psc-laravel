@@ -25,8 +25,16 @@
                         </div>
                         <div class="form-group">
                             <label for="password" class="control-label">Password <span class="text-danger">*</span></label>
-                            <input id="password" type="password" class="form-control" name="password">
-                            <small class="invalid-feedback" id="errorpassword"></small>
+                            <div class="input-group">
+                                <input id="password" type="password" class="form-control" name="password">
+                                <div class="input-group-append">
+                                    <a class="btn bg-white d-flex justify-content-center align-items-center border"
+                                        onclick="togglePasswordVisibility('#password', '#toggle-password'); event.preventDefault();">
+                                        <i id="toggle-password" class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <small class="text-danger" id="errorpassword"></small>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">

@@ -69,24 +69,51 @@
                                     <div class="form-group">
                                         <label for="password_lama" class="form-label">Password Lama <span
                                                 class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="password_lama" name="password_lama">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password_lama"
+                                                name="password_lama">
+                                            <div class="input-group-append">
+                                                <a class="btn bg-white d-flex justify-content-center align-items-center border"
+                                                    onclick="togglePasswordVisibility('#password_lama', '#toggle-password-lama'); event.preventDefault();">
+                                                    <i id="toggle-password-lama" class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                         <small class="invalid-feedback" id="errorpassword_lama"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="password" class="form-label">Password Baru <span
                                                 class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="password" name="password">
-                                        <small class="invalid-feedback" id="errorpassword"></small>
+                                        <div class="input-group">
+                                            <input id="password" type="password" class="form-control" name="password">
+                                            <div class="input-group-append">
+                                                <a class="btn bg-white d-flex justify-content-center align-items-center border"
+                                                    onclick="togglePasswordVisibility('#password', '#toggle-password'); event.preventDefault();">
+                                                    <i id="toggle-password" class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <small class="text-danger" id="errorpassword"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="password_confirmation" class="form-label">Konfirmasi Password <span
                                                 class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="password_confirmation"
-                                            name="password_confirmation">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password_confirmation"
+                                                name="password_confirmation">
+                                            <div class="input-group-append">
+                                                <a class="btn bg-white d-flex justify-content-center align-items-center border"
+                                                    onclick="togglePasswordVisibility('#password_confirmation', '#toggle-password-confirmation'); event.preventDefault();">
+                                                    <i id="toggle-password-confirmation" class="fas fa-eye"></i>
+                                                </a>
+                                            </div>
+                                        </div>
                                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success">Simpan</button>
+                                        <button type="submit" class="btn btn-success d-none d-lg-block">Simpan</button>
+                                        <button type="submit"
+                                            class="btn btn-success d-block w-100 d-lg-none">Simpan</button>
                                     </div>
                                 </form>
                             </div>

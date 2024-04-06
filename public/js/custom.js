@@ -531,3 +531,16 @@ const updateStatusNotifikasi = (url, kode) => {
         errorCallback
     );
 };
+
+const togglePasswordVisibility = (inputSelector, iconSelector) => {
+    let passwordInput = $(inputSelector);
+    let toggleIcon = $(iconSelector);
+
+    if (passwordInput.attr("type") === "password") {
+        passwordInput.attr("type", "text");
+        toggleIcon.removeClass("fas fa-eye").addClass("fas fa-eye-slash");
+    } else {
+        passwordInput.attr("type", "password");
+        toggleIcon.removeClass("fas fa-eye-slash").addClass("fas fa-eye");
+    }
+};
