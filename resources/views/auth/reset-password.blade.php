@@ -47,7 +47,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <small class="invalid-feedback" id="errorpassword_confirmation"></small>
+                            <small class="text-danger" id="errorpassword_confirmation"></small>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-danger btn-lg btn-icon icon-right">
