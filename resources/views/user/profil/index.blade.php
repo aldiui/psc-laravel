@@ -181,7 +181,7 @@
                     setButtonLoadingState("#updatePassword .btn.btn-success", false);
                     handleSuccess(response, null, null, "no");
                     $('#updatePassword .form-control').removeClass("is-invalid").val("");
-                    $('#updatePassword .invalid-feedback').html("");
+                    $('#updatePassword .text-danger').html("");
                 };
 
                 const errorCallback = function(error) {
