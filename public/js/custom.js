@@ -51,6 +51,7 @@ const getModal = (targetId, url = null, fields = null) => {
     $(`#${targetId}`).modal("show");
     $(`#${targetId} .form-control`).removeClass("is-invalid");
     $(`#${targetId} .invalid-feedback`).html("");
+    $(`#${targetId} .text-danger`).html("");
     const cekLabelModal = $("#label-modal");
     if (cekLabelModal) {
         $("#id").val("");
