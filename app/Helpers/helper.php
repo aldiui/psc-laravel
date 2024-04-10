@@ -206,7 +206,7 @@ if (!function_exists('kirimNotifikasi')) {
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
 
-        $serverKey = "AAAApBAckiI:APA91bEx7IH7g2nhgZKHzafPvRn3gbbv1XUja8hwk6d2-PDX0jtGRwSaurJtep2fXimZgGfWxS2jg5eFnJ51fUC7DU_49eT4MUFOymyl6-x6yc5UYQ0nKY2LNdbhcu5qcMmi-kr64qO_";
+        $serverKey = env('SERVER_KEY_FIREBASE');
 
         $data = [
             "notification" => [
