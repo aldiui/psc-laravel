@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('jabatan');
             $table->string('no_hp');
             $table->string('image')->default('default.png');
-            $table->string('role');
+            $table->enum('role', ['user', 'admin', 'super admin'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('fcm_token')->nullable();
             $table->rememberToken();

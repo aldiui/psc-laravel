@@ -45,10 +45,7 @@ class KategoriController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $kategori = Kategori::create([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $kategori = Kategori::create($request->only('nama', 'deskripsi'));
 
         return $this->successResponse($kategori, 'Data Kategori ditambahkan.', 201);
     }
@@ -80,10 +77,7 @@ class KategoriController extends Controller
             return $this->errorResponse(null, 'Data Kategori tidak ditemukan.', 404);
         }
 
-        $kategori->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $kategori->update($request->only('nama', 'deskripsi'));
 
         return $this->successResponse($kategori, 'Data Kategori diubah.');
     }

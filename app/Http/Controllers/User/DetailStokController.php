@@ -44,12 +44,7 @@ class DetailStokController extends Controller
             }
         }
 
-        $detailStok = DetailStok::create([
-            'stok_id' => $request->stok_id,
-            'barang_id' => $request->barang_id,
-            'qty' => $request->qty,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $detailStok = DetailStok::create($request->only('stok_id', 'barang_id', 'qty', 'deskripsi'));
 
         return $this->successResponse($detailStok, 'Data Detail Stok ditambahkan.', 201);
     }
@@ -95,11 +90,7 @@ class DetailStokController extends Controller
             }
         }
 
-        $detailStok->update([
-            'barang_id' => $request->barang_id,
-            'qty' => $request->qty,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $detailStok->update($request->only('barang_id', 'qty', 'deskripsi'));
 
         return $this->successResponse($detailStok, 'Data Detail Stok diubah.');
     }

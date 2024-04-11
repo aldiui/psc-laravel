@@ -45,9 +45,7 @@ class UnitController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $unit = Unit::create([
-            'nama' => $request->nama,
-        ]);
+        $unit = Unit::create($request->only('nama'));
 
         return $this->successResponse($unit, 'Data Unit ditambahkan.', 201);
     }
@@ -79,9 +77,7 @@ class UnitController extends Controller
             return $this->errorResponse(null, 'Data Unit tidak ditemukan.', 404);
         }
 
-        $unit->update([
-            'nama' => $request->nama,
-        ]);
+        $unit->update($request->only('nama'));
 
         return $this->successResponse($unit, 'Data Unit diubah.');
     }

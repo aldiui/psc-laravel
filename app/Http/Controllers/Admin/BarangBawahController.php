@@ -60,11 +60,7 @@ class BarangBawahController extends Controller
             return $this->errorResponse(null, 'Data Barang Bawah sudah ada.', 409);
         }
 
-        $barangBawah = BarangBawah::create([
-            'barang_id' => $request->barang_id,
-            'qty' => $request->qty,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $barangBawah = BarangBawah::create($request->only('barang_id', 'qty', 'deskripsi'));
 
         return $this->successResponse($barangBawah, 'Data Barang Bawah ditambahkan.', 201);
     }
@@ -122,11 +118,7 @@ class BarangBawahController extends Controller
             return $this->errorResponse(null, 'Data Barang Bawah tidak ditemukan.', 404);
         }
 
-        $barangBawah->update([
-            'barang_id' => $request->barang_id,
-            'qty' => $request->qty,
-            'deskripsi' => $request->deskripsi,
-        ]);
+        $barangBawah->update($request->only('barang_id', 'qty', 'deskripsi'));
 
         return $this->successResponse($barangBawah, 'Data Barang Bawah diubah.');
     }
