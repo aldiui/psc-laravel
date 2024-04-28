@@ -20,11 +20,11 @@ class PresensiController extends Controller
     public function index(Request $request)
     {
         $pengaturan = Pengaturan::find(1);
-        $cekPresensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d', strtotime('-1 day')))->first();
+        $cekPresensi = Presensi::whereUserId(Auth::user()->id)->whereTanggal(date('Y-m-d', strtotime('-1 day')))->first();
         if ($cekPresensi && $cekPresensi->jam_keluar == null) {
             $presensi = $cekPresensi;
         } else {
-            $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
+            $presensi = Presensi::whereUserId(Auth::user()->id)->whereTanggal(date('Y-m-d'))->first();
         }
 
         if ($request->ajax()) {
@@ -80,7 +80,7 @@ class PresensiController extends Controller
         $tahun = $request->tahun;
 
         if ($request->mode == "datatable") {
-            $presensis = Presensi::where('user_id', Auth::user()->id)
+            $presensis = Presensi::whereUserId(Auth::user()->id)
                 ->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
                 ->orderBy('id', 'desc')
@@ -122,7 +122,7 @@ class PresensiController extends Controller
         }
 
         if ($request->mode == "pdf") {
-            $presensis = Presensi::where('user_id', Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
+            $presensis = Presensi::whereUserId(Auth::user()->id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('user.presensi.pdf', [

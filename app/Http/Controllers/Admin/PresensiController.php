@@ -22,7 +22,7 @@ class PresensiController extends Controller
     {
         if ($request->ajax()) {
             $tanggal = $request->tanggal;
-            $presensis = Presensi::with('user')->where('tanggal', $tanggal)->latest()->get();
+            $presensis = Presensi::with('user')->whereTanggal($tanggal)->latest()->get();
             if ($request->mode == "datatable") {
                 return DataTables::of($presensis)
                     ->addColumn('nama', function ($presensi) {

@@ -27,8 +27,8 @@ class DashboardController extends Controller
             $endDate = Carbon::create($tahun, $bulan, 1)->endOfMonth();
 
             $stokMasukGudangAtasData = Stok::with('detailStoks')
-                ->where('jenis', 'Masuk Gudang Atas')
-                ->where('status', 1)
+                ->whereJenis('Masuk Gudang Atas')
+                ->whereStatus('1')
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
                 ->orderBy('date')
@@ -39,8 +39,8 @@ class DashboardController extends Controller
                 ->pluck('count', 'date');
 
             $stokMasukGudangBawahData = Stok::with('detailStoks')
-                ->where('jenis', 'Masuk Gudang Bawah')
-                ->where('status', 1)
+                ->whereJenis('Masuk Gudang Bawah')
+                ->whereStatus('1')
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
                 ->orderBy('date')
@@ -51,8 +51,8 @@ class DashboardController extends Controller
                 ->pluck('count', 'date');
 
             $stokMasukUnitData = Stok::with('detailStoks')
-                ->where('jenis', 'Masuk Unit')
-                ->where('status', 1)
+                ->whereJenis('Masuk Unit')
+                ->whereStatus('1')
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->groupBy('date')
                 ->orderBy('date')

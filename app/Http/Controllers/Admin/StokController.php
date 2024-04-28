@@ -134,7 +134,6 @@ class StokController extends Controller
         }
 
         $stok = Stok::with(['user', 'approval'])->findOrFail($id);
-
         return view('admin.stok.show', compact('stok'));
     }
 
@@ -222,14 +221,9 @@ class StokController extends Controller
                 return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
             }
         } else {
-            $stok->update([
-                'tanggal' => $request->tanggal,
-                'jenis' => $request->jenis,
-            ]);
-
+            $stok->update($request->only('tanggal', 'jenis'));
             return $this->successResponse($stok, 'Data Stok diubah.', 200);
         }
-
     }
 
     public function destroy($id)
@@ -241,7 +235,6 @@ class StokController extends Controller
         }
 
         $stok->delete();
-
         return $this->successResponse(null, 'Data Stok dihapus.');
     }
 

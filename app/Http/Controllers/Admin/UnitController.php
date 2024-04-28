@@ -31,7 +31,6 @@ class UnitController extends Controller
 
             return $this->successResponse($units, 'Data Unit ditemukan.');
         }
-
         return view('admin.unit.index');
     }
 
@@ -46,7 +45,6 @@ class UnitController extends Controller
         }
 
         $unit = Unit::create($request->only('nama'));
-
         return $this->successResponse($unit, 'Data Unit ditambahkan.', 201);
     }
 
@@ -78,7 +76,6 @@ class UnitController extends Controller
         }
 
         $unit->update($request->only('nama'));
-
         return $this->successResponse($unit, 'Data Unit diubah.');
     }
 
@@ -91,7 +88,6 @@ class UnitController extends Controller
         }
 
         $unit->delete();
-
         return $this->successResponse(null, 'Data Unit dihapus.');
     }
 }

@@ -41,10 +41,8 @@ class KaryawanController extends Controller
                     ->rawColumns(['aksi', 'img'])
                     ->make(true);
             }
-
             return $this->successResponse($karyawans, 'Data Karyawan ditemukan.');
         }
-
         return view('admin.karyawan.index');
     }
 
@@ -191,7 +189,6 @@ class KaryawanController extends Controller
         }
 
         $karyawan->delete();
-
         return $this->successResponse(null, 'Data Karyawan dihapus.');
     }
 
@@ -202,7 +199,7 @@ class KaryawanController extends Controller
 
         if ($request->mode == "datatable") {
             if ($type == "presensi") {
-                $presensis = Presensi::where('user_id', $id)
+                $presensis = Presensi::whereUserId($id)
                     ->whereMonth('tanggal', $bulan)
                     ->whereYear('tanggal', $tahun)
                     ->orderBy('id', 'desc')
@@ -242,7 +239,7 @@ class KaryawanController extends Controller
                     ->rawColumns(['presensi_masuk', 'presensi_keluar', 'tgl', 'tugas_catatan'])
                     ->make(true);
             } elseif ($type == 'izin') {
-                $izins = Izin::with('approval')->where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+                $izins = Izin::with('approval')->whereUserId($id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
                 if ($request->input("mode") == "datatable") {
                     return DataTables::of($izins)
                         ->addColumn('aksi', function ($izin) {
@@ -259,7 +256,7 @@ class KaryawanController extends Controller
                         ->make(true);
                 }
             } elseif ($type == 'stok') {
-                $stoks = Stok::with('user')->where('user_id', $id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+                $stoks = Stok::with('user')->whereUserId($id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
                 if ($request->input("mode") == "datatable") {
                     return DataTables::of($stoks)
                         ->addColumn('aksi', function ($stok) {
@@ -281,7 +278,7 @@ class KaryawanController extends Controller
                 }
             }
         } elseif ($type == 'pdf') {
-            $presensis = Presensi::where('user_id', $id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
+            $presensis = Presensi::whereUserId($id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->oldest()->get();
             $bulanTahun = Carbon::create($tahun, $bulan, 1)->locale('id')->settings(['formatFunction' => 'translatedFormat'])->format('F Y');
 
             $pdf = PDF::loadView('user.presensi.pdf', [
@@ -303,10 +300,10 @@ class KaryawanController extends Controller
 
             return $pdf->stream($namaFile);
         } elseif ($type == 'data') {
-            $presensi = Presensi::where('user_id', $id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
-            $izin = Izin::where('user_id', $id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->count();
-            $stok = Stok::where('user_id', $id)->whereMonth('Tanggal', $bulan)->whereYear('Tanggal', $tahun)->count();
-            $logbook = Presensi::where('user_id', $id)->whereNotNull('tugas')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
+            $presensi = Presensi::whereUserId($id)->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
+            $izin = Izin::whereUserId($id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->count();
+            $stok = Stok::whereUserId($id)->whereMonth('Tanggal', $bulan)->whereYear('Tanggal', $tahun)->count();
+            $logbook = Presensi::whereUserId($id)->whereNotNull('tugas')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->count();
 
             return $this->successResponse(compact('presensi', 'izin', 'stok', 'logbook'), 'Data Karyawan ditemukan.');
         }

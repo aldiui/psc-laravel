@@ -37,10 +37,8 @@ class BarangBawahController extends Controller
                     ->rawColumns(['nama', 'aksi', 'quantity'])
                     ->make(true);
             }
-
             return $this->successResponse($barangBawahs, 'Data Barang Bawah ditemukan.');
         }
-
         return view('admin.barang-bawah.index');
     }
 
@@ -61,7 +59,6 @@ class BarangBawahController extends Controller
         }
 
         $barangBawah = BarangBawah::create($request->only('barang_id', 'qty', 'deskripsi'));
-
         return $this->successResponse($barangBawah, 'Data Barang Bawah ditambahkan.', 201);
     }
 
@@ -96,7 +93,6 @@ class BarangBawahController extends Controller
             if (!$barangBawah) {
                 return $this->errorResponse(null, 'Data Barang Bawah tidak ditemukan.', 404);
             }
-
             return $this->successResponse($barangBawah, 'Data Barang Bawah ditemukan.');
         }
     }
@@ -119,7 +115,6 @@ class BarangBawahController extends Controller
         }
 
         $barangBawah->update($request->only('barang_id', 'qty', 'deskripsi'));
-
         return $this->successResponse($barangBawah, 'Data Barang Bawah diubah.');
     }
 
@@ -132,7 +127,6 @@ class BarangBawahController extends Controller
         }
 
         $barangBawah->delete();
-
         return $this->successResponse(null, 'Data Barang Bawah dihapus.');
     }
 }

@@ -176,7 +176,6 @@ class IzinController extends Controller
         }
 
         $izin->delete();
-
         return $this->successResponse(null, 'Data Izin dihapus.');
     }
 

@@ -46,7 +46,6 @@ class KategoriController extends Controller
         }
 
         $kategori = Kategori::create($request->only('nama', 'deskripsi'));
-
         return $this->successResponse($kategori, 'Data Kategori ditambahkan.', 201);
     }
 
@@ -78,7 +77,6 @@ class KategoriController extends Controller
         }
 
         $kategori->update($request->only('nama', 'deskripsi'));
-
         return $this->successResponse($kategori, 'Data Kategori diubah.');
     }
 
@@ -91,7 +89,6 @@ class KategoriController extends Controller
         }
 
         $kategori->delete();
-
         return $this->successResponse(null, 'Data Kategori dihapus.');
     }
 }

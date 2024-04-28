@@ -10,13 +10,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cekPresensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d', strtotime('-1 day')))->first();
+
+        $cekPresensi = Presensi::whereUserId(Auth::user()->id)->whereTanggal(date('Y-m-d', strtotime('-1 day')))->first();
         if ($cekPresensi && $cekPresensi->jam_keluar == null) {
             $presensi = $cekPresensi;
         } else {
-            $presensi = Presensi::where('user_id', Auth::user()->id)->where('tanggal', date('Y-m-d'))->first();
+            $presensi = Presensi::whereUserId(Auth::user()->id)->whereTanggal(date('Y-m-d'))->first();
         }
-
         return view('user.home.index', compact('presensi'));
     }
 }

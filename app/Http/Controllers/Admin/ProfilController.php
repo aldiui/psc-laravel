@@ -78,10 +78,7 @@ class ProfilController extends Controller
             return $this->errorResponse(null, 'Password lama tidak sesuai.', 422);
         }
 
-        $user->update([
-            'password' => bcrypt($request->password),
-        ]);
-
+        $user->update($request->only('password'));
         return $this->successResponse($user, 'Data Password diubah.');
     }
 }

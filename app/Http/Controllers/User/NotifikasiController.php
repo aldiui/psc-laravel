@@ -14,7 +14,7 @@ class NotifikasiController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $notifikasis = Notifikasi::whereMonth('created_at', date('m'))->where('target_id', Auth::user()->id)->latest()->get();
+            $notifikasis = Notifikasi::whereMonth('created_at', date('m'))->whereTargetId(Auth::user()->id)->latest()->get();
             return view('user.notifikasi.index', compact('notifikasis'));
         }
     }
@@ -28,7 +28,6 @@ class NotifikasiController extends Controller
         }
 
         $notifikasi->update(['status' => '1']);
-
         return $this->successResponse(null, 'Notifikasi diterima.');
     }
 }

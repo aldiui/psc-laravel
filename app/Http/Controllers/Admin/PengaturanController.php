@@ -30,18 +30,9 @@ class PengaturanController extends Controller
                 return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
             }
 
-            $pengaturan->update([
-                'nama' => $request->nama,
-                'ketua_pelaksana' => $request->ketua_pelaksana,
-                'nip_ketua_pelaksana' => $request->nip_ketua_pelaksana,
-                'longitude' => $request->longitude,
-                'latitude' => $request->latitude,
-                'radius' => $request->radius,
-            ]);
-
+            $pengaturan->update($request->only('nama', 'ketua_pelaksana', 'nip_ketua_pelaksana', 'longitude', 'latitude', 'radius'));
             return $this->successResponse($pengaturan, 'Data pengaturan diubah.');
         }
-
         return view('admin.pengaturan.index', compact('pengaturan'));
     }
 }

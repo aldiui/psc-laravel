@@ -25,7 +25,7 @@ class IzinController extends Controller
             $bulan = $request->bulan;
             $tahun = $request->tahun;
 
-            $izins = Izin::with('approval')->where('user_id', Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
+            $izins = Izin::with('approval')->whereUserId(Auth::user()->id)->whereMonth('tanggal_mulai', $bulan)->whereYear('tanggal_mulai', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($izins)
                     ->addColumn('aksi', function ($izin) {
@@ -69,11 +69,11 @@ class IzinController extends Controller
         }
 
         $izin = Izin::create([
-            'tanggal_mulai' => $request->input('tanggal_mulai'),
-            'tanggal_selesai' => $request->input('tanggal_selesai') ?? null,
-            'alasan' => $request->input('alasan'),
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai ?? null,
+            'alasan' => $request->alasan,
             'file' => $file ?? null,
-            'tipe' => $request->input('tipe'),
+            'tipe' => $request->tipe,
             'user_id' => Auth::user()->id,
         ]);
 
@@ -94,7 +94,7 @@ class IzinController extends Controller
 
     public function show(Request $request, $id)
     {
-        $izin = Izin::with('user')->find($id);
+        $izin = Izin::with('user')->whereUserId(Auth::user()->id)->find($id);
 
         if ($request->ajax()) {
             if (!$izin) {
@@ -143,17 +143,17 @@ class IzinController extends Controller
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $izin = Izin::find($id);
+        $izin = Izin::whereUserId(Auth::user()->id)->find($id);
 
         if (!$izin) {
             return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
         }
 
         $updateIzin = [
-            'tanggal_mulai' => $request->input('tanggal_mulai'),
-            'tanggal_selesai' => $request->input('tanggal_selesai') ?? null,
-            'alasan' => $request->input('alasan'),
-            'tipe' => $request->input('tipe'),
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai ?? null,
+            'alasan' => $request->alasan,
+            'tipe' => $request->tipe,
         ];
 
         if ($request->hasFile('file')) {
@@ -166,13 +166,12 @@ class IzinController extends Controller
         }
 
         $izin->update($updateIzin);
-
         return $this->successResponse($izin, 'Data Izin diubah.');
     }
 
     public function destroy($id)
     {
-        $izin = Izin::find($id);
+        $izin = Izin::whereUserId(Auth::user()->id)->find($id);
 
         if (!$izin) {
             return $this->errorResponse(null, 'Data Izin tidak ditemukan.', 404);
@@ -183,7 +182,6 @@ class IzinController extends Controller
         }
 
         $izin->delete();
-
         return $this->successResponse(null, 'Data Izin dihapus.');
     }
 }

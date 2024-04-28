@@ -153,7 +153,6 @@ class BarangController extends Controller
         }
 
         $barang->update($updateBarang);
-
         return $this->successResponse($barang, 'Data Barang diubah.');
     }
 
@@ -170,7 +169,6 @@ class BarangController extends Controller
         }
 
         $barang->delete();
-
         return $this->successResponse(null, 'Data Barang dihapus.');
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailStok;
-use App\Models\Notifikasi;
 use App\Models\Stok;
 use App\Models\User;
 use App\Traits\ApiResponder;
@@ -23,7 +22,7 @@ class StokController extends Controller
             $bulan = $request->bulan;
             $tahun = $request->tahun;
 
-            $stoks = Stok::with('user')->where('user_id', Auth::user()->id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
+            $stoks = Stok::with('user')->whereUserId(Auth::user()->id)->withCount('detailStoks')->whereMonth('tanggal', $bulan)->whereYear('tanggal', $tahun)->latest()->get();
             if ($request->input("mode") == "datatable") {
                 return DataTables::of($stoks)
                     ->addColumn('aksi', function ($stok) {
@@ -73,7 +72,7 @@ class StokController extends Controller
     {
 
         if ($request->ajax()) {
-            $stok = Stok::with(['user', 'approval'])->find($id);
+            $stok = Stok::with(['user', 'approval'])->whereUserId(Auth::user()->id)->find($id);
             if ($request->mode == "datatable") {
                 $detailStoks = DetailStok::with(['barang', 'stok'])->where('stok_id', $id)->get();
                 return DataTables::of($detailStoks)
@@ -107,74 +106,34 @@ class StokController extends Controller
 
     public function update(Request $request, $id)
     {
-        $cekStatus = $request->status;
-
-        if (isset($cekStatus)) {
-            $dataValidator = ['status' => 'required'];
-        } else {
-            $dataValidator = ['tanggal' => 'required'];
-        }
-        $validator = Validator::make($request->all(), $dataValidator);
+        $validator = Validator::make($request->all(), [
+            'tanggal' => 'required',
+        ]);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
         }
 
-        $stok = Stok::find($id);
+        $stok = Stok::whereUserId(Auth::user()->id)->find($id);
 
         if (!$stok) {
             return redirect(route('stok.index'));
         }
 
-        if (isset($cekStatus)) {
-            $detailStoksCount = $stok->detailStoks()->count();
-
-            if ($detailStoksCount == 0) {
-                return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
-            }
-
-            $stok->update([
-                'status' => $cekStatus,
-            ]);
-
-            $getAdminStok = User::whereIn('role', ['admin', 'super admin'])->get();
-
-            foreach ($getAdminStok as $admin) {
-                $notifikasi = Notifikasi::create([
-                    'user_id' => Auth::user()->id,
-                    'target_id' => $admin->id,
-                    'title' => 'Stok',
-                    'body' => Auth::user()->nama . ' Menyerahkan Stok Barang ' . $stok->jenis . ' pada ' . formatTanggal($stok->tanggal),
-                    'url' => '/admin/stok/' . $stok->id,
-                ]);
-
-                if ($admin->fcm_token) {
-                    kirimNotifikasi($notifikasi->title, $notifikasi->body, $admin->fcm_token);
-                }
-            }
-
-            return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
-        } else {
-            $stok->update([
-                'tanggal' => $request->tanggal,
-            ]);
-
-            return $this->successResponse($stok, 'Data Stok diubah.', 200);
-        }
-
+        $stok->update($request->only('tanggal'));
         return $this->successResponse($stok, 'Data Stok diubah.', 200);
+
     }
 
     public function destroy($id)
     {
-        $stok = Stok::find($id);
+        $stok = Stok::whereUserId(Auth::user()->id)->find($id);
 
         if (!$stok) {
             return $this->errorResponse(null, 'Data Stok tidak ditemukan.', 404);
         }
 
         $stok->delete();
-
         return $this->successResponse(null, 'Data Stok dihapus.');
     }
 

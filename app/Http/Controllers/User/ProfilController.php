@@ -78,33 +78,8 @@ class ProfilController extends Controller
             return $this->errorResponse(null, 'Password lama tidak sesuai.', 422);
         }
 
-        $user->update([
-            'password' => bcrypt($request->password),
-        ]);
+        $user->update($request->only('password'));
 
         return $this->successResponse($user, 'Data Password diupdate.');
-    }
-
-    public function updateFCMToken(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'fcm_token' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
-        }
-
-        $user = Auth::user();
-
-        if (!$user) {
-            return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
-        }
-
-        $user->update([
-            'fcm_token' => $request->fcm_token,
-        ]);
-
-        return $this->successResponse($user, 'Data FCM Token diupdate.');
     }
 }
