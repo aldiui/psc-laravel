@@ -124,7 +124,10 @@ class AuthController extends Controller
             return $this->errorResponse(null, 'Data Karyawan tidak ditemukan.', 404);
         }
 
-        $user->update($request->only('token'));
+        $user->update([
+            'fcm_token' => $request->token,
+        ]);
+
         return $this->successResponse($user, 'Data FCM Token diupdate.');
     }
 }
