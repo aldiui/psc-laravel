@@ -212,7 +212,6 @@ if (!function_exists('kirimNotifikasi')) {
             "notification" => [
                 "title" => $title,
                 "body" => $body,
-
             ],
         ];
 
