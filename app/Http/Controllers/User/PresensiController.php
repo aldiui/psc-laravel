@@ -43,7 +43,7 @@ class PresensiController extends Controller
                 if ($calculateDistance >= $pengaturan->radius) {
                     if ($request->alasan == null) {
                         $selisihJarak = calculateSelisihJarak($calculateDistance - $pengaturan->radius);
-                        return $this->errorResponse(null, 'Jarak lebih dari ' . $selisihJarak . ' dari radius lokasi. Mohon isi alasan untuk melanjukan presensi', 422);
+                        return $this->errorResponse(null, 'Jarak lebih dari ' . $selisihJarak . ' dari radius lokasi. Mohon isi alasan untuk melanjutkan presensi', 422);
                     }
                 }
 

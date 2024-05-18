@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
+                'email' => 'required|email|exists:users,email',
                 'password' => 'required|min:8',
             ]);
 
@@ -54,7 +54,7 @@ class AuthController extends Controller
     {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
+                'emaail' => 'required|email|exists:users,email',
             ]);
 
             if ($validator->fails()) {
@@ -78,7 +78,7 @@ class AuthController extends Controller
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
                 'token' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|exists:users,email',
                 'password' => 'required|min:8|confirmed',
             ]);
 
