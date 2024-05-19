@@ -61,7 +61,8 @@ class ProfilController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'password_lama' => 'required|min:8',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|min:8|same:password',
         ]);
 
         if ($validator->fails()) {

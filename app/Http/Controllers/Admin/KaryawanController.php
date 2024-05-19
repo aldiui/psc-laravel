@@ -52,7 +52,8 @@ class KaryawanController extends Controller
             'nama' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|min:8|same:password',
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
@@ -135,7 +136,8 @@ class KaryawanController extends Controller
         ];
 
         if ($request->password != null) {
-            $dataValidator['password'] = 'required|min:8|confirmed';
+            $dataValidator['password'] = 'required|min:8';
+            $dataValidator['password_confirmation'] = 'required|min:8|same:password';
         }
 
         $validator = Validator::make($request->all(), $dataValidator);
