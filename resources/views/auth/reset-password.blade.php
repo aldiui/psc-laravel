@@ -95,7 +95,9 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#reset-password .btn.btn-danger", false, "Reset Password");
-                    handleValidationErrors(error, "reset-password", ["email", "password"]);
+                    handleValidationErrors(error, "reset-password", ["email", "password",
+                        "password_confirmation"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

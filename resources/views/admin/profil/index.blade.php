@@ -172,7 +172,9 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#updatePassword .btn.btn-success", false);
-                    handleValidationErrors(error, "updatePassword", ["password_lama", "password"]);
+                    handleValidationErrors(error, "updatePassword", ["password_lama", "password",
+                        "password_confirmation"
+                    ]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

@@ -127,7 +127,7 @@
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-success", false);
                     handleValidationErrors(error, "saveData", ["nama", "email", "password",
-                        "konfirmasi_password", "jabatan", "no_hp", "role", "image"
+                        "password_confirmation", "jabatan", "no_hp", "role", "image"
                     ]);
                 };
 
