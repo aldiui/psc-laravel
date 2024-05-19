@@ -106,9 +106,15 @@ class StokController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'tanggal' => 'required',
-        ]);
+        $cekStatus = $request->status;
+
+        if (isset($cekStatus)) {
+            $dataValidator = ['status' => 'required'];
+        } else {
+            $dataValidator = ['tanggal' => 'required'];
+        }
+
+        $validator = Validator::make($request->all(), $dataValidator);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
@@ -120,8 +126,22 @@ class StokController extends Controller
             return redirect(route('stok.index'));
         }
 
-        $stok->update($request->only('tanggal'));
-        return $this->successResponse($stok, 'Data Stok diubah.', 200);
+        if (isset($cekStatus)) {
+            $detailStoksCount = $stok->detailStoks()->count();
+
+            if ($detailStoksCount == 0) {
+                return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
+            }
+
+            $stok->update([
+                'status' => $cekStatus,
+            ]);
+
+            return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
+        } else {
+            $stok->update($request->only('tanggal', 'jenis'));
+            return $this->successResponse($stok, 'Data Stok diubah.', 200);
+        }
 
     }
 
