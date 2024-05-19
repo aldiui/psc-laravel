@@ -47,6 +47,10 @@ class BarangBawahController extends Controller
         $validator = Validator::make($request->all(), [
             'barang_id' => 'required|exists:barangs,id|unique:barang_bawahs,barang_id',
             'qty' => 'required',
+        ], [
+            'barang_id.required' => 'Barang harus diisi.',
+            'barang_id.exists' => 'Barang yang dipilih tidak valid.',
+            'barang_id.unique' => 'Barang yang dipilih sudah ada.',
         ]);
 
         if ($validator->fails()) {
@@ -102,6 +106,10 @@ class BarangBawahController extends Controller
         $validator = Validator::make($request->all(), [
             'barang_id' => 'required|exists:barangs,id|unique:barang_bawahs,barang_id,' . $id,
             'qty' => 'required',
+        ], [
+            'barang_id.required' => 'Barang harus diisi.',
+            'barang_id.exists' => 'Barang yang dipilih tidak valid.',
+            'barang_id.unique' => 'Barang yang dipilih sudah ada.',
         ]);
 
         if ($validator->fails()) {

@@ -57,6 +57,12 @@ class KaryawanController extends Controller
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
+        ], [
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password_confirmation.required' => 'Konfirmasi password harus diisi.',
+            'password_confirmation.same' => 'Konfirmasi password tidak sama.',
+            'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
         ]);
 
         if ($validator->fails()) {
@@ -126,21 +132,20 @@ class KaryawanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $dataValidator = [
+        $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'image' => 'image|mimes:png,jpg,jpeg',
             'email' => 'required|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:8',
+            'password_confirmation' => 'nullable|min:8|same:password',
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
-        ];
-
-        if ($request->password != null) {
-            $dataValidator['password'] = 'required|min:8';
-            $dataValidator['password_confirmation'] = 'required|min:8|same:password';
-        }
-
-        $validator = Validator::make($request->all(), $dataValidator);
+        ], [
+            'password.min' => 'Password minimal 8 karakter.',
+            'password_confirmation.same' => 'Konfirmasi password tidak sama.',
+            'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+        ]);
 
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);

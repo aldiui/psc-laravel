@@ -20,6 +20,9 @@ class DetailStokController extends Controller
             'stok_id' => 'required|exists:stoks,id',
             'barang_id' => 'required|exists:barangs,id',
             'qty' => 'required',
+        ], [
+            'barang_id.required' => 'Barang harus diisi.',
+            'barang_id.exists' => 'Barang yang dipilih tidak valid.',
         ]);
 
         if ($validator->fails()) {
@@ -64,6 +67,9 @@ class DetailStokController extends Controller
         $validator = Validator::make($request->all(), [
             'barang_id' => 'required|exists:barangs,id',
             'qty' => 'required',
+        ], [
+            'barang_id.required' => 'Barang harus diisi.',
+            'barang_id.exists' => 'Barang yang dipilih tidak valid.',
         ]);
 
         if ($validator->fails()) {

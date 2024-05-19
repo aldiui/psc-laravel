@@ -56,6 +56,11 @@ class BarangController extends Controller
             'unit_id' => 'required|exists:units,id',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
+        ], [
+            'kategori_id.required' => 'Kategori harus diisi.',
+            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+            'unit_id.required' => 'Unit harus diisi.',
+            'unit_id.exists' => 'Unit yang dipilih tidak valid.',
         ]);
 
         if ($validator->fails()) {
@@ -123,6 +128,11 @@ class BarangController extends Controller
             'unit_id' => 'required|exists:units,id',
             'qty' => 'required|numeric',
             'image' => 'image|mimes:png,jpg,jpeg',
+        ], [
+            'kategori_id.required' => 'Kategori harus diisi.',
+            'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
+            'unit_id.required' => 'Unit harus diisi.',
+            'unit_id.exists' => 'Unit yang dipilih tidak valid.',
         ]);
 
         if ($validator->fails()) {

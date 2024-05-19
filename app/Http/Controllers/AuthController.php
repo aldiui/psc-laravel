@@ -81,6 +81,12 @@ class AuthController extends Controller
                 'email' => 'required|email|exists:users,email',
                 'password' => 'required|min:8',
                 'password_confirmation' => 'required|min:8|same:password',
+            ], [
+                'password.required' => 'Password Baru harus diisi.',
+                'password.min' => 'Password Baru minimal 8 karakter.',
+                'password_confirmation.required' => 'Konfirmasi password harus diisi.',
+                'password_confirmation.same' => 'Konfirmasi password tidak sama.',
+                'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
             ]);
 
             if ($validator->fails()) {
