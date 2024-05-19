@@ -218,7 +218,7 @@ class StokController extends Controller
                     'status' => $cekStatus,
                 ]);
 
-                return $this->successResponse($stok, 'Data Stok diserahkan.', 200);
+                return $this->successResponse($stok, 'Data Detail Stok tidak ada data.', 200);
             }
         } else {
             $stok->update($request->only('tanggal', 'jenis'));

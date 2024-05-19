@@ -130,7 +130,7 @@ class StokController extends Controller
             $detailStoksCount = $stok->detailStoks()->count();
 
             if ($detailStoksCount == 0) {
-                return $this->errorResponse(null, 'Data Detail Stok tidak ditemukan.', 404);
+                return $this->errorResponse(null, 'Data Detail Stok tidak ada data.', 404);
             }
 
             $stok->update([
