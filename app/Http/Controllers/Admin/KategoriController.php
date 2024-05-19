@@ -38,7 +38,7 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'nama' => 'required|unique:kategoris,nama',
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +63,7 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'nama' => 'required|unique:kategoris,nama,' . $id,
         ]);
 
         if ($validator->fails()) {
