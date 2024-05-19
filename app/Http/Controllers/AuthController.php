@@ -34,7 +34,7 @@ class AuthController extends Controller
             }
 
             if (!Auth::attempt($request->only('email', 'password'))) {
-                return $this->errorResponse(null, 'Email atau password tidak valid.', 401);
+                return $this->errorResponse(null, 'Password tidak valid.', 401);
             }
 
             $user = Auth::user();
