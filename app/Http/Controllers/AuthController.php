@@ -81,7 +81,7 @@ class AuthController extends Controller
                 'email' => 'required|email|exists:users,email',
                 'password' => 'required|min:8',
                 'password_confirmation' => 'required|min:8|same:password',
-            ], [
+            ],[
                 'password.required' => 'Password Baru harus diisi.',
                 'password.min' => 'Password Baru minimal 8 karakter.',
                 'password_confirmation.required' => 'Konfirmasi password harus diisi.',
