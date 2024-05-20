@@ -57,12 +57,15 @@ class KaryawanController extends Controller
             'jabatan' => 'required',
             'no_hp' => 'required',
             'role' => 'required',
+
         ], [
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 8 karakter.',
             'password_confirmation.required' => 'Konfirmasi password harus diisi.',
             'password_confirmation.same' => 'Konfirmasi password tidak sama.',
             'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+            'image.image' => 'Foto harus berupa gambar.',
+            'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);
 
         if ($validator->fails()) {
@@ -145,6 +148,8 @@ class KaryawanController extends Controller
             'password.min' => 'Password minimal 8 karakter.',
             'password_confirmation.same' => 'Konfirmasi password tidak sama.',
             'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+            'image.image' => 'Foto harus berupa gambar.',
+            'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);
 
         if ($validator->fails()) {

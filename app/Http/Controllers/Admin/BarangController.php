@@ -61,6 +61,8 @@ class BarangController extends Controller
             'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'unit_id.required' => 'Unit harus diisi.',
             'unit_id.exists' => 'Unit yang dipilih tidak valid.',
+            'image.image' => 'Foto harus berupa gambar.',
+            'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);
 
         if ($validator->fails()) {
@@ -133,6 +135,8 @@ class BarangController extends Controller
             'kategori_id.exists' => 'Kategori yang dipilih tidak valid.',
             'unit_id.required' => 'Unit harus diisi.',
             'unit_id.exists' => 'Unit yang dipilih tidak valid.',
+            'image.image' => 'Foto harus berupa gambar.',
+            'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);
 
         if ($validator->fails()) {
