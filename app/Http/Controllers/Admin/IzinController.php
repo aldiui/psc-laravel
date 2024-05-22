@@ -160,7 +160,8 @@ class IzinController extends Controller
             kirimNotifikasi($notifikasi->title, $notifikasi->body, $izin->user->fcm_token);
         }
 
-        return $this->successResponse($izin, 'Data Izin diubah.');
+        return $this->successResponse($izin, 'Data Izin berhasil ' . ($request->status == '1' ? 'disetujui' : 'ditolak'));
+
     }
 
     public function destroy($id)
