@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <label for="no_hp" class="form-label">No Hp <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="no_hp" name="no_hp">
+                        <input type="numeric" class="form-control" id="no_hp" name="no_hp">
                         <small class="invalid-feedback" id="errorno_hp"></small>
                     </div>
                     <div class="form-group">

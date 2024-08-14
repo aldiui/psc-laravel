@@ -21,7 +21,7 @@ class ProfilController extends Controller
                 'nama' => 'required',
                 'image' => 'image|mimes:png,jpg,jpeg',
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id,
-                'no_hp' => 'required',
+                'no_hp' => 'required|numeric|digits_between:10,13',
             ]);
 
             if ($validator->fails()) {

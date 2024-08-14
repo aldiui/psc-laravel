@@ -79,11 +79,11 @@
                                 agar bisa
                                 melakukan presensi</small>
                         </div>
+                        <div class="col-lg-6">
+                            <div id="map" class="mb-3 rounded-lg mx-0"></div>
+                        </div>
                     @endif
-                    <div class="{{ $presensi ? ($presensi->jam_keluar == null ? 'col-lg-6' : 'col-12') : 'col-lg-6' }}">
-                    </div>
                 </div>
-                <div id="map" class="mb-3 rounded-lg mx-0"></div>
                 <div class="p-3">
                     <button type="submit" id="presensiButton"
                         class="btn {{ $presensi ? ($presensi->jam_keluar == null ? 'btn-danger' : 'btn-secondary') : 'btn-success' }} btn-block"

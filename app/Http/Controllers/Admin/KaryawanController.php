@@ -55,7 +55,7 @@ class KaryawanController extends Controller
             'password' => 'required|min:8',
             'password_confirmation' => 'required|min:8|same:password',
             'jabatan' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required|numeric|digits_between:10,13',
             'role' => 'required',
 
         ], [
@@ -142,7 +142,8 @@ class KaryawanController extends Controller
             'password' => 'nullable|min:8',
             'password_confirmation' => 'nullable|min:8|same:password',
             'jabatan' => 'required',
-            'no_hp' => 'required',
+            'no_hp' => 'required|numeric|digits_between:10,13',
+
             'role' => 'required',
         ], [
             'password.min' => 'Password minimal 8 karakter.',

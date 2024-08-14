@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <label for="no_hp" class="form-label">No Hp <span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                        <input type="number" class="form-control" id="no_hp" name="no_hp"
                                             value="{{ Auth::user()->no_hp }}">
                                         <small class="invalid-feedback" id="errorno_hp"></small>
                                     </div>
