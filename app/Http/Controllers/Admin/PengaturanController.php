@@ -18,12 +18,12 @@ class PengaturanController extends Controller
 
         if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
-                'nama' => 'required',
-                'ketua_pelaksana' => 'required',
-                'nip_ketua_pelaksana' => 'required',
-                'longitude' => 'required',
-                'latitude' => 'required',
-                'radius' => 'required',
+                'nama' => 'required|max:50',
+                'ketua_pelaksana' => 'required|max:50',
+                'nip_ketua_pelaksana' => 'required|max:50',
+                'longitude' => 'required|max:50',
+                'latitude' => 'required|max:50',
+                'radius' => 'required|max:10',
             ]);
 
             if ($validator->fails()) {

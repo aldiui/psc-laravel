@@ -54,7 +54,7 @@ class IzinController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'tanggal_mulai' => 'required|date',
-            'alasan' => 'required',
+            'alasan' => 'required|max:255',
             'file' => 'image|mimes:png,jpg,jpeg',
             'tipe' => 'required',
         ]);
@@ -131,8 +131,8 @@ class IzinController extends Controller
     public function update(Request $request, $id)
     {
         $dataValidator = [
-            'tanggal_mulai' => 'required',
-            'alasan' => 'required',
+            'tanggal_mulai' => 'required|date',
+            'alasan' => 'required|max:255',
             'file' => 'image|mimes:png,jpg,jpeg',
             'tipe' => 'required',
         ];

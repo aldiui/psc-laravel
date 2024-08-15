@@ -53,7 +53,7 @@ class StokController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tanggal' => 'required',
+            'tanggal' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -111,7 +111,7 @@ class StokController extends Controller
         if (isset($cekStatus)) {
             $dataValidator = ['status' => 'required'];
         } else {
-            $dataValidator = ['tanggal' => 'required'];
+            $dataValidator = ['tanggal' => 'required|date'];
         }
 
         $validator = Validator::make($request->all(), $dataValidator);

@@ -18,9 +18,9 @@ class ProfilController extends Controller
     {
         if ($request->isMethod('put')) {
             $validator = Validator::make($request->all(), [
-                'nama' => 'required',
+                'nama' => 'required|max:50',
                 'image' => 'image|mimes:png,jpg,jpeg',
-                'email' => 'required|email|unique:users,email,' . Auth::user()->id,
+                'email' => 'required|max:50|email|unique:users,email,' . Auth::user()->id,
                 'no_hp' => 'required|numeric|digits_between:10,13',
             ]);
 
@@ -60,15 +60,17 @@ class ProfilController extends Controller
     public function updatePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password_lama' => 'required|min:8',
-            'password' => 'required|min:8',
-            'password_confirmation' => 'required|min:8|same:password',
+            'password_lama' => 'required|min:8|max:20',
+            'password' => 'required|min:8|max:20',
+            'password_confirmation' => 'required|min:8|max:20|same:password',
         ], [
             'password.required' => 'Password Baru harus diisi.',
             'password.min' => 'Password Baru minimal 8 karakter.',
+            'password.max' => 'Password Baru maksimal 20 karakter.',
             'password_confirmation.required' => 'Konfirmasi password harus diisi.',
             'password_confirmation.same' => 'Konfirmasi password tidak sama.',
             'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+            'password_confirmation.max' => 'Konfirmasi password maksimal 20 karakter.',
         ]);
 
         if ($validator->fails()) {

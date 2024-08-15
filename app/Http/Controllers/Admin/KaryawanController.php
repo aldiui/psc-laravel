@@ -49,11 +49,11 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'nama' => 'required|max:50',
             'image' => 'image|mimes:png,jpg,jpeg',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8',
-            'password_confirmation' => 'required|min:8|same:password',
+            'email' => 'required|max:50|email|unique:users',
+            'password' => 'required|min:8|max:20',
+            'password_confirmation' => 'required|min:8|max:20|same:password',
             'jabatan' => 'required',
             'no_hp' => 'required|numeric|digits_between:10,13',
             'role' => 'required',
@@ -61,9 +61,11 @@ class KaryawanController extends Controller
         ], [
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 8 karakter.',
+            'password.max' => 'Password maksimal 20 karakter.',
             'password_confirmation.required' => 'Konfirmasi password harus diisi.',
             'password_confirmation.same' => 'Konfirmasi password tidak sama.',
             'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+            'password_confirmation.max' => 'Konfirmasi password maksimal 20 karakter.',
             'image.image' => 'Foto harus berupa gambar.',
             'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);
@@ -136,19 +138,20 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'nama' => 'required|max:50',
             'image' => 'image|mimes:png,jpg,jpeg',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:8',
-            'password_confirmation' => 'nullable|min:8|same:password',
+            'email' => 'required|email|max:50|unique:users,email,' . $id,
+            'password' => 'nullable|min:8|max:20',
+            'password_confirmation' => 'nullable|min:8|max:20|same:password',
             'jabatan' => 'required',
             'no_hp' => 'required|numeric|digits_between:10,13',
-
             'role' => 'required',
         ], [
             'password.min' => 'Password minimal 8 karakter.',
+            'password.max' => 'Password maksimal 20 karakter.',
             'password_confirmation.same' => 'Konfirmasi password tidak sama.',
             'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+            'password_confirmation.max' => 'Konfirmasi password maksimal 20 karakter.',
             'image.image' => 'Foto harus berupa gambar.',
             'image.mimes' => 'Foto harus berformat PNG, JPG, atau JPEG.',
         ]);

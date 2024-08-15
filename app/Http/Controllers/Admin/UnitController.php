@@ -37,7 +37,7 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|unique:units,nama',
+            'nama' => 'required|max:50|unique:units,nama',
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +62,7 @@ class UnitController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|unique:units,nama,' . $id,
+            'nama' => 'required|max:50|unique:units,nama,' . $id,
         ]);
 
         if ($validator->fails()) {

@@ -25,8 +25,8 @@ class AuthController extends Controller
 
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email|exists:users,email',
-                'password' => 'required|min:8',
+                'email' => 'required|email|max:50|exists:users,email',
+                'password' => 'required|min:8|max:20',
             ]);
 
             if ($validator->fails()) {
@@ -54,7 +54,7 @@ class AuthController extends Controller
     {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'email' => 'required|email|exists:users,email',
+                'email' => 'required|email|max:255|exists:users,email',
             ]);
 
             if ($validator->fails()) {
@@ -77,16 +77,18 @@ class AuthController extends Controller
     {
         if ($request->isMethod('post')) {
             $validator = Validator::make($request->all(), [
-                'token' => 'required',
-                'email' => 'required|email|exists:users,email',
-                'password' => 'required|min:8',
-                'password_confirmation' => 'required|min:8|same:password',
-            ],[
+                'token' => 'required|max:255',
+                'email' => 'required|email|max:50|exists:users,email',
+                'password' => 'required|min:8|max:20',
+                'password_confirmation' => 'required|min:8|max:20|same:password',
+            ], [
                 'password.required' => 'Password Baru harus diisi.',
                 'password.min' => 'Password Baru minimal 8 karakter.',
+                'password.max' => 'Password Baru maksimal 20 karakter.',
                 'password_confirmation.required' => 'Konfirmasi password harus diisi.',
                 'password_confirmation.same' => 'Konfirmasi password tidak sama.',
                 'password_confirmation.min' => 'Konfirmasi password minimal 8 karakter.',
+                'password_confirmation.max' => 'Konfirmasi password maksimal 20 karakter.',
             ]);
 
             if ($validator->fails()) {
@@ -118,7 +120,7 @@ class AuthController extends Controller
     public function updateFCMToken(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'token' => 'required',
+            'token' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
